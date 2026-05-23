@@ -65,9 +65,10 @@
   margin-top: 12px;
 }
 .case-meta-cell {
-  padding: 18px 24px 18px 0;
+  padding: 20px 24px 20px 24px;
   border-right: 1px solid var(--line);
 }
+.case-meta-cell:first-child { padding-left: 0; }
 .case-meta-cell:last-child { border-right: none; padding-right: 0; }
 .case-meta-cell .k {
   font-family: var(--font-mono);
@@ -84,7 +85,8 @@
 }
 @media (max-width: 760px) {
   .case-meta { grid-template-columns: repeat(2, 1fr); }
-  .case-meta-cell { border-bottom: 1px solid var(--line); padding-right: 24px; }
+  .case-meta-cell { border-bottom: 1px solid var(--line); padding-right: 24px; padding-left: 24px; }
+  .case-meta-cell:nth-child(odd) { padding-left: 0; }
   .case-meta-cell:nth-child(even) { border-right: none; }
   .case-meta-cell:nth-last-child(-n+2) { border-bottom: none; }
 }
