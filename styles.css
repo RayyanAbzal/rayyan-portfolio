@@ -599,7 +599,6 @@ a { color: inherit; text-decoration: none; }
 .cap {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
   padding: 9px 14px;
   border: 1px solid var(--line);
   border-radius: var(--r-sm);
@@ -610,17 +609,11 @@ a { color: inherit; text-decoration: none; }
   color: var(--ink-2);
   transition: border-color 0.15s, color 0.15s, background 0.15s;
 }
-.cap::before {
-  content: "[ ]";
-  color: var(--ink-4);
-  font-size: 11px;
-}
 .cap.is-primary {
   background: rgba(47, 94, 62, 0.08);
   border-color: rgba(47, 94, 62, 0.35);
   color: var(--accent);
 }
-.cap.is-primary::before { content: "[✓]"; color: var(--accent); }
 .cap:hover { border-color: var(--line-strong); color: var(--ink); }
 .cap-note {
   font-family: var(--font-mono);
@@ -634,15 +627,13 @@ a { color: inherit; text-decoration: none; }
    ============================================================ */
 .work-group + .work-group { margin-top: 72px; }
 .work-group-label {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--accent);
+  font-family: var(--font-head);
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--ink);
   margin: 0 0 24px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
 }
-.work-group-label::before { content: "##"; color: var(--ink-3); }
 .work-group-note {
   font-size: 14px;
   color: var(--ink-2);
