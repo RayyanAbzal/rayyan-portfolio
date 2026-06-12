@@ -342,9 +342,39 @@ a { color: inherit; text-decoration: none; }
   flex-wrap: wrap;
 }
 
+/* Mobile: CTA lands before the status card */
 @media (max-width: 880px) {
+  .hero { display: flex; flex-direction: column; }
+  .hero .hero-prompt { order: 0; }
+  .hero h1 { order: 1; }
+  .hero .hero-body { order: 3; }
+  .hero .hero-cta { order: 2; margin-top: 28px; }
   .hero-body { grid-template-columns: 1fr; gap: 32px; }
 }
+.cta-note {
+  display: block;
+  width: 100%;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--ink-3);
+}
+
+/* Sticky mobile CTA */
+.mobile-cta {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 60;
+  padding: 10px var(--pad) calc(10px + env(safe-area-inset-bottom));
+  background: rgba(245, 241, 232, 0.92);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid var(--line);
+  transform: translateY(110%);
+  transition: transform 0.3s ease;
+  display: none;
+}
+.mobile-cta .btn { width: 100%; justify-content: center; }
+.mobile-cta.show { transform: translateY(0); }
+@media (max-width: 920px) { .mobile-cta { display: block; } }
 
 /* Buttons */
 .btn {
