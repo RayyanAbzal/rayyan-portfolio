@@ -23,8 +23,6 @@
   padding-top: clamp(48px, 7vw, 72px);
   padding-bottom: clamp(56px, 8vw, 88px);
 }
-.case-hero .term-label { margin-bottom: 28px; }
-
 .case-title {
   font-family: var(--font-sans);
   font-weight: 600;
@@ -256,3 +254,5 @@
   color: var(--ink);
 }
 .case-nav .next { text-align: right; align-items: flex-end; }
+
+.case-hero .quote-card { margin-top: 32px; }
