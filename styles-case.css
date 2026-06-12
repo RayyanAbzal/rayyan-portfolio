@@ -272,3 +272,24 @@
 .case-nav .next { text-align: right; align-items: flex-end; }
 
 .case-hero .quote-card { margin-top: 32px; }
+
+/* ============================================================
+   Case page motion (engine + conventions from js/motion.js)
+   ============================================================ */
+/* Title stamps in with a stepped wipe */
+.js .case-title.reveal { clip-path: inset(0 100% 0 0); transform: none; }
+.js .case-title.in { clip-path: inset(0 -2% 0 0); transition: clip-path 0.5s steps(12); }
+
+/* Block filenames wipe in like printed paths */
+.js .case-block.reveal .case-block-head .path { clip-path: inset(0 100% 0 0); }
+.case-block.in .case-block-head .path { clip-path: inset(0 -2% 0 0); transition: clip-path 0.45s steps(14) 0.1s; }
+
+/* Mark highlight sweeps on reveal */
+.case-block p .mark {
+  background: none;
+  background-image: linear-gradient(rgba(47, 94, 62, 0.10), rgba(47, 94, 62, 0.10));
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+.js .case-block.reveal p .mark { background-size: 0% 100%; transition: background-size 0.5s ease 0.4s; }
+.case-block:is(.in, .done) p .mark { background-size: 100% 100%; }
