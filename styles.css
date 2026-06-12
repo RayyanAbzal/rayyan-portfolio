@@ -548,6 +548,59 @@ a { color: inherit; text-decoration: none; }
 
 
 /* ============================================================
+   Services: offer cards
+   ============================================================ */
+.offers {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+@media (max-width: 880px) { .offers { grid-template-columns: 1fr; } }
+.offer {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+.offer:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 0 32px var(--accent-glow); }
+.offer-head {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--line);
+  background: var(--panel-2);
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  color: var(--ink-3);
+}
+.offer-head .slug { color: var(--accent); }
+.offer-body { padding: 22px 20px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+.offer-body h3 { font-size: 21px; font-weight: 600; letter-spacing: -0.022em; line-height: 1.15; }
+.offer-body p { font-size: 14px; color: var(--ink-2); line-height: 1.6; }
+.offer-meta {
+  margin-top: auto;
+  padding-top: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+.offer-meta .tag { color: var(--accent); }
+.offer-meta a { color: var(--ink-3); transition: color 0.15s; }
+.offer-meta a:hover { color: var(--accent); }
+.offer-foot {
+  padding: 14px 20px;
+  border-top: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+}
+.offer-foot a { color: var(--accent); display: inline-flex; gap: 6px; transition: gap 0.15s; }
+.offer-foot a::before { content: "→"; }
+.offer-foot a:hover { gap: 10px; }
+
+/* ============================================================
    Work
    ============================================================ */
 .work-group + .work-group { margin-top: 72px; }
