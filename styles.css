@@ -1266,6 +1266,53 @@ footer {
 @keyframes dotpop { from { transform: scale(0); } }
 
 /* ============================================================
+   Command palette
+   ============================================================ */
+.palette {
+  width: min(520px, calc(100vw - 40px));
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r);
+  background: var(--panel);
+  color: var(--ink);
+  padding: 0;
+  margin: 12vh auto auto;
+  font-family: var(--font-mono);
+}
+.palette::backdrop { background: rgba(29, 42, 35, 0.25); backdrop-filter: blur(2px); }
+.pal-in {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid var(--line);
+  background: var(--panel-2);
+  padding: 14px 16px;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--ink);
+  outline: none;
+  box-sizing: border-box;
+}
+.pal-list { list-style: none; margin: 0; padding: 6px 0; max-height: 320px; overflow-y: auto; }
+.pal-list li { padding: 8px 16px; font-size: 13px; color: var(--ink-2); cursor: pointer; }
+.pal-list li::before { content: "  "; white-space: pre; }
+.pal-list li.sel::before { content: "> "; color: var(--accent); }
+.pal-list li.sel, .pal-list li:hover { background: var(--panel-2); color: var(--ink); }
+.pal-hint { padding: 8px 16px; border-top: 1px solid var(--line); font-size: 11px; color: var(--ink-3); }
+
+.nav-kbd {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink-3);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  padding: 4px 8px;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+.nav-kbd:hover { color: var(--accent); border-color: var(--accent); }
+@media (max-width: 920px) { .nav-kbd { display: none; } }
+
+/* ============================================================
    Micro-interactions
    ============================================================ */
 .card:hover .slug::after {
