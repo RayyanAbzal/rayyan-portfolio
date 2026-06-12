@@ -58,6 +58,7 @@ body::before {
   pointer-events: none;
   z-index: 0;
   mask-image: radial-gradient(ellipse at top, black 30%, transparent 80%);
+  transform: translateZ(0);
 }
 
 main, nav, footer { position: relative; z-index: 1; }
@@ -292,6 +293,7 @@ a { color: inherit; text-decoration: none; }
   font-family: var(--font-mono);
   font-size: 13px;
   overflow: hidden;
+  position: relative;
 }
 .hero-status-head {
   padding: 12px 18px;
@@ -1243,8 +1245,8 @@ footer {
 /* Reveal: hidden only when JS is confirmed present (.js on <html>) */
 .js .reveal {
   opacity: 0;
-  transform: translateY(12px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transform: translateY(22px) scale(0.96);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .js .reveal.in { opacity: 1; transform: none; }
 
@@ -1265,6 +1267,10 @@ footer {
     transition-duration: 0.01ms !important;
   }
   .js .reveal { opacity: 1; transform: none; }
+  .js .hs-val { clip-path: none; }
+  .js .hero-status .hs-val .tag,
+  .js .hero-status .hs-val .muted { opacity: 1; transform: none; }
+  .js .hero .hero-status .hero-status-head .file { clip-path: none; }
 }
 
 /* ============================================================
@@ -1273,9 +1279,10 @@ footer {
 .hero-prompt .com { display: inline-block; min-width: 6ch; }
 .js .hero h1, .js .hero .hero-sub, .js .hero .hero-status, .js .hero .hero-cta {
   opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
+  transform: translateY(14px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
+.js .hero .hero-status { transform: translateY(14px) scale(0.95); }
 .js .hero.hero-booted h1 { opacity: 1; transform: none; }
 .js .hero.hero-booted .hero-sub { opacity: 1; transform: none; transition-delay: 0.12s; }
 .js .hero.hero-booted .hero-status { opacity: 1; transform: none; transition-delay: 0.24s; }
@@ -1284,8 +1291,8 @@ footer {
 /* Status rows print one at a time; same pattern on the about card */
 .js .hero-status .hs-row {
   opacity: 0;
-  transform: translateY(4px);
-  transition: opacity 0.35s ease, transform 0.35s ease;
+  transform: translateY(6px) translateX(-6px);
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .js :is(.hero.hero-booted, .about-card.in, .about-card.done) .hs-row { opacity: 1; transform: none; }
 .js :is(.hero.hero-booted, .about-card.in, .about-card.done) .hs-row:nth-child(2) { transition-delay: 0.35s; }
@@ -1311,6 +1318,67 @@ footer {
 .js :is(.hero.hero-booted, .about-card.in, .about-card.done) .hero-status-head .dots span:nth-child(2) { animation-delay: 0.08s; }
 .js :is(.hero.hero-booted, .about-card.in, .about-card.done) .hero-status-head .dots span:nth-child(3) { animation-delay: 0.16s; }
 @keyframes dotpop { from { transform: scale(0); } }
+
+/* Typewriter wipe on status values — clip-path sweeps left-to-right */
+@media (prefers-reduced-motion: no-preference) {
+  .js .hs-val { clip-path: inset(0 100% 0 0); }
+}
+@keyframes hs-val-wipe { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0% 0 0); } }
+.js :is(.hero.hero-booted, .about-card.in, .about-card.done) .hs-row .hs-val {
+  animation: hs-val-wipe 0.45s steps(22) 0.15s forwards;
+}
+.js :is(.hero.hero-booted, .about-card.in, .about-card.done) .hs-row:nth-child(2) .hs-val { animation-delay: 0.50s; }
+.js :is(.hero.hero-booted, .about-card.in, .about-card.done) .hs-row:nth-child(3) .hs-val { animation-delay: 0.62s; }
+.js :is(.hero.hero-booted, .about-card.in, .about-card.done) .hs-row:nth-child(4) .hs-val { animation-delay: 0.74s; }
+.js :is(.hero.hero-booted, .about-card.in, .about-card.done) .hs-row:nth-child(5) .hs-val { animation-delay: 0.86s; }
+.js :is(.hero.hero-booted, .about-card.in, .about-card.done) .hs-row:nth-child(6) .hs-val { animation-delay: 0.98s; }
+
+
+/* Header path types in as panel boots */
+@media (prefers-reduced-motion: no-preference) {
+  .js .hero .hero-status .hero-status-head .file { clip-path: inset(0 100% 0 0); }
+}
+.js .hero.hero-booted .hero-status .hero-status-head .file {
+  animation: hs-val-wipe 0.5s steps(14) 0.28s 1 forwards;
+}
+
+/* Tags light up after value wipe completes */
+@media (prefers-reduced-motion: no-preference) {
+  .js .hero-status .hs-val .tag { opacity: 0; }
+}
+@keyframes tag-entrance { from { opacity: 0; } to { opacity: 1; } }
+.js :is(.hero.hero-booted, .about-card.in, .about-card.done) .hs-row .tag { animation: tag-entrance 0.45s ease 0.75s 1 forwards; }
+.js :is(.hero.hero-booted, .about-card.in, .about-card.done) .hs-row:nth-child(2) .tag { animation-delay: 1.08s; }
+.js :is(.hero.hero-booted, .about-card.in, .about-card.done) .hs-row:nth-child(3) .tag { animation-delay: 1.20s; }
+.js :is(.hero.hero-booted, .about-card.in, .about-card.done) .hs-row:nth-child(4) .tag { animation-delay: 1.32s; }
+.js :is(.hero.hero-booted, .about-card.in, .about-card.done) .hs-row:nth-child(5) .tag { animation-delay: 1.44s; }
+
+/* Sub-text (.muted) fades in after value wipe — two-stage reveal */
+@media (prefers-reduced-motion: no-preference) {
+  .js .hero-status .hs-val .muted { opacity: 0; transform: translateY(3px); }
+}
+.js :is(.hero.hero-booted, .about-card.in, .about-card.done) .hs-row .muted {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: 0.68s;
+}
+.js :is(.hero.hero-booted, .about-card.in, .about-card.done) .hs-row:nth-child(2) .muted { transition-delay: 1.03s; }
+.js :is(.hero.hero-booted, .about-card.in, .about-card.done) .hs-row:nth-child(3) .muted { transition-delay: 1.15s; }
+.js :is(.hero.hero-booted, .about-card.in, .about-card.done) .hs-row:nth-child(4) .muted { transition-delay: 1.27s; }
+.js :is(.hero.hero-booted, .about-card.in, .about-card.done) .hs-row:nth-child(5) .muted { transition-delay: 1.39s; }
+.js :is(.hero.hero-booted, .about-card.in, .about-card.done) .hs-row:nth-child(6) .muted { transition-delay: 1.51s; }
+
+/* One-shot border glow on terminal activation */
+@keyframes panel-activate {
+  0%   { box-shadow: none; }
+  25%  { box-shadow: 0 0 28px var(--accent-glow); }
+  55%  { box-shadow: 0 0 10px var(--accent-glow); }
+  100% { box-shadow: none; }
+}
+.js .hero.hero-booted .hero-status {
+  animation: panel-activate 1.4s ease 0.35s 1 forwards;
+}
 
 /* ============================================================
    Command palette
@@ -1411,6 +1479,7 @@ footer {
   background: var(--accent);
   transform: scaleX(0);
   transform-origin: left;
+  will-change: transform;
 }
 
 /* Cross-document view transitions (progressive enhancement) */
@@ -1448,8 +1517,8 @@ footer {
 /* Stagger parents: children inherit hidden state, engine sets per-child delay */
 .js .reveal[data-stagger] > * {
   opacity: 0;
-  transform: translateY(12px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transform: translateY(18px) scale(0.97);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .js .reveal[data-stagger].in > * { opacity: 1; transform: none; }
 
@@ -1501,7 +1570,9 @@ footer {
 .motion-failed .reveal, .motion-failed .reveal[data-stagger] > *,
 .motion-failed .hero h1, .motion-failed .hero .hero-sub,
 .motion-failed .hero .hero-status, .motion-failed .hero .hero-cta,
-.motion-failed .hs-row, .motion-failed .pipeline .step {
+.motion-failed .hs-row, .motion-failed .hs-val, .motion-failed .pipeline .step,
+.motion-failed .hs-val .tag, .motion-failed .hs-val .muted,
+.motion-failed .hero-status-head .file {
   opacity: 1 !important;
   transform: none !important;
   clip-path: none !important;
