@@ -75,6 +75,41 @@
   window.__motion = { ok: MOTION_OK, typeInto: typeInto, hook: function (sel, fn) { revealHooks.push({ sel: sel, fn: fn }); } };
 })();
 
+/* Scroll moments: counters, marker typing, pipeline run */
+(function () {
+  "use strict";
+  var m = window.__motion;
+  if (!m) { return; }
+
+  function count(el) {
+    var target = parseInt(el.getAttribute("data-count"), 10);
+    if (!m.ok) { el.textContent = String(target); return; }
+    var t0 = null;
+    var DUR = 700;
+    function frame(ts) {
+      if (!t0) { t0 = ts; }
+      var p = Math.min((ts - t0) / DUR, 1);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = String(Math.round(target * eased));
+      if (p < 1) { requestAnimationFrame(frame); }
+    }
+    requestAnimationFrame(frame);
+  }
+
+  m.hook(".shiplog", function (el) {
+    el.querySelectorAll(".cnt[data-count]").forEach(count);
+    var file = el.querySelector(".shiplog-head span:first-child");
+    if (file) { m.typeInto(file, file.textContent, 45); }
+  });
+
+  m.hook(".section-marker", function (el) {
+    var tag = el.querySelector(".sm-tag");
+    if (tag) { m.typeInto(tag, tag.textContent, 35); }
+  });
+
+  m.hook(".pipeline", function (el) { el.classList.add("run"); });
+})();
+
 /* Hero boot sequence (index only) */
 (function () {
   "use strict";

@@ -1264,6 +1264,78 @@ footer {
 .js :is(.hero.hero-booted, .about-card.in, .about-card.done) .hero-status-head .dots span:nth-child(3) { animation-delay: 0.16s; }
 @keyframes dotpop { from { transform: scale(0); } }
 
+/* ============================================================
+   Scroll moments
+   ============================================================ */
+.ship-stat .num { font-variant-numeric: tabular-nums; }
+
+/* Section markers: rule draws, meta fades (tag typing is JS) */
+.js .section-marker { border-bottom-color: transparent; position: relative; }
+.js .section-marker::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: -1px;
+  height: 1px;
+  background: var(--line);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s ease-out 0.1s;
+}
+.js .section-marker:is(.in, .done)::after { transform: scaleX(1); }
+.js .section-marker .sm-meta { opacity: 0; transition: opacity 0.4s ease 0.45s; }
+.js .section-marker:is(.in, .done) .sm-meta { opacity: 1; }
+
+/* Stagger parents: children inherit hidden state, engine sets per-child delay */
+.js .reveal[data-stagger] > * {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.js .reveal[data-stagger].in > * { opacity: 1; transform: none; }
+
+/* Principles: pine spine grows, number flickers */
+.js .principle::before { transform: scaleY(0); transform-origin: top; transition: transform 0.5s ease 0.25s; }
+.js :is(.principles.in, .principles.done) .principle::before { transform: scaleY(1); }
+:is(.principles.in, .principles.done) .principle-num .key { animation: flicker 0.4s steps(2) 0.35s; }
+@keyframes flicker { 0% { opacity: 0; } 50% { opacity: 1; } 75% { opacity: 0; } 100% { opacity: 1; } }
+
+/* Pipeline: line draws, steps light in sequence */
+.js .pipeline::before { transform: scaleX(0); transform-origin: left; transition: transform 1.1s ease-out 0.1s; }
+.pipeline.run::before { transform: scaleX(1); }
+.js .pipeline .step { opacity: 0; transform: translateY(10px); transition: opacity 0.45s ease, transform 0.45s ease; }
+.pipeline.run .step { opacity: 1; transform: none; animation: step-light 0.7s ease; }
+.pipeline.run .step:nth-child(1) { animation-delay: 0.15s; }
+.pipeline.run .step:nth-child(2) { transition-delay: 0.25s; animation-delay: 0.4s; }
+.pipeline.run .step:nth-child(3) { transition-delay: 0.5s; animation-delay: 0.65s; }
+.pipeline.run .step:nth-child(4) { transition-delay: 0.75s; animation-delay: 0.9s; }
+@keyframes step-light {
+  40% { border-color: var(--accent); box-shadow: 0 0 18px var(--accent-glow); }
+  100% { box-shadow: none; }
+}
+
+/* Testimonials: terminal cat + downward wipe */
+.js .quote-card.reveal .quote-body { clip-path: inset(0 0 100% 0); }
+.quote-card.in .quote-body { clip-path: inset(0 0 -2% 0); transition: clip-path 0.5s ease-out 0.15s; }
+.js .quote-card .quote-head span:first-child::before {
+  content: "$ cat ";
+  color: var(--accent);
+  opacity: 0;
+  transition: opacity 0.3s ease 0.5s;
+}
+.quote-card:is(.in, .done) .quote-head span:first-child::before { opacity: 1; }
+.js .quote-card.reveal .quote-tag { opacity: 0; }
+.quote-card.in .quote-tag { opacity: 1; transition: opacity 0.4s ease 0.55s; }
+
+/* Keyword selection sweep */
+.js :is(.reveal, .done) .hl {
+  background-image: linear-gradient(var(--accent-glow), var(--accent-glow));
+  background-repeat: no-repeat;
+  background-size: 0% 88%;
+  background-position: 0 60%;
+  transition: background-size 0.45s ease 0.3s;
+}
+.js :is(.reveal.in, .done) .hl { background-size: 100% 88%; }
+
 /* Failsafe: if motion.js never executes (see the __mfail timer in the head
    gate script), force everything visible after 3s */
 .motion-failed .reveal, .motion-failed .reveal[data-stagger] > *,

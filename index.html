@@ -118,7 +118,7 @@
     </div>
     <div class="shiplog-grid">
       <div class="ship-stat">
-        <div class="num">48<span class="unit">hr</span></div>
+        <div class="num"><span class="cnt" data-count="48">48</span><span class="unit">hr</span></div>
         <div class="label">proposal turnaround <span class="tag">▸ after call</span></div>
       </div>
       <div class="ship-stat">
@@ -126,7 +126,7 @@
         <div class="label">typical build window <span class="tag">▸ focused scope</span></div>
       </div>
       <div class="ship-stat">
-        <div class="num">30<span class="unit">d</span></div>
+        <div class="num"><span class="cnt" data-count="30">30</span><span class="unit">d</span></div>
         <div class="label">post-launch support <span class="tag">▸ included</span></div>
       </div>
     </div>
@@ -188,23 +188,23 @@
   </div>
   <h2 class="principles-intro reveal">AI is a <span class="hl">tool</span>, not a deliverable. Four principles shape every engagement.</h2>
 
-  <div class="principles">
-    <div class="principle reveal">
+  <div class="principles reveal" data-stagger="80">
+    <div class="principle">
       <div class="principle-num">[<span class="key">01</span>] // replace, don't add</div>
       <h3>AI should <span class="hl">replace</span> work, not add it.</h3>
       <p>If implementing AI means more tools to learn, more dashboards to check, or more processes to follow, it's the wrong implementation. Good AI is invisible to the people whose work it replaces.</p>
     </div>
-    <div class="principle reveal">
+    <div class="principle">
       <div class="principle-num">[<span class="key">02</span>] // problem first</div>
       <h3>Start with the <span class="hl">bottleneck</span>, not the technology.</h3>
       <p>"We should use LLMs" is not a project. "This manual process eats 20 hours a week" is. Find the real bottleneck, then choose the lightest tool that solves it. Sometimes an LLM, often just well-built automation.</p>
     </div>
-    <div class="principle reveal">
+    <div class="principle">
       <div class="principle-num">[<span class="key">03</span>] // for the team</div>
       <h3>Build for the <span class="hl">team</span>, not the demo.</h3>
       <p>AI tools are only valuable if non-technical people use them every day. Ship simple interfaces a team adopts in an afternoon, not impressive demos that gather dust in a Notion doc.</p>
     </div>
-    <div class="principle reveal">
+    <div class="principle">
       <div class="principle-num">[<span class="key">04</span>] // hours saved</div>
       <h3>Measure in <span class="hl">hours saved</span>, not features shipped.</h3>
       <p>The only metric that matters is whether the business runs faster after the build. Every proposal names the manual hours we expect to eliminate, and we measure against that at handover.</p>
@@ -271,9 +271,9 @@
   <div class="work-group">
     <p class="work-group-label">Client Engagements</p>
 
-    <div class="work-grid">
+    <div class="work-grid reveal" data-stagger="70">
 
-      <a class="card reveal" href="work/influence.html">
+      <a class="card" href="work/influence.html">
         <div class="card-head">
           <span class="path">~/work/<span class="slug">influence</span></span>
           <span class="card-status"><span class="dot"></span>shipped</span>
@@ -292,7 +292,7 @@
         </div>
       </a>
 
-      <a class="card reveal" href="work/feedhack.html">
+      <a class="card" href="work/feedhack.html">
         <div class="card-head">
           <span class="path">~/work/<span class="slug">feedhack</span></span>
           <span class="card-status"><span class="dot"></span>shipped</span>
@@ -311,7 +311,7 @@
         </div>
       </a>
 
-      <a class="card reveal" href="work/pumpdat.html">
+      <a class="card" href="work/pumpdat.html">
         <div class="card-head">
           <span class="path">~/work/<span class="slug">pumpdat</span></span>
           <span class="card-status"><span class="dot"></span>shipped</span>
@@ -330,7 +330,7 @@
         </div>
       </a>
 
-      <a class="card reveal" href="work/influence-v2.html">
+      <a class="card" href="work/influence-v2.html">
         <div class="card-head">
           <span class="path">~/work/<span class="slug">influence-v2</span></span>
           <span class="card-status"><span class="dot"></span>shipped</span>
@@ -355,8 +355,8 @@
   <div class="work-group">
     <p class="work-group-label">Personal Builds</p>
     <p class="work-group-note">Built for myself, to learn, scratch an itch, or test how far AI can go.</p>
-    <div class="personal-grid">
-      <div class="p-card reveal">
+    <div class="personal-grid reveal" data-stagger="80">
+      <div class="p-card">
         <div class="p-card-head">
           <span>~/lab/fios</span>
           <span class="self">self</span>
@@ -367,7 +367,7 @@
           <span class="chip">next.js</span><span class="chip">supabase</span><span class="chip">anthropic</span>
         </div>
       </div>
-      <div class="p-card reveal">
+      <div class="p-card">
         <div class="p-card-head">
           <span>~/lab/aria</span>
           <span class="self">self</span>
@@ -378,7 +378,7 @@
           <span class="chip">react-native</span><span class="chip">flask</span><span class="chip">anthropic</span>
         </div>
       </div>
-      <div class="p-card reveal">
+      <div class="p-card">
         <div class="p-card-head">
           <span>~/lab/nz-jobs</span>
           <span class="self">self</span>
@@ -491,8 +491,8 @@
     <p class="sh-note reveal">Every engagement runs through the same pipeline. You always know what stage we're at.</p>
   </div>
 
-  <div class="pipeline">
-    <div class="step reveal">
+  <div class="pipeline reveal">
+    <div class="step">
       <div class="step-head">
         <span class="step-num">01</span>
         <span class="step-tag">~30min · free</span>
@@ -500,7 +500,7 @@
       <h3>discovery_call</h3>
       <p>30-minute call. Problem, goals, constraints. No pitch, just clarity on whether I can help, and if not, where to look.</p>
     </div>
-    <div class="step reveal">
+    <div class="step">
       <div class="step-head">
         <span class="step-num">02</span>
         <span class="step-tag">&lt; 48h · written</span>
@@ -508,7 +508,7 @@
       <h3>proposal + process_map</h3>
       <p>Fixed scope, fixed price, fixed timeline, plus a visual process map that lays out the plan in plain language. Non-technical founders see exactly what's being built.</p>
     </div>
-    <div class="step reveal">
+    <div class="step">
       <div class="step-head">
         <span class="step-num">03</span>
         <span class="step-tag">1–8 weeks</span>
@@ -516,7 +516,7 @@
       <h3>build_phase</h3>
       <p>Weekly progress updates, live staging link from day one. Working software at every milestone. No end-of-project surprises.</p>
     </div>
-    <div class="step reveal">
+    <div class="step">
       <div class="step-head">
         <span class="step-num">04</span>
         <span class="step-tag">30d included</span>
