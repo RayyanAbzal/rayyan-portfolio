@@ -59,20 +59,8 @@
     setTimeout(showAll, 1500); /* failsafe: nothing stays hidden */
   }
 
-  /* --- Typing helper --- */
-  function typeInto(el, text, speed, done) {
-    if (!MOTION_OK) { el.textContent = text; if (done) { done(); } return; }
-    var i = 0;
-    el.textContent = "";
-    var t = setInterval(function () {
-      i += 1;
-      el.textContent = text.slice(0, i);
-      if (i >= text.length) { clearInterval(t); if (done) { done(); } }
-    }, speed || 55);
-  }
-
   /* Export for later sections of this file */
-  window.__motion = { ok: MOTION_OK, typeInto: typeInto, hook: function (sel, fn) { revealHooks.push({ sel: sel, fn: fn }); } };
+  window.__motion = { ok: MOTION_OK, hook: function (sel, fn) { revealHooks.push({ sel: sel, fn: fn }); } };
 })();
 
 /* Scroll moments: counters, marker typing, pipeline run */
@@ -98,13 +86,6 @@
 
   m.hook(".shiplog", function (el) {
     el.querySelectorAll(".cnt[data-count]").forEach(count);
-    var file = el.querySelector(".shiplog-head span:first-child");
-    if (file) { m.typeInto(file, file.textContent, 45); }
-  });
-
-  m.hook(".section-marker", function (el) {
-    var tag = el.querySelector(".sm-tag");
-    if (tag) { m.typeInto(tag, tag.textContent, 35); }
   });
 
   m.hook(".pipeline", function (el) { el.classList.add("run"); });
@@ -113,15 +94,13 @@
 /* Nav scrollspy (index) + scroll progress bar (all pages) */
 (function () {
   "use strict";
-  var path = document.querySelector(".nav-name .accent");
   var links = document.querySelectorAll('.nav-mid a[href^="#"]');
   var sections = document.querySelectorAll("main section[id]");
-  if (path && sections.length > 0 && "IntersectionObserver" in window) {
+  if (links.length > 0 && sections.length > 0 && "IntersectionObserver" in window) {
     var spy = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         if (!e.isIntersecting) { return; }
         var id = e.target.id;
-        path.textContent = "~/" + id;
         links.forEach(function (a) {
           a.classList.toggle("active", a.getAttribute("href") === "#" + id);
         });
@@ -149,23 +128,10 @@
   }
 })();
 
-/* Hero boot sequence (index only) */
+/* Hero status reveal (index only) */
 (function () {
   "use strict";
-  var m = window.__motion;
-  var com = document.querySelector(".hero-prompt .com");
   var hero = document.querySelector(".hero");
-  if (!com || !hero || !m) { return; }
-  var done = false;
-  function finish() {
-    if (done) { return; }
-    done = true;
-    hero.classList.add("hero-booted");
-  }
-  if (m.ok) {
-    m.typeInto(com, "whoami", 60, function () { setTimeout(finish, 150); });
-    setTimeout(finish, 1200); /* failsafe */
-  } else {
-    finish();
-  }
+  if (!hero) { return; }
+  setTimeout(function () { hero.classList.add("hero-booted"); }, 300);
 })();
