@@ -668,7 +668,7 @@ a { color: inherit; text-decoration: none; }
   overflow: hidden;
   transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
 }
-.card:not(.card-disabled):hover {
+.card:hover {
   border-color: var(--accent);
   transform: translateY(-3px);
   box-shadow: 0 0 32px var(--accent-glow);
@@ -771,7 +771,6 @@ a { color: inherit; text-decoration: none; }
 .case-link:hover { gap: 10px; }
 .case-link::before { content: "→"; }
 .card-meta { color: var(--ink-3); }
-.card-disabled { opacity: 0.85; }
 
 /* Personal */
 .personal-grid {
@@ -1053,12 +1052,14 @@ a { color: inherit; text-decoration: none; }
   border-color: var(--accent);
 }
 .faq-a {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease;
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s ease;
 }
-.faq-item.open .faq-a { max-height: 360px; }
+.faq-item.open .faq-a { grid-template-rows: 1fr; }
 .faq-a-inner {
+  min-height: 0;
+  overflow: hidden;
   padding: 0 22px 22px 92px;
   color: var(--ink-2);
   font-size: 14.5px;
@@ -1263,6 +1264,71 @@ footer {
 .js :is(.hero.hero-booted, .about-card.in, .about-card.done) .hero-status-head .dots span:nth-child(2) { animation-delay: 0.08s; }
 .js :is(.hero.hero-booted, .about-card.in, .about-card.done) .hero-status-head .dots span:nth-child(3) { animation-delay: 0.16s; }
 @keyframes dotpop { from { transform: scale(0); } }
+
+/* ============================================================
+   Micro-interactions
+   ============================================================ */
+.card:hover .slug::after {
+  content: "";
+  display: inline-block;
+  width: 7px; height: 12px;
+  background: var(--accent);
+  margin-left: 2px;
+  animation: blink 1.1s steps(1) infinite;
+}
+.card-status .dot { position: relative; }
+.card:hover .card-status .dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.6;
+  animation: ping 0.7s ease-out 1;
+}
+@keyframes ping { to { transform: scale(2.4); opacity: 0; } }
+.card .chip { transition: transform 0.2s ease; }
+.card:hover .chip { transform: translateY(-1px); }
+.card:hover .chip:nth-child(2) { transition-delay: 30ms; }
+.card:hover .chip:nth-child(3) { transition-delay: 60ms; }
+.card:hover .chip:nth-child(4) { transition-delay: 90ms; }
+.card:hover .chip:nth-child(5) { transition-delay: 120ms; }
+.p-card:hover .p-card-head span:first-child::after {
+  content: "";
+  display: inline-block;
+  width: 6px; height: 10px;
+  background: var(--accent);
+  margin-left: 2px;
+  animation: blink 1.1s steps(1) infinite;
+}
+
+.btn-primary:hover::before { content: "▸"; }
+.btn:active { transform: translateY(0) scale(0.985); transition-duration: 80ms; }
+.btn-ghost { transition: transform 0.15s, background 0.15s, border-color 0.15s, color 0.15s, box-shadow 0.15s; }
+.btn-ghost:hover { box-shadow: inset 3px 0 0 var(--accent); }
+
+/* Nav scrollspy + progress */
+.nav-mid a.active, .nav-mid a.active::before { color: var(--accent); }
+.scroll-progress {
+  position: absolute;
+  left: 0; bottom: -1px;
+  height: 2px;
+  width: 100%;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+/* Cross-document view transitions (progressive enhancement) */
+@view-transition { navigation: auto; }
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: 250ms; }
+.card[href="work/influence.html"] .path { view-transition-name: case-influence; }
+.card[href="work/influence-v2.html"] .path { view-transition-name: case-influence-v2; }
+.card[href="work/feedhack.html"] .path { view-transition-name: case-feedhack; }
+.card[href="work/pumpdat.html"] .path { view-transition-name: case-pumpdat; }
+@media (prefers-reduced-motion: reduce) {
+  @view-transition { navigation: none; }
+}
 
 /* ============================================================
    Scroll moments

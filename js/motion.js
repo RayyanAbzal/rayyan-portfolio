@@ -110,6 +110,45 @@
   m.hook(".pipeline", function (el) { el.classList.add("run"); });
 })();
 
+/* Nav scrollspy (index) + scroll progress bar (all pages) */
+(function () {
+  "use strict";
+  var path = document.querySelector(".nav-name .accent");
+  var links = document.querySelectorAll('.nav-mid a[href^="#"]');
+  var sections = document.querySelectorAll("main section[id]");
+  if (path && sections.length > 0 && "IntersectionObserver" in window) {
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) { return; }
+        var id = e.target.id;
+        path.textContent = "~/" + id;
+        links.forEach(function (a) {
+          a.classList.toggle("active", a.getAttribute("href") === "#" + id);
+        });
+      });
+    }, { rootMargin: "-40% 0px -55% 0px" });
+    sections.forEach(function (s) { spy.observe(s); });
+  }
+
+  var nav = document.querySelector(".nav");
+  if (nav) {
+    var bar = document.createElement("div");
+    bar.className = "scroll-progress";
+    nav.appendChild(bar);
+    var ticking = false;
+    var update = function () {
+      var doc = document.documentElement;
+      var max = doc.scrollHeight - window.innerHeight;
+      bar.style.transform = "scaleX(" + (max > 0 ? Math.min(window.scrollY / max, 1) : 0) + ")";
+      ticking = false;
+    };
+    window.addEventListener("scroll", function () {
+      if (!ticking) { ticking = true; requestAnimationFrame(update); }
+    }, { passive: true });
+    update();
+  }
+})();
+
 /* Hero boot sequence (index only) */
 (function () {
   "use strict";
