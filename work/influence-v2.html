@@ -18,6 +18,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="preconnect" href="https://assets.calendly.com" crossorigin />
+<link rel="preload" href="https://assets.calendly.com/assets/external/widget.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+<noscript><link rel="stylesheet" href="https://assets.calendly.com/assets/external/widget.css" /></noscript>
 <meta property="og:image" content="https://rayyanabzal.com/og.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
@@ -51,7 +54,7 @@
         <span class="dot"></span>
         accepting new clients
       </span>
-      <a class="nav-cta" href="../index.html#contact">book</a>
+      <a class="nav-cta" href="https://calendly.com/rayyanabzal/discovery" onclick="return bookCall('case_nav_influence_v2')">book</a>
     </div>
   </div>
 </nav>
@@ -163,6 +166,14 @@
     </div>
   </figure>
 
+  <div class="case-cta">
+    <div>
+      <h3>Have a similar bottleneck?</h3>
+      <p>Free 30-minute discovery call. Written proposal with a fixed price within 48 hours.</p>
+    </div>
+    <a class="btn btn-primary" href="https://calendly.com/rayyanabzal/discovery" onclick="return bookCall('case_influence_v2')">book_discovery_call</a>
+  </div>
+
   <nav class="case-nav">
     <a href="influence.html" class="prev">
       <span class="label">← prev case</span>
@@ -186,6 +197,8 @@
   </div>
 </footer>
 
+<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+<script defer src="../js/site.js"></script>
 <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
 <script defer src="/_vercel/insights/script.js"></script>
 </body>
