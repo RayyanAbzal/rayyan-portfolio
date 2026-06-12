@@ -133,7 +133,7 @@
   .case-block-body { grid-template-columns: 1fr; gap: 18px; }
 }
 
-.case-block h3 {
+.case-block h2 {
   font-size: clamp(24px, 3vw, 34px);
   font-weight: 600;
   letter-spacing: -0.028em;
@@ -142,7 +142,7 @@
   margin: 0;
   text-wrap: balance;
 }
-.case-block h3 .hi { color: var(--accent); }
+.case-block h2 .hi { color: var(--accent); }
 
 .case-block p {
   font-size: 15.5px;
