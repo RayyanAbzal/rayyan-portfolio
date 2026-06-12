@@ -33,7 +33,7 @@
 
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
-html { scroll-behavior: smooth; background: var(--bg); }
+html { scroll-behavior: smooth; background: var(--bg); overflow-x: clip; }
 
 body {
   font-family: var(--font-sans);
@@ -65,6 +65,25 @@ main, nav, footer { position: relative; z-index: 1; }
 
 .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--pad); }
 section { padding-bottom: clamp(96px, 12vw, 140px); position: relative; }
+
+/* Section banding: alternating full-bleed tint so section boundaries read at a glance */
+section.band { isolation: isolate; }
+section.band::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  background: var(--panel);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  z-index: -1;
+}
+/* Panels inside a band flip to cream so they still pop */
+.band .principle,
+.band .quote-card,
+.band .faq { background: var(--bg); }
 
 h1, h2, h3, h4 {
   font-family: var(--font-sans);
