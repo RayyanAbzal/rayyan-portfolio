@@ -1219,6 +1219,51 @@ footer {
   .js .reveal { opacity: 1; transform: none; }
 }
 
+/* ============================================================
+   Hero boot sequence + status panel boot
+   ============================================================ */
+.hero-prompt .com { display: inline-block; min-width: 6ch; }
+.js .hero h1, .js .hero .hero-sub, .js .hero .hero-status, .js .hero .hero-cta {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.js .hero.hero-booted h1 { opacity: 1; transform: none; }
+.js .hero.hero-booted .hero-sub { opacity: 1; transform: none; transition-delay: 0.12s; }
+.js .hero.hero-booted .hero-status { opacity: 1; transform: none; transition-delay: 0.24s; }
+.js .hero.hero-booted .hero-cta { opacity: 1; transform: none; transition-delay: 0.36s; }
+
+/* Status rows print one at a time; same pattern on the about card */
+.js .hero-status .hs-row {
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.js :is(.hero.hero-booted, .about-card.in, .about-card.done) .hs-row { opacity: 1; transform: none; }
+.js :is(.hero.hero-booted, .about-card.in, .about-card.done) .hs-row:nth-child(2) { transition-delay: 0.35s; }
+.js :is(.hero.hero-booted, .about-card.in, .about-card.done) .hs-row:nth-child(3) { transition-delay: 0.47s; }
+.js :is(.hero.hero-booted, .about-card.in, .about-card.done) .hs-row:nth-child(4) { transition-delay: 0.59s; }
+.js :is(.hero.hero-booted, .about-card.in, .about-card.done) .hs-row:nth-child(5) { transition-delay: 0.71s; }
+.js :is(.hero.hero-booted, .about-card.in, .about-card.done) .hs-row:nth-child(6) { transition-delay: 0.83s; }
+
+/* [ok] flash per key, then gone */
+.js .hs-key::after { content: " [ok]"; color: var(--accent); opacity: 0; }
+.js :is(.hero.hero-booted, .about-card.in, .about-card.done) .hs-key::after {
+  animation: okflash 0.9s ease forwards;
+}
+.js :is(.hero.hero-booted, .about-card.in, .about-card.done) .hs-row:nth-child(2) .hs-key::after { animation-delay: 0.5s; }
+.js :is(.hero.hero-booted, .about-card.in, .about-card.done) .hs-row:nth-child(3) .hs-key::after { animation-delay: 0.62s; }
+.js :is(.hero.hero-booted, .about-card.in, .about-card.done) .hs-row:nth-child(4) .hs-key::after { animation-delay: 0.74s; }
+.js :is(.hero.hero-booted, .about-card.in, .about-card.done) .hs-row:nth-child(5) .hs-key::after { animation-delay: 0.86s; }
+.js :is(.hero.hero-booted, .about-card.in, .about-card.done) .hs-row:nth-child(6) .hs-key::after { animation-delay: 0.98s; }
+@keyframes okflash { 0% { opacity: 0; } 25% { opacity: 1; } 70% { opacity: 1; } 100% { opacity: 0; } }
+
+/* Traffic-light dots pop */
+.js :is(.hero.hero-booted, .about-card.in, .about-card.done) .hero-status-head .dots span { animation: dotpop 0.3s ease backwards; }
+.js :is(.hero.hero-booted, .about-card.in, .about-card.done) .hero-status-head .dots span:nth-child(2) { animation-delay: 0.08s; }
+.js :is(.hero.hero-booted, .about-card.in, .about-card.done) .hero-status-head .dots span:nth-child(3) { animation-delay: 0.16s; }
+@keyframes dotpop { from { transform: scale(0); } }
+
 /* Failsafe: if motion.js never executes (see the __mfail timer in the head
    gate script), force everything visible after 3s */
 .motion-failed .reveal, .motion-failed .reveal[data-stagger] > *,

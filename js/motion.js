@@ -74,3 +74,24 @@
   /* Export for later sections of this file */
   window.__motion = { ok: MOTION_OK, typeInto: typeInto, hook: function (sel, fn) { revealHooks.push({ sel: sel, fn: fn }); } };
 })();
+
+/* Hero boot sequence (index only) */
+(function () {
+  "use strict";
+  var m = window.__motion;
+  var com = document.querySelector(".hero-prompt .com");
+  var hero = document.querySelector(".hero");
+  if (!com || !hero || !m) { return; }
+  var done = false;
+  function finish() {
+    if (done) { return; }
+    done = true;
+    hero.classList.add("hero-booted");
+  }
+  if (m.ok) {
+    m.typeInto(com, "whoami", 60, function () { setTimeout(finish, 150); });
+    setTimeout(finish, 1200); /* failsafe */
+  } else {
+    finish();
+  }
+})();
