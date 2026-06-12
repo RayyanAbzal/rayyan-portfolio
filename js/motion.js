@@ -133,5 +133,6 @@
   "use strict";
   var hero = document.querySelector(".hero");
   if (!hero) { return; }
-  setTimeout(function () { hero.classList.add("hero-booted"); }, 300);
+  var delay = (window.__motion && window.__motion.ok) ? 300 : 0;
+  setTimeout(function () { hero.classList.add("hero-booted"); }, delay);
 })();
