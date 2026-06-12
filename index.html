@@ -56,7 +56,7 @@
         <span class="dot"></span>
         accepting new clients
       </span>
-      <a class="nav-cta" href="#" onclick="Calendly.initPopupWidget({url:'https://calendly.com/rayyanabzal/discovery'});return false;">book</a>
+      <a class="nav-cta" href="https://calendly.com/rayyanabzal/discovery" onclick="return bookCall('nav')">book</a>
     </div>
   </div>
 </nav>
@@ -103,7 +103,7 @@
   </div>
 
   <div class="hero-cta reveal">
-    <a class="btn btn-primary" href="#" onclick="Calendly.initPopupWidget({url:'https://calendly.com/rayyanabzal/discovery'});return false;">book_call</a>
+    <a class="btn btn-primary" href="https://calendly.com/rayyanabzal/discovery" onclick="return bookCall('hero')">book_call</a>
     <a class="btn-link" href="#work">see the shipped work</a>
   </div>
 </section>
@@ -557,7 +557,7 @@
   <p class="subline reveal">Free 30-minute discovery call. No pitch, just a clear answer on whether I can help.</p>
   <div class="contact-actions reveal">
     <div class="contact-row">
-      <a class="btn btn-primary" href="#" onclick="Calendly.initPopupWidget({url:'https://calendly.com/rayyanabzal/discovery'});return false;">book_discovery_call</a>
+      <a class="btn btn-primary" href="https://calendly.com/rayyanabzal/discovery" onclick="return bookCall('contact')">book_discovery_call</a>
       <a class="btn btn-ghost" href="https://www.linkedin.com/in/rayyan-a-832a20213" target="_blank" rel="noopener">connect_on_linkedin</a>
     </div>
     <p class="or-line">// or email <a href="mailto:rayyanabzal@gmail.com">rayyanabzal@gmail.com</a></p>
@@ -578,30 +578,7 @@
 
 <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
 
-<script>
-  document.querySelectorAll(".faq-q").forEach(function(btn){
-    btn.addEventListener("click", function(){
-      var item = btn.parentElement;
-      var open = item.classList.toggle("open");
-      btn.setAttribute("aria-expanded", open ? "true" : "false");
-    });
-  });
-  var reveals = document.querySelectorAll(".reveal");
-  if ("IntersectionObserver" in window) {
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); }});
-    }, { threshold: 0.01, rootMargin: "0px 0px 0px 0px" });
-    reveals.forEach(function(el){
-      var r = el.getBoundingClientRect();
-      if (r.top < (window.innerHeight || 800) + 200) { el.classList.add("in"); }
-      else { io.observe(el); }
-    });
-    setTimeout(function(){ reveals.forEach(function(el){ el.classList.add("in"); }); }, 1200);
-  } else {
-    reveals.forEach(function(el){ el.classList.add("in"); });
-  }
-</script>
-
+<script defer src="js/site.js"></script>
 <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
 <script defer src="/_vercel/insights/script.js"></script>
 </body>
