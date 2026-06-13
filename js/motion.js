@@ -41,6 +41,9 @@
     }, 1400);
   }
 
+  /* Pre-register hooks that must fire even if the element is in the initial viewport */
+  revealHooks.push({ sel: ".pipeline", fn: function(el) { el.classList.add("run"); } });
+
   var reveals = Array.prototype.slice.call(document.querySelectorAll(".reveal"));
   function showAll() { reveals.forEach(revealEl); }
   if (!("IntersectionObserver" in window)) {

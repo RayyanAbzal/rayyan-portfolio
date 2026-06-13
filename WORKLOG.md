@@ -4,33 +4,28 @@
 
 ## Active task
 
-Humanize revamp (direction B) executed on `feat/section-clarity` via subagent-driven plan (`docs/superpowers/plans/2026-06-13-humanize-revamp.md`). Terminal chrome removed sitewide. `js/terminal.js` and `js/palette.js` deleted from the repo.
+Section spacing fix + pipeline card visibility bug on `feat/section-clarity`.
 
 ## Phase
 
-verifying
+debugging
 
 ## Files changed this session
 
-- `index.html` - terminal copy removed sitewide; nav wordmark updated to "Rayyan Abzal / AI consulting"; hero plain; guest terminal section deleted; "discovery call" replaced with "intro call" in copy
-- `work/influence.html`, `work/influence-v2.html`, `work/feedhack.html`, `work/pumpdat.html` - terminal chrome removed from case page chrome; CTA copy plain English; "discovery call" replaced with "intro call"
-- `404.html` - terminal copy removed; plain language
-- `styles.css` - terminal/panel styles cleaned up; band layout kept
-- `styles-case.css` - case study chrome plain
-- `js/motion.js` - typing effects removed; reveals, counters, scrollspy, progress bar remain; hero-booted added via 300ms setTimeout (0ms under reduced motion)
-- `CLAUDE.md` - file map updated (palette.js and terminal.js removed); rules updated; sitemap lastmod updated
-- `sitemap.xml` - lastmod updated to 2026-06-13 for all 5 URLs
-- `js/terminal.js` - deleted
-- `js/palette.js` - deleted
+- `index.html` - FAQ: removed Q/A prefix labels, removed numbered spans, replaced + SVG toggle with chevron-down SVG
+- `styles.css` - FAQ: simplified grid to 1fr/auto, stripped toggle box border, chevron rotates 180deg on open (spring easing), answer gets pine left-border accent, removed Q/A ::before pseudo-elements; section spacing increased; `.wrap` changed from `padding: 0 var(--pad)` to longhand horizontal-only so `section { padding-bottom }` is no longer overridden by the higher-specificity class selector
+- `js/motion.js` - Pre-registered `.pipeline` hook in the first IIFE before the reveals loop to fix a race condition where scroll restoration could put the pipeline in the initial viewport, causing `revealEl` to fire synchronously with empty `revealHooks` and `.run` never being added (steps permanently invisible)
 
 ## Next step
 
-Task 12 full verification sweep and browser QA, then Ray decides merge to main (Vercel auto-deploys on push to main).
+Ray reviews: (1) section spacing between all sections looks correct, (2) Process pipeline cards are visible on load/refresh. If both good: `git checkout main && git merge feat/section-clarity && git push origin main`
+
+## Open questions
+
+- None blocking
 
 ## Key decisions
 
-- Terminal metaphor fully removed (not dialed back); no code syntax in visible copy
-- bookCall sources and Calendly URL unchanged throughout
-- "intro call" replaces "discovery call" in all visible copy
-- Mock-product preview panels keep product-authentic labels ([ok]/[err] in FeedHack preview, v-score column in Influence CRM preview)
-- Banded sections (principles, testimonials, FAQ) remain from earlier pass
+- `.wrap { padding: 0 var(--pad) }` was silently zeroing section `padding-bottom` - split to longhand to unblock the section spacing rule
+- motion.js race condition: `defer`-loaded scripts + browser scroll restoration can put elements in the initial viewport before the second IIFE registers hooks; fix is pre-registration before the reveals loop
+- FAQ redesign: Option A (clean, no labels, no numbers, pine chevron, pine left-border on open answer)
