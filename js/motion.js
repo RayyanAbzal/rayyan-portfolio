@@ -63,7 +63,7 @@
   window.__motion = { ok: MOTION_OK, hook: function (sel, fn) { revealHooks.push({ sel: sel, fn: fn }); } };
 })();
 
-/* Scroll moments: counters, marker typing, pipeline run */
+/* Scroll moments: counters, pipeline run */
 (function () {
   "use strict";
   var m = window.__motion;
