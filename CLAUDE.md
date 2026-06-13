@@ -17,10 +17,8 @@ index.html             main single-scroll page
 404.html               branded not-found page (Vercel serves it automatically)
 styles.css             shared stylesheet (all pages)
 styles-case.css        case study chrome (work/* pages)
-js/motion.js           reveal engine, hero boot, counters, scrollspy, progress bar
+js/motion.js           reveal engine, counters, scrollspy, progress bar
 js/site.js             bookCall helper, FAQ accordion, sticky mobile CTA
-js/palette.js          Cmd+K command palette (all pages)
-js/terminal.js         guest terminal in the contact section (index only)
 work/influence.html    Influence CRM case study
 work/influence-v2.html Influence v2 dashboard case study
 work/feedhack.html     FeedHack automation case study
@@ -51,13 +49,13 @@ docs/                  specs, plans, client drafts (never deployed)
 | pine       | `#2f5e3e` | primary accent             |
 | ink        | `#1a1a1a` | body text                  |
 | font-head  | Inter Tight | headings                 |
-| font-mono  | JetBrains Mono | code, terminal, labels |
+| font-mono  | JetBrains Mono | labels, numbers, code snippets |
 
 Aesthetic: "Builder / Paper & Pine" — warm, technical, grounded. Not corporate.
 
 ## Rules
 
-- Match terminal/mono aesthetic on all edits
+- Plain-language copy; mono font for small labels and numbers only; no code syntax in visible copy
 - Copy is outcome-first — lead with result, not process
 - No frameworks or build tooling unless explicitly requested
 - No em dashes in copy

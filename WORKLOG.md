@@ -1,32 +1,36 @@
 # WORKLOG
 
-**Updated:** 2026-06-12
+**Updated:** 2026-06-13
 
 ## Active task
-Portfolio animation polish + case study preview redesign complete; ready for QA and merge
+
+Humanize revamp (direction B) executed on `feat/section-clarity` via subagent-driven plan (`docs/superpowers/plans/2026-06-13-humanize-revamp.md`). Terminal chrome removed sitewide. `js/terminal.js` and `js/palette.js` deleted from the repo.
 
 ## Phase
-reviewing
+
+verifying
 
 ## Files changed this session
-- `styles.css` - spring easing on all reveals, hero boot spring animations, lateral drift on hs-rows, header file path wipe, tag-entrance animation, muted sub-text two-stage reveal, panel-activate glow, reduced-motion + motion-failed fallbacks; removed status-scan sweep line
-- `styles-case.css` - full preview panel CSS rewrite: app bar, CRM grid, KPI cards, progress bar, message blocks, trade grid, responsive at 640px
-- `work/influence.html` - preview replaced: CRM table with app bar, 5-col grid (creator/platform/eng-rate/v-score/stage), responsive 3-col mobile
-- `work/influence-v2.html` - preview replaced: 6 KPI cards grid + FTD progress bar (71%)
-- `work/feedhack.html` - preview replaced: Discord bot message blocks with [ok] checks and [err] rejection
-- `work/pumpdat.html` - preview replaced: token table + live trade feed (BUY/SELL rows) via websocket section
+
+- `index.html` - terminal copy removed sitewide; nav wordmark updated to "Rayyan Abzal / AI consulting"; hero plain; guest terminal section deleted; "discovery call" replaced with "intro call" in copy
+- `work/influence.html`, `work/influence-v2.html`, `work/feedhack.html`, `work/pumpdat.html` - terminal chrome removed from case page chrome; CTA copy plain English; "discovery call" replaced with "intro call"
+- `404.html` - terminal copy removed; plain language
+- `styles.css` - terminal/panel styles cleaned up; band layout kept
+- `styles-case.css` - case study chrome plain
+- `js/motion.js` - typing effects removed; reveals, counters, scrollspy, progress bar remain; hero-booted added via 300ms setTimeout (0ms under reduced motion)
+- `CLAUDE.md` - file map updated (palette.js and terminal.js removed); rules updated; sitemap lastmod updated
+- `sitemap.xml` - lastmod updated to 2026-06-13 for all 5 URLs
+- `js/terminal.js` - deleted
+- `js/palette.js` - deleted
 
 ## Next step
-Browser QA pass across index + all 4 case pages (desktop + mobile 390px). Then:
-`git checkout main && git merge feat/showcase-redesign && git push origin main`
 
-## Open questions
-None blocking.
+Task 12 full verification sweep and browser QA, then Ray decides merge to main (Vercel auto-deploys on push to main).
 
 ## Key decisions
-- All animations fire once on load/reveal only, no looping decorative animations
-- Spring easing `cubic-bezier(0.16, 1, 0.3, 1)` on all reveals
-- Status-scan sweep line removed (user request)
-- Preview panels look like real app UIs: CRM table, dashboard cards, Discord bot log, trade feed
-- Grid classes per layout: `.pr-g-crm` (5-col), `.pr-g-token` (5-col), `.pr-g-trade` (4-col) collapse to 3-col at 640px via `.pr-sm-hide`
-- Progress bars use named CSS class `.pr-prog-71`, no inline styles
+
+- Terminal metaphor fully removed (not dialed back); no code syntax in visible copy
+- bookCall sources and Calendly URL unchanged throughout
+- "intro call" replaces "discovery call" in all visible copy
+- Mock-product preview panels keep product-authentic labels ([ok]/[err] in FeedHack preview, v-score column in Influence CRM preview)
+- Banded sections (principles, testimonials, FAQ) remain from earlier pass
