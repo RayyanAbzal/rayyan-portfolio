@@ -119,7 +119,6 @@
   color: var(--ink-2);
 }
 .case-block-head .path { color: var(--ink-2); font-weight: 500; }
-.case-block-head .path .slug { color: var(--accent); }
 .case-block-head .num { color: var(--ink-3); font-weight: 500; }
 .case-block-head .num .key { color: var(--accent); font-weight: 600; }
 
