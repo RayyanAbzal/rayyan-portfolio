@@ -1,31 +1,38 @@
 # WORKLOG
 
-**Updated:** 2026-06-13
+**Updated:** 2026-06-16
 
 ## Active task
 
-Section spacing fix + pipeline card visibility bug on `feat/section-clarity`.
+SEO audit (/seo) of rayyanabzal.com + applied mechanical fixes. Committed, not yet deployed.
 
 ## Phase
 
-debugging
+reviewing
 
 ## Files changed this session
 
-- `index.html` - FAQ: removed Q/A prefix labels, removed numbered spans, replaced + SVG toggle with chevron-down SVG
-- `styles.css` - FAQ: simplified grid to 1fr/auto, stripped toggle box border, chevron rotates 180deg on open (spring easing), answer gets pine left-border accent, removed Q/A ::before pseudo-elements; section spacing increased; `.wrap` changed from `padding: 0 var(--pad)` to longhand horizontal-only so `section { padding-bottom }` is no longer overridden by the higher-specificity class selector
-- `js/motion.js` - Pre-registered `.pipeline` hook in the first IIFE before the reveals loop to fix a race condition where scroll restoration could put the pipeline in the initial viewport, causing `revealEl` to fire synchronously with empty `revealHooks` and `.run` never being added (steps permanently invisible)
+- `index.html` - Google Fonts link switched to `rel=preload` + `onload` swap + `<noscript>` fallback (removes one render-blocking request)
+- `work/influence.html` - same font async change; title/og:title/twitter:title trimmed to "Influence CRM Case Study | Rayyan Abzal" (39 chars)
+- `work/influence-v2.html` - font async; titles to "Influence v2 Dashboard Case Study | Rayyan Abzal" (48)
+- `work/feedhack.html` - font async; titles to "FeedHack Discord Automation Case Study | Rayyan Abzal" (53)
+- `work/pumpdat.html` - font async; titles to "pumpdat Token Launchpad Case Study | Rayyan Abzal" (49)
+- `sitemap.xml` - bumped homepage lastmod to 06-15 then REVERTED to 06-13 (no net change, see decisions)
 
 ## Next step
 
-Ray reviews: (1) section spacing between all sections looks correct, (2) Process pipeline cards are visible on load/refresh. If both good: `git checkout main && git merge feat/section-clarity && git push origin main`
+Decide deploy path: merge `chore/seo-mechanical-fixes` to `main` + `git push` (Vercel auto-deploys), or open a PR. After deploy, eyeball font load on Vercel preview for FOUT (design-led check).
 
 ## Open questions
 
-- None blocking
+- Deploy now (merge to main) or PR first? User's call.
+- Off-page (no code, user's call): create Google Business Profile (biggest "AI consultant Auckland" lever); add GitHub/X to `Person.sameAs` (currently LinkedIn only)
 
 ## Key decisions
 
-- `.wrap { padding: 0 var(--pad) }` was silently zeroing section `padding-bottom` - split to longhand to unblock the section spacing rule
-- motion.js race condition: `defer`-loaded scripts + browser scroll restoration can put elements in the initial viewport before the second IIFE registers hooks; fix is pre-registration before the reveals loop
-- FAQ redesign: Option A (clean, no labels, no numbers, pine chevron, pine left-border on open answer)
+- Commit `f6b6862` on branch `chore/seo-mechanical-fixes`: font async (5 pages) + 4 case-title rewrites. Staged exact 5 paths only; WORKLOG.md left pre-dirty, sitemap not staged.
+- Audit verdict: on-page technical SEO essentially complete. Homepage (only real search target) already excellent: title 54 chars, desc 159, clean H1, ProfessionalService+Person+FAQPage schema all valid. Ceiling is off-page now.
+- Case titles: dropped redundant "AI Consultant NZ/Auckland" location tail (was truncating in SERP); kept the descriptor (Discord automation, token launchpad) which carries the long-tail value. Homepage owns the brand keyword.
+- Sitemap lastmod: REVERTED my bump. Advisor caught it: b169c17 (06-15) only relocates the mobile-CTA div (presentation, not content). Under the content-change rule (correct, non-spam), homepage's last real content change was 06-13, so the original value was already right. Lesson: sitemap lastmod tracks content changes, not file mtime; font/layout tweaks do not bump it.
+- Did NOT add Article/CreativeWork schema to case pages: portfolio cases are not editorial Articles, ~zero search demand, and Article needs datePublished/author/image to validate. Low value, skipped.
+- FAQPage markup is valid but inert for rich results (Google restricted FAQ rich results to gov/health since Aug 2023). Keep it; do not count as a ranking win.
