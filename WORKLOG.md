@@ -1,39 +1,32 @@
 # WORKLOG
 
-**Updated:** 2026-06-16
+**Updated:** 2026-09-04
 
 ## Active task
 
-SEO audit (/seo) of rayyanabzal.com + mechanical fixes. Shipped to main, deployed, verified live.
+Work section redesign: image-led client cards (bencium.io/projects reference) using CSS-drawn product schematics instead of screenshots. Built, inspected desktop + mobile, committed on `feat/work-schematic-cards`.
 
 ## Phase
 
-done
+built, awaiting Ray's review + merge
 
 ## Files changed this session
 
-- `index.html` - Google Fonts link switched to `rel=preload` + `onload` swap + `<noscript>` fallback (removes one render-blocking request)
-- `work/influence.html` - same font async change; title/og:title/twitter:title trimmed to "Influence CRM Case Study | Rayyan Abzal" (39 chars)
-- `work/influence-v2.html` - font async; titles to "Influence v2 Dashboard Case Study | Rayyan Abzal" (48)
-- `work/feedhack.html` - font async; titles to "FeedHack Discord Automation Case Study | Rayyan Abzal" (53)
-- `work/pumpdat.html` - font async; titles to "pumpdat Token Launchpad Case Study | Rayyan Abzal" (49)
-- `WORKLOG.md` - session state
-- `sitemap.xml` - bumped homepage lastmod to 06-15 then REVERTED to 06-13 (no net change shipped, see decisions)
+- `index.html` - 4 client cards in `#work` rebuilt: `.card-visual` schematic block on top (CRM table / Discord payout pipeline / bonding curve + trade feed / partner roster with FTD bars), meta row moved into body, stack chips removed from home cards (case pages still list the stack). `.path` kept for cross-document view transitions.
+- `styles.css` - `.card-head` + `.card-stack` + chip hover stagger removed; `.card-meta-row` + `.card-visual` / `.vis-*` schematic styles added before `/* Personal */`; mobile (<480) collapses to 3 columns, hides 5th CRM row, 4/3 aspect; reduced-motion disables runner/pulse/lift.
 
 ## Next step
 
-Nothing in-code. Remaining work is off-page and user-owned (see open questions). Optional: eyeball font load (FOUT) on the live site once.
+Ray eyeballs `#work` locally (`python3 -m http.server`), then `git checkout main && git merge --ff-only feat/work-schematic-cards && git push origin main` (Vercel auto-deploys).
 
 ## Open questions
 
-- Off-page (no code, user's call): create Google Business Profile (biggest "AI consultant Auckland" lever); add GitHub/X to `Person.sameAs` (currently LinkedIn only)
+- Personal Builds cards untouched (still text-only). Give them mini schematics too, or leave them lighter to keep hierarchy? Ray's call.
+- Schematic data is invented placeholder (handles, amounts, partner_a..d). Fine for client privacy, but confirm nothing reads as a real client claim.
+- Should `/work` become its own page like bencium once >6 items? Not yet.
 
 ## Key decisions
 
-- Shipped: `main` at `5c7ee4d` (commits `f6b6862` font async + 4 case titles, `5c7ee4d` worklog). FF-merged from `chore/seo-mechanical-fixes` (now deleted), pushed origin/main, Vercel auto-deployed. Verified live: all 5 pages show `rel=preload` font + tightened titles.
-- Audit verdict: on-page technical SEO essentially complete. Homepage (only real search target) already excellent: title 54 chars, desc 159, clean H1, ProfessionalService+Person+FAQPage schema all valid. Ceiling is off-page now.
-- Case titles: benefit is SERP DISPLAY/brand visibility, not ranking (Google ranks on full title regardless of length). Dropped the redundant "AI Consultant NZ/Auckland" tail that was truncating at ~580px; tradeoff is losing that keyword co-occurrence, negligible since these pages have ~zero search demand and the homepage owns the term.
-- Font async: benefit is one fewer render-blocking request, NOT a measured LCP win (LCP is H1 text, paints in fallback either way). Cost: more visible FOUT + small CLS risk. Roughly lateral. Hence the eyeball-on-live check.
-- Sitemap lastmod: net-zero (bumped then reverted). Advisor caught that b169c17 (06-15) only relocates the mobile-CTA div (presentation, not content); under the content-change rule the original 06-13 was already correct. Lesson: sitemap lastmod tracks content changes, not file mtime; font/layout tweaks do not bump it.
-- Did NOT add Article/CreativeWork schema to case pages: portfolio cases are not editorial Articles, ~zero search demand, and Article needs datePublished/author/image to validate. Low value, skipped.
-- FAQPage markup is valid but inert for rich results (Google restricted FAQ rich results to gov/health since Aug 2023). Keep it; do not count as a ranking win.
+- Full-site restyle toward bencium rejected: the real gap was imagery, not layout or palette. Kept cream/pine/mono system, lifted only the Work cards.
+- No client screenshots (Ray, 2026-09-04): each card gets a CSS/SVG abstract of what the product does, one authored hover moment per card (frame lift + toast, or pipeline runner dot).
+- Impeccable detector (regex fallback, undercount): 3 findings, all pre-existing and out of scope (aphoristic copy cadence x6, `.principle` 4px side-tab, body grid background). Logged, not fixed.
