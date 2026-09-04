@@ -7,7 +7,7 @@ Static HTML/CSS/JS portfolio site. No framework, no build step.
 - Plain HTML + CSS + JS, no bundler, no Node
 - Hosting: Vercel (static)
 - Analytics: Vercel Analytics (`/_vercel/insights/script.js`)
-- Font: Bricolage Grotesque via Google Fonts (single family, opsz axis, weights 400-700)
+- Font: Bricolage Grotesque, self-hosted variable WOFF2 in `fonts/` (opsz 12-96, weights 400-700), preloaded per page
 - Booking: Calendly popup widget
 
 ## Files
@@ -26,7 +26,9 @@ work/influence-v2.html Influence v2 dashboard case study
 work/feedhack.html     FeedHack automation case study
 work/pumpdat.html      pumpdat token launchpad case study
 sitemap.xml            7 URLs, update lastmod on content changes
-robots.txt             allow all, blocks /logo-exports/, points at sitemap
+robots.txt             allow all incl. named AI crawlers, blocks /logo-exports/, points at sitemap
+llms.txt               plain-text site summary for answer engines; update when offers, projects, or FAQ change
+fonts/                 Bricolage Grotesque latin + latin-ext WOFF2 (OFL)
 PRODUCT.md             impeccable product truth (never deployed)
 DESIGN.md              impeccable design system record (never deployed)
 .impeccable/           surface briefs (committed), review captures (gitignored)
@@ -34,7 +36,7 @@ DESIGN.md              impeccable design system record (never deployed)
 favicon-16.png         browser tab small
 favicon-32.png         browser tab standard
 favicon-180.png        apple-touch-icon
-og.png                 OG/Twitter share image (1200x630)
+og.png                 OG/Twitter share image (1200x630), rendered from docs/og-source.html at 1200x630
 logo-exports/          raw Claude Design export, source only (never deployed)
 docs/                  specs, plans, client drafts (never deployed)
 ```
@@ -75,6 +77,10 @@ Product visuals: no client screenshots. Cards use CSS-drawn schematics (`.card-v
 - Keep each page under 800 lines
 - Nav is Home / Projects / About plus Book a call; mark the current page with `aria-current="page"`
 
+## SEO + AEO
+
+Every page: canonical, robots meta (`max-image-preview:large`), OG/Twitter set, JSON-LD. Home carries the `@graph` (WebSite, ProfessionalService with offer catalog, Person, WebPage); work.html a CollectionPage + ItemList; about.html AboutPage + Person + FAQPage; case pages Article + BreadcrumbList. Entity IDs: `/#website`, `/#business`, `/#person`. Keep JSON-LD, `llms.txt`, and visible copy saying the same thing.
+
 ## Domain + OG
 
 `og:image` hardcoded to `https://rayyanabzal.com/og.png` on all pages.
@@ -89,6 +95,5 @@ Push to GitHub, repo connected in Vercel, auto-deploys on push to `main`.
 - Google Business Profile: create (service-area business, Auckland), link site, collect client reviews there. Biggest "AI consultant Auckland" lever.
 - Verify Vercel Analytics custom events (book_click) appear on the hobby plan; if not, note plan limitation and keep pageview funnels.
 - Testimonial attribution: permission messages drafted (docs/clients/testimonial-permission-messages.md); swap real names in when clients approve.
-- OG preview: re-check LinkedIn Post Inspector after deploy.
+- OG preview: re-check LinkedIn Post Inspector after deploy (og.png regenerated 2026-09-04 in the new world).
 - Submit sitemap.xml in Google Search Console (create the property if none exists).
-- og.png still shows the old cream/pine look; regenerate in the new world.

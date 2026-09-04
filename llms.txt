@@ -1,0 +1,55 @@
+# Rayyan Abzal, AI consultant and engineer, Auckland, New Zealand
+
+> Solo AI engineering practice. I find the manual work eating a business's week and replace it with AI, automation, or the lightest software that fixes it. One person, end to end. Fixed price per project. Free 30-minute intro call, written proposal within 48 hours.
+
+Site: https://rayyanabzal.com
+Contact: rayyanabzal@gmail.com
+Booking: https://calendly.com/rayyanabzal/discovery
+LinkedIn: https://www.linkedin.com/in/rayyan-a-832a20213
+Location: Auckland, New Zealand (UTC+12). Clients in New Zealand, Europe, and the US. Everything runs remotely.
+
+## What I do
+
+- AI automation for a manual process: find the bottleneck, build the automation or AI workflow that removes it. Usually one to three weeks.
+- AI inside an existing product: LLM features, agents, and pipelines added to the codebase a client already has. Usually two to four weeks.
+- Full custom build: platform, dashboard, bot, or smart contracts, designed, built, shipped, and handed over with docs. Usually four to eight weeks.
+
+## How an engagement runs
+
+1. A free 30-minute call. Problem, goals, constraints. No pitch.
+2. A written proposal within 48 hours: fixed scope, fixed price, fixed timeline, plus a visual process map.
+3. The build, with weekly updates and a live staging link from day one.
+4. Handover with full documentation, a team walkthrough, and 30 days of post-launch support.
+
+## Pages
+
+- [Home](https://rayyanabzal.com/): services, process, one client quote.
+- [Projects](https://rayyanabzal.com/work.html): four client builds, all live, plus three personal builds.
+- [About](https://rayyanabzal.com/about.html): principles, testimonials, and answers to common questions.
+
+## Client case studies
+
+- [Influence](https://rayyanabzal.com/work/influence.html): internal CRM for an influencer marketing agency in Malta. Replaced spreadsheets, manual outreach, and gut-feel creator valuation. About 6 weeks.
+- [Influence v2](https://rayyanabzal.com/work/influence-v2.html): live partner performance dashboard built inside the same CRM for a repeat client. About 4 weeks.
+- [FeedHack](https://rayyanabzal.com/work/feedhack.html): end-to-end Discord automation for creator clip submissions, validation, and monthly payouts. Manual admin hours to zero. About 8 weeks.
+- [pumpdat](https://rayyanabzal.com/work/pumpdat.html): token launchpad on Ethereum mainnet, contracts, backend, and frontend. About 10 weeks.
+
+## Personal builds
+
+- FIOS: B2B API that turns fragrance names into structured product data.
+- ARIA: AI personal stylist mobile app, vision end to end.
+- NZ Job Finder: scrapes job boards, scores roles against a CV, drafts cover letters.
+
+## Common questions
+
+- Pricing: fixed price by scope, not hourly. One number in the proposal, no surprise invoices.
+- Timeline: a focused automation or AI integration is typically 1 to 3 weeks; larger platforms 6 to 8.
+- Is AI the right tool: only when the bottleneck needs judgement over text, images, or data. Deterministic workflows get normal automation instead.
+- Non-technical founders: most clients are. Plain-language proposals with a visual process map.
+- Existing systems: yes, most engagements are additive to the existing codebase.
+- NDAs: happy to sign yours or share a mutual one.
+- Only Auckland: no. Based in Auckland, working across New Zealand, Europe, and the US.
+
+## Stack
+
+TypeScript, Node.js, Python, Next.js, Supabase, Anthropic Claude API, Discord.js, Railway, Vercel.

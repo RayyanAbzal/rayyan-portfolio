@@ -43,6 +43,10 @@ Round 1 disposition "fix", 8 material items: kickers above headings, uppercase s
 
 Own review of all four page types at 1440 and 390. Fixed: sticky mobile CTA peeked 7px above the fold when hidden (translate now clears the bar plus its shadow); hero lede cut from 3 desktop / 7 mobile lines to 2 / 5; schematic frames 16/10 to 16/9 so the drawn data fills the window; case block bodies had a 48px grid row gap between consecutive paragraphs (row-gap 0); case meta cells (4 paper boxes with a bare value each) replaced by one bold facts line with middle dots, stacked on mobile; hero panel gets its own entrance (slight scale) so the one authored moment differs from the generic fade-up; on mobile the "All projects" link now sits below the section lede. DESIGN.md and the sidecar updated to match.
 
+## SEO + AEO pass (2026-09-04)
+
+Self-hosted Bricolage Grotesque (two WOFF2 files, preload per page, Google Fonts links removed on all 8 pages). og.png regenerated in the new world from docs/og-source.html. Structured data expanded: WebSite + ProfessionalService (offer catalog, service types, areas) + Person (knowsAbout) + WebPage on home; CollectionPage + ItemList on work; AboutPage + Person on about; Article on each case page with article:modified_time. Robots meta on every page. robots.txt names AI crawlers explicitly. llms.txt added. About prose opens with an entity sentence. Sitemap lastmod bumped. Testimonial names still blocked on client permission.
+
 ## Key decisions
 
 - Bencium's world (calm ground, big rounded surfaces, one accent, grotesque sans, few elements per view) with Ray's own palette: warm stone + paper + sage, pine for buttons, gold as the one accent. Not bencium's colours.

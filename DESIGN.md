@@ -231,7 +231,7 @@ A warm neutral ground with two greens (a dark pine for action, a soft sage for t
 **Body Font:** Bricolage Grotesque (same family)
 **Data Font:** SF Mono, Menlo, ui-monospace (schematics and case preview only)
 
-**Character:** One grotesque with an optical size axis doing every job. Headlines are heavy and pulled tight so they read as one object; body copy is the same face at 400, sized generously at 17px so the site never feels small. The family loads from Google Fonts at weights 400 to 700 with `font-display: swap`, preloaded as a stylesheet with a noscript fallback. Self-hosting is a noted future improvement, not the current state.
+**Character:** One grotesque with an optical size axis doing every job. Headlines are heavy and pulled tight so they read as one object; body copy is the same face at 400, sized generously at 17px so the site never feels small. The family is self-hosted from `fonts/` as two variable WOFF2 files (latin, latin-ext; OFL) at weights 400 to 700 with `font-display: swap`, the latin file preloaded on every page.
 
 ### Hierarchy
 - **Display** (700, `clamp(44px, 7.2vw, 96px)`, line-height 0.96, -0.04em): the hero headline on Home, capped at 13ch so it breaks into two lines. Balanced wrapping.
