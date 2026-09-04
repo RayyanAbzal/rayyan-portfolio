@@ -209,7 +209,7 @@ A warm neutral ground with two greens (a dark pine for action, a soft sage for t
 ### Neutral
 - **Stone** (`stone`): the page ground on every page and the nav background at 82% with a 14px blur. Also the chip fill when a chip sits on paper.
 - **Stone Deep** (`stone-deep`): the frame around a card schematic, so the paper device inside reads as lifted off a darker ground.
-- **Paper** (`paper`): every content surface (cards, offers, steps, quotes, FAQ, side cards, case blocks, case meta cells, case nav) and the text colour on pine.
+- **Paper** (`paper`): every content surface (cards, offers, steps, quotes, FAQ, side cards, case blocks, case nav) and the text colour on pine.
 - **Paper Deep** (`paper-deep`): flow nodes inside schematics.
 - **Ink** (`ink`): headline and body text, the current mobile nav pill, the schematic toast, and the case preview panel ground.
 - **Ink Soft** (`ink-soft`): ledes, card copy, prose paragraphs, nav links, quote attribution.
@@ -241,13 +241,13 @@ A warm neutral ground with two greens (a dark pine for action, a soft sage for t
 - **Title** (700, 24px, line-height 1.1, -0.025em): card and offer headings, prose subheads on About. Steps use 20px at the same weight; case nav targets use 21px.
 - **Lede** (400, `clamp(18px, 1.6vw, 21px)`, line-height 1.5, ink-soft, max 58ch): the paragraph under every display or headline. The case summary is the larger cousin at `clamp(19px, 2vw, 25px)` and 52ch.
 - **Body** (400, 17px, line-height 1.55): the base size. About prose runs `clamp(17px, 1.35vw, 19px)` at 1.6 and 62ch; card and offer copy drops to 16px; FAQ answers 16.5px at 65ch.
-- **Value** (700, 17px, -0.015em): the bold opening line of a side card. Case meta cells use 600 at 16.5px. This is the only "label" the chrome has: a bold value, then a plain sentence beneath it.
+- **Value** (700, 17px, -0.015em): the bold opening line of a side card. The case facts line uses 600 at 16px with middle-dot separators. This is the only "label" the chrome has: a bold value, then a plain sentence beneath it.
 - **Note** (400, 14px, ink-muted): data disclosures, stat labels, footer, and the small labels above case nav targets (13.5px, 500).
 - **Quote** (500, `clamp(19px, 1.8vw, 24px)`, line-height 1.4, -0.015em): testimonial body, with one phrase in a gold mark at 600. In a three-up row the quote drops to 17.5px.
 - **Data** (400, 12px, line-height 1.3, monospace): synthetic product data inside `.card-visual`. Inside `.case-preview` it runs 13px at 1.6. Column headers in both may be uppercase and tracked, because that is what the drawn products look like.
 
 ### Named Rules
-**The No Kicker Rule.** No eyebrow, kicker, overline, or uppercase tracked label above any heading in the UI chrome. A section opens on its headline. A side card or meta cell opens on a bold value line. The only uppercase tracked text on the site is column headers inside a drawn schematic or the case preview, where it is product data.
+**The No Kicker Rule.** No eyebrow, kicker, overline, or uppercase tracked label above any heading in the UI chrome. A section opens on its headline. A side card opens on a bold value line; a case page states its facts in one bold line. The only uppercase tracked text on the site is column headers inside a drawn schematic or the case preview, where it is product data.
 
 **The Data Face Rule.** Monospace is allowed only inside `.card-visual` schematics and `.case-preview`. It is synthetic product data, never UI chrome. No monospace in copy, nav, buttons, labels, or footers.
 
@@ -266,7 +266,7 @@ Grids are simple: two columns for project cards, three for offers and testimonia
 
 The nav is a sticky 70px bar (62px on mobile) on a three-column grid: name left, three links centred, pine pill right. At 640px and below the centre links vanish and a row of paper pills (`.mobile-nav`) appears beneath the bar instead. A sticky mobile CTA, a full-width pine pill inset 16px from the viewport edges, slides up once the visitor has scrolled past a chosen section and hides while the closing CTA is in view. It is a direct child of `body`, positioned with `translate3d`, which is what keeps `position: fixed` stable on iOS Safari.
 
-Case pages follow the same column: back link, giant title, summary, a four-cell meta strip (two columns at 760px), then a stack of paper case blocks with a 20px gap. Each case block body is a 1fr / 1.4fr grid with the heading left and prose right, collapsing at 820px. The closing CTA and prev/next nav sit `clamp(48px, 7vw, 80px)` below.
+Case pages follow the same column: back link, giant title, summary, one bold facts line (client, role, window, status separated by middle dots), then a stack of paper case blocks with a 20px gap. Each case block body is a 1fr / 1.4fr grid with the heading left and prose right, no row gap so consecutive paragraphs keep their 14px spacing, collapsing at 820px. The closing CTA and prev/next nav sit `clamp(48px, 7vw, 80px)` below.
 
 ## Elevation & Depth
 
@@ -288,7 +288,7 @@ The nav gains depth by translucency instead: stone at 82% with a 14px backdrop b
 
 ## Shapes
 
-Everything is rounded, and the radius scales with the size of the thing. The two panels that hold a whole message (hero, closing CTA) use 32px. Content surfaces (cards, offers, steps, quotes, FAQ, case blocks, case CTA) use the base 24px. Smaller surfaces step down: side cards and case nav 20px, case meta cells 18px, the initials mark 16px, the schematic device frame 12px on its top corners only (it runs off the bottom of the card). Buttons, chips, nav pills, and schematic tags are full pills at 999px. The focus ring is a 3px gold-deep outline offset 3px with a 6px radius.
+Everything is rounded, and the radius scales with the size of the thing. The two panels that hold a whole message (hero, closing CTA) use 32px. Content surfaces (cards, offers, steps, quotes, FAQ, case blocks, case CTA) use the base 24px. Smaller surfaces step down: side cards and case nav 20px, the initials mark 16px, the schematic device frame 12px on its top corners only (it runs off the bottom of the card). Buttons, chips, nav pills, and schematic tags are full pills at 999px. The focus ring is a 3px gold-deep outline offset 3px with a 6px radius.
 
 Borders are rare. `.btn-light` carries a hairline `line-strong` border; schematic nodes carry the same. Cards, panels, and blocks have no border; the paper-on-stone value step is the edge. Dividers inside a surface (FAQ rows, outcome stats, nav bottom) are 1px `line` hairlines.
 
@@ -346,7 +346,7 @@ One fade-up per `.reveal`: 16px translate and opacity, 0.8s on the site ease `cu
 - **Do** set every content surface as paper on the stone ground at 24px radius, with no border and no resting shadow.
 - **Do** make every pill button pine; switch to the gold pill only when the button sits on a pine field.
 - **Do** use gold as a marker behind at most one phrase per headline or quote, as the 2px link underline, and as the corner glow on the hero and CTA panels.
-- **Do** open a side card or meta cell on a bold value line (700 at 17px, or 600 at 16.5px) followed by one plain sentence.
+- **Do** open a side card on a bold value line (700 at 17px) followed by one plain sentence; state case facts in one bold 16px line.
 - **Do** keep the hero-to-first-cards gap tight (12px plus 12px) so the project cards peek under a 900px fold.
 - **Do** use `ink-muted` (5f5a52) for the quietest text, and only on stone or paper.
 - **Do** show product as a drawn schematic with representative data inside `.card-visual` or `.case-preview`, and disclose it in a visible `.data-note`.

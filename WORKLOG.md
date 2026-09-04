@@ -39,6 +39,10 @@ Ray eyeballs all three pages plus one case page locally (`python3 -m http.server
 
 Round 1 disposition "fix", 8 material items: kickers above headings, uppercase side-card and case-meta labels, hero headline over 6rem wrapping to 3 lines, second sage band, `--ink-3` contrast, no visible synthetic-data disclosure, repeated sentence in offer 2, third element in the hero action row. All applied in one batch; round 2 partial (about capture stale, cards not peeking under a 900px fold); round 3 "ship". Ceiling notes left as observations, not open findings: element density still above bencium's, one uniform reveal motion, dark case preview reads as a terminal.
 
+## Fable pass (2026-09-04, after the ship verdict)
+
+Own review of all four page types at 1440 and 390. Fixed: sticky mobile CTA peeked 7px above the fold when hidden (translate now clears the bar plus its shadow); hero lede cut from 3 desktop / 7 mobile lines to 2 / 5; schematic frames 16/10 to 16/9 so the drawn data fills the window; case block bodies had a 48px grid row gap between consecutive paragraphs (row-gap 0); case meta cells (4 paper boxes with a bare value each) replaced by one bold facts line with middle dots, stacked on mobile; hero panel gets its own entrance (slight scale) so the one authored moment differs from the generic fade-up; on mobile the "All projects" link now sits below the section lede. DESIGN.md and the sidecar updated to match.
+
 ## Key decisions
 
 - Bencium's world (calm ground, big rounded surfaces, one accent, grotesque sans, few elements per view) with Ray's own palette: warm stone + paper + sage, pine for buttons, gold as the one accent. Not bencium's colours.

@@ -34,7 +34,7 @@
       "lede": { "displayName": "Lede", "purpose": "Paragraph under a display or headline, ink-soft, max 58ch." },
       "body": { "displayName": "Body", "purpose": "Base size on body. About prose runs clamp(17px, 1.35vw, 19px) at 1.6." },
       "body-small": { "displayName": "Body (small)", "purpose": "Card and offer copy, button text." },
-      "value": { "displayName": "Value", "purpose": "Bold opening line of a side card; case meta cells use 600 at 16.5px. The chrome's only label form." },
+      "value": { "displayName": "Value", "purpose": "Bold opening line of a side card; the case facts line uses 600 at 16px. The chrome's only label form." },
       "note": { "displayName": "Note", "purpose": "Data disclosure, stat labels, footer, case nav labels. Always ink-muted on stone or paper." },
       "data": { "displayName": "Data", "purpose": "Synthetic product data inside .card-visual (12px, 1.3) and .case-preview (13px, 1.6). Never UI chrome." }
     },
@@ -63,7 +63,7 @@
       { "name": "button-hover", "value": "transform 0.35s, background 0.2s, box-shadow 0.35s; active 80ms", "purpose": "Pill lift and settle." },
       { "name": "card-hover", "value": "transform 0.45s, box-shadow 0.45s; device frame 0.5s", "purpose": "Card lift with the schematic device rising 6px." },
       { "name": "nav-underline", "value": "transform 0.35s scaleX from left", "purpose": "Gold underline on hover and aria-current." },
-      { "name": "mobile-cta", "value": "transform 0.45s translate3d(0, 120%, 0) to 0", "purpose": "Sticky mobile pill slide-up." },
+      { "name": "mobile-cta", "value": "transform 0.45s translate3d(0, calc(100% + 32px), 0) to 0", "purpose": "Sticky mobile pill slide-up." },
       { "name": "view-transition", "value": "220ms root", "purpose": "Page-to-page navigation." },
       { "name": "pulse-soft", "value": "1.8s ease-in-out infinite, opacity 1 to 0.35", "purpose": "Live dot inside a schematic. The only looping animation." },
       { "name": "failsafe", "value": "1500ms showAll", "purpose": "Nothing stays hidden if IntersectionObserver fails. Reduced-motion and no-JS get the static page." }
@@ -72,7 +72,6 @@
       { "name": "schematic-density", "value": "480px", "purpose": "Card schematic drops a column and goes 4:3." },
       { "name": "steps-single", "value": "520px", "purpose": "Process steps to one column." },
       { "name": "mobile", "value": "640px", "purpose": "Nav links hidden, mobile pill row and sticky CTA appear, case nav stacks, preview tightens." },
-      { "name": "case-meta", "value": "760px", "purpose": "Case meta strip to two columns." },
       { "name": "case-block", "value": "820px", "purpose": "Case block heading and prose stack." },
       { "name": "stack", "value": "860px", "purpose": "Two- and three-column grids, about split, and CTA panel go single column; steps go two columns." },
       { "name": "quotes", "value": "960px", "purpose": "Testimonial row to one column." }
@@ -203,7 +202,7 @@
       { "name": "The Pine Pill Rule", "body": "Every pill button is pine (.btn). On a pine field (the CTA panel, the case CTA) the pill switches to gold (.btn-gold) for contrast. .btn-light (paper with a hairline border) is the secondary choice beside a pine pill, used on the 404 page.", "section": "colors" },
       { "name": "The One Sage Field Rule", "body": "The hero panel is the only sage surface. Sections sit directly on the stone ground; there is no full-bleed tint band.", "section": "colors" },
       { "name": "The Coloured Surface Rule", "body": "On pine or ink, text is paper or paper at reduced opacity (78%, 75%, 70%). Grey text (ink-muted, ink-soft) never sits on a coloured surface.", "section": "colors" },
-      { "name": "The No Kicker Rule", "body": "No eyebrow, kicker, overline, or uppercase tracked label above any heading in the UI chrome. A section opens on its headline. A side card or meta cell opens on a bold value line. The only uppercase tracked text on the site is column headers inside a drawn schematic or the case preview, where it is product data.", "section": "typography" },
+      { "name": "The No Kicker Rule", "body": "No eyebrow, kicker, overline, or uppercase tracked label above any heading in the UI chrome. A section opens on its headline. A side card opens on a bold value line; a case page states its facts in one bold line. The only uppercase tracked text on the site is column headers inside a drawn schematic or the case preview, where it is product data.", "section": "typography" },
       { "name": "The Data Face Rule", "body": "Monospace is allowed only inside .card-visual schematics and .case-preview. It is synthetic product data, never UI chrome. No monospace in copy, nav, buttons, labels, or footers.", "section": "typography" },
       { "name": "The One Mark Rule", "body": "A headline or quote carries at most one gold-marked phrase, and most carry none.", "section": "typography" },
       { "name": "The Flat-At-Rest Rule", "body": "Chrome surfaces cast no shadow at rest. A shadow is a hover response, paired with a translate, and it is removed entirely under prefers-reduced-motion.", "section": "elevation" },
@@ -213,7 +212,7 @@
       "Do set every content surface as paper on the stone ground at 24px radius, with no border and no resting shadow.",
       "Do make every pill button pine; switch to the gold pill only when the button sits on a pine field.",
       "Do use gold as a marker behind at most one phrase per headline or quote, as the 2px link underline, and as the corner glow on the hero and CTA panels.",
-      "Do open a side card or meta cell on a bold value line (700 at 17px, or 600 at 16.5px) followed by one plain sentence.",
+      "Do open a side card on a bold value line (700 at 17px) followed by one plain sentence; state case facts in one bold 16px line.",
       "Do keep the hero-to-first-cards gap tight (12px plus 12px) so the project cards peek under a 900px fold.",
       "Do use ink-muted (5f5a52) for the quietest text, and only on stone or paper.",
       "Do show product as a drawn schematic with representative data inside .card-visual or .case-preview, and disclose it in a visible .data-note.",
