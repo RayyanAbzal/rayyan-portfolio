@@ -17,8 +17,8 @@
 <meta name="twitter:description" content="An end-to-end automation system for creator submissions, validation, and monthly payouts on a Discord-first platform." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" /></noscript>
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&display=swap" /></noscript>
 <link rel="preconnect" href="https://assets.calendly.com" crossorigin />
 <link rel="preload" href="https://assets.calendly.com/assets/external/widget.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
 <noscript><link rel="stylesheet" href="https://assets.calendly.com/assets/external/widget.css" /></noscript>
@@ -32,44 +32,35 @@
 <link rel="stylesheet" href="../styles.css" />
 <link rel="stylesheet" href="../styles-case.css" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://rayyanabzal.com/"},{"@type":"ListItem","position":2,"name":"Work","item":"https://rayyanabzal.com/#work"},{"@type":"ListItem","position":3,"name":"FeedHack"}]}
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://rayyanabzal.com/"},{"@type":"ListItem","position":2,"name":"Projects","item":"https://rayyanabzal.com/work.html"},{"@type":"ListItem","position":3,"name":"FeedHack"}]}
 </script>
 </head>
 <body>
 
 <nav class="nav">
   <div class="wrap nav-inner">
-    <a href="../index.html" class="nav-name">
-      <strong>Rayyan Abzal</strong><span class="nav-sub">AI consulting</span>
-    </a>
-    <div class="nav-mid">
-      <a href="../index.html#about">about</a>
-      <a href="../index.html#principles">principles</a>
-      <a href="../index.html#services">services</a>
-      <a href="../index.html#work">work</a>
-      <a href="../index.html#process">process</a>
-      <a href="../index.html#faq">faq</a>
+    <a href="../index.html" class="nav-name"><span class="sig" aria-hidden="true"></span>Rayyan Abzal</a>
+    <div class="nav-links">
+      <a href="../index.html">Home</a>
+      <a href="../work.html" aria-current="page">Projects</a>
+      <a href="../about.html">About</a>
     </div>
     <div class="nav-right">
-      <span class="nav-status">
-        <span class="dot"></span>
-        accepting new clients
-      </span>
-      <a class="nav-cta" href="https://calendly.com/rayyanabzal/discovery" onclick="return bookCall('case_nav_feedhack')">book</a>
+      <a class="btn" href="https://calendly.com/rayyanabzal/discovery" onclick="return bookCall('case_nav_feedhack')">Book a call</a>
     </div>
+  </div>
+  <div class="mobile-nav">
+    <a href="../index.html">Home</a>
+    <a href="../work.html" aria-current="page">Projects</a>
+    <a href="../about.html">About</a>
   </div>
 </nav>
 
 <main>
 <section class="wrap case-hero" data-screen-label="Case · FeedHack">
-  <a href="../index.html" class="case-back">back to index</a>
+  <a href="../work.html" class="case-back">All projects</a>
 
-  <div class="section-marker reveal">
-    <span class="sm-tag">Case study 03</span>
-    <span class="sm-meta">automation · client project</span>
-  </div>
-
-  <h1 class="case-title reveal">Feed<span class="hi">Hack</span><span class="dot">.</span></h1>
+  <h1 class="case-title display reveal">Feed<span class="hi">Hack</span><span class="dot">.</span></h1>
 
   <p class="case-summary reveal">
     An <strong>end-to-end automation system</strong> for creator submissions, validation, and monthly payouts. Discord in front, dashboard behind.
@@ -77,19 +68,15 @@
 
   <div class="case-meta reveal" data-stagger="60">
     <div class="case-meta-cell">
-      <div class="k">client</div>
       <div class="v">Creator clip platform</div>
     </div>
     <div class="case-meta-cell">
-      <div class="k">role</div>
       <div class="v">Bot + dashboard build</div>
     </div>
     <div class="case-meta-cell">
-      <div class="k">window</div>
-      <div class="v">~8 weeks</div>
+      <div class="v">About 8 weeks</div>
     </div>
     <div class="case-meta-cell">
-      <div class="k">status</div>
       <div class="v">Live · automated</div>
     </div>
   </div>
@@ -185,30 +172,32 @@
       <h3>Have a similar bottleneck?</h3>
       <p>Free 30-minute intro call. Written proposal with a fixed price within 48 hours.</p>
     </div>
-    <a class="btn btn-primary" href="https://calendly.com/rayyanabzal/discovery" onclick="return bookCall('case_feedhack')">Book a free intro call</a>
+    <a class="btn" href="https://calendly.com/rayyanabzal/discovery" onclick="return bookCall('case_feedhack')">Book a free intro call</a>
   </div>
 
   <nav class="case-nav reveal">
     <a href="influence-v2.html" class="prev">
-      <span class="label">← prev case</span>
+      <span class="label">Previous</span>
       <span class="target">Influence v2</span>
     </a>
     <a href="pumpdat.html" class="next">
-      <span class="label">next case →</span>
+      <span class="label">Next</span>
       <span class="target">pumpdat</span>
     </a>
   </nav>
 </section>
 <div class="mobile-cta" data-show-after=".case-body" data-hide-at=".case-cta">
-  <a class="btn btn-primary" href="https://calendly.com/rayyanabzal/discovery" onclick="return bookCall('sticky_mobile_case')">Book a free call</a>
+  <a class="btn" href="https://calendly.com/rayyanabzal/discovery" onclick="return bookCall('sticky_mobile_case')">Book a free call</a>
 </div>
 
 </main>
 
 <footer>
   <div class="wrap footer-inner">
-    <span><strong>Rayyan Abzal</strong> · AI consulting practice · © 2026 · <span class="build">built in Auckland, NZ</span></span>
+    <span><strong>Rayyan Abzal</strong> · AI consulting · Auckland, NZ · © 2026</span>
     <span class="links">
+      <a href="../work.html">Projects</a>
+      <a href="../about.html">About</a>
       <a href="mailto:rayyanabzal@gmail.com">Email</a>
       <a href="https://www.linkedin.com/in/rayyan-a-832a20213" target="_blank" rel="noopener">LinkedIn</a>
     </span>

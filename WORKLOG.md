@@ -4,29 +4,46 @@
 
 ## Active task
 
-Work section redesign: image-led client cards (bencium.io/projects reference) using CSS-drawn product schematics instead of screenshots. Built, inspected desktop + mobile, committed on `feat/work-schematic-cards`.
+Full redesign toward bencium.io's calm, image-led world in Ray's own colours. Single-scroll page split into Home + Projects + About. Built with the impeccable skill (init, direction contract, build, two inspection rounds, finish review, DESIGN.md). On `feat/work-schematic-cards`.
 
 ## Phase
 
-built, awaiting Ray's review + merge
+built, finish review shipped (3 rounds: 8 material fixes, all resolved), awaiting Ray's eyeball + merge
 
 ## Files changed this session
 
-- `index.html` - 4 client cards in `#work` rebuilt: `.card-visual` schematic block on top (CRM table / Discord payout pipeline / bonding curve + trade feed / partner roster with FTD bars), meta row moved into body, stack chips removed from home cards (case pages still list the stack). `.path` kept for cross-document view transitions.
-- `styles.css` - `.card-head` + `.card-stack` + chip hover stagger removed; `.card-meta-row` + `.card-visual` / `.vis-*` schematic styles added before `/* Personal */`; mobile (<480) collapses to 3 columns, hides 5th CRM row, 4/3 aspect; reduced-motion disables runner/pulse/lift.
+- `index.html` rewritten: nav (Home / Projects / About / Book a call), sage hero panel with one big sentence, 4 client cards with CSS schematics, 3 offers, about teaser + side cards, 4 process steps, one quote, pine CTA panel. Principles and FAQ cut. FAQPage JSON-LD moved to about.
+- `work.html` new: 4 client cards + 3 personal builds (text only), CTA.
+- `about.html` new: prose with 4 principles, 5 side cards, 3 testimonials, FAQ as native `<details>`, CTA. FAQPage + BreadcrumbList JSON-LD.
+- `styles.css` full rewrite: new tokens (stone bg, paper, sage, ink, pine, gold), Bricolage Grotesque, pill buttons, `.hero-panel` (the only sage field), cards + schematics, offers, steps, about split, quotes, FAQ, CTA panel, footer, mobile CTA, reveal motion.
+- `styles-case.css` rewrite: paper blocks on stone, big pine-highlight title, 4-cell meta strip, two-column block bodies, chip stack list, dark preview panel rethemed, pine CTA, paper prev/next cards.
+- `work/*.html`: new font link, nav, footer, breadcrumb, quote figures; content untouched.
+- `js/motion.js` simplified to reveal engine + failsafe. `js/site.js` down to bookCall + sticky CTA (FAQ accordion gone).
+- `404.html` rebuilt in new world. `sitemap.xml` now 7 URLs.
+- `PRODUCT.md`, `.impeccable/surfaces/index-html.md`, `DESIGN.md` added. `.gitignore` ignores `.impeccable/review/`; `.vercelignore` keeps the impeccable files out of deploys.
+- `CLAUDE.md` updated for the new file list, tokens, motion rules.
 
 ## Next step
 
-Ray eyeballs `#work` locally (`python3 -m http.server`), then `git checkout main && git merge --ff-only feat/work-schematic-cards && git push origin main` (Vercel auto-deploys).
+Ray eyeballs all three pages plus one case page locally (`python3 -m http.server`), then `git checkout main && git merge --ff-only feat/work-schematic-cards && git push origin main` (Vercel auto-deploys). Then regenerate `og.png` in the new world.
 
 ## Open questions
 
-- Personal Builds cards untouched (still text-only). Give them mini schematics too, or leave them lighter to keep hierarchy? Ray's call.
-- Schematic data is invented placeholder (handles, amounts, partner_a..d). Fine for client privacy, but confirm nothing reads as a real client claim.
-- Should `/work` become its own page like bencium once >6 items? Not yet.
+- Schematic and preview data is invented (handles, amounts, partner names). Confirm nothing reads as a real client claim.
+- Testimonials carry role + project only. Swap in names once clients approve (docs/clients/testimonial-permission-messages.md).
+- Personal builds on work.html are text-only cards. Give them small visuals later or leave lighter?
+- Old `#principles` / `#faq` anchors on the home page are gone. Any external links pointing at them now land on the home top; FAQ lives at about.html#faq.
+- `og.png` still shows the old cream/pine look.
+
+## Finish review (impeccable, 2026-09-04)
+
+Round 1 disposition "fix", 8 material items: kickers above headings, uppercase side-card and case-meta labels, hero headline over 6rem wrapping to 3 lines, second sage band, `--ink-3` contrast, no visible synthetic-data disclosure, repeated sentence in offer 2, third element in the hero action row. All applied in one batch; round 2 partial (about capture stale, cards not peeking under a 900px fold); round 3 "ship". Ceiling notes left as observations, not open findings: element density still above bencium's, one uniform reveal motion, dark case preview reads as a terminal.
 
 ## Key decisions
 
-- Full-site restyle toward bencium rejected: the real gap was imagery, not layout or palette. Kept cream/pine/mono system, lifted only the Work cards.
-- No client screenshots (Ray, 2026-09-04): each card gets a CSS/SVG abstract of what the product does, one authored hover moment per card (frame lift + toast, or pipeline runner dot).
-- Impeccable detector (regex fallback, undercount): 3 findings, all pre-existing and out of scope (aphoristic copy cadence x6, `.principle` 4px side-tab, body grid background). Logged, not fixed.
+- Bencium's world (calm ground, big rounded surfaces, one accent, grotesque sans, few elements per view) with Ray's own palette: warm stone + paper + sage, pine for buttons, gold as the one accent. Not bencium's colours.
+- 3 pages instead of one long scroll, so each page holds few elements per view. Case study URLs unchanged for SEO.
+- Principles and FAQ cut from home (Ray, 2026-09-04); both live on about.html.
+- No client screenshots (Ray, 2026-09-04): CSS-drawn schematics with synthetic data stand in for product imagery.
+- Monospace is reserved for schematic and preview data. Everything else is Bricolage.
+- Calendly / Vercel scripts stay without SRI (auto-updating third-party, pre-existing).

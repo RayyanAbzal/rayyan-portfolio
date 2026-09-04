@@ -1,4 +1,4 @@
-/* Site utilities: booking, FAQ accordion, sticky mobile CTA.
+/* Site utilities: booking, sticky mobile CTA.
    Loaded with defer on every page. */
 (function () {
   "use strict";
@@ -15,14 +15,6 @@
     }
     return true;
   };
-
-  /* FAQ accordion (moved from inline script in index.html) */
-  document.querySelectorAll(".faq-q").forEach(function (btn) {
-    btn.addEventListener("click", function () {
-      var open = btn.parentElement.classList.toggle("open");
-      btn.setAttribute("aria-expanded", open ? "true" : "false");
-    });
-  });
 
   /* Sticky mobile CTA: shows after the element in data-show-after enters
      view once, hides while the element in data-hide-at is in view. */

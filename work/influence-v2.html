@@ -17,8 +17,8 @@
 <meta name="twitter:description" content="A direct conversation dashboard built inside the existing Influence CRM, giving the team full visibility into live partner performance." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" /></noscript>
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&display=swap" /></noscript>
 <link rel="preconnect" href="https://assets.calendly.com" crossorigin />
 <link rel="preload" href="https://assets.calendly.com/assets/external/widget.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
 <noscript><link rel="stylesheet" href="https://assets.calendly.com/assets/external/widget.css" /></noscript>
@@ -32,44 +32,35 @@
 <link rel="stylesheet" href="../styles.css" />
 <link rel="stylesheet" href="../styles-case.css" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://rayyanabzal.com/"},{"@type":"ListItem","position":2,"name":"Work","item":"https://rayyanabzal.com/#work"},{"@type":"ListItem","position":3,"name":"Influence v2"}]}
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://rayyanabzal.com/"},{"@type":"ListItem","position":2,"name":"Projects","item":"https://rayyanabzal.com/work.html"},{"@type":"ListItem","position":3,"name":"Influence v2"}]}
 </script>
 </head>
 <body>
 
 <nav class="nav">
   <div class="wrap nav-inner">
-    <a href="../index.html" class="nav-name">
-      <strong>Rayyan Abzal</strong><span class="nav-sub">AI consulting</span>
-    </a>
-    <div class="nav-mid">
-      <a href="../index.html#about">about</a>
-      <a href="../index.html#principles">principles</a>
-      <a href="../index.html#services">services</a>
-      <a href="../index.html#work">work</a>
-      <a href="../index.html#process">process</a>
-      <a href="../index.html#faq">faq</a>
+    <a href="../index.html" class="nav-name"><span class="sig" aria-hidden="true"></span>Rayyan Abzal</a>
+    <div class="nav-links">
+      <a href="../index.html">Home</a>
+      <a href="../work.html" aria-current="page">Projects</a>
+      <a href="../about.html">About</a>
     </div>
     <div class="nav-right">
-      <span class="nav-status">
-        <span class="dot"></span>
-        accepting new clients
-      </span>
-      <a class="nav-cta" href="https://calendly.com/rayyanabzal/discovery" onclick="return bookCall('case_nav_influence_v2')">book</a>
+      <a class="btn" href="https://calendly.com/rayyanabzal/discovery" onclick="return bookCall('case_nav_influence_v2')">Book a call</a>
     </div>
+  </div>
+  <div class="mobile-nav">
+    <a href="../index.html">Home</a>
+    <a href="../work.html" aria-current="page">Projects</a>
+    <a href="../about.html">About</a>
   </div>
 </nav>
 
 <main>
 <section class="wrap case-hero" data-screen-label="Case · Influence v2">
-  <a href="../index.html" class="case-back">back to index</a>
+  <a href="../work.html" class="case-back">All projects</a>
 
-  <div class="section-marker reveal">
-    <span class="sm-tag">Case study 02</span>
-    <span class="sm-meta">platform build · repeat client</span>
-  </div>
-
-  <h1 class="case-title reveal">Influ<span class="hi">ence</span> v<span class="hi">2</span><span class="dot">.</span></h1>
+  <h1 class="case-title display reveal">Influ<span class="hi">ence</span> v<span class="hi">2</span><span class="dot">.</span></h1>
 
   <p class="case-summary reveal">
     A direct conversation dashboard built inside the existing Influence CRM, giving the team full visibility into <strong>live partner performance</strong>.
@@ -77,19 +68,15 @@
 
   <div class="case-meta reveal" data-stagger="60">
     <div class="case-meta-cell">
-      <div class="k">client</div>
       <div class="v">Influencer agency · Malta</div>
     </div>
     <div class="case-meta-cell">
-      <div class="k">role</div>
       <div class="v">Full-stack build</div>
     </div>
     <div class="case-meta-cell">
-      <div class="k">window</div>
-      <div class="v">~4 weeks</div>
+      <div class="v">About 4 weeks</div>
     </div>
     <div class="case-meta-cell">
-      <div class="k">status</div>
       <div class="v">Live · in daily use</div>
     </div>
   </div>
@@ -179,23 +166,9 @@
 
   </div>
 
-  <figure class="quote-card reveal">
-    <div class="quote-head">
-      <span>Influence v2</span>
-      <span class="source">client testimonial</span>
-    </div>
-    <div class="quote-grid">
-      <div class="quote-body">
-        We liked the V1 tool so much we brought Rayyan back to build a full performance dashboard on top of it. What he built blew us away. Everything we track as a team is now in one place, beautifully laid out, with the exact design language we asked for. The scope kept evolving and he handled every change without complaint, always asking the right questions before building. It saved us hours every week.
-        <p class="quote-tag">Genuinely one of the best decisions we made for the business.</p>
-      </div>
-      <div class="quote-attrib">
-        <div>
-          <div class="qa-name">Agency Director</div>
-          <div class="qa-role">Influence v2 · Malta</div>
-        </div>
-      </div>
-    </div>
+  <figure class="quote reveal">
+    <blockquote>We liked the V1 tool so much we brought Rayyan back to build a full performance dashboard on top of it. What he built blew us away. Everything we track as a team is now in one place, beautifully laid out, with the exact design language we asked for. The scope kept evolving and he handled every change without complaint, always asking the right questions before building. It saved us hours every week. <span class="mark">Genuinely one of the best decisions we made for the business.</span></blockquote>
+    <figcaption class="attrib"><span><strong>Agency Director</strong>, Influence v2, Malta</span></figcaption>
   </figure>
 
   <div class="case-cta reveal">
@@ -203,30 +176,32 @@
       <h3>Have a similar bottleneck?</h3>
       <p>Free 30-minute intro call. Written proposal with a fixed price within 48 hours.</p>
     </div>
-    <a class="btn btn-primary" href="https://calendly.com/rayyanabzal/discovery" onclick="return bookCall('case_influence_v2')">Book a free intro call</a>
+    <a class="btn" href="https://calendly.com/rayyanabzal/discovery" onclick="return bookCall('case_influence_v2')">Book a free intro call</a>
   </div>
 
   <nav class="case-nav reveal">
     <a href="influence.html" class="prev">
-      <span class="label">← prev case</span>
+      <span class="label">Previous</span>
       <span class="target">Influence v1</span>
     </a>
     <a href="feedhack.html" class="next">
-      <span class="label">next case →</span>
+      <span class="label">Next</span>
       <span class="target">FeedHack</span>
     </a>
   </nav>
 </section>
 <div class="mobile-cta" data-show-after=".case-body" data-hide-at=".case-cta">
-  <a class="btn btn-primary" href="https://calendly.com/rayyanabzal/discovery" onclick="return bookCall('sticky_mobile_case')">Book a free call</a>
+  <a class="btn" href="https://calendly.com/rayyanabzal/discovery" onclick="return bookCall('sticky_mobile_case')">Book a free call</a>
 </div>
 
 </main>
 
 <footer>
   <div class="wrap footer-inner">
-    <span><strong>Rayyan Abzal</strong> · AI consulting practice · © 2026 · <span class="build">built in Auckland, NZ</span></span>
+    <span><strong>Rayyan Abzal</strong> · AI consulting · Auckland, NZ · © 2026</span>
     <span class="links">
+      <a href="../work.html">Projects</a>
+      <a href="../about.html">About</a>
       <a href="mailto:rayyanabzal@gmail.com">Email</a>
       <a href="https://www.linkedin.com/in/rayyan-a-832a20213" target="_blank" rel="noopener">LinkedIn</a>
     </span>
