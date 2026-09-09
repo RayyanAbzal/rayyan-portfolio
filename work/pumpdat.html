@@ -72,30 +72,6 @@
   <p class="case-facts reveal"><span>Crypto startup</span><span>Full-stack + smart contracts</span><span>About 10 weeks</span><span>Shipped to mainnet</span></p>
 
   <div class="case-body">
-
-    <article class="case-block reveal">
-      <header class="case-block-head">
-        <span class="path">The problem</span>
-        <span class="num"><span class="key">01</span></span>
-      </header>
-      <div class="case-block-body">
-        <h2>Mainnet, <span class="hi">full stack</span>.</h2>
-        <p>A crypto startup wanted to launch a Pump.fun-style token launchpad on Ethereum mainnet but needed the entire system built: smart contracts, backend infrastructure, and a user-facing frontend. One team, three disciplines, one ship date.</p>
-      </div>
-    </article>
-
-    <article class="case-block reveal">
-      <header class="case-block-head">
-        <span class="path">What I built</span>
-        <span class="num"><span class="key">02</span></span>
-      </header>
-      <div class="case-block-body">
-        <h2>Contracts → API → app.</h2>
-        <p>The full stack. Upgradeable Solidity proxy contracts handle token creation and trading on-chain. An Express + Socket.IO backend serves real-time trade data over websockets.</p>
-        <p>A Next.js frontend connects wallets via WalletConnect, handles Twitter OAuth, and lets users launch and trade tokens. Token metadata is stored on IPFS via Pinata.</p>
-      </div>
-    </article>
-
     <article class="case-block reveal" aria-label="Interface preview">
       <header class="case-block-head">
         <span class="path">Interface preview</span>
@@ -149,6 +125,29 @@
           </div>
         </div>
         <div class="pr-footer">contract 0x7f4e...3a2b &middot; IPFS metadata verified &middot; representative data</div>
+      </div>
+    </article>
+
+    <article class="case-block reveal">
+      <header class="case-block-head">
+        <span class="path">The problem</span>
+        <span class="num"><span class="key">01</span></span>
+      </header>
+      <div class="case-block-body">
+        <h2>Mainnet, <span class="hi">full stack</span>.</h2>
+        <p>A crypto startup wanted to launch a Pump.fun-style token launchpad on Ethereum mainnet but needed the entire system built: smart contracts, backend infrastructure, and a user-facing frontend. One team, three disciplines, one ship date.</p>
+      </div>
+    </article>
+
+    <article class="case-block reveal">
+      <header class="case-block-head">
+        <span class="path">What I built</span>
+        <span class="num"><span class="key">02</span></span>
+      </header>
+      <div class="case-block-body">
+        <h2>Contracts → API → app.</h2>
+        <p>The full stack. Upgradeable Solidity proxy contracts handle token creation and trading on-chain. An Express + Socket.IO backend serves real-time trade data over websockets.</p>
+        <p>A Next.js frontend connects wallets via WalletConnect, handles Twitter OAuth, and lets users launch and trade tokens. Token metadata is stored on IPFS via Pinata.</p>
       </div>
     </article>
 
@@ -210,7 +209,7 @@
     </a>
   </nav>
 </section>
-<div class="mobile-cta" data-show-after=".case-body" data-hide-at=".case-cta">
+<div class="mobile-cta" data-show-after=".case-body > .case-block:nth-child(2)" data-hide-at=".case-cta">
   <a class="btn" href="https://calendly.com/rayyanabzal/discovery" onclick="return bookCall('sticky_mobile_case')">Book a free call</a>
 </div>
 

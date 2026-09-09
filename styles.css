@@ -242,7 +242,10 @@ section.tight { padding-top: clamp(24px, 3vw, 40px); }
 .card:hover { transform: translateY(-4px); box-shadow: 0 30px 50px -30px rgba(28,26,23,0.35); }
 .card-body { padding: 26px 28px 28px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
 .data-note { margin-top: 20px; font-size: 14px; color: var(--ink-3); }
-.card h3 { font-size: 24px; font-weight: 700; letter-spacing: -0.025em; line-height: 1.1; }
+.card h3 { font-size: 24px; font-weight: 700; letter-spacing: -0.025em; line-height: 1.1; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+a.card h3::after { content: "\2192"; font-weight: 500; color: var(--ink-3); opacity: 0; transform: translateX(-6px); transition: opacity 0.3s var(--ease), transform 0.4s var(--ease); }
+a.card:hover h3::after { opacity: 1; transform: none; }
+.card-outcome { margin-top: auto; padding-top: 6px; font-size: 15px; font-weight: 600; color: var(--pine-2); }
 .card p { color: var(--ink-2); font-size: 16px; line-height: 1.55; }
 .card-links { display: flex; gap: 22px; flex-wrap: wrap; margin-top: auto; padding-top: 10px; font-size: 15px; }
 
@@ -305,8 +308,10 @@ section.tight { padding-top: clamp(24px, 3vw, 40px); }
 .vis-node.is-done { color: var(--ink); border-color: var(--pine-2); }
 .vis-node.is-now { color: var(--paper); background: var(--pine); border-color: var(--pine); }
 .vis-runner { position: absolute; top: 50%; left: 8%; width: 7px; height: 7px; margin-top: -3.5px; border-radius: 50%; background: var(--gold-2); opacity: 0; }
-.card:hover .vis-runner { animation: vis-run 1.6s cubic-bezier(0.4, 0, 0.2, 1) 1 forwards; }
+:is(.in, .done) .vis-runner { animation: vis-run 1.6s cubic-bezier(0.4, 0, 0.2, 1) 1.1s 1 forwards; }
+.card:hover .vis-runner { animation: vis-run-again 1.6s cubic-bezier(0.4, 0, 0.2, 1) 1 forwards; }
 @keyframes vis-run { 0% { left: 8%; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { left: 92%; opacity: 0; } }
+@keyframes vis-run-again { 0% { left: 8%; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { left: 92%; opacity: 0; } }
 .vis-chart { position: relative; height: 124px; margin-top: -4px; }
 .vis-chart svg { width: 100%; height: 100%; overflow: visible; }
 .vis-area { fill: var(--pine-tint); }
@@ -336,8 +341,21 @@ section.tight { padding-top: clamp(24px, 3vw, 40px); }
   .vis-toast { right: 24px; bottom: 12px; }
 }
 
-/* personal builds (plain paper cards) */
-.card-plain .card-body { padding-top: 28px; }
+/* personal builds: smaller schematics, one stack line */
+.card-plain .card-visual { font-size: 10.5px; aspect-ratio: 16 / 11; }
+.card-stackline { font-size: 14.5px; color: var(--ink-3); margin-top: auto; padding-top: 6px; }
+.vis-kv { display: flex; flex-direction: column; gap: 7px; }
+.vis-kv-row { display: grid; grid-template-columns: 62px 1fr; gap: 10px; align-items: center; padding: 5px 0; border-bottom: 1px solid var(--line); }
+.vis-kv-row > span:first-child { color: var(--ink-3); text-transform: uppercase; font-size: 9.5px; letter-spacing: 0.06em; }
+.vis-kv-row b { display: inline-block; vertical-align: middle; width: 90px; height: 5px; border-radius: 3px; background: var(--line-2); margin-right: 8px; position: relative; overflow: hidden; }
+.vis-kv-row b::after { content: ""; position: absolute; inset: 0; width: var(--w); background: var(--pine-2); border-radius: 3px; }
+.vis-chips { display: flex; gap: 5px; flex-wrap: wrap; }
+.vis-chips i { font-style: normal; padding: 2px 7px; border-radius: 999px; background: var(--sage); color: var(--pine); }
+.vis-chat { display: flex; flex-direction: column; gap: 8px; padding-top: 4px; }
+.vis-msg { max-width: 86%; padding: 8px 11px; border-radius: 12px; background: var(--paper-2); line-height: 1.45; }
+.vis-msg.me { align-self: flex-end; background: var(--sage); color: var(--pine); border-bottom-right-radius: 4px; }
+.vis-msg .vis-tag { margin-right: 6px; }
+.vis-table-3 .vis-tr { grid-template-columns: 1.6fr 1fr 0.8fr; }
 
 /* ---------- offers ---------- */
 .offer {
@@ -517,7 +535,7 @@ footer { padding: 40px 0 48px; font-size: 14.5px; color: var(--ink-3); }
   .js .reveal, .js [data-stagger].reveal > *, .js .hero-panel h1, .js .hero-panel .lede, .js .hero-panel .hero-actions { opacity: 1; transform: none; }
   .btn, .card, .vis-frame, .vis-toast, .nav-links a::after { transition: none; }
   .vis-live i { animation: none; }
-  .card:hover .vis-runner { animation: none; }
+  .card:hover .vis-runner, :is(.in, .done) .vis-runner { animation: none; }
   .card:hover .vis-frame, .card:hover { transform: none; }
   @view-transition { navigation: none; }
 }

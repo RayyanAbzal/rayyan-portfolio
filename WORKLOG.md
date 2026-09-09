@@ -47,6 +47,10 @@ Own review of all four page types at 1440 and 390. Fixed: sticky mobile CTA peek
 
 Self-hosted Bricolage Grotesque (two WOFF2 files, preload per page, Google Fonts links removed on all 8 pages). og.png regenerated in the new world from docs/og-source.html. Structured data expanded: WebSite + ProfessionalService (offer catalog, service types, areas) + Person (knowsAbout) + WebPage on home; CollectionPage + ItemList on work; AboutPage + Person on about; Article on each case page with article:modified_time. Robots meta on every page. robots.txt names AI crawlers explicitly. llms.txt added. About prose opens with an entity sentence. Sitemap lastmod bumped. Testimonial names still blocked on client permission.
 
+## Round 3 (2026-09-09, Ray: "do everything else" except portrait and names)
+
+Project cards: "Read the case study" link replaced by one bold outcome line per card sourced from the case pages (weeks, live status, repeat client); title grows an arrow on hover. Case pages: the dark preview panel now sits first in the case body, mobile CTA waits for the second block. Personal builds got small drawn schematics (FIOS key/value response, ARIA chat, NZ Job Finder scored list) at 16/11 in the three-column grid. FeedHack runner dot fires once after the card grid reveals. Process steps moved from home to about.html (home is now six sections). CLAUDE.md, DESIGN.md, llms.txt synced.
+
 ## Key decisions
 
 - Bencium's world (calm ground, big rounded surfaces, one accent, grotesque sans, few elements per view) with Ray's own palette: warm stone + paper + sage, pine for buttons, gold as the one accent. Not bencium's colours.

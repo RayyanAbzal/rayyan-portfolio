@@ -13,9 +13,9 @@ Static HTML/CSS/JS portfolio site. No framework, no build step.
 ## Files
 
 ```
-index.html             home: hero panel, 4 client cards, offers, about teaser, process, one quote, CTA
-work.html              projects: 4 client cards + 3 personal builds (text only)
-about.html             about: prose with principles, side cards, 3 testimonials, FAQ (native details)
+index.html             home: hero panel, 4 client cards, offers, about teaser, one quote, CTA
+work.html              projects: 4 client cards + 3 personal builds (small schematics)
+about.html             about: prose with principles, side cards, 4 process steps, 3 testimonials, FAQ (native details)
 404.html               branded not-found page (Vercel serves it automatically)
 styles.css             shared stylesheet (all pages)
 styles-case.css        case study chrome (work/* pages)

@@ -241,6 +241,7 @@ A warm neutral ground with two greens (a dark pine for action, a soft sage for t
 - **Title** (700, 24px, line-height 1.1, -0.025em): card and offer headings, prose subheads on About. Steps use 20px at the same weight; case nav targets use 21px.
 - **Lede** (400, `clamp(18px, 1.6vw, 21px)`, line-height 1.5, ink-soft, max 58ch): the paragraph under every display or headline. The case summary is the larger cousin at `clamp(19px, 2vw, 25px)` and 52ch.
 - **Body** (400, 17px, line-height 1.55): the base size. About prose runs `clamp(17px, 1.35vw, 19px)` at 1.6 and 62ch; card and offer copy drops to 16px; FAQ answers 16.5px at 65ch.
+- **Outcome** (600, 15px, pine-deep): the one-line result at the bottom of a project card, real numbers from the case study. The card title grows a small arrow on hover; there is no "read more" link.
 - **Value** (700, 17px, -0.015em): the bold opening line of a side card. The case facts line uses 600 at 16px with middle-dot separators. This is the only "label" the chrome has: a bold value, then a plain sentence beneath it.
 - **Note** (400, 14px, ink-muted): data disclosures, stat labels, footer, and the small labels above case nav targets (13.5px, 500).
 - **Quote** (500, `clamp(19px, 1.8vw, 24px)`, line-height 1.4, -0.015em): testimonial body, with one phrase in a gold mark at 600. In a three-up row the quote drops to 17.5px.
@@ -266,7 +267,7 @@ Grids are simple: two columns for project cards, three for offers and testimonia
 
 The nav is a sticky 70px bar (62px on mobile) on a three-column grid: name left, three links centred, pine pill right. At 640px and below the centre links vanish and a row of paper pills (`.mobile-nav`) appears beneath the bar instead. A sticky mobile CTA, a full-width pine pill inset 16px from the viewport edges, slides up once the visitor has scrolled past a chosen section and hides while the closing CTA is in view. It is a direct child of `body`, positioned with `translate3d`, which is what keeps `position: fixed` stable on iOS Safari.
 
-Case pages follow the same column: back link, giant title, summary, one bold facts line (client, role, window, status separated by middle dots), then a stack of paper case blocks with a 20px gap. Each case block body is a 1fr / 1.4fr grid with the heading left and prose right, no row gap so consecutive paragraphs keep their 14px spacing, collapsing at 820px. The closing CTA and prev/next nav sit `clamp(48px, 7vw, 80px)` below.
+Case pages follow the same column: back link, giant title, summary, one bold facts line (client, role, window, status separated by middle dots), then a stack of paper case blocks with a 20px gap, the dark preview panel first so the page shows its picture before its prose. Each case block body is a 1fr / 1.4fr grid with the heading left and prose right, no row gap so consecutive paragraphs keep their 14px spacing, collapsing at 820px. The closing CTA and prev/next nav sit `clamp(48px, 7vw, 80px)` below.
 
 ## Elevation & Depth
 
@@ -338,7 +339,7 @@ How product gets shown without screenshots. A 16:10 stone-deep frame (4:3 at 480
 The one dark surface. An ink panel inside a case block, data face at 13px and 1.6 line height, paper text at 70% with gold for highlighted values and the app name, and small pill badges (green, amber, dim) for status. Column headers here are uppercase and tracked because that is what the product looked like. Scrolls horizontally on narrow screens rather than wrapping.
 
 ### Motion
-One fade-up per `.reveal`: 16px translate and opacity, 0.8s on the site ease `cubic-bezier(0.2, 0.8, 0.2, 1)`. A parent with `data-stagger="80"` (cards and steps use 80 to 90) cascades its direct children that many milliseconds apart. About 1.4s after starting, the element drops `.reveal`/`.in` and gains a permanent `.done`, so hover transforms keep working. The `.js` class gates all hiding; no-JS visitors, `prefers-reduced-motion` visitors, and any browser without IntersectionObserver get the complete static page, and a 1.5s failsafe reveals everything regardless. Page-to-page navigation uses a 220ms root view transition. No sweeps, scan lines, or decorative animation on panels.
+One fade-up per `.reveal`: 16px translate and opacity, 0.8s on the site ease `cubic-bezier(0.2, 0.8, 0.2, 1)`. A parent with `data-stagger="80"` (cards and steps use 80 to 90) cascades its direct children that many milliseconds apart. About 1.4s after starting, the element drops `.reveal`/`.in` and gains a permanent `.done`, so hover transforms keep working. The `.js` class gates all hiding; no-JS visitors, `prefers-reduced-motion` visitors, and any browser without IntersectionObserver get the complete static page, and a 1.5s failsafe reveals everything regardless. Page-to-page navigation uses a 220ms root view transition. One idle moment exists: the FeedHack schematic runner dot crosses its pipeline once, 1.1s after the card grid reveals, and again on hover. No sweeps, scan lines, or decorative animation on panels.
 
 ## Do's and Don'ts
 

@@ -23,9 +23,9 @@ Location: Auckland, New Zealand (UTC+12). Clients in New Zealand, Europe, and th
 
 ## Pages
 
-- [Home](https://rayyanabzal.com/): services, process, one client quote.
+- [Home](https://rayyanabzal.com/): four client builds, services, one client quote.
 - [Projects](https://rayyanabzal.com/work.html): four client builds, all live, plus three personal builds.
-- [About](https://rayyanabzal.com/about.html): principles, testimonials, and answers to common questions.
+- [About](https://rayyanabzal.com/about.html): principles, the four-step process, testimonials, and answers to common questions.
 
 ## Client case studies
 
