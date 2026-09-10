@@ -7,7 +7,7 @@ Static HTML/CSS/JS portfolio site. No framework, no build step.
 - Plain HTML + CSS + JS, no bundler, no Node
 - Hosting: Vercel (static)
 - Analytics: Vercel Analytics (`/_vercel/insights/script.js`)
-- Font: Bricolage Grotesque, self-hosted variable WOFF2 in `fonts/` (opsz 12-96, weights 400-700), preloaded per page
+- Font: Inter Tight, self-hosted variable WOFF2 in `fonts/` (weights 400-700), preloaded per page. No monospace anywhere.
 - Booking: Calendly popup widget
 
 ## Files
@@ -28,7 +28,7 @@ work/pumpdat.html      pumpdat token launchpad case study
 sitemap.xml            7 URLs, update lastmod on content changes
 robots.txt             allow all incl. named AI crawlers, blocks /logo-exports/, points at sitemap
 llms.txt               plain-text site summary for answer engines; update when offers, projects, or FAQ change
-fonts/                 Bricolage Grotesque latin + latin-ext WOFF2 (OFL)
+fonts/                 Inter Tight latin + latin-ext WOFF2 (OFL)
 PRODUCT.md             impeccable product truth (never deployed)
 DESIGN.md              impeccable design system record (never deployed)
 .impeccable/           surface briefs (committed), review captures (gitignored)
@@ -56,21 +56,22 @@ Full record: DESIGN.md. Direction contract: `.impeccable/surfaces/index-html.md`
 
 | Token   | Value     | Use                              |
 |---------|-----------|----------------------------------|
-| bg      | `#ece8e1` | page ground (warm stone)         |
-| paper   | `#faf8f4` | cards, blocks, nav               |
-| sage    | `#dfe8dc` | hero panel only                  |
-| ink     | `#1c1a17` | text, dark preview panel         |
+| bg      | `#f5f3ee` | page ground (near-white stone)   |
+| paper   | `#ffffff` | cards, blocks, nav; 1px `--line` |
+| well    | `#e6ebe3` | bed behind card schematics       |
+| sage    | `#dde7da` | hero panel only                  |
+| ink     | `#17150f` | text, dark preview panel         |
 | pine    | `#1f3d2b` | buttons, CTA panels              |
 | gold    | `#f3c94a` | `.mark` highlight, links, CTA    |
 | radius  | `24px`    | every rounded surface            |
 
-Aesthetic: a quiet room with one loud sentence. Soft warm ground, big rounded paper surfaces, few elements per view, gold as the only accent. Bencium-style calm, own colours.
+Aesthetic: a quiet room with one loud sentence. Near-white warm ground, big rounded white surfaces on a hairline, few elements per view, gold as the only accent. Bencium-style calm, own colours.
 
-Product visuals: no client screenshots. Cards use CSS-drawn schematics (`.card-visual` > `.vis-frame`) with synthetic data; case pages use the dark `.case-preview` panel. Monospace (`--data`) is allowed inside those two surfaces only.
+Product visuals: no client screenshots. Cards use CSS-drawn schematics (`.card-visual` > `.vis-frame`) with synthetic data; case pages use the dark `.case-preview` panel. `--data` resolves to the body face; schematic and preview data use tabular numerals, never monospace.
 
 ## Rules
 
-- Plain-language copy; no monospace outside schematic or preview data; no code syntax in visible copy
+- Plain-language copy; no monospace anywhere; no code syntax in visible copy
 - Copy is outcome-first, lead with result, not process; no aphoristic one-liners
 - No frameworks or build tooling unless explicitly requested
 - No em dashes in copy

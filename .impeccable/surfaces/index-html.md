@@ -19,7 +19,7 @@ Unresolved: client names on testimonials (pending approval); Rayyan portrait (no
 
 THESIS: A quiet room with one loud sentence. Refuses the "terminal dashboard" arrangement (mono labels, grid texture, status pills, at-a-glance tables) the old site used and most AI-consultant sites default to.
 
-OWN-WORLD: Warm stone ground `#ece8e1`, paper-white surfaces `#faf8f4` at 24px radius, pine-dark `#1f3d2b` for every pill button and one soft sage field `#dfe8dc` for the hero panel, kowhai gold `#f3c94a` as the single marker highlight. Bricolage Grotesque everywhere, tight tracking on display, no monospace outside synthetic data inside schematics.
+OWN-WORLD: Near-white warm ground `#f5f3ee`, white surfaces `#ffffff` on a 1px hairline at 24px radius, a sage-grey well `#e6ebe3` behind each card schematic, pine-dark `#1f3d2b` for every pill button and one soft sage field `#dfe8dc` for the hero panel, kowhai gold `#f3c94a` as the single marker highlight. Inter Tight everywhere, tight tracking on display, no monospace at all; schematic data is the same face with tabular numerals.
 
 STORY: "He builds the thing himself, it ships, here is what it did" then book.
 

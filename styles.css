@@ -1,38 +1,39 @@
 /* ============================================================
    rayyanabzal.com - quiet room, one loud sentence
-   Warm stone ground, paper surfaces, pine buttons, kowhai marker.
+   Near-white warm ground, white cards on a hairline, pine buttons, kowhai marker.
    ============================================================ */
 
-/* Bricolage Grotesque, self-hosted (OFL). Variable: opsz 12..96, wght 400..700. */
+/* Inter Tight, self-hosted (OFL). Variable wght 400..700. */
 @font-face {
-  font-family: "Bricolage Grotesque";
+  font-family: "Inter Tight";
   font-style: normal;
   font-weight: 400 700;
   font-display: swap;
-  src: url("fonts/bricolage-grotesque-latin.woff2") format("woff2");
+  src: url("fonts/inter-tight-latin.woff2") format("woff2");
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 @font-face {
-  font-family: "Bricolage Grotesque";
+  font-family: "Inter Tight";
   font-style: normal;
   font-weight: 400 700;
   font-display: swap;
-  src: url("fonts/bricolage-grotesque-latin-ext.woff2") format("woff2");
+  src: url("fonts/inter-tight-latin-ext.woff2") format("woff2");
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
 :root {
-  --bg: #ece8e1;
-  --bg-2: #e4dfd6;
-  --paper: #faf8f4;
-  --paper-2: #f3f0ea;
-  --sage: #dfe8dc;
-  --sage-2: #cfdccb;
-  --ink: #1c1a17;
-  --ink-2: #4b4741;
-  --ink-3: #5f5a52;
-  --line: rgba(28, 26, 23, 0.09);
-  --line-2: rgba(28, 26, 23, 0.16);
+  --bg: #f5f3ee;
+  --bg-2: #ebe8e1;
+  --paper: #ffffff;
+  --paper-2: #f6f4ef;
+  --well: #e6ebe3;
+  --sage: #dde7da;
+  --sage-2: #c9d8c5;
+  --ink: #17150f;
+  --ink-2: #45413a;
+  --ink-3: #5c574f;
+  --line: rgba(23, 21, 15, 0.1);
+  --line-2: rgba(23, 21, 15, 0.18);
   --pine: #1f3d2b;
   --pine-2: #2f5e3e;
   --pine-tint: rgba(47, 94, 62, 0.12);
@@ -40,8 +41,8 @@
   --gold-2: #e0b12e;
   --warn: #c17a2a;
 
-  --font: "Bricolage Grotesque", "Helvetica Neue", Arial, system-ui, sans-serif;
-  --data: "SF Mono", "Menlo", ui-monospace, monospace;
+  --font: "Inter Tight", "Helvetica Neue", Arial, system-ui, sans-serif;
+  --data: var(--font);
 
   --max: 1200px;
   --pad: clamp(20px, 3vw, 24px);
@@ -60,7 +61,7 @@ body {
   color: var(--ink);
   background: var(--bg);
   -webkit-font-smoothing: antialiased;
-  font-optical-sizing: auto;
+  font-feature-settings: "cv11", "ss03";
 }
 h1, h2, h3, h4, p, figure { margin: 0; }
 a { color: inherit; text-decoration: none; }
@@ -78,11 +79,11 @@ html { scrollbar-color: var(--sage-2) var(--bg); }
 /* ---------- type ---------- */
 .display {
   font-weight: 700;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.035em;
   line-height: 0.96;
   text-wrap: balance;
 }
-h2.display { font-size: clamp(34px, 4.6vw, 56px); letter-spacing: -0.035em; line-height: 1.02; }
+h2.display { font-size: clamp(34px, 4.6vw, 56px); letter-spacing: -0.03em; line-height: 1.02; }
 .lede {
   font-size: clamp(18px, 1.6vw, 21px);
   line-height: 1.5;
@@ -121,7 +122,7 @@ h2.display { font-size: clamp(34px, 4.6vw, 56px); letter-spacing: -0.035em; line
 .btn:active { transform: translateY(0); transition-duration: 80ms; }
 .btn svg { width: 16px; height: 16px; }
 .btn-light { background: var(--paper); color: var(--ink); border: 1px solid var(--line-2); box-shadow: none; }
-.btn-light:hover { background: #fff; box-shadow: 0 14px 28px -18px rgba(28,26,23,0.35); }
+.btn-light:hover { background: var(--paper-2); box-shadow: 0 14px 28px -18px rgba(28,26,23,0.35); }
 .btn-gold { background: var(--gold); color: var(--ink); }
 .btn-gold:hover { background: var(--gold-2); box-shadow: 0 14px 28px -16px rgba(224,177,46,0.6); }
 
@@ -141,7 +142,7 @@ h2.display { font-size: clamp(34px, 4.6vw, 56px); letter-spacing: -0.035em; line
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(236, 232, 225, 0.82);
+  background: rgba(245, 243, 238, 0.84);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--line);
@@ -184,7 +185,7 @@ h2.display { font-size: clamp(34px, 4.6vw, 56px); letter-spacing: -0.035em; line
     font-size: 14px;
     font-weight: 500;
   }
-  .mobile-nav a { padding: 6px 12px; border-radius: 999px; background: var(--paper); color: var(--ink-2); }
+  .mobile-nav a { padding: 6px 12px; border-radius: 999px; background: var(--paper); border: 1px solid var(--line); color: var(--ink-2); }
   .mobile-nav a[aria-current="page"] { background: var(--ink); color: var(--paper); }
 }
 
@@ -235,11 +236,13 @@ section.tight { padding-top: clamp(24px, 3vw, 40px); }
   display: flex;
   flex-direction: column;
   background: var(--paper);
+  border: 1px solid var(--line);
   border-radius: var(--r);
   overflow: hidden;
-  transition: transform 0.45s var(--ease), box-shadow 0.45s var(--ease);
+  box-shadow: 0 1px 2px rgba(23,21,15,0.04), 0 8px 24px -20px rgba(23,21,15,0.18);
+  transition: transform 0.45s var(--ease), box-shadow 0.45s var(--ease), border-color 0.3s;
 }
-.card:hover { transform: translateY(-4px); box-shadow: 0 30px 50px -30px rgba(28,26,23,0.35); }
+.card:hover { transform: translateY(-4px); border-color: var(--line-2); box-shadow: 0 1px 2px rgba(23,21,15,0.04), 0 30px 50px -28px rgba(23,21,15,0.32); }
 .card-body { padding: 26px 28px 28px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
 .data-note { margin-top: 20px; font-size: 14px; color: var(--ink-3); }
 .card h3 { font-size: 24px; font-weight: 700; letter-spacing: -0.025em; line-height: 1.1; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
@@ -252,11 +255,13 @@ a.card:hover h3::after { opacity: 1; transform: none; }
 .card-visual {
   position: relative;
   aspect-ratio: 16 / 9;
-  background: var(--bg-2);
+  background: var(--well);
+  border-bottom: 1px solid var(--line);
   padding: 26px 26px 0;
   overflow: hidden;
   font-family: var(--data);
-  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  font-size: 12.5px;
   line-height: 1.3;
   color: var(--ink-2);
   user-select: none;
@@ -264,8 +269,10 @@ a.card:hover h3::after { opacity: 1; transform: none; }
 .vis-frame {
   height: 100%;
   background: var(--paper);
+  border: 1px solid var(--line);
+  border-bottom: 0;
   border-radius: 12px 12px 0 0;
-  box-shadow: 0 20px 44px -22px rgba(28,26,23,0.45);
+  box-shadow: 0 20px 44px -20px rgba(23,21,15,0.35);
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -287,7 +294,7 @@ a.card:hover h3::after { opacity: 1; transform: none; }
   background: var(--ink);
   color: var(--paper);
   border-radius: 8px;
-  font-size: 11px;
+  font-size: 11.5px;
   box-shadow: 0 10px 22px -8px rgba(28,26,23,0.5);
   transform: translateY(8px);
   opacity: 0;
@@ -324,7 +331,7 @@ a.card:hover h3::after { opacity: 1; transform: none; }
 .vis-row.is-hit { background: var(--pine-tint); }
 .vis-name { color: var(--ink); }
 .vis-prog { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 8px; }
-.vis-prog b { display: block; height: 7px; border-radius: 4px; background: linear-gradient(90deg, var(--pine-2) var(--w), var(--bg-2) var(--w)); }
+.vis-prog b { display: block; height: 7px; border-radius: 4px; background: linear-gradient(90deg, var(--pine-2) var(--w), var(--well) var(--w)); }
 .vis-prog em { font-style: normal; font-size: 10px; color: var(--ink-3); }
 .vis-calc { text-align: right; color: var(--ink-3); }
 .vis-calc b { font-weight: 600; color: var(--ink); }
@@ -342,7 +349,7 @@ a.card:hover h3::after { opacity: 1; transform: none; }
 }
 
 /* personal builds: smaller schematics, one stack line */
-.card-plain .card-visual { font-size: 10.5px; aspect-ratio: 16 / 11; }
+.card-plain .card-visual { font-size: 11px; aspect-ratio: 16 / 11; }
 .card-stackline { font-size: 14.5px; color: var(--ink-3); margin-top: auto; padding-top: 6px; }
 .vis-kv { display: flex; flex-direction: column; gap: 7px; }
 .vis-kv-row { display: grid; grid-template-columns: 62px 1fr; gap: 10px; align-items: center; padding: 5px 0; border-bottom: 1px solid var(--line); }
@@ -360,6 +367,7 @@ a.card:hover h3::after { opacity: 1; transform: none; }
 /* ---------- offers ---------- */
 .offer {
   background: var(--paper);
+  border: 1px solid var(--line);
   border-radius: var(--r);
   padding: 30px 30px 28px;
   display: flex;
@@ -373,6 +381,7 @@ a.card:hover h3::after { opacity: 1; transform: none; }
 /* ---------- process ---------- */
 .steps {
   background: var(--paper);
+  border: 1px solid var(--line);
   border-radius: var(--r);
   padding: clamp(24px, 3vw, 40px);
   display: grid;
@@ -384,7 +393,7 @@ a.card:hover h3::after { opacity: 1; transform: none; }
 .step .n {
   font-size: 44px;
   font-weight: 700;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.04em;
   line-height: 1;
   color: var(--sage-2);
   margin-bottom: 14px;
@@ -412,13 +421,14 @@ a.card:hover h3::after { opacity: 1; transform: none; }
 .prose p.big { font-size: clamp(21px, 2vw, 27px); line-height: 1.35; color: var(--ink); font-weight: 500; letter-spacing: -0.015em; }
 .prose h3 { font-size: 24px; font-weight: 700; letter-spacing: -0.025em; margin: 44px 0 14px; }
 .side { display: flex; flex-direction: column; gap: 14px; }
-.side-card { background: var(--paper); border-radius: 20px; padding: 22px 24px; }
+.side-card { background: var(--paper); border: 1px solid var(--line); border-radius: 20px; padding: 22px 24px; }
 .side-card .v { font-weight: 700; font-size: 17px; letter-spacing: -0.015em; }
 .side-card p { font-size: 15px; color: var(--ink-2); margin-top: 6px; }
 
 /* ---------- testimonials ---------- */
 .quote {
   background: var(--paper);
+  border: 1px solid var(--line);
   border-radius: var(--r);
   padding: clamp(28px, 4vw, 44px);
   display: flex;
@@ -434,7 +444,7 @@ a.card:hover h3::after { opacity: 1; transform: none; }
 .quote-row .quote blockquote { font-size: 17.5px; }
 
 /* ---------- FAQ ---------- */
-.faq { background: var(--paper); border-radius: var(--r); padding: 8px clamp(20px, 3vw, 36px); }
+.faq { background: var(--paper); border: 1px solid var(--line); border-radius: var(--r); padding: 8px clamp(20px, 3vw, 36px); }
 .faq details { border-bottom: 1px solid var(--line); }
 .faq details:last-child { border-bottom: 0; }
 .faq summary {

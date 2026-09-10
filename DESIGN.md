@@ -1,18 +1,19 @@
 ---
 name: rayyanabzal.com
-description: A quiet room with one loud sentence. Warm stone ground, paper surfaces, pine buttons, one gold marker.
+description: A quiet room with one loud sentence. Near-white warm ground, white cards on a hairline, pine buttons, one gold marker.
 colors:
-  stone: "#ece8e1"
-  stone-deep: "#e4dfd6"
-  paper: "#faf8f4"
-  paper-deep: "#f3f0ea"
-  sage: "#dfe8dc"
-  sage-deep: "#cfdccb"
-  ink: "#1c1a17"
-  ink-soft: "#4b4741"
-  ink-muted: "#5f5a52"
-  line: "rgba(28, 26, 23, 0.09)"
-  line-strong: "rgba(28, 26, 23, 0.16)"
+  stone: "#f5f3ee"
+  stone-deep: "#ebe8e1"
+  paper: "#ffffff"
+  paper-deep: "#f6f4ef"
+  well: "#e6ebe3"
+  sage: "#dde7da"
+  sage-deep: "#c9d8c5"
+  ink: "#17150f"
+  ink-soft: "#45413a"
+  ink-muted: "#5c574f"
+  line: "rgba(23, 21, 15, 0.1)"
+  line-strong: "rgba(23, 21, 15, 0.18)"
   pine: "#1f3d2b"
   pine-bright: "#2f5e3e"
   pine-tint: "rgba(47, 94, 62, 0.12)"
@@ -20,61 +21,61 @@ colors:
   gold-deep: "#e0b12e"
 typography:
   display:
-    fontFamily: "Bricolage Grotesque, Helvetica Neue, Arial, system-ui, sans-serif"
+    fontFamily: "Inter Tight, Helvetica Neue, Arial, system-ui, sans-serif"
     fontSize: "clamp(44px, 7.2vw, 96px)"
     fontWeight: 700
     lineHeight: 0.96
-    letterSpacing: "-0.04em"
+    letterSpacing: "-0.035em"
   display-case:
-    fontFamily: "Bricolage Grotesque, Helvetica Neue, Arial, system-ui, sans-serif"
+    fontFamily: "Inter Tight, Helvetica Neue, Arial, system-ui, sans-serif"
     fontSize: "clamp(48px, 9vw, 124px)"
     fontWeight: 700
     lineHeight: 0.96
-    letterSpacing: "-0.04em"
+    letterSpacing: "-0.035em"
   headline:
-    fontFamily: "Bricolage Grotesque, Helvetica Neue, Arial, system-ui, sans-serif"
+    fontFamily: "Inter Tight, Helvetica Neue, Arial, system-ui, sans-serif"
     fontSize: "clamp(34px, 4.6vw, 56px)"
     fontWeight: 700
     lineHeight: 1.02
     letterSpacing: "-0.035em"
   headline-block:
-    fontFamily: "Bricolage Grotesque, Helvetica Neue, Arial, system-ui, sans-serif"
+    fontFamily: "Inter Tight, Helvetica Neue, Arial, system-ui, sans-serif"
     fontSize: "clamp(26px, 3.2vw, 38px)"
     fontWeight: 700
     lineHeight: 1.05
     letterSpacing: "-0.03em"
   title:
-    fontFamily: "Bricolage Grotesque, Helvetica Neue, Arial, system-ui, sans-serif"
+    fontFamily: "Inter Tight, Helvetica Neue, Arial, system-ui, sans-serif"
     fontSize: "24px"
     fontWeight: 700
     lineHeight: 1.1
     letterSpacing: "-0.025em"
   lede:
-    fontFamily: "Bricolage Grotesque, Helvetica Neue, Arial, system-ui, sans-serif"
+    fontFamily: "Inter Tight, Helvetica Neue, Arial, system-ui, sans-serif"
     fontSize: "clamp(18px, 1.6vw, 21px)"
     fontWeight: 400
     lineHeight: 1.5
   body:
-    fontFamily: "Bricolage Grotesque, Helvetica Neue, Arial, system-ui, sans-serif"
+    fontFamily: "Inter Tight, Helvetica Neue, Arial, system-ui, sans-serif"
     fontSize: "17px"
     fontWeight: 400
     lineHeight: 1.55
   body-small:
-    fontFamily: "Bricolage Grotesque, Helvetica Neue, Arial, system-ui, sans-serif"
+    fontFamily: "Inter Tight, Helvetica Neue, Arial, system-ui, sans-serif"
     fontSize: "16px"
     fontWeight: 400
     lineHeight: 1.55
   value:
-    fontFamily: "Bricolage Grotesque, Helvetica Neue, Arial, system-ui, sans-serif"
+    fontFamily: "Inter Tight, Helvetica Neue, Arial, system-ui, sans-serif"
     fontSize: "17px"
     fontWeight: 700
     letterSpacing: "-0.015em"
   note:
-    fontFamily: "Bricolage Grotesque, Helvetica Neue, Arial, system-ui, sans-serif"
+    fontFamily: "Inter Tight, Helvetica Neue, Arial, system-ui, sans-serif"
     fontSize: "14px"
     fontWeight: 400
   data:
-    fontFamily: "SF Mono, Menlo, ui-monospace, monospace"
+    fontFamily: "Inter Tight, Helvetica Neue, Arial, system-ui, sans-serif"
     fontSize: "12px"
     fontWeight: 400
     lineHeight: 1.3
@@ -174,19 +175,19 @@ components:
 
 **Creative North Star: "A Quiet Room with One Loud Sentence"**
 
-The site is a single-person AI engineering practice in Auckland, and the visual system is built so that one headline does the talking and everything else stays out of its way. The page ground is warm stone, every content block is a large rounded paper surface set on that ground, and the only colour that ever raises its voice is a kowhai gold marker drawn behind a few words. Buttons are pine-dark pills. Type is one family, Bricolage Grotesque, set tight and heavy for headlines and plain for everything else. There are few elements per view, and each view is meant to be read in one glance before the eye moves down.
+The site is a single-person AI engineering practice in Auckland, and the visual system is built so that one headline does the talking and everything else stays out of its way. The page ground is a near-white warm stone, every content block is a large rounded white surface on a hairline border set on that ground, and the only colour that ever raises its voice is a kowhai gold marker drawn behind a few words. Buttons are pine-dark pills. Type is one family, Inter Tight, set tight and heavy for headlines and plain for everything else, and the same face carries the synthetic product data with tabular numerals. There are few elements per view, and each view is meant to be read in one glance before the eye moves down.
 
-This world deliberately refuses the "terminal dashboard" arrangement the old site used: no monospace labels in the chrome, no grid texture, no status pills, no at-a-glance tables. Where product needs to be shown, it is drawn as a CSS schematic with representative data, disclosed on the page as such, never as a client screenshot. The one dark surface on the whole site is the case-study preview panel, and it exists only to hold that synthetic product data.
+This world deliberately refuses the "terminal dashboard" arrangement the old site used: no monospace anywhere, no grid texture, no status pills, no at-a-glance tables. Where product needs to be shown, it is drawn as a CSS schematic with representative data, disclosed on the page as such, never as a client screenshot. The one dark surface on the whole site is the case-study preview panel, and it exists only to hold that synthetic product data.
 
 The structure follows the calm, image-led rhythm of the pinned reference (bencium.io) in Rayyan's own materials. The hero panel is the memorable moment: one giant tight headline on a soft sage field with a single pine pill, then the four project schematics peeking under the fold.
 
 **Key Characteristics:**
-- Warm stone ground with paper surfaces at 24px radius; the hero panel is the only sage field
+- Near-white warm ground with white surfaces at 24px radius on a 1px hairline; the hero panel is the only sage field, the schematic well is a sage-grey step below it
 - Pine pill buttons everywhere, gold pill only on a pine field
 - Gold appears as a marker highlight behind words, a link underline, and a soft radial glow; never as a fill for a surface
-- One typeface at four weights; display type at -0.04em, body at 17px
-- Flat at rest, lift on hover; shadows exist only as a response to interaction
-- Monospace lives only inside drawn product schematics and the case preview panel
+- One typeface at four weights; display type at -0.035em, body at 17px
+- A hairline and a faint 1px shadow at rest, lift on hover
+- No monospace; schematic and preview data is the body face at 12.5px with tabular numerals
 - No eyebrows, kickers, or uppercase tracked labels in the UI chrome
 
 ## Colors
@@ -203,18 +204,19 @@ A warm neutral ground with two greens (a dark pine for action, a soft sage for t
 - **Gold Deep** (`gold-deep`): gold button hover, the focus ring, and the moving runner dot in the flow schematic.
 
 ### Tertiary
+- **Well** (`well`): the sage-grey bed behind every card schematic, one clear step darker than the ground so the card frame reads as a window, not as page.
 - **Sage** (`sage`): the hero panel field, the only sage surface on the site. Also the scrollbar thumb through `sage-deep`.
 - **Sage Deep** (`sage-deep`): the large step numbers in the process block, where a big numeral needs to sit back from the text.
 
 ### Neutral
-- **Stone** (`stone`): the page ground on every page and the nav background at 82% with a 14px blur. Also the chip fill when a chip sits on paper.
-- **Stone Deep** (`stone-deep`): the frame around a card schematic, so the paper device inside reads as lifted off a darker ground.
-- **Paper** (`paper`): every content surface (cards, offers, steps, quotes, FAQ, side cards, case blocks, case nav) and the text colour on pine.
+- **Stone** (`stone`): the near-white page ground on every page and the nav background at 84% with a 14px blur.
+- **Stone Deep** (`stone-deep`): chip fill on the case stack list and the mobile nav pill border ground.
+- **Paper** (`paper`): pure white, every content surface (cards, offers, steps, quotes, FAQ, side cards, case blocks, case nav) and the text colour on pine.
 - **Paper Deep** (`paper-deep`): flow nodes inside schematics.
 - **Ink** (`ink`): headline and body text, the current mobile nav pill, the schematic toast, and the case preview panel ground.
 - **Ink Soft** (`ink-soft`): ledes, card copy, prose paragraphs, nav links, quote attribution.
-- **Ink Muted** (`ink-muted`): the quietest legible text (data notes, footer, side labels, case nav labels, stat labels). Set to 5f5a52 so it clears 4.5:1 on both stone and paper. It is only ever used on those two surfaces.
-- **Line** (`line`) and **Line Strong** (`line-strong`): hairline dividers (FAQ rows, stat separators, nav bottom border) and the border on `.btn-light` and schematic nodes.
+- **Ink Muted** (`ink-muted`): the quietest legible text (data notes, footer, side labels, case nav labels, stat labels). Set to 5c574f so it clears 4.5:1 on both stone and white. It is only ever used on those two surfaces.
+- **Line** (`line`) and **Line Strong** (`line-strong`): hairline dividers (FAQ rows, stat separators, nav bottom border), the 1px border on every white surface and on the schematic frame, and the border on `.btn-light` and schematic nodes.
 
 ### Named Rules
 **The One Loud Colour Rule.** Gold is a marker, an underline, and a glow. It is never the background of a card, panel, or section. The only gold-filled shape is a pill button, and that pill exists only on a pine field.
@@ -227,15 +229,15 @@ A warm neutral ground with two greens (a dark pine for action, a soft sage for t
 
 ## Typography
 
-**Display Font:** Bricolage Grotesque (with Helvetica Neue, Arial, system-ui)
-**Body Font:** Bricolage Grotesque (same family)
-**Data Font:** SF Mono, Menlo, ui-monospace (schematics and case preview only)
+**Display Font:** Inter Tight (with Helvetica Neue, Arial, system-ui)
+**Body Font:** Inter Tight (same family)
+**Data Font:** Inter Tight with tabular numerals (schematics and case preview)
 
-**Character:** One grotesque with an optical size axis doing every job. Headlines are heavy and pulled tight so they read as one object; body copy is the same face at 400, sized generously at 17px so the site never feels small. The family is self-hosted from `fonts/` as two variable WOFF2 files (latin, latin-ext; OFL) at weights 400 to 700 with `font-display: swap`, the latin file preloaded on every page.
+**Character:** One neutral, tightly spaced grotesque doing every job, with `cv11` and `ss03` on for the single-storey a and the open shapes. Headlines are heavy and pulled tight so they read as one object; body copy is the same face at 400, sized generously at 17px so the site never feels small. The family is self-hosted from `fonts/` as two variable WOFF2 files (latin, latin-ext; OFL) at weights 400 to 700, no optical size axis, with `font-display: swap`, the latin file preloaded on every page.
 
 ### Hierarchy
-- **Display** (700, `clamp(44px, 7.2vw, 96px)`, line-height 0.96, -0.04em): the hero headline on Home, capped at 13ch so it breaks into two lines. Balanced wrapping.
-- **Display, case** (700, `clamp(48px, 9vw, 124px)`, line-height 0.96, -0.04em): the case-study title, capped at 12ch, one word coloured pine-bright.
+- **Display** (700, `clamp(44px, 7.2vw, 96px)`, line-height 0.96, -0.035em): the hero headline on Home, capped at 13ch so it breaks into two lines. Balanced wrapping.
+- **Display, case** (700, `clamp(48px, 9vw, 124px)`, line-height 0.96, -0.035em): the case-study title, capped at 12ch, one word coloured pine-bright.
 - **Headline** (700, `clamp(34px, 4.6vw, 56px)`, line-height 1.02, -0.035em): section headings on every page and the CTA panel heading. Usually four to six words, sometimes with one gold-marked phrase.
 - **Headline, block** (700, `clamp(26px, 3.2vw, 38px)`, line-height 1.05, -0.03em): case-study block headings in the left column of a case block.
 - **Title** (700, 24px, line-height 1.1, -0.025em): card and offer headings, prose subheads on About. Steps use 20px at the same weight; case nav targets use 21px.
@@ -245,12 +247,12 @@ A warm neutral ground with two greens (a dark pine for action, a soft sage for t
 - **Value** (700, 17px, -0.015em): the bold opening line of a side card. The case facts line uses 600 at 16px with middle-dot separators. This is the only "label" the chrome has: a bold value, then a plain sentence beneath it.
 - **Note** (400, 14px, ink-muted): data disclosures, stat labels, footer, and the small labels above case nav targets (13.5px, 500).
 - **Quote** (500, `clamp(19px, 1.8vw, 24px)`, line-height 1.4, -0.015em): testimonial body, with one phrase in a gold mark at 600. In a three-up row the quote drops to 17.5px.
-- **Data** (400, 12px, line-height 1.3, monospace): synthetic product data inside `.card-visual`. Inside `.case-preview` it runs 13px at 1.6. Column headers in both may be uppercase and tracked, because that is what the drawn products look like.
+- **Data** (400, 12.5px, line-height 1.3, tabular numerals): synthetic product data inside `.card-visual`. Inside `.case-preview` it runs 13.5px at 1.6. Column headers in both may be uppercase and tracked, because that is what the drawn products look like.
 
 ### Named Rules
 **The No Kicker Rule.** No eyebrow, kicker, overline, or uppercase tracked label above any heading in the UI chrome. A section opens on its headline. A side card opens on a bold value line; a case page states its facts in one bold line. The only uppercase tracked text on the site is column headers inside a drawn schematic or the case preview, where it is product data.
 
-**The Data Face Rule.** Monospace is allowed only inside `.card-visual` schematics and `.case-preview`. It is synthetic product data, never UI chrome. No monospace in copy, nav, buttons, labels, or footers.
+**The Data Face Rule.** There is no monospace on the site. Synthetic product data inside `.card-visual` and `.case-preview` is the body face with `font-variant-numeric: tabular-nums`, so columns align without reading as a terminal.
 
 **The One Mark Rule.** A headline or quote carries at most one gold-marked phrase, and most carry none.
 
@@ -271,14 +273,14 @@ Case pages follow the same column: back link, giant title, summary, one bold fac
 
 ## Elevation & Depth
 
-Depth is tonal first and shadowed second. Surfaces are paper on stone, and that value step is what separates a card from the page; at rest nothing casts a shadow except a one-pixel hairline under a pill button (`0 1px 0 rgba(28,26,23,0.04)`) and the drawn device frame inside a schematic. Shadows appear as a response to hover, always paired with a small upward translate, and always soft: large blur, large negative spread, so they read as ambient lift rather than a hard drop.
+Depth is tonal first and shadowed second. Surfaces are paper on stone, and that value step is what separates a card from the page; at rest nothing casts a shadow except a one-pixel hairline under a pill button (`0 1px 0 rgba(23,21,15,0.04)`) and the drawn device frame inside a schematic. Shadows appear as a response to hover, always paired with a small upward translate, and always soft: large blur, large negative spread, so they read as ambient lift rather than a hard drop.
 
 ### Shadow Vocabulary
 - **Button lift** (`box-shadow: 0 14px 28px -16px rgba(31,61,43,0.6)`): pine pill on hover, with `translateY(-2px)`. Gold pills use the same shape in gold (`rgba(224,177,46,0.6)`); light pills use ink at 0.35 with -18px spread.
-- **Card lift** (`box-shadow: 0 30px 50px -30px rgba(28,26,23,0.35)`): project card on hover, with `translateY(-4px)`. Case nav cards use `0 24px 40px -26px` at the same colour with `translateY(-3px)`.
-- **Device frame** (`box-shadow: 0 20px 44px -22px rgba(28,26,23,0.45)`): the paper frame inside a card schematic, at rest. This is the one resting shadow, and it is inside the drawn product, not on the chrome. On card hover the frame rises a further 6px.
+- **Card lift** (`box-shadow: 0 30px 50px -30px rgba(23,21,15,0.35)`): project card on hover, with `translateY(-4px)`. Case nav cards use `0 24px 40px -26px` at the same colour with `translateY(-3px)`.
+- **Device frame** (`box-shadow: 0 20px 44px -22px rgba(23,21,15,0.45)`): the paper frame inside a card schematic, at rest. This is the one resting shadow, and it is inside the drawn product, not on the chrome. On card hover the frame rises a further 6px.
 - **Floating CTA** (`box-shadow: 0 16px 32px -14px rgba(31,61,43,0.7)`): the sticky mobile pill, which needs to separate from whatever scrolls beneath it.
-- **Toast** (`box-shadow: 0 10px 22px -8px rgba(28,26,23,0.5)`): the ink toast that fades in inside a schematic on hover.
+- **Toast** (`box-shadow: 0 10px 22px -8px rgba(23,21,15,0.5)`): the ink toast that fades in inside a schematic on hover.
 
 The nav gains depth by translucency instead: stone at 82% with a 14px backdrop blur and a hairline bottom border.
 
@@ -344,24 +346,24 @@ One fade-up per `.reveal`: 16px translate and opacity, 0.8s on the site ease `cu
 ## Do's and Don'ts
 
 ### Do:
-- **Do** set every content surface as paper on the stone ground at 24px radius, with no border and no resting shadow.
+- **Do** set every content surface as white on the near-white ground at 24px radius, with a 1px `line` border and a faint 1px resting shadow.
 - **Do** make every pill button pine; switch to the gold pill only when the button sits on a pine field.
 - **Do** use gold as a marker behind at most one phrase per headline or quote, as the 2px link underline, and as the corner glow on the hero and CTA panels.
 - **Do** open a side card on a bold value line (700 at 17px) followed by one plain sentence; state case facts in one bold 16px line.
 - **Do** keep the hero-to-first-cards gap tight (12px plus 12px) so the project cards peek under a 900px fold.
-- **Do** use `ink-muted` (5f5a52) for the quietest text, and only on stone or paper.
-- **Do** show product as a drawn schematic with representative data inside `.card-visual` or `.case-preview`, and disclose it in a visible `.data-note`.
+- **Do** use `ink-muted` (5c574f) for the quietest text, and only on stone or paper.
+- **Do** show product as a drawn schematic with representative data inside `.card-visual` (on the `well` bed) or `.case-preview`, and disclose it in a visible `.data-note`.
 - **Do** attribute testimonials by role and project until clients approve names.
 - **Do** add hover lift as a translate plus a soft ink- or pine-tinted shadow, and remove both under `prefers-reduced-motion`.
 - **Do** mark the current nav item with `aria-current="page"` so the gold underline and the ink mobile pill follow.
 
 ### Don't:
 - **Don't** add an eyebrow, kicker, overline, or uppercase tracked label above a heading anywhere in the chrome.
-- **Don't** use monospace outside `.card-visual` and `.case-preview`, and never for UI labels, nav, buttons, or copy.
-- **Don't** place a second sage field or a full-bleed tint band; the hero panel is the only sage surface.
+- **Don't** use monospace anywhere; tabular numerals in the body face do the data job.
+- **Don't** place a second sage field or a full-bleed tint band; the hero panel is the only sage surface, and the schematic `well` is the only other tinted bed.
 - **Don't** fill a card, panel, or section with gold; gold is a marker, an underline, a glow, and one pill on pine.
 - **Don't** put grey text (`ink-soft`, `ink-muted`) on pine or ink; use paper at reduced opacity.
 - **Don't** use client screenshots, a stock photo, or a placeholder portrait; the world runs without imagery.
-- **Don't** add hard offset shadows, borders on cards, or a second dark surface beyond the case preview.
+- **Don't** add hard offset shadows, a border heavier than the 1px hairline, or a second dark surface beyond the case preview.
 - **Don't** add sweep, scan-line, or looping decorative motion on panels; the only looping animation is the pulsing live dot inside a schematic.
-- **Don't** introduce a second typeface or a system display face; Bricolage Grotesque at 400 to 700 is the whole ramp.
+- **Don't** introduce a second typeface or a system display face; Inter Tight at 400 to 700 is the whole ramp.

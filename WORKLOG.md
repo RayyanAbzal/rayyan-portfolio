@@ -1,6 +1,6 @@
 # WORKLOG
 
-**Updated:** 2026-09-04
+**Updated:** 2026-09-10
 
 ## Active task
 
@@ -51,11 +51,16 @@ Self-hosted Bricolage Grotesque (two WOFF2 files, preload per page, Google Fonts
 
 Project cards: "Read the case study" link replaced by one bold outcome line per card sourced from the case pages (weeks, live status, repeat client); title grows an arrow on hover. Case pages: the dark preview panel now sits first in the case body, mobile CTA waits for the second block. Personal builds got small drawn schematics (FIOS key/value response, ARIA chat, NZ Job Finder scored list) at 16/11 in the three-column grid. FeedHack runner dot fires once after the card grid reveals. Process steps moved from home to about.html (home is now six sections). CLAUDE.md, DESIGN.md, llms.txt synced.
 
+## Round 4 (2026-09-10, Ray: fonts, colour scheme, cards blending into the background)
+
+Ray picked higher contrast in the same warmth, Inter Tight, and the body face for schematic data. Ground lifted from stone to near-white (`#f5f3ee`), every surface is now pure white on a 1px hairline with a faint resting shadow, and the schematic bed is a new sage-grey `well` token (`#e6ebe3`) so the card frame reads as a window instead of merging with the page. Bricolage Grotesque replaced by self-hosted Inter Tight (two WOFF2, preloads swapped on all 8 pages, old files removed). `--data` now resolves to the body face with tabular numerals; monospace is gone from the site. og.png re-rendered. DESIGN.md, sidecar, surface brief, CLAUDE.md synced.
+
 ## Key decisions
 
 - Bencium's world (calm ground, big rounded surfaces, one accent, grotesque sans, few elements per view) with Ray's own palette: warm stone + paper + sage, pine for buttons, gold as the one accent. Not bencium's colours.
 - 3 pages instead of one long scroll, so each page holds few elements per view. Case study URLs unchanged for SEO.
 - Principles and FAQ cut from home (Ray, 2026-09-04); both live on about.html.
 - No client screenshots (Ray, 2026-09-04): CSS-drawn schematics with synthetic data stand in for product imagery.
-- Monospace is reserved for schematic and preview data. Everything else is Bricolage.
+- No monospace on the site (Ray, 2026-09-10). Inter Tight with tabular numerals carries schematic and preview data.
 - Calendly / Vercel scripts stay without SRI (auto-updating third-party, pre-existing).
+
