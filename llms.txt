@@ -6,6 +6,7 @@ Site: https://rayyanabzal.com
 Contact: rayyanabzal@gmail.com
 Booking: https://calendly.com/rayyanabzal/discovery
 LinkedIn: https://www.linkedin.com/in/rayyan-a-832a20213
+Also: Full Stack Developer and AI Engineer at Growlab (https://www.growlab.co.nz), an AI transformation consultancy in Parnell, Auckland, alongside the practice.
 Location: Auckland, New Zealand (UTC+12). Clients in New Zealand, Europe, and the US. Everything runs remotely.
 
 ## What I do
