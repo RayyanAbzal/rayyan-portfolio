@@ -4,7 +4,7 @@ description: A quiet room with one loud sentence. Near-white warm ground, white 
 colors:
   stone: "#f5f3ee"
   stone-deep: "#ebe8e1"
-  paper: "#ffffff"
+  paper: "#fffdf9"
   paper-deep: "#f6f4ef"
   well: "#e6ebe3"
   sage: "#dde7da"
@@ -184,9 +184,9 @@ The structure follows the calm, image-led rhythm of the pinned reference (benciu
 **Key Characteristics:**
 - Near-white warm ground with white surfaces at 24px radius on a 1px hairline; the hero panel is the only sage field, the schematic well is a sage-grey step below it
 - Pine pill buttons everywhere, gold pill only on a pine field
-- Gold appears as a marker highlight behind words, a link underline, and a soft radial glow; never as a fill for a surface
+- Gold appears as a marker highlight behind at most one phrase per page, a link underline, and the CTA pill on pine; never as a fill for a surface and never as a glow
 - One typeface at four weights; display type at -0.035em, body at 17px
-- A hairline and a faint 1px shadow at rest, lift on hover
+- A hairline and a faint 1px shadow at rest; hover darkens the hairline and shows the title arrow, nothing lifts
 - No monospace; schematic and preview data is the body face at 12.5px with tabular numerals
 - No eyebrows, kickers, or uppercase tracked labels in the UI chrome
 
@@ -211,7 +211,7 @@ A warm neutral ground with two greens (a dark pine for action, a soft sage for t
 ### Neutral
 - **Stone** (`stone`): the near-white page ground on every page and the nav background at 84% with a 14px blur.
 - **Stone Deep** (`stone-deep`): chip fill on the case stack list and the mobile nav pill border ground.
-- **Paper** (`paper`): pure white, every content surface (cards, offers, steps, quotes, FAQ, side cards, case blocks, case nav) and the text colour on pine.
+- **Paper** (`paper`): warm near-white, every content surface (cards, offers, steps, quotes, FAQ, side cards, case blocks, case nav) and the text colour on pine.
 - **Paper Deep** (`paper-deep`): flow nodes inside schematics.
 - **Ink** (`ink`): headline and body text, the current mobile nav pill, the schematic toast, and the case preview panel ground.
 - **Ink Soft** (`ink-soft`): ledes, card copy, prose paragraphs, nav links, quote attribution.
@@ -254,7 +254,7 @@ A warm neutral ground with two greens (a dark pine for action, a soft sage for t
 
 **The Data Face Rule.** There is no monospace on the site. Synthetic product data inside `.card-visual` and `.case-preview` is the body face with `font-variant-numeric: tabular-nums`, so columns align without reading as a terminal.
 
-**The One Mark Rule.** A headline or quote carries at most one gold-marked phrase, and most carry none.
+**The One Mark Rule.** A page carries at most one gold-marked phrase: the hero "AI" on Home, one phrase in the Home quote. Page titles, CTA panels, and the About quotes are plain ink.
 
 ## Layout
 
@@ -348,13 +348,13 @@ One fade-up per `.reveal`: 16px translate and opacity, 0.8s on the site ease `cu
 ### Do:
 - **Do** set every content surface as white on the near-white ground at 24px radius, with a 1px `line` border and a faint 1px resting shadow.
 - **Do** make every pill button pine; switch to the gold pill only when the button sits on a pine field.
-- **Do** use gold as a marker behind at most one phrase per headline or quote, as the 2px link underline, and as the corner glow on the hero and CTA panels.
+- **Do** use gold as a marker behind at most one phrase per page, as the 2px link underline, and as the CTA pill on pine.
 - **Do** open a side card on a bold value line (700 at 17px) followed by one plain sentence; state case facts in one bold 16px line.
-- **Do** keep the hero-to-first-cards gap tight (12px plus 12px) so the project cards peek under a 900px fold.
+- **Do** leave `clamp(64px, 7vw, 96px)` between the hero panel and the first section; the hero is a room of its own.
 - **Do** use `ink-muted` (5c574f) for the quietest text, and only on stone or paper.
 - **Do** show product as a drawn schematic with representative data inside `.card-visual` (on the `well` bed) or `.case-preview`, and disclose it in a visible `.data-note`.
 - **Do** attribute testimonials by role and project until clients approve names.
-- **Do** add hover lift as a translate plus a soft ink- or pine-tinted shadow, and remove both under `prefers-reduced-motion`.
+- **Do** give a linked card exactly one hover signal: the hairline darkens to `ink-muted` and the title arrow appears. No translate, no shadow bloom.
 - **Do** mark the current nav item with `aria-current="page"` so the gold underline and the ink mobile pill follow.
 
 ### Don't:
@@ -367,3 +367,11 @@ One fade-up per `.reveal`: 16px translate and opacity, 0.8s on the site ease `cu
 - **Don't** add hard offset shadows, a border heavier than the 1px hairline, or a second dark surface beyond the case preview.
 - **Don't** add sweep, scan-line, or looping decorative motion on panels; the only looping animation is the pulsing live dot inside a schematic.
 - **Don't** introduce a second typeface or a system display face; Inter Tight at 400 to 700 is the whole ramp.
+
+## Round 5 additions (2026-09-12, de-slop pass)
+
+- **Nav:** name left; Projects, About, and a pine text link "Book a call" right. No centred link group, no pill in the nav, no blur. Mobile row adds a small pine "Book a call" pill at the right end. A skip link sits before the nav.
+- **Offers:** a hairline list (`.offer-list` > `.offer`), three rows on a 1.1fr / 1.5fr / 0.7fr grid: plain-verb heading, one paragraph plus proof link, then a bold duration with "Fixed price" beneath. On mobile the duration moves above the heading. Never three equal cards.
+- **Card titles:** a 14px `card-name` line (product name) above an outcome-first h3, so a stranger reads what the build did before what it was called.
+- **Motion:** two entrances only, the hero panel and the card grids. Section heads, prose, quotes, FAQ, and CTA panels are static.
+- **Copy:** section heads are plain statements ("What I build.", "Common questions."). Straight quotes are curly. Case titles are one colour.

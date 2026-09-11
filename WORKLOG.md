@@ -1,6 +1,6 @@
 # WORKLOG
 
-**Updated:** 2026-09-10
+**Updated:** 2026-09-12
 
 ## Active task
 
@@ -54,6 +54,10 @@ Project cards: "Read the case study" link replaced by one bold outcome line per 
 ## Round 4 (2026-09-10, Ray: fonts, colour scheme, cards blending into the background)
 
 Ray picked higher contrast in the same warmth, Inter Tight, and the body face for schematic data. Ground lifted from stone to near-white (`#f5f3ee`), every surface is now pure white on a 1px hairline with a faint resting shadow, and the schematic bed is a new sage-grey `well` token (`#e6ebe3`) so the card frame reads as a window instead of merging with the page. Bricolage Grotesque replaced by self-hosted Inter Tight (two WOFF2, preloads swapped on all 8 pages, old files removed). `--data` now resolves to the body face with tabular numerals; monospace is gone from the site. og.png re-rendered. DESIGN.md, sidecar, surface brief, CLAUDE.md synced.
+
+## Round 5 (2026-09-12, Ray: improve UI/UX, remove AI slop, Growlab, SEO, section spacing)
+
+Hallmark audit tells found and fixed: template nav (centred links, pill right, blur) replaced by name-left, links-plus-text-CTA-right; three equal offer cards replaced by a hairline list with a bold duration column; pure-white paper warmed to `#fffdf9`; radial gold glows removed from hero and CTA panels; scroll fade-up cut to hero plus card grids; stacked card hover (lift, shadow, frame slide, toast) cut to hairline darken plus arrow; straight quotes made curly; aphoristic heads made plain; gold mark cut to one per page; split-colour case titles made one colour. UX items: outcome-first card titles with a product-name line, hero lede names the three offers, mobile nav row gets a Book a call pill, first FAQ open, footer Book a call link, skip link, hero-to-section gap opened to 64 to 96px. Growlab role added everywhere Ray is described. SEO check passed on all pages.
 
 ## Key decisions
 

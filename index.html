@@ -34,22 +34,21 @@
 </head>
 <body>
 
+<a class="skip" href="#top">Skip to content</a>
 <nav class="nav">
   <div class="wrap nav-inner">
     <a href="/" class="nav-name"><span class="sig" aria-hidden="true"></span>Rayyan Abzal</a>
     <div class="nav-links">
-      <a href="/" aria-current="page">Home</a>
       <a href="work.html">Projects</a>
       <a href="about.html">About</a>
-    </div>
-    <div class="nav-right">
-      <a class="btn" href="https://calendly.com/rayyanabzal/discovery" onclick="return bookCall('nav')">Book a call</a>
+      <a class="nav-book" href="https://calendly.com/rayyanabzal/discovery" onclick="return bookCall('nav')">Book a call</a>
     </div>
   </div>
   <div class="mobile-nav">
     <a href="/" aria-current="page">Home</a>
     <a href="work.html">Projects</a>
     <a href="about.html">About</a>
+    <a class="nav-book" href="https://calendly.com/rayyanabzal/discovery" onclick="return bookCall('nav_m')">Book a call</a>
   </div>
 </nav>
 
@@ -58,7 +57,7 @@
 <section class="hero wrap">
   <div class="hero-panel reveal">
     <h1 class="display">I build <span class="mark">AI</span> that runs your business.</h1>
-    <p class="lede">I find the manual work eating your week and replace it with AI, automation, or the lightest software that fixes it. One person, end to end, from Auckland.</p>
+    <p class="lede">Automation for a manual process, AI inside the product you already have, or the whole tool built from scratch. One person, end to end, from Auckland.</p>
     <div class="hero-actions">
       <a class="btn" href="https://calendly.com/rayyanabzal/discovery" onclick="return bookCall('hero')">Book a free 30-minute call</a>
       <a class="link link-arrow" href="#work">See the shipped work</a>
@@ -67,12 +66,12 @@
 </section>
 
 <section id="work" class="wrap">
-  <div class="section-head reveal">
+  <div class="section-head">
     <div class="row">
-      <h2 class="display">Outcomes, not just code.</h2>
+      <h2 class="display">Four client builds, all live.</h2>
       <a class="link link-arrow" href="work.html">All projects</a>
     </div>
-    <p class="lede">Four client builds, all live. Each one replaced a manual process with a system the team actually uses.</p>
+    <p class="lede">Each one replaced a manual process with a system the team still uses every day. The title says what it did; the case study says how.</p>
   </div>
 
   <div class="grid-2 reveal" data-stagger="90">
@@ -93,7 +92,8 @@
         </div>
       </div>
       <div class="card-body">
-        <h3>Influence</h3>
+        <div class="card-name">Influence</div>
+        <h3>Influencer CRM for a Malta agency</h3>
         <p>An influencer agency went from spreadsheets to a purpose-built platform. Scouting, valuation, campaign matching, and reminders now run end to end.</p>
         <p class="card-outcome">Spreadsheets to one platform. About 6 weeks, in daily use.</p>
       </div>
@@ -119,7 +119,8 @@
         </div>
       </div>
       <div class="card-body">
-        <h3>FeedHack</h3>
+        <div class="card-name">FeedHack</div>
+        <h3>Discord clip payouts on autopilot</h3>
         <p>Zero manual overhead. Creator clip submissions are validated, ranked, and paid out automatically, with a dashboard on top for the team.</p>
         <p class="card-outcome">Manual admin hours to zero. About 8 weeks, fully automated.</p>
       </div>
@@ -147,7 +148,8 @@
         </div>
       </div>
       <div class="card-body">
-        <h3>pumpdat</h3>
+        <div class="card-name">pumpdat</div>
+        <h3>Token launchpad on Ethereum mainnet</h3>
         <p>Shipped end to end: smart contracts, a real-time trade feed, the frontend, and auth. Live and handed over to the founder.</p>
         <p class="card-outcome">Shipped to Ethereum mainnet. About 10 weeks, handed over.</p>
       </div>
@@ -167,37 +169,47 @@
         </div>
       </div>
       <div class="card-body">
-        <h3>Influence v2</h3>
+        <div class="card-name">Influence v2</div>
+        <h3>Partner dashboard for a repeat client</h3>
         <p>The same agency came back. Live partner management moved out of chat threads and into the platform: KPI uploads, progress tracking, automatic CPA.</p>
         <p class="card-outcome">Repeat client. About 4 weeks, in daily use.</p>
       </div>
     </a>
 
   </div>
-  <p class="data-note reveal">The product visuals are drawn schematics with representative data, not client screenshots.</p>
+  <p class="data-note">The product visuals are drawn schematics with representative data, not client screenshots.</p>
 </section>
 
 <section id="services">
   <div class="wrap">
-    <div class="section-head reveal">
-      <h2 class="display">Three ways in.</h2>
+    <div class="section-head">
+      <h2 class="display">What I build.</h2>
       <p class="lede">Most engagements start with finding where AI or automation can replace manual work. When the project needs a whole product, I build that too.</p>
     </div>
-    <div class="grid-3 reveal" data-stagger="90">
+    <div class="offer-list">
       <div class="offer">
-        <h3>A manual process is eating your week.</h3>
-        <p>I find the bottleneck, then build the automation or AI workflow that removes it. Your team keeps the tools they know while the busywork disappears. Usually one to three weeks.</p>
-        <div class="card-links"><a class="link link-arrow" href="work/feedhack.html">Proof: FeedHack</a></div>
+        <h3>Automate a manual process</h3>
+        <div>
+          <p>I find the bottleneck, then build the automation or AI workflow that removes it. Your team keeps the tools they know while the busywork disappears.</p>
+          <div class="card-links"><a class="link link-arrow" href="work/feedhack.html">See FeedHack</a></div>
+        </div>
+        <div class="when">1 to 3 weeks<small>Fixed price</small></div>
       </div>
       <div class="offer">
-        <h3>You want AI inside your existing product.</h3>
-        <p>I add LLM features, agents, and pipelines to the codebase you already have. Most engagements are additive rather than a rebuild, so your team keeps shipping while I work. Usually two to four weeks.</p>
-        <div class="card-links"><a class="link link-arrow" href="work/influence-v2.html">Proof: Influence v2</a></div>
+        <h3>Add AI to your existing product</h3>
+        <div>
+          <p>LLM features, agents, and pipelines added to the codebase you already have. Most of this work is additive, so your team keeps shipping while I build.</p>
+          <div class="card-links"><a class="link link-arrow" href="work/influence-v2.html">See Influence v2</a></div>
+        </div>
+        <div class="when">2 to 4 weeks<small>Fixed price</small></div>
       </div>
       <div class="offer">
-        <h3>You need the whole tool built.</h3>
-        <p>Platform, dashboard, bot, or contracts. I design, build, and ship it end to end, then hand it over with docs and a team walkthrough. Usually four to eight weeks.</p>
-        <div class="card-links"><a class="link link-arrow" href="work/influence.html">Proof: Influence</a></div>
+        <h3>Build the whole tool</h3>
+        <div>
+          <p>Platform, dashboard, bot, or contracts. Designed, built, and shipped end to end, then handed over with docs and a team walkthrough.</p>
+          <div class="card-links"><a class="link link-arrow" href="work/influence.html">See Influence</a></div>
+        </div>
+        <div class="when">4 to 8 weeks<small>Fixed price</small></div>
       </div>
     </div>
   </div>
@@ -205,7 +217,7 @@
 
 <section id="about" class="wrap">
   <div class="about-split">
-    <div class="reveal">
+    <div>
       <div class="who">
         <div class="mono-mark" aria-hidden="true">RA</div>
         <div>
@@ -220,7 +232,7 @@
         <p><a class="link link-arrow" href="about.html">More about how I work</a></p>
       </div>
     </div>
-    <div class="side reveal" data-stagger="80">
+    <div class="side" data-stagger="80">
       <div class="side-card">
         <div class="v">Open for the next project</div>
         <p>Two active projects at most. Depth over breadth.</p>
@@ -238,7 +250,7 @@
 </section>
 
 <section id="testimonial" class="wrap tight">
-  <figure class="quote reveal">
+  <figure class="quote">
     <blockquote>We liked the first tool so much we brought Rayyan back to build a full performance dashboard on top of it. Everything we track as a team is now in one place, in exactly the design language we asked for. <span class="mark">Genuinely one of the best decisions we made for the business.</span></blockquote>
     <figcaption class="attrib">
       <span><strong>Agency Director</strong>, Influence v2, Malta</span>
@@ -248,10 +260,10 @@
 </section>
 
 <section id="contact" class="wrap">
-  <div class="cta-panel reveal">
+  <div class="cta-panel">
     <div>
-      <h2 class="display">Let's find what's <span class="mark">eating your week</span>.</h2>
-      <p>A free 30-minute intro call. You describe how your business runs, I tell you honestly whether AI can help and what it would cost.</p>
+      <h2 class="display">Book a free 30-minute call.</h2>
+      <p>You describe how your business runs. I tell you honestly whether AI can help, what I would build, and what it would cost.</p>
     </div>
     <div class="cta-actions">
       <a class="btn btn-gold" href="https://calendly.com/rayyanabzal/discovery" onclick="return bookCall('contact')">Book a free intro call</a>
@@ -268,6 +280,7 @@
     <span class="links">
       <a href="work.html">Projects</a>
       <a href="about.html">About</a>
+      <a href="https://calendly.com/rayyanabzal/discovery">Book a call</a>
       <a href="mailto:rayyanabzal@gmail.com">Email</a>
       <a href="https://www.linkedin.com/in/rayyan-a-832a20213" target="_blank" rel="noopener">LinkedIn</a>
     </span>

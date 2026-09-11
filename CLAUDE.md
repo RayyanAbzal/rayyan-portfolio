@@ -13,7 +13,7 @@ Static HTML/CSS/JS portfolio site. No framework, no build step.
 ## Files
 
 ```
-index.html             home: hero panel, 4 client cards, offers, about teaser, one quote, CTA
+index.html             home: hero panel, 4 client cards, offer list, about teaser, one quote, CTA
 work.html              projects: 4 client cards + 3 personal builds (small schematics)
 about.html             about: prose with principles, side cards, 4 process steps, 3 testimonials, FAQ (native details)
 404.html               branded not-found page (Vercel serves it automatically)
@@ -57,7 +57,7 @@ Full record: DESIGN.md. Direction contract: `.impeccable/surfaces/index-html.md`
 | Token   | Value     | Use                              |
 |---------|-----------|----------------------------------|
 | bg      | `#f5f3ee` | page ground (near-white stone)   |
-| paper   | `#ffffff` | cards, blocks, nav; 1px `--line` |
+| paper   | `#fffdf9` | cards, blocks; 1px `--line`      |
 | well    | `#e6ebe3` | bed behind card schematics       |
 | sage    | `#dde7da` | hero panel only                  |
 | ink     | `#17150f` | text, dark preview panel         |
@@ -76,7 +76,9 @@ Product visuals: no client screenshots. Cards use CSS-drawn schematics (`.card-v
 - No frameworks or build tooling unless explicitly requested
 - No em dashes in copy
 - Keep each page under 800 lines
-- Nav is Home / Projects / About plus Book a call; mark the current page with `aria-current="page"`
+- Nav is name (home) / Projects / About / Book a call text link; mark the current page with `aria-current="page"`. Skip link first in body.
+- Reveal motion only on `.hero-panel` and the card grids. Everything else is static.
+- One gold `.mark` per page at most (home hero, home quote). Card h3 is outcome-first with a `.card-name` line above.
 
 ## SEO + AEO
 

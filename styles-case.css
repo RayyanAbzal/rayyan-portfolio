@@ -23,7 +23,7 @@
   margin: 28px 0 28px;
   max-width: 12ch;
 }
-.case-title .hi { color: var(--pine-2); }
+.case-title .hi { color: inherit; }
 .case-title .dot { display: none; }
 .case-summary {
   font-size: clamp(19px, 2vw, 25px);
