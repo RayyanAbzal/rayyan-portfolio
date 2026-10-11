@@ -17,3 +17,11 @@
 - Vercel project must use the Next.js framework preset (it was created as a static project). Check before merging to `main`.
 - `robots.ts` cannot emit the comments the old robots.txt had; the rules are identical.
 - `legacy-static/` existed only until the text diff against the rendered pages passed.
+
+## 2026-10-12: agent readiness (Is Agentic scanner findings)
+
+**Decision.** Fix the scanner findings on the Next.js branch: markdown 404 for `Accept: text/markdown` (status stays 404, HTML keeps the branded page), when-to-use guidance in the generated llms.txt, a ContactPoint on the ProfessionalService node, and trust pages `/contact` and `/privacy` linked from the footer only (top nav and visual design unchanged).
+
+**Why.** The scanner reads the live site, which is still the old static build; these are the gaps it can check mechanically. All guidance, schema and page copy restates existing site copy or states repo facts, so llms.txt, mirrors and pages stay in one typed source (`content/`).
+
+**Open.** `/privacy` is draft text that describes what the code does; Ray reviews before merge. `Vary: Accept` on plain HTML responses is not guaranteed (Next overwrites it on prerendered pages).

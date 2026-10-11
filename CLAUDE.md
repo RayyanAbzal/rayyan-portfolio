@@ -19,9 +19,11 @@ app/layout.tsx          shell: skip link, sticky nav, footer, Calendly, Analytic
 app/page.tsx            home: hero panel, 4 client cards, offer list, about teaser, one quote, CTA
 app/work/page.tsx       projects: 4 client cards + 3 personal builds
 app/work/[slug]/page.tsx  case studies (generateStaticParams over content/case-studies)
+app/contact/page.tsx    contact: ways to reach me, where I work, what to include in a first message (footer link only)
+app/privacy/page.tsx    privacy: plain-language, factual draft (footer link only; Ray to review)
 app/about/page.tsx      about: prose, principles, side cards, 4 steps, 3 testimonials, FAQ accordion
 app/not-found.tsx       branded 404 (noindex)
-app/sitemap.ts, robots.ts  7 URLs, update lastmod in lib/sitemap-entries.ts; robots rules as the legacy file
+app/sitemap.ts, robots.ts  9 URLs, update lastmod in lib/sitemap-entries.ts; robots rules as the legacy file
 app/globals.css         tokens (:root), @theme inline, base, type
 app/styles/*.css        layout, cards (schematics), sections, case, motion
 app/fonts.ts, app/fonts/  Inter Tight
@@ -29,10 +31,10 @@ components/ui/          shadcn: button, accordion, card, badge, separator
 components/             book-link, sticky-book-cta, reveal, site-nav, site-footer, project-card, json-ld, calendly-assets
 components/schematics/  CSS-drawn card visuals (synthetic data, aria-hidden)
 components/case/        case preview panels and rich text
-content/                typed copy (home, work, about, projects, case-studies) and content/jsonld/*.json (verbatim JSON-LD). Pages and markdown mirrors both read it.
+content/                typed copy (home, work, about, contact, privacy, agent-guidance, projects, case-studies) and content/jsonld/*.json (verbatim JSON-LD). Pages and markdown mirrors both read it.
 lib/                    site constants, seo helper (pageMetadata), booking, sitemap entries, pages.ts (page registry, no imports), markdown.ts (mirrors + llms.txt renderer)
 app/md/[...slug]/route.ts  serves the markdown mirrors (text/markdown, Vary: Accept)
-app/llms.txt/route.ts   generated llms.txt (services, work, about; links the .md mirrors)
+app/llms.txt/route.ts   generated llms.txt (when to use, how to engage, services, work, about; links the .md mirrors)
 public/                 favicons, og.png
 next.config.ts          301 redirects: /index.html, /work.html, /about.html, /work/:slug.html to clean paths; rewrites <path>.md and Accept: text/markdown to the mirror; Link rel=alternate header per page
 tests/                  vitest
@@ -87,7 +89,7 @@ Product visuals: no client screenshots. Cards use CSS-drawn schematics (`compone
 
 ## SEO + AEO
 
-Every page: canonical, robots meta (`max-image-preview:large`), OG/Twitter set, JSON-LD. Home carries the `@graph` (WebSite, ProfessionalService with offer catalog, Person, WebPage); work.html a CollectionPage + ItemList; about.html AboutPage + Person + FAQPage; case pages Article + BreadcrumbList. Entity IDs: `/#website`, `/#business`, `/#person`. Keep JSON-LD (`content/jsonld`) and visible copy saying the same thing. llms.txt and the markdown mirrors are generated from `content/`, so edit copy there only. AI readability: answers in initial HTML, `/<path>.md` mirrors (home is `/index.md`) advertised by `<link rel="alternate" type="text/markdown">` and a `Link` header, `Accept: text/markdown` negotiation, real 404s, no bot blocking. Page metadata goes through `lib/seo.ts` (a page-level openGraph replaces the layout one, so the helper emits the full set).
+Every page: canonical, robots meta (`max-image-preview:large`), OG/Twitter set, JSON-LD. Home carries the `@graph` (WebSite, ProfessionalService with offer catalog, Person, WebPage); work.html a CollectionPage + ItemList; about.html AboutPage + Person + FAQPage; case pages Article + BreadcrumbList. Entity IDs: `/#website`, `/#business`, `/#person`. Keep JSON-LD (`content/jsonld`) and visible copy saying the same thing. llms.txt and the markdown mirrors are generated from `content/`, so edit copy there only. AI readability: answers in initial HTML, `/<path>.md` mirrors (home is `/index.md`) advertised by `<link rel="alternate" type="text/markdown">` and a `Link` header, `Accept: text/markdown` negotiation, real 404s (markdown body for Accept: text/markdown via a fallback rewrite), no bot blocking. Page metadata goes through `lib/seo.ts` (a page-level openGraph replaces the layout one, so the helper emits the full set).
 
 ## Domain + OG
 
