@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 import { BookLink } from "@/components/book-link";
 import { Button } from "@/components/ui/button";
+import type { BookingSource } from "@/lib/book";
 import { cn } from "@/lib/utils";
 
 interface StickyBookCtaProps {
@@ -11,7 +12,7 @@ interface StickyBookCtaProps {
   showAfter: string;
   /** Selector: the bar hides while this element is in view. */
   hideAt: string;
-  source: string;
+  source: BookingSource;
 }
 
 /**

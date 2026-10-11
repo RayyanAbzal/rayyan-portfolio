@@ -2,12 +2,12 @@
 
 import * as React from "react";
 
-import { openBooking } from "@/lib/book";
+import { openBooking, type BookingSource } from "@/lib/book";
 import { CALENDLY_URL } from "@/lib/site";
 
 interface BookLinkProps extends React.ComponentProps<"a"> {
   /** Analytics source label, sent as the `source` of the `book_click` event. */
-  source: string;
+  source: BookingSource;
 }
 
 /** A real Calendly link that opens the popup when the widget is loaded. */

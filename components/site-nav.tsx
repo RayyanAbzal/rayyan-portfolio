@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { BookLink } from "@/components/book-link";
+import { CASE_SLUGS, type BookingSource, type CaseSlug, type NavSource } from "@/lib/book";
 import { NAV_ITEMS } from "@/lib/site";
 
 function isCurrent(pathname: string, href: string): boolean {
@@ -11,12 +12,14 @@ function isCurrent(pathname: string, href: string): boolean {
 }
 
 /** Analytics source for the nav booking link, matching the legacy labels. */
-export function navSource(pathname: string): string {
+export function navSource(pathname: string): NavSource {
   if (pathname === "/") return "nav";
   if (pathname === "/work") return "nav_work";
   if (pathname === "/about") return "nav_about";
   if (pathname.startsWith("/work/")) {
-    return `case_nav_${pathname.slice("/work/".length)}`;
+    const slug = pathname.slice("/work/".length);
+    const known = CASE_SLUGS.find((candidate: CaseSlug) => candidate === slug);
+    return known ? `case_nav_${known}` : "nav_other";
   }
   return "nav_other";
 }
@@ -60,7 +63,7 @@ export function SiteNav() {
             {item.label}
           </Link>
         ))}
-        <BookLink source={`${source}_m`} className="nav-book">
+        <BookLink source={`${source}_m` satisfies BookingSource} className="nav-book">
           Book a call
         </BookLink>
       </div>
