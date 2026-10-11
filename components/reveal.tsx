@@ -69,8 +69,15 @@ export function Reveal({ children, className, stagger }: RevealProps) {
     } else {
       observer.observe(element);
     }
-    // Failsafe: nothing stays hidden if the observer never reports.
-    timers.push(window.setTimeout(reveal, FAILSAFE_MS));
+    // Failsafe: reveal only what is already within one viewport height of
+    // the screen. Cards further down keep waiting for the observer, so they
+    // still animate on scroll. (html.motion-failed covers a failed hydration.)
+    timers.push(
+      window.setTimeout(() => {
+        const rect = element.getBoundingClientRect();
+        if (rect.top < window.innerHeight * 2 && rect.bottom > -window.innerHeight) reveal();
+      }, FAILSAFE_MS),
+    );
 
     return () => {
       observer.disconnect();
