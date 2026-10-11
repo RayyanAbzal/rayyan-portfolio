@@ -1,7 +1,8 @@
 import type { BookingSource, CaseSlug } from "@/lib/book";
 
-/** Inline copy: plain text, or a run wrapped as a highlight, mark or strong. */
-export type Rich = readonly (string | { hi: string } | { mark: string } | { strong: string })[];
+import type { Rich } from "@/content/rich";
+
+export type { Rich };
 
 export type BadgeTone = "green" | "amber" | "dim";
 

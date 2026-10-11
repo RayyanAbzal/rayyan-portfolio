@@ -1,3 +1,7 @@
+import type { Rich } from "@/content/rich";
+
+const GROWLAB_URL = "https://www.growlab.co.nz/about";
+
 export interface FaqItem {
   question: string;
   answer: string;
@@ -126,5 +130,60 @@ export const FAQ_ITEMS: readonly FaqItem[] = [
     question: "Do you only work with Auckland businesses?",
     answer:
       "No. I am based in Auckland and work with businesses across New Zealand as well as clients in Europe and the US. Everything runs remotely: the intro call, weekly updates, a live staging link, and handover. NZ clients get same-timezone communication, which most overseas agencies cannot offer.",
+  },
+];
+
+export interface AboutSideCard {
+  title: string;
+  body: Rich;
+}
+
+export const ABOUT = {
+  title: "About Rayyan Abzal | AI Consultant, Auckland NZ",
+  description:
+    "How I work: a solo AI engineering practice in Auckland, plus AI engineering at Growlab. Four principles, client testimonials, and founder FAQs.",
+  socialDescription:
+    "How I work: a solo AI engineering practice in Auckland. Four principles, client testimonials, and answers to the questions founders ask before booking a call.",
+  h1: "I scope it, build it, and ship it myself.",
+  role: "AI engineer. Own practice, plus Growlab. Auckland, New Zealand",
+  big: "The person who scopes your project is the person who writes the code, deploys it, and answers when something breaks.",
+  paragraphs: [
+    ["I am Rayyan Abzal, an AI consultant and engineer in Auckland, New Zealand, running a solo practice. I have shipped production systems across creator-economy CRMs, payout automation, and on-chain platforms, for clients in New Zealand, Malta, and the US. Different domains, same engine: find the manual bottleneck, replace it with the lightest system that solves it."],
+    ["Solo by design, so there is no accounts team and no junior developer getting handed the actual build. You talk to me, I write the system, you get the outcome."],
+    [
+      "Alongside the practice I work as a Full Stack Developer and AI Engineer at ",
+      { link: "Growlab", href: GROWLAB_URL },
+      ", an AI transformation consultancy in Parnell, Auckland, building custom AI systems for infrastructure and engineering firms. Same discipline there as here: production systems that a real team runs every day.",
+    ],
+  ] as readonly Rich[],
+  principlesHeading: "AI is a tool, not a deliverable",
+  principlesIntro: "Four principles shape every engagement.",
+  processHeading: "How every engagement runs.",
+  processLede: "Every engagement runs the same way. You always know what stage we are at.",
+  testimonialsHeading: "What clients say.",
+  faqHeading: "Common questions.",
+  ctaTitle: "Bring the rest to the call.",
+  ctaBody:
+    "Free, 30 minutes, no pitch. You describe how your business runs, I tell you honestly whether AI can help.",
+  ctaButton: "Book a free intro call",
+} as const;
+
+export const ABOUT_SIDE_CARDS: readonly AboutSideCard[] = [
+  {
+    title: "AI engineer at Growlab",
+    body: [
+      "Full-stack and AI work for an Auckland AI transformation consultancy, alongside this practice. ",
+      { link: "growlab.co.nz", href: GROWLAB_URL },
+    ],
+  },
+  { title: "TypeScript, Node.js, Python", body: ["Plus whatever the problem needs."] },
+  {
+    title: "Four client builds, all live",
+    body: ["Plus three personal builds. ", { link: "See the projects", href: "/work" }, "."],
+  },
+  { title: "Two active projects, maximum", body: ["Depth over breadth. Currently open for the next one."] },
+  {
+    title: "Auckland, New Zealand (UTC+12)",
+    body: ["Everything runs remotely: the call, weekly updates, a live staging link, handover."],
   },
 ];
