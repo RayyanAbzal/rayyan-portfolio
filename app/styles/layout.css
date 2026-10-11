@@ -127,7 +127,6 @@
     transform: translate3d(0, calc(100% + 32px), 0);
     transition: transform 0.45s var(--ease), opacity 0.3s, visibility 0s linear 0.45s;
   }
-  .mobile-cta [data-slot="button"] { width: 100%; box-shadow: 0 16px 32px -14px rgb(var(--pine-rgb) / 0.7); }
   @media (max-width: 640px) { .mobile-cta { display: block; } }
   .mobile-cta.show {
     opacity: 1;

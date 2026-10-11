@@ -131,6 +131,7 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
+  --ease-site: cubic-bezier(0.2, 0.8, 0.2, 1);
   --radius-site: var(--r);
   --radius-site-sm: var(--r-sm);
 }
