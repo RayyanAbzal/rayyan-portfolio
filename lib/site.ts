@@ -19,3 +19,9 @@ export const NAV_ITEMS: readonly NavItem[] = [
 export function absoluteUrl(path: string): string {
   return `${SITE_URL}${path}`;
 }
+
+/** Footer-only links: trust pages that stay out of the top nav. */
+export const FOOTER_LINKS: readonly NavItem[] = [
+  { label: "Contact", href: "/contact" },
+  { label: "Privacy", href: "/privacy" },
+];

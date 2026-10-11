@@ -3,6 +3,8 @@ import { describe, expect, it } from "vitest";
 import { generateMetadata as caseMetadata } from "@/app/work/[slug]/page";
 import { metadata as aboutMeta } from "@/app/about/page";
 import { metadata as homeMeta } from "@/app/page";
+import { metadata as contactMeta } from "@/app/contact/page";
+import { metadata as privacyMeta } from "@/app/privacy/page";
 import { metadata as workMeta } from "@/app/work/page";
 import sitemap from "@/app/sitemap";
 import robots from "@/app/robots";
@@ -27,9 +29,9 @@ describe("redirect map", () => {
 });
 
 describe("sitemap and robots", () => {
-  it("lists the seven public urls on the clean paths", () => {
+  it("lists the nine public urls on the clean paths", () => {
     const urls = sitemap().map((entry) => entry.url);
-    expect(urls).toHaveLength(7);
+    expect(urls).toHaveLength(9);
     expect(urls.every((url) => url.startsWith(`${ORIGIN}/`) && !url.endsWith(".html"))).toBe(true);
   });
 
@@ -42,7 +44,7 @@ describe("sitemap and robots", () => {
 
 describe("page metadata", () => {
   it("sets a canonical on rayyanabzal.com for static pages", () => {
-    for (const meta of [homeMeta, workMeta, aboutMeta]) {
+    for (const meta of [homeMeta, workMeta, aboutMeta, contactMeta, privacyMeta]) {
       expect(canonicalOf(meta).startsWith(`${ORIGIN}/`)).toBe(true);
     }
   });

@@ -6,13 +6,16 @@ import {
   PROCESS_STEPS,
   TESTIMONIALS,
 } from "@/content/about";
+import { AGENT_GUIDANCE } from "@/content/agent-guidance";
+import { CONTACT } from "@/content/contact";
 import { CASE_STUDIES } from "@/content/case-studies";
 import type { CaseBlock, CaseStudy } from "@/content/case-studies/types";
+import { PRIVACY } from "@/content/privacy";
 import { DATA_NOTE, HOME, HOME_SIDE_CARDS, OFFERS } from "@/content/home";
 import { CLIENT_PROJECTS, PERSONAL_PROJECTS } from "@/content/projects";
 import type { Rich } from "@/content/rich";
 import { WORK } from "@/content/work";
-import { CASE_SLUGS, markdownPath } from "@/lib/pages";
+import { CASE_SLUGS, PAGE_PATHS, markdownPath } from "@/lib/pages";
 import { CALENDLY_URL, EMAIL, LINKEDIN_URL, SITE_NAME, absoluteUrl } from "@/lib/site";
 
 
@@ -151,6 +154,34 @@ function aboutMarkdown(): string {
   ]);
 }
 
+function contactMarkdown(): string {
+  return join([
+    `# ${CONTACT.h1}`,
+    CONTACT.lede,
+    `## ${CONTACT.waysHeading}`,
+    [
+      bullet(`[${CONTACT.bookLabel}](${CALENDLY_URL}): ${CONTACT.bookNote}`),
+      bullet(`${CONTACT.emailLabel}: [${EMAIL}](mailto:${EMAIL})`),
+      bullet(`${CONTACT.linkedinLabel}: ${LINKEDIN_URL}`),
+    ].join("\n"),
+    `## ${CONTACT.locationHeading}`,
+    CONTACT.location,
+    `## ${CONTACT.firstMessageHeading}`,
+    CONTACT.firstMessageIntro,
+    CONTACT.firstMessageItems.map(bullet).join("\n"),
+    `## ${CONTACT.nextHeading}`,
+    ...CONTACT.next,
+  ]);
+}
+
+function privacyMarkdown(): string {
+  const sections = PRIVACY.sections.flatMap((section) => [
+    `## ${section.heading}`,
+    ...section.paragraphs.map(richToMarkdown),
+  ]);
+  return join([`# ${PRIVACY.h1}`, PRIVACY.lede, PRIVACY.updatedLabel, ...sections, PRIVACY.contactNote]);
+}
+
 function blockMarkdown(block: CaseBlock): string[] {
   return [`## ${richToText(block.heading)}`, ...block.paragraphs.map(richToMarkdown)];
 }
@@ -185,15 +216,19 @@ export interface MarkdownPage {
 
 /** Every page with a markdown mirror, rendered from the typed content. */
 export function markdownPages(): readonly MarkdownPage[] {
-  return [
-    { path: "/", markdown: homeMarkdown() },
-    { path: "/work", markdown: workMarkdown() },
-    { path: "/about", markdown: aboutMarkdown() },
-    ...CASE_SLUGS.map((slug) => ({
-      path: `/work/${slug}`,
-      markdown: caseMarkdown(CASE_STUDIES[slug]),
-    })),
-  ];
+  const fixed: Record<string, () => string> = {
+    "/": homeMarkdown,
+    "/work": workMarkdown,
+    "/about": aboutMarkdown,
+    "/contact": contactMarkdown,
+    "/privacy": privacyMarkdown,
+  };
+  return PAGE_PATHS.map((path) => {
+    const render = fixed[path];
+    if (render) return { path, markdown: render() };
+    const slug = CASE_SLUGS.find((candidate) => `/work/${candidate}` === path);
+    return { path, markdown: slug ? caseMarkdown(CASE_STUDIES[slug]) : "" };
+  });
 }
 
 export function findMarkdownPage(path: string): MarkdownPage | undefined {
@@ -212,6 +247,7 @@ export function llmsTxt(): string {
       `[${offer.title}](${absoluteUrl(markdownPath("/"))}): ${firstSentence(offer.body)} ${offer.duration}, ${offer.price.toLowerCase()}.`,
     ),
   );
+  const jobs = AGENT_GUIDANCE.jobs.map((job) => bullet(`${job.title} (${job.detail})`));
   const work = CLIENT_PROJECTS.map((project) =>
     bullet(
       `[${project.name}](${absoluteUrl(markdownPath(`/work/${project.slug}`))}): ${project.title}. ${project.outcome}`,
@@ -220,12 +256,21 @@ export function llmsTxt(): string {
   const about = [
     bullet(`[About](${absoluteUrl(markdownPath("/about"))}): ${ABOUT.big}`),
     bullet(`[Projects](${absoluteUrl(markdownPath("/work"))}): ${WORK.lede}`),
+    bullet(`[Contact](${absoluteUrl(markdownPath("/contact"))}): ${CONTACT.lede}`),
+    bullet(`[Privacy](${absoluteUrl(markdownPath("/privacy"))}): ${PRIVACY.lede}`),
     bullet(`[Sitemap](${absoluteUrl("/sitemap.xml")}): every public page.`),
   ];
   return join([
     `# ${SITE_NAME}, AI consultant and engineer, Auckland, New Zealand`,
     `> ${HOME.description}`,
     `Site: ${absoluteUrl("/")}\nContact: ${EMAIL}\nBooking: ${CALENDLY_URL}\nLinkedIn: ${LINKEDIN_URL}`,
+    `## ${AGENT_GUIDANCE.whenToUseHeading}`,
+    AGENT_GUIDANCE.audience,
+    jobs.join("\n"),
+    `## ${AGENT_GUIDANCE.engageHeading}`,
+    `Booking: ${CALENDLY_URL}\nEmail: ${EMAIL}\n\n${AGENT_GUIDANCE.engage.map(bullet).join("\n")}`,
+    `## ${AGENT_GUIDANCE.whenNotToUseHeading}`,
+    AGENT_GUIDANCE.whenNotToUse,
     "## Services",
     services.join("\n"),
     "## Work",

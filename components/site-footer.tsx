@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { CALENDLY_URL, EMAIL, LINKEDIN_URL, NAV_ITEMS } from "@/lib/site";
+import { CALENDLY_URL, EMAIL, FOOTER_LINKS, LINKEDIN_URL, NAV_ITEMS } from "@/lib/site";
 
 export function SiteFooter() {
   return (
@@ -10,7 +10,7 @@ export function SiteFooter() {
           <strong>Rayyan Abzal</strong> · AI consulting · Auckland, NZ · © 2026
         </span>
         <span className="links">
-          {NAV_ITEMS.map((item) => (
+          {[...NAV_ITEMS, ...FOOTER_LINKS].map((item) => (
             <Link key={item.href} href={item.href}>
               {item.label}
             </Link>

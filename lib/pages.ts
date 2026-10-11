@@ -10,6 +10,8 @@ export const PAGE_PATHS: readonly string[] = [
   "/",
   "/work",
   "/about",
+  "/contact",
+  "/privacy",
   ...CASE_SLUGS.map((slug) => `/work/${slug}`),
 ];
 

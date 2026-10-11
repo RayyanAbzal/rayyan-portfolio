@@ -14,6 +14,8 @@ const H1: Record<string, string> = {
   "/": "I build AI that runs your business.",
   "/work": "Client work, all of it live.",
   "/about": "I scope it, build it, and ship it myself.",
+  "/contact": "Get in touch.",
+  "/privacy": "Privacy.",
   "/work/influence": CASE_STUDIES.influence.title,
   "/work/influence-v2": CASE_STUDIES["influence-v2"].title,
   "/work/feedhack": CASE_STUDIES.feedhack.title,
@@ -29,7 +31,8 @@ describe("markdown mirrors", () => {
   it("starts with the h1 text and carries the booking link", () => {
     for (const page of markdownPages()) {
       expect(page.markdown.startsWith(`# ${H1[page.path]}\n`)).toBe(true);
-      expect(page.markdown).toContain(`(${CALENDLY_URL})`);
+      // The privacy page has no booking call to action.
+      if (page.path !== "/privacy") expect(page.markdown).toContain(`(${CALENDLY_URL})`);
     }
   });
 

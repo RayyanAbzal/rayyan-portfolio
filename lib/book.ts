@@ -22,6 +22,7 @@ export type BookingSource =
   | "contact"
   | "work_contact"
   | "about_contact"
+  | "contact_page"
   | "sticky_mobile"
   | "sticky_mobile_work"
   | "sticky_mobile_about"
