@@ -25,15 +25,15 @@ Location: Auckland, New Zealand (UTC+12). Clients in New Zealand, Europe, and th
 ## Pages
 
 - [Home](https://rayyanabzal.com/): four client builds, services, one client quote.
-- [Projects](https://rayyanabzal.com/work.html): four client builds, all live, plus three personal builds.
-- [About](https://rayyanabzal.com/about.html): principles, the four-step process, testimonials, and answers to common questions.
+- [Projects](https://rayyanabzal.com/work): four client builds, all live, plus three personal builds.
+- [About](https://rayyanabzal.com/about): principles, the four-step process, testimonials, and answers to common questions.
 
 ## Client case studies
 
-- [Influence](https://rayyanabzal.com/work/influence.html): internal CRM for an influencer marketing agency in Malta. Replaced spreadsheets, manual outreach, and gut-feel creator valuation. About 6 weeks.
-- [Influence v2](https://rayyanabzal.com/work/influence-v2.html): live partner performance dashboard built inside the same CRM for a repeat client. About 4 weeks.
-- [FeedHack](https://rayyanabzal.com/work/feedhack.html): end-to-end Discord automation for creator clip submissions, validation, and monthly payouts. Manual admin hours to zero. About 8 weeks.
-- [pumpdat](https://rayyanabzal.com/work/pumpdat.html): token launchpad on Ethereum mainnet, contracts, backend, and frontend. About 10 weeks.
+- [Influence](https://rayyanabzal.com/work/influence): internal CRM for an influencer marketing agency in Malta. Replaced spreadsheets, manual outreach, and gut-feel creator valuation. About 6 weeks.
+- [Influence v2](https://rayyanabzal.com/work/influence-v2): live partner performance dashboard built inside the same CRM for a repeat client. About 4 weeks.
+- [FeedHack](https://rayyanabzal.com/work/feedhack): end-to-end Discord automation for creator clip submissions, validation, and monthly payouts. Manual admin hours to zero. About 8 weeks.
+- [pumpdat](https://rayyanabzal.com/work/pumpdat): token launchpad on Ethereum mainnet, contracts, backend, and frontend. About 10 weeks.
 
 ## Personal builds
 
