@@ -14,7 +14,6 @@ import {
 import { Button } from "@/components/ui/button";
 import aboutLd from "@/content/jsonld/about.json";
 import aboutBreadcrumbLd from "@/content/jsonld/about-breadcrumb.json";
-import aboutFaqLd from "@/content/jsonld/about-faq.json";
 import {
   ABOUT,
   ABOUT_SIDE_CARDS,
@@ -23,6 +22,7 @@ import {
   PROCESS_STEPS,
   TESTIMONIALS,
 } from "@/content/about";
+import { buildFaqJsonLd } from "@/lib/jsonld";
 import { EMAIL } from "@/lib/site";
 import { pageMetadata } from "@/lib/seo";
 
@@ -36,7 +36,7 @@ export const metadata: Metadata = pageMetadata({
 export default function AboutPage() {
   return (
     <>
-      <JsonLd data={aboutFaqLd} />
+      <JsonLd data={buildFaqJsonLd(FAQ_ITEMS)} />
       <JsonLd data={aboutBreadcrumbLd} />
       <JsonLd data={aboutLd} />
       <main id="top" tabIndex={-1}>

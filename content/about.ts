@@ -2,6 +2,9 @@ import type { Rich } from "@/content/rich";
 
 const GROWLAB_URL = "https://www.growlab.co.nz/about";
 
+export const STACK_TITLE = "TypeScript, Node.js, Python";
+export const STACK_NOTE = "Plus whatever the problem needs.";
+
 export interface FaqItem {
   question: string;
   answer: string;
@@ -176,7 +179,7 @@ export const ABOUT_SIDE_CARDS: readonly AboutSideCard[] = [
       { link: "growlab.co.nz", href: GROWLAB_URL },
     ],
   },
-  { title: "TypeScript, Node.js, Python", body: ["Plus whatever the problem needs."] },
+  { title: STACK_TITLE, body: [STACK_NOTE] },
   {
     title: "Four client builds, all live",
     body: ["Plus three personal builds. ", { link: "See the projects", href: "/work" }, "."],

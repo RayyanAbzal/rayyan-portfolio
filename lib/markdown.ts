@@ -4,6 +4,8 @@ import {
   FAQ_ITEMS,
   PRINCIPLES,
   PROCESS_STEPS,
+  STACK_NOTE,
+  STACK_TITLE,
   TESTIMONIALS,
 } from "@/content/about";
 import { AGENT_GUIDANCE } from "@/content/agent-guidance";
@@ -247,6 +249,7 @@ export function llmsTxt(): string {
       `[${offer.title}](${absoluteUrl(markdownPath("/"))}): ${firstSentence(offer.body)} ${offer.duration}, ${offer.price.toLowerCase()}.`,
     ),
   );
+  const faq = FAQ_ITEMS.map((item) => `**${item.question}** ${item.answer}`);
   const jobs = AGENT_GUIDANCE.jobs.map((job) => bullet(`${job.title} (${job.detail})`));
   const work = CLIENT_PROJECTS.map((project) =>
     bullet(
@@ -275,6 +278,10 @@ export function llmsTxt(): string {
     services.join("\n"),
     "## Work",
     work.join("\n"),
+    "## Stack",
+    `${STACK_TITLE}. ${STACK_NOTE}`,
+    "## FAQ",
+    faq.join("\n\n"),
     "## About",
     about.join("\n"),
   ]);

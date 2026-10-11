@@ -1,7 +1,7 @@
 import type { Rich } from "@/content/rich";
 
-export const VERCEL_PRIVACY_URL = "https://vercel.com/legal/privacy-policy";
-export const CALENDLY_PRIVACY_URL = "https://calendly.com/privacy";
+export const VERCEL_PRIVACY_URL = "https://vercel.com/legal/privacy-notice";
+export const CALENDLY_PRIVACY_URL = "https://calendly.com/legal/privacy-notice";
 export const PRIVACY_UPDATED = "2026-10-12";
 
 export interface PrivacySection {
@@ -52,7 +52,7 @@ export const PRIVACY = {
     {
       heading: "Hosting and fonts",
       paragraphs: [
-        ["The site is hosted on Vercel, so Vercel processes the standard request data that any web host receives when a page loads. Fonts are served from this site, not from a font provider."],
+        ["My hosting provider, Vercel, may process request data such as IP addresses when a page loads. Fonts are served from this site, not from a font provider."],
       ],
     },
   ] as readonly PrivacySection[],
