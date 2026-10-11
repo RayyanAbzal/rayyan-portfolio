@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { markdownPath } from "@/lib/pages";
 import { OG_IMAGE_URL, SITE_NAME, absoluteUrl } from "@/lib/site";
 
 const ROBOTS = "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
@@ -50,7 +51,14 @@ export function pageMetadata(seo: PageSeo): Metadata {
   return {
     title: { absolute: seo.title },
     description: seo.description,
-    alternates: { canonical: url },
+    alternates: {
+      canonical: url,
+      // Emits <link rel="alternate" type="..."> for the markdown mirror and llms.txt.
+      types: {
+        "text/markdown": absoluteUrl(markdownPath(seo.path)),
+        "text/plain": absoluteUrl("/llms.txt"),
+      },
+    },
     robots: ROBOTS,
     openGraph,
     twitter: {
