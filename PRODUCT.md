@@ -8,7 +8,7 @@ web
 
 ## Stack
 
-Plain static HTML/CSS/JS, no build step, hosted on Vercel. Confirmed by repo CLAUDE.md ("No frameworks or build tooling unless explicitly requested").
+Next.js App Router with Tailwind v4 and shadcn/ui, hosted on Vercel (migrated from static HTML on 2026-10-12, approved by Ray; see docs/decisions.md).
 
 ## What it is
 
@@ -34,7 +34,7 @@ Process: 30-min free call, written fixed-price plan within 48h (with a visual pr
 
 ## Proof and assets
 
-- Client builds (case studies at work/*.html): Influence (CRM), Influence v2 (roster dashboard, repeat client), FeedHack (Discord payout automation), pumpdat (token launchpad).
+- Client builds (case studies at /work/[slug]): Influence (CRM), Influence v2 (roster dashboard, repeat client), FeedHack (Discord payout automation), pumpdat (token launchpad).
 - Personal builds: FIOS, ARIA, NZ Job Finder.
 - Three client testimonials (Agency Director, Malta, x2; Founder, pumpdat). Attribution is role-only until clients approve names (docs/clients/testimonial-permission-messages.md).
 - No client screenshots may be shown (Ray, 2026-09-04). Product visuals are CSS-drawn schematics with synthetic data.

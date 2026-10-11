@@ -1,58 +1,61 @@
 # rayyan-portfolio
 
-Static HTML/CSS/JS portfolio site. No framework, no build step.
+Next.js (App Router) portfolio site with Tailwind v4 and shadcn/ui. Migrated from a static HTML/CSS/JS site on 2026-10-12 (Ray approved, see docs/decisions.md).
 
 ## Stack
 
-- Plain HTML + CSS + JS, no bundler, no Node
-- Hosting: Vercel (static)
-- Analytics: Vercel Analytics (`/_vercel/insights/script.js`)
-- Font: Inter Tight, self-hosted variable WOFF2 in `fonts/` (weights 400-700), preloaded per page. No monospace anywhere.
-- Booking: Calendly popup widget
+- Next.js App Router, TypeScript strict, Tailwind v4 (CSS-first, `@tailwindcss/postcss`), shadcn/ui (radix, CSS variables)
+- Hosting: Vercel. Auto-deploys on push to `main`. Confirm the Vercel project framework preset is Next.js (it was created for a static site).
+- Analytics: `@vercel/analytics`; `lib/book.ts` fires the `book_click` event
+- Font: Inter Tight, self-hosted variable WOFF2 in `app/fonts/` via `next/font/local` (weights 400-700, latin file preloaded). No monospace anywhere.
+- Booking: Calendly popup widget, loaded after interactive by `components/calendly-assets.tsx`
+- Tests: Vitest (`npm test`): redirect map, sitemap, robots, canonical on every page module
+- Commands: `npm run dev`, `npm run build`, `npm start`, `npm run lint`, `npx tsc --noEmit`
 
 ## Files
 
 ```
-index.html             home: hero panel, 4 client cards, offer list, about teaser, one quote, CTA
-work.html              projects: 4 client cards + 3 personal builds (small schematics)
-about.html             about: prose with principles, side cards, 4 process steps, 3 testimonials, FAQ (native details)
-404.html               branded not-found page (Vercel serves it automatically)
-styles.css             shared stylesheet (all pages)
-styles-case.css        case study chrome (work/* pages)
-js/motion.js           reveal engine only
-js/site.js             bookCall helper, sticky mobile CTA
-work/influence.html    Influence CRM case study
-work/influence-v2.html Influence v2 dashboard case study
-work/feedhack.html     FeedHack automation case study
-work/pumpdat.html      pumpdat token launchpad case study
-sitemap.xml            7 URLs, update lastmod on content changes
-robots.txt             allow all incl. named AI crawlers, blocks /logo-exports/, points at sitemap
-llms.txt               plain-text site summary for answer engines; update when offers, projects, or FAQ change
-fonts/                 Inter Tight latin + latin-ext WOFF2 (OFL)
-PRODUCT.md             impeccable product truth (never deployed)
-DESIGN.md              impeccable design system record (never deployed)
-.impeccable/           surface briefs (committed), review captures (gitignored)
-.vercelignore          keeps CLAUDE.md, WORKLOG.md, PRODUCT.md, DESIGN.md, docs/, .impeccable/, logo sources out of deploys
-favicon-16.png         browser tab small
-favicon-32.png         browser tab standard
-favicon-180.png        apple-touch-icon
-og.png                 OG/Twitter share image (1200x630), rendered from docs/og-source.html at 1200x630
-logo-exports/          raw Claude Design export, source only (never deployed)
-docs/                  specs, plans, client drafts (never deployed)
+app/layout.tsx          shell: skip link, sticky nav, footer, Calendly, Analytics, motion gate script
+app/page.tsx            home: hero panel, 4 client cards, offer list, about teaser, one quote, CTA
+app/work/page.tsx       projects: 4 client cards + 3 personal builds
+app/work/[slug]/page.tsx  case studies (generateStaticParams over content/case-studies)
+app/about/page.tsx      about: prose, principles, side cards, 4 steps, 3 testimonials, FAQ accordion
+app/not-found.tsx       branded 404 (noindex)
+app/sitemap.ts, robots.ts  7 URLs, update lastmod in lib/sitemap-entries.ts; robots rules as the legacy file
+app/globals.css         tokens (:root), @theme inline, base, type
+app/styles/*.css        layout, cards (schematics), sections, case, motion
+app/fonts.ts, app/fonts/  Inter Tight
+components/ui/          shadcn: button, accordion, card, badge, separator
+components/             book-link, sticky-book-cta, reveal, site-nav, site-footer, project-card, json-ld, calendly-assets
+components/schematics/  CSS-drawn card visuals (synthetic data, aria-hidden)
+components/case/        case preview panels and rich text
+content/                typed copy (projects, about, case-studies) and content/jsonld/*.json (verbatim JSON-LD)
+lib/                    site constants, seo helper (pageMetadata), booking, sitemap entries
+public/                 favicons, og.png, llms.txt (update when offers, projects, or FAQ change)
+next.config.ts          301 redirects: /index.html, /work.html, /about.html, /work/:slug.html to clean paths
+tests/                  vitest
+legacy-static/          the old static site, kept until the final text diff, then deleted
+PRODUCT.md, DESIGN.md   impeccable product truth and design system record (never deployed)
+.impeccable/            surface briefs (committed), review captures (gitignored)
+.vercelignore           keeps CLAUDE.md, AGENTS.md, WORKLOG.md, PRODUCT.md, DESIGN.md, docs/, .impeccable/, logo sources out of deploys
+logo-exports/           raw Claude Design export, source only (never deployed)
+docs/                   specs, plans, decisions, worklog, client drafts (never deployed)
 ```
 
-## Motion conventions (js/motion.js + styles.css)
+## Motion conventions (components/reveal.tsx + app/styles/motion.css)
 
-- `.js` class gates all hiding; no-JS and reduced-motion visitors get the full static page.
-- Reveal lifecycle: `.in` starts the transition, ~1.4s later the element drops `.reveal`/`.in` and gains permanent `.done`. Hidden states live under `.js .reveal`, persistent end-states key on `:is(.in, .done)`.
-- Parents with `data-stagger="80"` cascade direct children 80ms apart. `.hero-panel` children stagger via CSS delays.
-- Failsafe: if IntersectionObserver is missing or motion fails, `showAll()` reveals everything.
-- Sticky mobile CTA is a direct body child; `data-show-after` / `data-hide-at` selectors drive it. Set `data-show-after` to a section that sits below the first viewport on 390px.
-- Every booking CTA is a real Calendly href plus `onclick="return bookCall('source')"`; sources feed Vercel Analytics events.
+- `html.js` gates all hiding. An inline script in the layout adds it only when `prefers-reduced-motion` is not reduce; no-JS and reduced-motion visitors get the full static page.
+- `Reveal` toggles `.in` (start the transition) then `.done` (~1.4s later); a `stagger` prop (ms) cascades direct children. Failsafe: reveals after 1.5s, and `.motion-failed` (3s, set by the inline script) shows everything if hydration never runs.
+- Reveal only on `.hero-panel` and the card grids. Everything else is static.
+- Reduced motion also neutralises the sticky CTA slide, card arrow, accordion chevron, nav underline, hover lifts, smooth scroll and view transitions. Hover-only styling lives in `@media (hover: hover)`.
+- Sticky mobile CTA (`StickyBookCta`) is a direct child of the page, not inside a transformed ancestor; `showAfter` / `hideAt` are selector props.
+- Every booking CTA is `BookLink` (real Calendly href, popup when loaded) with a typed `BookingSource`; sources feed Vercel Analytics events.
 
 ## Design system
 
 Full record: DESIGN.md. Direction contract: `.impeccable/surfaces/index-html.md`.
+
+Tokens live in `app/globals.css` (`:root`, legacy names, mapped to shadcn variables and `@theme inline`).
 
 | Token   | Value     | Use                              |
 |---------|-----------|----------------------------------|
@@ -67,22 +70,22 @@ Full record: DESIGN.md. Direction contract: `.impeccable/surfaces/index-html.md`
 
 Aesthetic: a quiet room with one loud sentence. Near-white warm ground, big rounded white surfaces on a hairline, few elements per view, gold as the only accent. Bencium-style calm, own colours.
 
-Product visuals: no client screenshots. Cards use CSS-drawn schematics (`.card-visual` > `.vis-frame`) with synthetic data; case pages use the dark `.case-preview` panel. `--data` resolves to the body face; schematic and preview data use tabular numerals, never monospace.
+Product visuals: no client screenshots. Cards use CSS-drawn schematics (`components/schematics`, `.card-visual` > `.vis-frame`) with synthetic data; case pages use the dark `.case-preview` panel (low-alpha text stays at .55 or above for contrast). `--data` resolves to the body face; schematic and preview data use tabular numerals, never monospace.
 
 ## Rules
 
 - Plain-language copy; no monospace anywhere; no code syntax in visible copy
 - Copy is outcome-first, lead with result, not process; no aphoristic one-liners
-- No frameworks or build tooling unless explicitly requested
+- Next.js + Tailwind + shadcn is the approved stack (Ray, 2026-10-12, docs/decisions.md). Add no further frameworks or heavy dependencies without asking.
 - No em dashes in copy
-- Keep each page under 800 lines
+- Keep each file under 800 lines
 - Nav is name (home) / Projects / About / Book a call text link; mark the current page with `aria-current="page"`. Skip link first in body.
 - Reveal motion only on `.hero-panel` and the card grids. Everything else is static.
 - One gold `.mark` per page at most (home hero, home quote). Card h3 is outcome-first with a `.card-name` line above.
 
 ## SEO + AEO
 
-Every page: canonical, robots meta (`max-image-preview:large`), OG/Twitter set, JSON-LD. Home carries the `@graph` (WebSite, ProfessionalService with offer catalog, Person, WebPage); work.html a CollectionPage + ItemList; about.html AboutPage + Person + FAQPage; case pages Article + BreadcrumbList. Entity IDs: `/#website`, `/#business`, `/#person`. Keep JSON-LD, `llms.txt`, and visible copy saying the same thing.
+Every page: canonical, robots meta (`max-image-preview:large`), OG/Twitter set, JSON-LD. Home carries the `@graph` (WebSite, ProfessionalService with offer catalog, Person, WebPage); work.html a CollectionPage + ItemList; about.html AboutPage + Person + FAQPage; case pages Article + BreadcrumbList. Entity IDs: `/#website`, `/#business`, `/#person`. Keep JSON-LD (`content/jsonld`), `public/llms.txt`, and visible copy saying the same thing. Page metadata goes through `lib/seo.ts` (a page-level openGraph replaces the layout one, so the helper emits the full set).
 
 ## Domain + OG
 
@@ -91,7 +94,7 @@ After domain is live and pointed at Vercel, verify OG preview with LinkedIn Post
 
 ## Deployment
 
-Push to GitHub, repo connected in Vercel, auto-deploys on push to `main`.
+Push to GitHub, repo connected in Vercel, auto-deploys on push to `main`. Old `*.html` URLs 301 to the clean paths via `next.config.ts`.
 
 ## Open
 
