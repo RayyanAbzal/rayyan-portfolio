@@ -29,10 +29,12 @@ components/ui/          shadcn: button, accordion, card, badge, separator
 components/             book-link, sticky-book-cta, reveal, site-nav, site-footer, project-card, json-ld, calendly-assets
 components/schematics/  CSS-drawn card visuals (synthetic data, aria-hidden)
 components/case/        case preview panels and rich text
-content/                typed copy (projects, about, case-studies) and content/jsonld/*.json (verbatim JSON-LD)
-lib/                    site constants, seo helper (pageMetadata), booking, sitemap entries
-public/                 favicons, og.png, llms.txt (update when offers, projects, or FAQ change)
-next.config.ts          301 redirects: /index.html, /work.html, /about.html, /work/:slug.html to clean paths
+content/                typed copy (home, work, about, projects, case-studies) and content/jsonld/*.json (verbatim JSON-LD). Pages and markdown mirrors both read it.
+lib/                    site constants, seo helper (pageMetadata), booking, sitemap entries, pages.ts (page registry, no imports), markdown.ts (mirrors + llms.txt renderer)
+app/md/[...slug]/route.ts  serves the markdown mirrors (text/markdown, Vary: Accept)
+app/llms.txt/route.ts   generated llms.txt (services, work, about; links the .md mirrors)
+public/                 favicons, og.png
+next.config.ts          301 redirects: /index.html, /work.html, /about.html, /work/:slug.html to clean paths; rewrites <path>.md and Accept: text/markdown to the mirror; Link rel=alternate header per page
 tests/                  vitest
 (legacy-static/ was deleted after the text diff passed; see git history)
 PRODUCT.md, DESIGN.md   impeccable product truth and design system record (never deployed)
@@ -85,7 +87,7 @@ Product visuals: no client screenshots. Cards use CSS-drawn schematics (`compone
 
 ## SEO + AEO
 
-Every page: canonical, robots meta (`max-image-preview:large`), OG/Twitter set, JSON-LD. Home carries the `@graph` (WebSite, ProfessionalService with offer catalog, Person, WebPage); work.html a CollectionPage + ItemList; about.html AboutPage + Person + FAQPage; case pages Article + BreadcrumbList. Entity IDs: `/#website`, `/#business`, `/#person`. Keep JSON-LD (`content/jsonld`), `public/llms.txt`, and visible copy saying the same thing. Page metadata goes through `lib/seo.ts` (a page-level openGraph replaces the layout one, so the helper emits the full set).
+Every page: canonical, robots meta (`max-image-preview:large`), OG/Twitter set, JSON-LD. Home carries the `@graph` (WebSite, ProfessionalService with offer catalog, Person, WebPage); work.html a CollectionPage + ItemList; about.html AboutPage + Person + FAQPage; case pages Article + BreadcrumbList. Entity IDs: `/#website`, `/#business`, `/#person`. Keep JSON-LD (`content/jsonld`) and visible copy saying the same thing. llms.txt and the markdown mirrors are generated from `content/`, so edit copy there only. AI readability: answers in initial HTML, `/<path>.md` mirrors (home is `/index.md`) advertised by `<link rel="alternate" type="text/markdown">` and a `Link` header, `Accept: text/markdown` negotiation, real 404s, no bot blocking. Page metadata goes through `lib/seo.ts` (a page-level openGraph replaces the layout one, so the helper emits the full set).
 
 ## Domain + OG
 
