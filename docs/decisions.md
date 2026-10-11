@@ -25,3 +25,9 @@
 **Why.** The scanner reads the live site, which is still the old static build; these are the gaps it can check mechanically. All guidance, schema and page copy restates existing site copy or states repo facts, so llms.txt, mirrors and pages stay in one typed source (`content/`).
 
 **Open.** `/privacy` is draft text that describes what the code does; Ray reviews before merge. `Vary: Accept` on plain HTML responses is not guaranteed (Next overwrites it on prerendered pages).
+
+## 2026-10-12: privacy wording and reveal failsafe
+
+**Privacy.** /privacy keeps "a booking creates an appointment with me, so I see the details you enter" and "if you email me I receive your message and address and use them to reply". Hosting wording is "my hosting provider, Vercel, may process request data such as IP addresses". Policy links are https://calendly.com/legal/privacy-notice and https://vercel.com/legal/privacy-notice (Ray verified both return 200). The page does not claim Vercel Analytics is cookieless.
+
+**Reveal.** The blanket 1.5s reveal-everything failsafe is replaced by one that reveals only elements within one viewport height; below-the-fold cards animate on scroll. `html.motion-failed` (3s) stays for a failed hydration.
