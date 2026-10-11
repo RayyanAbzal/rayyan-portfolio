@@ -234,3 +234,16 @@ export function llmsTxt(): string {
     about.join("\n"),
   ]);
 }
+
+/** Body for a markdown request that matches no page: explains the error and points at the discovery files. */
+export function markdownNotFound(): string {
+  return join([
+    "# Page not found",
+    "No page exists at this address, so the server answered 404. Every public page is listed in the files below.",
+    [
+      bullet(`[llms.txt](${absoluteUrl("/llms.txt")}): index of the site for agents.`),
+      bullet(`[sitemap.xml](${absoluteUrl("/sitemap.xml")}): every public page.`),
+      bullet(`[Home](${absoluteUrl("/")}) ([markdown](${absoluteUrl(markdownPath("/"))})): ${HOME.description}`),
+    ].join("\n"),
+  ]);
+}

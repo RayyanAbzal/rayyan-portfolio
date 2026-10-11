@@ -16,13 +16,29 @@ const MARKDOWN_ACCEPT = { type: "header", key: "accept", value: ".*text/markdown
 
 /** Rewrites that serve the markdown mirror for `<path>.md` and for `Accept: text/markdown`. */
 export function markdownRewrites() {
-  return PAGE_PATHS.flatMap((path) => {
+  const perPage = PAGE_PATHS.flatMap((path) => {
     const destination = `/md${path === "/" ? "/index" : path}`;
     return [
       { source: markdownPath(path), destination },
       { source: path, has: [MARKDOWN_ACCEPT], destination },
     ];
   });
+  // An unknown case study slug would otherwise reach the HTML dynamic route.
+  const unknownCase = {
+    source: "/work/:slug",
+    has: [MARKDOWN_ACCEPT],
+    destination: "/md/work/:slug",
+  };
+  return [...perPage, unknownCase];
+}
+
+/**
+ * Fallback rewrite: fires only when no page or route matched. A markdown
+ * request for a missing path gets a readable 404 body (status stays 404);
+ * HTML requests keep the branded not-found page.
+ */
+export function markdownFallback() {
+  return [{ source: "/:path*", has: [MARKDOWN_ACCEPT], destination: "/md/not-found" }];
 }
 
 /**
@@ -48,7 +64,7 @@ const nextConfig: NextConfig = {
     return LEGACY_REDIRECTS.map((rule) => ({ ...rule, statusCode: 301 }));
   },
   async rewrites() {
-    return { beforeFiles: markdownRewrites(), afterFiles: [], fallback: [] };
+    return { beforeFiles: markdownRewrites(), afterFiles: [], fallback: markdownFallback() };
   },
   async headers() {
     return markdownHeaders();

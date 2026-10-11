@@ -3,11 +3,12 @@ import { describe, expect, it } from "vitest";
 import { generateMetadata as caseMetadata } from "@/app/work/[slug]/page";
 import { metadata as homeMeta } from "@/app/page";
 import { CASE_STUDIES } from "@/content/case-studies";
-import { findMarkdownPage, llmsTxt, markdownPages } from "@/lib/markdown";
+import { findMarkdownPage, llmsTxt, markdownNotFound, markdownPages } from "@/lib/markdown";
 import { PAGE_PATHS, markdownPath } from "@/lib/pages";
 import { CALENDLY_URL } from "@/lib/site";
 import { SITEMAP_ENTRIES } from "@/lib/sitemap-entries";
-import { markdownHeaders, markdownRewrites } from "../next.config";
+import { GET as markdownGet } from "@/app/md/[...slug]/route";
+import { markdownFallback, markdownHeaders, markdownRewrites } from "../next.config";
 
 const H1: Record<string, string> = {
   "/": "I build AI that runs your business.",
@@ -42,7 +43,7 @@ describe("markdown mirrors", () => {
 describe("negotiation config", () => {
   it("rewrites both <path>.md and Accept: text/markdown for every page", () => {
     const rules = markdownRewrites();
-    expect(rules).toHaveLength(PAGE_PATHS.length * 2);
+    expect(rules).toHaveLength(PAGE_PATHS.length * 2 + 1);
     for (const path of PAGE_PATHS) {
       expect(rules.some((r) => r.source === markdownPath(path) && !("has" in r))).toBe(true);
       expect(rules.some((r) => r.source === path && "has" in r)).toBe(true);
@@ -55,6 +56,37 @@ describe("negotiation config", () => {
       expect(keys).toEqual(["Link", "Vary"]);
       expect(rule.headers[0]?.value).toContain('type="text/markdown"');
     }
+  });
+});
+
+describe("agent-friendly 404", () => {
+  it("falls back to the markdown handler only for markdown requests", () => {
+    const [rule] = markdownFallback();
+    expect(rule?.source).toBe("/:path*");
+    expect(rule?.destination).toBe("/md/not-found");
+    expect(rule?.has[0]?.value).toContain("text/markdown");
+  });
+
+  it("returns a real 404 with a markdown body, Vary and discovery links", async () => {
+    const response = await markdownGet(new Request("http://localhost/md/not-found"), {
+      params: Promise.resolve({ slug: ["not-found"] }),
+    });
+    const body = await response.text();
+    expect(response.status).toBe(404);
+    expect(response.headers.get("content-type")).toBe("text/markdown; charset=utf-8");
+    expect(response.headers.get("vary")).toBe("Accept");
+    expect(body.length).toBeGreaterThanOrEqual(20);
+    expect(body).toBe(markdownNotFound());
+    for (const url of ["https://rayyanabzal.com/llms.txt", "https://rayyanabzal.com/sitemap.xml", "https://rayyanabzal.com/index.md"]) {
+      expect(body).toContain(url);
+    }
+  });
+
+  it("keeps 200 for a known page", async () => {
+    const response = await markdownGet(new Request("http://localhost/md/work"), {
+      params: Promise.resolve({ slug: ["work"] }),
+    });
+    expect(response.status).toBe(200);
   });
 });
 
