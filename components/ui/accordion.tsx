@@ -8,7 +8,8 @@ import { cn } from "@/lib/utils"
 /*
  * Accordion for the FAQ. The chevron and spacing live in the site stylesheet
  * (`.faq [data-slot="accordion-trigger"]::after`) so the open and closed
- * states need no animation and reduced-motion visitors see none.
+ * states need no animation and reduced-motion visitors see none. Content is
+ * force-mounted so closed answers stay in the HTML (Radix sets `hidden`).
  */
 function Accordion({
   className,
@@ -60,7 +61,7 @@ function AccordionContent({
   ...props
 }: React.ComponentProps<typeof AccordionPrimitive.Content>) {
   return (
-    <AccordionPrimitive.Content data-slot="accordion-content" {...props}>
+    <AccordionPrimitive.Content data-slot="accordion-content" forceMount {...props}>
       <div className={cn(className)}>{children}</div>
     </AccordionPrimitive.Content>
   )

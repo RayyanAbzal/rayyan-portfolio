@@ -107,6 +107,7 @@
     transition: transform 0.3s var(--ease);
   }
   .faq [data-slot="accordion-trigger"][data-state="open"]::after { transform: rotate(225deg) translate(-2px, -2px); }
+  .faq [data-slot="accordion-content"][data-state="closed"] { display: none; }
   .faq .a { padding: 0 0 24px; color: var(--ink-2); max-width: 65ch; font-size: 1.03125rem; }
 
   /* ---------- closing CTA ---------- */
