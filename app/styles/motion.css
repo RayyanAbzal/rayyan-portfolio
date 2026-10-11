@@ -1,0 +1,60 @@
+/* Motion. Hidden states exist only while the html element carries `.js`
+   (set by an inline script, and only when motion is allowed). The Reveal
+   component adds `.in` to start the transition and `.done` afterwards.
+   No-JS and reduced-motion visitors never get `.js`, so they see the full
+   static page; `.motion-failed` is the 3s failsafe if hydration never runs. */
+
+@layer components {
+  .js .reveal:not(.in):not(.done) { opacity: 0; transform: translateY(16px); }
+  .reveal.in { opacity: 1; transform: none; transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); }
+
+  .js [data-stagger].reveal:not(.in):not(.done) { opacity: 1; transform: none; }
+  .js [data-stagger].reveal:not(.in):not(.done) > * { opacity: 0; transform: translateY(16px); }
+  [data-stagger].reveal.in > * { opacity: 1; transform: none; transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); }
+  [data-stagger].reveal.in > *:nth-child(2) { transition-delay: calc(var(--stagger, 90ms) * 1); }
+  [data-stagger].reveal.in > *:nth-child(3) { transition-delay: calc(var(--stagger, 90ms) * 2); }
+  [data-stagger].reveal.in > *:nth-child(4) { transition-delay: calc(var(--stagger, 90ms) * 3); }
+
+  .js .hero-panel.reveal:not(.in):not(.done) { transform: translateY(10px) scale(0.985); }
+  .hero-panel.reveal.in { transform: none; transition: opacity 1s var(--ease), transform 1.1s var(--ease); }
+  .js .hero-panel:not(.in):not(.done) h1 { opacity: 0; transform: translateY(18px); }
+  .hero-panel.in h1, .hero-panel.done h1 { opacity: 1; transform: none; transition: opacity 0.9s var(--ease) 0.05s, transform 0.9s var(--ease) 0.05s; }
+  .js .hero-panel:not(.in):not(.done) .lede,
+  .js .hero-panel:not(.in):not(.done) .hero-actions { opacity: 0; transform: translateY(14px); }
+  .hero-panel.in .lede, .hero-panel.done .lede { opacity: 1; transform: none; transition: opacity 0.8s var(--ease) 0.25s, transform 0.8s var(--ease) 0.25s; }
+  .hero-panel.in .hero-actions, .hero-panel.done .hero-actions { opacity: 1; transform: none; transition: opacity 0.8s var(--ease) 0.4s, transform 0.8s var(--ease) 0.4s; }
+
+  .motion-failed .reveal,
+  .motion-failed [data-stagger].reveal > *,
+  .motion-failed .hero-panel h1,
+  .motion-failed .hero-panel .lede,
+  .motion-failed .hero-panel .hero-actions { opacity: 1 !important; transform: none !important; }
+}
+
+@view-transition { navigation: auto; }
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: 220ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  /* Reveal: everything visible, no transitions. */
+  .reveal, [data-stagger].reveal > *, .hero-panel h1, .hero-panel .lede, .hero-panel .hero-actions {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  /* Sticky mobile CTA: fade only, no slide. */
+  .mobile-cta, .mobile-cta.show { transform: none; transition: opacity 0.01s, visibility 0s; }
+
+  /* Hover lifts, arrows, underline, chevron, pulses and the runner dot. */
+  .btn, [data-slot="button"], .card, .case-back, .case-nav a, .link { transition: none !important; }
+  .case-nav a:hover { transform: none; box-shadow: none; }
+  .card:has(.card-link) h3::after { transform: none !important; transition: none !important; }
+  .nav-links a::after { transition: none !important; }
+  .faq [data-slot="accordion-trigger"]::after { transition: none !important; }
+  .vis-live i { animation: none; }
+  .card:hover .vis-runner, :is(.in, .done) .vis-runner { animation: none; }
+
+  @view-transition { navigation: none; }
+}

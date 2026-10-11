@@ -1,129 +1,220 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
+@import "./styles/layout.css";
+@import "./styles/cards.css";
+@import "./styles/sections.css";
+@import "./styles/case.css";
+@import "./styles/motion.css";
 
-@custom-variant dark (&:is(.dark *));
-
-@theme inline {
-    --font-heading: var(--font-sans);
-    --font-sans: var(--font-sans);
-    --color-sidebar-ring: var(--sidebar-ring);
-    --color-sidebar-border: var(--sidebar-border);
-    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-    --color-sidebar-accent: var(--sidebar-accent);
-    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-    --color-sidebar-primary: var(--sidebar-primary);
-    --color-sidebar-foreground: var(--sidebar-foreground);
-    --color-sidebar: var(--sidebar);
-    --color-chart-5: var(--chart-5);
-    --color-chart-4: var(--chart-4);
-    --color-chart-3: var(--chart-3);
-    --color-chart-2: var(--chart-2);
-    --color-chart-1: var(--chart-1);
-    --color-ring: var(--ring);
-    --color-input: var(--input);
-    --color-border: var(--border);
-    --color-destructive: var(--destructive);
-    --color-accent-foreground: var(--accent-foreground);
-    --color-accent: var(--accent);
-    --color-muted-foreground: var(--muted-foreground);
-    --color-muted: var(--muted);
-    --color-secondary-foreground: var(--secondary-foreground);
-    --color-secondary: var(--secondary);
-    --color-primary-foreground: var(--primary-foreground);
-    --color-primary: var(--primary);
-    --color-popover-foreground: var(--popover-foreground);
-    --color-popover: var(--popover);
-    --color-card-foreground: var(--card-foreground);
-    --color-card: var(--card);
-    --color-foreground: var(--foreground);
-    --color-background: var(--background);
-    --radius-sm: calc(var(--radius) * 0.6);
-    --radius-md: calc(var(--radius) * 0.8);
-    --radius-lg: var(--radius);
-    --radius-xl: calc(var(--radius) * 1.4);
-    --radius-2xl: calc(var(--radius) * 1.8);
-    --radius-3xl: calc(var(--radius) * 2.2);
-    --radius-4xl: calc(var(--radius) * 2.6);
-}
+/* ============================================================
+   rayyanabzal.com - quiet room, one loud sentence.
+   Near-white warm ground, white cards on a hairline, pine buttons,
+   kowhai marker. Tokens live in :root with the legacy names, are exposed
+   to Tailwind through @theme inline, and are mapped onto the shadcn
+   semantic variables below.
+   ============================================================ */
 
 :root {
-    --background: oklch(1 0 0);
-    --foreground: oklch(0.145 0 0);
-    --card: oklch(1 0 0);
-    --card-foreground: oklch(0.145 0 0);
-    --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.145 0 0);
-    --primary: oklch(0.205 0 0);
-    --primary-foreground: oklch(0.985 0 0);
-    --secondary: oklch(0.97 0 0);
-    --secondary-foreground: oklch(0.205 0 0);
-    --muted: oklch(0.97 0 0);
-    --muted-foreground: oklch(0.556 0 0);
-    --accent: oklch(0.97 0 0);
-    --accent-foreground: oklch(0.205 0 0);
-    --destructive: oklch(0.577 0.245 27.325);
-    --border: oklch(0.922 0 0);
-    --input: oklch(0.922 0 0);
-    --ring: oklch(0.708 0 0);
-    --chart-1: oklch(0.87 0 0);
-    --chart-2: oklch(0.556 0 0);
-    --chart-3: oklch(0.439 0 0);
-    --chart-4: oklch(0.371 0 0);
-    --chart-5: oklch(0.269 0 0);
-    --radius: 0.625rem;
-    --sidebar: oklch(0.985 0 0);
-    --sidebar-foreground: oklch(0.145 0 0);
-    --sidebar-primary: oklch(0.205 0 0);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.97 0 0);
-    --sidebar-accent-foreground: oklch(0.205 0 0);
-    --sidebar-border: oklch(0.922 0 0);
-    --sidebar-ring: oklch(0.708 0 0);
+  --bg: #f5f3ee;
+  --bg-2: #ebe8e1;
+  --paper: #fffdf9;
+  --paper-2: #f6f4ef;
+  --well: #e6ebe3;
+  --sage: #dde7da;
+  --sage-2: #c9d8c5;
+  --ink: #17150f;
+  --ink-2: #45413a;
+  --ink-3: #5c574f;
+  --line: rgb(23 21 15 / 0.1);
+  --line-2: rgb(23 21 15 / 0.18);
+  --pine: #1f3d2b;
+  --pine-2: #2f5e3e;
+  --pine-tint: rgb(47 94 62 / 0.12);
+  --gold: #f3c94a;
+  --gold-2: #e0b12e;
+  --warn: #c17a2a;
+
+  /* Repeated literals promoted to tokens. Channel triplets feed rgb(... / a). */
+  --cream: 250 248 244;
+  --ink-rgb: 23 21 15;
+  --pine-rgb: 31 61 43;
+  --ok-on-dark: #a8d5b5;
+  --warn-on-dark: #e8b878;
+
+  --font: var(--font-it-latin), var(--font-it-ext), "Helvetica Neue", Arial, system-ui, sans-serif;
+  --data: var(--font);
+
+  --max: 1200px;
+  --pad: clamp(20px, 3vw, 24px);
+  --r: 24px;
+  --r-sm: 14px;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  /* One shadow base (ink) for every elevation. */
+  --shadow-card: 0 1px 2px rgb(var(--ink-rgb) / 0.04), 0 8px 24px -20px rgb(var(--ink-rgb) / 0.18);
+  --shadow-frame: 0 20px 44px -20px rgb(var(--ink-rgb) / 0.35);
+  --shadow-toast: 0 10px 22px -8px rgb(var(--ink-rgb) / 0.5);
+  --shadow-lift: 0 24px 40px -26px rgb(var(--ink-rgb) / 0.35);
+
+  /* Sticky nav heights, used for scroll-padding-top. */
+  --scroll-pad: 84px;
+
+  /* shadcn semantic tokens, mapped onto the site tokens. */
+  --background: var(--bg);
+  --foreground: var(--ink);
+  --card: var(--paper);
+  --card-foreground: var(--ink);
+  --popover: var(--paper);
+  --popover-foreground: var(--ink);
+  --primary: var(--pine);
+  --primary-foreground: var(--paper);
+  --secondary: var(--sage);
+  --secondary-foreground: var(--pine);
+  --muted: var(--bg-2);
+  --muted-foreground: var(--ink-3);
+  --accent: var(--gold);
+  --accent-foreground: var(--ink);
+  --destructive: var(--warn);
+  --border: var(--line);
+  --input: var(--line-2);
+  --ring: var(--pine);
+  --radius: 1.5rem;
 }
 
-.dark {
-    --background: oklch(0.145 0 0);
-    --foreground: oklch(0.985 0 0);
-    --card: oklch(0.205 0 0);
-    --card-foreground: oklch(0.985 0 0);
-    --popover: oklch(0.205 0 0);
-    --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.922 0 0);
-    --primary-foreground: oklch(0.205 0 0);
-    --secondary: oklch(0.269 0 0);
-    --secondary-foreground: oklch(0.985 0 0);
-    --muted: oklch(0.269 0 0);
-    --muted-foreground: oklch(0.708 0 0);
-    --accent: oklch(0.269 0 0);
-    --accent-foreground: oklch(0.985 0 0);
-    --destructive: oklch(0.704 0.191 22.216);
-    --border: oklch(1 0 0 / 10%);
-    --input: oklch(1 0 0 / 15%);
-    --ring: oklch(0.556 0 0);
-    --chart-1: oklch(0.87 0 0);
-    --chart-2: oklch(0.556 0 0);
-    --chart-3: oklch(0.439 0 0);
-    --chart-4: oklch(0.371 0 0);
-    --chart-5: oklch(0.269 0 0);
-    --sidebar: oklch(0.205 0 0);
-    --sidebar-foreground: oklch(0.985 0 0);
-    --sidebar-primary: oklch(0.488 0.243 264.376);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.269 0 0);
-    --sidebar-accent-foreground: oklch(0.985 0 0);
-    --sidebar-border: oklch(1 0 0 / 10%);
-    --sidebar-ring: oklch(0.556 0 0);
+@media (max-width: 640px) {
+  :root { --scroll-pad: 132px; }
 }
 
+@theme inline {
+  --font-sans: var(--font);
+  --font-mono: var(--font);
+  --font-heading: var(--font);
+
+  --color-bg: var(--bg);
+  --color-bg-2: var(--bg-2);
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-well: var(--well);
+  --color-sage: var(--sage);
+  --color-sage-2: var(--sage-2);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-line: var(--line);
+  --color-line-2: var(--line-2);
+  --color-pine: var(--pine);
+  --color-pine-2: var(--pine-2);
+  --color-pine-tint: var(--pine-tint);
+  --color-gold: var(--gold);
+  --color-gold-2: var(--gold-2);
+  --color-warn: var(--warn);
+  --color-ok-on-dark: var(--ok-on-dark);
+  --color-warn-on-dark: var(--warn-on-dark);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius-site: var(--r);
+  --radius-site-sm: var(--r-sm);
+}
+
+/* ---------- base ---------- */
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
-    }
-  body {
-    @apply bg-background text-foreground;
-    }
   html {
-    @apply font-sans;
-    }
+    background: var(--bg);
+    scroll-behavior: smooth;
+    scroll-padding-top: var(--scroll-pad);
+    scrollbar-color: var(--sage-2) var(--bg);
+  }
+  body {
+    margin: 0;
+    font-family: var(--font);
+    font-size: 1.0625rem;
+    line-height: 1.55;
+    color: var(--ink);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "cv11", "ss03";
+  }
+  a { color: inherit; text-decoration: none; }
+  img, svg { display: block; max-width: 100%; }
+  strong { font-weight: 600; }
+  button { cursor: pointer; }
+  ::selection { background: var(--gold); color: var(--ink); }
+
+  /* Focus ring: pine on light grounds (gold-2 is 1.8:1 on bg and fails 3:1).
+     Gold is allowed only inside the pine panels. */
+  :focus-visible {
+    outline: 3px solid var(--pine);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  .cta-panel :focus-visible,
+  .case-cta :focus-visible {
+    outline-color: var(--gold);
+  }
+  main:focus { outline: none; }
+}
+
+/* ---------- type ---------- */
+@layer components {
+  .wrap { max-width: var(--max); margin: 0 auto; padding-left: var(--pad); padding-right: var(--pad); }
+  .skip {
+    position: absolute; left: 16px; top: -60px; z-index: 100;
+    padding: 10px 16px; background: var(--ink); color: var(--paper);
+    border-radius: 999px; font-weight: 600;
+  }
+  .skip:focus { top: 12px; }
+
+  .display {
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 1;
+    text-wrap: balance;
+  }
+  h2.display { font-size: clamp(2.125rem, 4.6vw, 3.5rem); letter-spacing: -0.03em; line-height: 1.02; }
+  .lede {
+    font-size: clamp(1.125rem, 1.6vw, 1.3125rem);
+    line-height: 1.5;
+    color: var(--ink-2);
+    max-width: 58ch;
+    text-wrap: pretty;
+  }
+  .mark {
+    background: var(--gold);
+    color: var(--ink);
+    padding: 0 0.16em;
+    margin: 0 -0.04em;
+    border-radius: 0.22em;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+
+  /* ---------- links ---------- */
+  .link {
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: var(--gold);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 5px;
+    transition: text-decoration-color 0.2s, color 0.2s;
+  }
+  .link-arrow::after { content: " \2192"; }
 }
