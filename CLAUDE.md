@@ -34,7 +34,7 @@ lib/                    site constants, seo helper (pageMetadata), booking, site
 public/                 favicons, og.png, llms.txt (update when offers, projects, or FAQ change)
 next.config.ts          301 redirects: /index.html, /work.html, /about.html, /work/:slug.html to clean paths
 tests/                  vitest
-legacy-static/          the old static site, kept until the final text diff, then deleted
+(legacy-static/ was deleted after the text diff passed; see git history)
 PRODUCT.md, DESIGN.md   impeccable product truth and design system record (never deployed)
 .impeccable/            surface briefs (committed), review captures (gitignored)
 .vercelignore           keeps CLAUDE.md, AGENTS.md, WORKLOG.md, PRODUCT.md, DESIGN.md, docs/, .impeccable/, logo sources out of deploys
