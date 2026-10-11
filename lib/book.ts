@@ -2,9 +2,10 @@ import { track } from "@vercel/analytics";
 
 import { CALENDLY_URL } from "@/lib/site";
 
-export type CaseSlug = "influence" | "influence-v2" | "feedhack" | "pumpdat";
+import { CASE_SLUGS, type CaseSlug } from "@/lib/pages";
 
-export const CASE_SLUGS: readonly CaseSlug[] = ["influence", "influence-v2", "feedhack", "pumpdat"];
+export { CASE_SLUGS };
+export type { CaseSlug };
 
 export type NavSource =
   | "nav"
