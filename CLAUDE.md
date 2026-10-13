@@ -21,16 +21,17 @@ app/work/page.tsx       projects: 4 client cards + 3 personal builds
 app/work/[slug]/page.tsx  case studies (generateStaticParams over content/case-studies)
 app/contact/page.tsx    contact: ways to reach me, where I work, what to include in a first message (footer link only)
 app/privacy/page.tsx    privacy: plain-language, factual draft (footer link only; Ray to review)
-app/about/page.tsx      about: prose, principles, side cards, 4 steps, 3 testimonials, FAQ accordion
+app/about/page.tsx      about: composes components/about/* (editorial layout, no cards, no reveal)
 app/not-found.tsx       branded 404 (noindex)
 app/sitemap.ts, robots.ts  9 URLs, update lastmod in lib/sitemap-entries.ts; robots rules as the legacy file
 app/globals.css         tokens (:root), @theme inline, base, type
-app/styles/*.css        layout, cards (schematics), sections, case, motion
+app/styles/*.css        layout (--section-y rhythm, .has-rule hairlines), cards (schematics), sections, about, case, motion
 app/fonts.ts, app/fonts/  Inter Tight
 components/ui/          shadcn: button, accordion, card, badge, separator
 components/             book-link, sticky-book-cta, reveal, site-nav, site-footer, project-card, json-ld, calendly-assets
 components/schematics/  CSS-drawn card visuals (synthetic data, aria-hidden)
 components/case/        case preview panels and rich text
+components/about/       about sections: opening, facts, principles (pine panel), process, testimonials, faq
 content/                typed copy (home, work, about, contact, privacy, agent-guidance, projects, case-studies) and content/jsonld/*.json (verbatim JSON-LD). Pages and markdown mirrors both read it.
 lib/                    site constants, seo helper (pageMetadata), booking, sitemap entries, pages.ts (page registry, no imports), markdown.ts (mirrors + llms.txt renderer)
 app/md/[...slug]/route.ts  serves the markdown mirrors (text/markdown, Vary: Accept)
