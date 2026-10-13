@@ -32,7 +32,7 @@ export default function ContactPage() {
         <section className="wrap tight">
           <div className="about-split">
             <div className="prose">
-              <h3 className="!mt-0">{CONTACT.waysHeading}</h3>
+              <h2 className="!mt-0">{CONTACT.waysHeading}</h2>
               <p className="flex flex-wrap items-center gap-x-6 gap-y-4">
                 <Button asChild>
                   <BookLink source="contact_page">{CONTACT.bookLabel}</BookLink>
@@ -47,10 +47,10 @@ export default function ContactPage() {
                 <a className="link" href={LINKEDIN_URL} target="_blank" rel="noopener">{LINKEDIN_URL}</a>
               </p>
 
-              <h3>{CONTACT.locationHeading}</h3>
+              <h2>{CONTACT.locationHeading}</h2>
               <p>{CONTACT.location}</p>
 
-              <h3>{CONTACT.firstMessageHeading}</h3>
+              <h2>{CONTACT.firstMessageHeading}</h2>
               <p>{CONTACT.firstMessageIntro}</p>
               <ul className="list-disc space-y-2 pl-6 text-ink-2">
                 {CONTACT.firstMessageItems.map((item) => (
@@ -58,7 +58,7 @@ export default function ContactPage() {
                 ))}
               </ul>
 
-              <h3>{CONTACT.nextHeading}</h3>
+              <h2>{CONTACT.nextHeading}</h2>
               {CONTACT.next.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
               ))}

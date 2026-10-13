@@ -33,7 +33,7 @@ export default function PrivacyPage() {
             </p>
             {PRIVACY.sections.map((section) => (
               <div key={section.heading}>
-                <h3>{section.heading}</h3>
+                <h2>{section.heading}</h2>
                 {section.paragraphs.map((paragraph, index) => (
                   <p key={index}><RichText value={paragraph} /></p>
                 ))}
