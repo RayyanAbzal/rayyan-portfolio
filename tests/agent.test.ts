@@ -3,7 +3,7 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 
 import { AGENT_GUIDANCE } from "@/content/agent-guidance";
-import { FAQ_ITEMS } from "@/content/about";
+import { FAQ_ITEMS, LEAD_QUOTE_MARK, PRINCIPLES, TESTIMONIALS } from "@/content/about";
 import { CONTACT } from "@/content/contact";
 import contactLd from "@/content/jsonld/contact.json";
 import homeLd from "@/content/jsonld/home.json";
@@ -159,5 +159,32 @@ describe("home layout pass content", () => {
 
   it("keeps the CTA heading text intact despite the no-wrap run", () => {
     expect(home).toContain("## Book a free 30-minute call.");
+  });
+});
+
+describe("about redesign content shape", () => {
+  const about = findMarkdownPage("/about")?.markdown ?? "";
+
+  it("keeps the section order of the visible page in the mirror", () => {
+    const order = [
+      "# I scope it, build it, and ship it myself.",
+      "**Day job**",
+      "## AI is a tool, not a deliverable",
+      "## How every engagement runs.",
+      "## What clients say.",
+      "## Common questions.",
+      "## Bring the rest to the call.",
+    ].map((marker) => about.indexOf(marker));
+    expect(order.every((index) => index >= 0)).toBe(true);
+    expect([...order].sort((a, b) => a - b)).toEqual(order);
+  });
+
+  it("lists the four principles as level-3 headings in order", () => {
+    const titles = [...about.matchAll(/^### (.+)$/gm)].map((m) => m[1]);
+    expect(titles.slice(0, 4)).toEqual(PRINCIPLES.map((p) => p.title));
+  });
+
+  it("has exactly one lead-quote marker phrase present in the first testimonial", () => {
+    expect(TESTIMONIALS[0]?.quote).toContain(LEAD_QUOTE_MARK);
   });
 });

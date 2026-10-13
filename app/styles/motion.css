@@ -52,7 +52,6 @@
   .case-nav a:hover { transform: none; box-shadow: none; }
   .card:has(.card-link) h3::after { transform: none !important; transition: none !important; }
   .nav-links a::after { transition: none !important; }
-  .faq [data-slot="accordion-trigger"]::after { transition: none !important; }
   .vis-live i { animation: none; }
   .card:hover .vis-runner, :is(.in, .done) .vis-runner { animation: none; }
 

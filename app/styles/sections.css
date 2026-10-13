@@ -22,23 +22,6 @@
     .offer > h3, .offer > .offer-body, .offer > .when { grid-column: 1; grid-row: auto; }
   }
 
-  /* ---------- process ---------- */
-  .steps {
-    background: var(--paper);
-    border: 1px solid var(--line);
-    border-radius: var(--r);
-    padding: clamp(24px, 3vw, 40px);
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 32px;
-  }
-  @media (max-width: 860px) { .steps { grid-template-columns: 1fr 1fr; } }
-  @media (max-width: 520px) { .steps { grid-template-columns: 1fr; } }
-  .step .n { font-size: 2.75rem; font-weight: 700; letter-spacing: -0.04em; line-height: 1; color: var(--sage-2); margin-bottom: 14px; }
-  .step h3 { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 8px; }
-  .step p { color: var(--ink-2); font-size: 0.96875rem; }
-  .step .when { display: block; font-size: 0.84375rem; color: var(--pine-2); font-weight: 600; margin-top: 10px; }
-
   /* ---------- about split ---------- */
   .about-split { display: grid; grid-template-columns: 1.3fr 0.9fr; gap: clamp(32px, 5vw, 72px); align-items: start; }
   @media (max-width: 860px) { .about-split { grid-template-columns: 1fr; } }
@@ -76,39 +59,6 @@
   .quote blockquote .mark { font-weight: 600; }
   .quote .attrib { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; font-size: 0.9375rem; color: var(--ink-2); }
   .quote .attrib strong { color: var(--ink); }
-  .quote-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-  @media (max-width: 960px) { .quote-row { grid-template-columns: 1fr; } }
-  .quote-row .quote blockquote { font-size: 1.09375rem; }
-
-  /* ---------- FAQ (shadcn accordion) ---------- */
-  .faq { background: var(--paper); border: 1px solid var(--line); border-radius: var(--r); padding: 8px clamp(20px, 3vw, 36px); }
-  .faq [data-slot="accordion-item"] { border-bottom: 1px solid var(--line); }
-  .faq [data-slot="accordion-item"]:last-child { border-bottom: 0; }
-  .faq [data-slot="accordion-trigger"] {
-    width: 100%;
-    text-align: left;
-    padding: 22px 0;
-    font-size: 1.1875rem;
-    font-weight: 600;
-    letter-spacing: -0.015em;
-    line-height: 1.55;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
-  }
-  .faq [data-slot="accordion-trigger"]::after {
-    content: "";
-    flex: none;
-    width: 12px; height: 12px;
-    border-right: 2px solid var(--ink);
-    border-bottom: 2px solid var(--ink);
-    transform: rotate(45deg) translate(-2px, -2px);
-    transition: transform 0.3s var(--ease);
-  }
-  .faq [data-slot="accordion-trigger"][data-state="open"]::after { transform: rotate(225deg) translate(-2px, -2px); }
-  .faq [data-slot="accordion-content"][data-state="closed"] { display: none; }
-  .faq .a { padding: 0 0 24px; color: var(--ink-2); max-width: 65ch; font-size: 1.03125rem; }
 
   /* ---------- closing CTA ---------- */
   .cta-panel {

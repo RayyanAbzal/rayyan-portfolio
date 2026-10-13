@@ -137,6 +137,8 @@ export const FAQ_ITEMS: readonly FaqItem[] = [
 ];
 
 export interface AboutSideCard {
+  /** Short term shown above the value in the facts strip. */
+  label: string;
   title: string;
   body: Rich;
 }
@@ -173,20 +175,26 @@ export const ABOUT = {
 
 export const ABOUT_SIDE_CARDS: readonly AboutSideCard[] = [
   {
+    label: "Day job",
     title: "AI engineer at Growlab",
     body: [
       "Full-stack and AI work for an Auckland AI transformation consultancy, alongside this practice. ",
       { link: "growlab.co.nz", href: GROWLAB_URL },
     ],
   },
-  { title: STACK_TITLE, body: [STACK_NOTE] },
+  { label: "Stack", title: STACK_TITLE, body: [STACK_NOTE] },
   {
+    label: "Work",
     title: "Four client builds, all live",
     body: ["Plus three personal builds. ", { link: "See the projects", href: "/work" }, "."],
   },
-  { title: "Two active projects, maximum", body: ["Depth over breadth. Currently open for the next one."] },
+  { label: "Capacity", title: "Two active projects, maximum", body: ["Depth over breadth. Currently open for the next one."] },
   {
+    label: "Location",
     title: "Auckland, New Zealand (UTC+12)",
     body: ["Everything runs remotely: the call, weekly updates, a live staging link, handover."],
   },
 ];
+
+/** The run of the lead testimonial that gets the single gold marker. */
+export const LEAD_QUOTE_MARK = "It saved us hours every week.";

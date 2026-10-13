@@ -131,7 +131,7 @@ function workMarkdown(): string {
 
 function aboutMarkdown(): string {
   const principles = PRINCIPLES.flatMap((p) => [`### ${p.title}`, p.body]);
-  const steps = PROCESS_STEPS.map((step, i) => `${i + 1}. **${step.title}** (${step.when}): ${step.body}`);
+  const steps = PROCESS_STEPS.flatMap((step) => [`### ${step.title}`, `${step.body} (${step.when})`]);
   const quotes = TESTIMONIALS.map(
     (t) => `> ${t.quote}\n>\n> ${t.role}, ${t.project} ([case study](${mirrorUrl(t.linkHref)}))`,
   );
@@ -141,13 +141,13 @@ function aboutMarkdown(): string {
     ABOUT.role,
     ABOUT.big,
     ...ABOUT.paragraphs.map(richToMarkdown),
-    ABOUT_SIDE_CARDS.map((card) => bullet(`**${card.title}**: ${richToMarkdown(card.body)}`)).join("\n"),
+    ABOUT_SIDE_CARDS.map((card) => bullet(`**${card.label}**: ${card.title}. ${richToMarkdown(card.body)}`)).join("\n"),
     `## ${ABOUT.principlesHeading}`,
     ABOUT.principlesIntro,
     ...principles,
     `## ${ABOUT.processHeading}`,
     ABOUT.processLede,
-    steps.join("\n"),
+    ...steps,
     `## ${ABOUT.testimonialsHeading}`,
     ...quotes,
     `## ${ABOUT.faqHeading}`,
