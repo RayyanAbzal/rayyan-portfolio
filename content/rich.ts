@@ -4,5 +4,6 @@ export type Rich = readonly (
   | { hi: string }
   | { mark: string }
   | { strong: string }
+  | { nowrap: string }
   | { link: string; href: string }
 )[];

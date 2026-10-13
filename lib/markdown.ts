@@ -35,6 +35,7 @@ function richToMarkdown(value: Rich): string {
       if ("hi" in part) return part.hi;
       if ("mark" in part) return part.mark;
       if ("strong" in part) return `**${part.strong}**`;
+      if ("nowrap" in part) return part.nowrap;
       return `[${part.link}](${mirrorUrl(part.href)})`;
     })
     .join("");
@@ -47,6 +48,7 @@ function richToText(value: Rich): string {
       if ("hi" in part) return part.hi;
       if ("mark" in part) return part.mark;
       if ("strong" in part) return part.strong;
+      if ("nowrap" in part) return part.nowrap;
       return part.link;
     })
     .join("");
@@ -90,14 +92,14 @@ function homeMarkdown(): string {
     `## ${HOME.servicesTitle}`,
     HOME.servicesLede,
     offers.join("\n"),
-    `## ${SITE_NAME}`,
-    HOME.aboutRole,
+    `## ${HOME.aboutHeading}`,
+    `**${SITE_NAME}**: ${HOME.aboutRole}`,
     HOME.aboutBig,
     ...HOME.aboutParagraphs,
     `[${HOME.aboutLink}](${mirrorUrl("/about")})`,
     HOME_SIDE_CARDS.map((card) => bullet(`**${card.title}**: ${richToMarkdown(card.body)}`)).join("\n"),
     `> ${richToText(HOME.quote)} (${HOME.quoteRole}, ${HOME.quoteProject})`,
-    `## ${HOME.ctaTitle}`,
+    `## ${richToText(HOME.ctaTitle)}`,
     HOME.ctaBody,
     contactBlock(HOME.ctaButton),
   ]);

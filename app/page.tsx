@@ -55,7 +55,7 @@ export default function HomePage() {
         </section>
 
         <section id="services">
-          <div className="wrap">
+          <div className="wrap has-rule">
             <div className="section-head">
               <h2 className="display">{HOME.servicesTitle}</h2>
               <p className="lede">{HOME.servicesLede}</p>
@@ -84,7 +84,8 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section id="about" className="wrap">
+        <section id="about" className="wrap has-rule">
+          <h2 className="display mb-[clamp(32px,4vw,48px)]">{HOME.aboutHeading}</h2>
           <div className="about-split">
             <div>
               <div className="who">
@@ -113,7 +114,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section id="testimonial" className="wrap tight">
+        <section id="testimonial" className="wrap has-rule">
           <figure className="quote">
             <blockquote><RichText value={HOME.quote} /></blockquote>
             <figcaption className="attrib">
@@ -123,10 +124,10 @@ export default function HomePage() {
           </figure>
         </section>
 
-        <section id="contact" className="wrap">
+        <section id="contact" className="wrap has-rule">
           <div className="cta-panel">
             <div>
-              <h2 className="display">{HOME.ctaTitle}</h2>
+              <h2 className="display"><RichText value={HOME.ctaTitle} /></h2>
               <p>{HOME.ctaBody}</p>
             </div>
             <div className="cta-actions">

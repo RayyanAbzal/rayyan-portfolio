@@ -149,3 +149,15 @@ describe("card text colours", () => {
     expect(css).toMatch(/\.card \.card-outcome \{[^}]*color: var\(--pine-2\)/);
   });
 });
+
+describe("home layout pass content", () => {
+  const home = findMarkdownPage("/")?.markdown ?? "";
+
+  it("adds the Who builds it heading once, in the mirror", () => {
+    expect(home.match(/^## Who builds it$/gm)).toHaveLength(1);
+  });
+
+  it("keeps the CTA heading text intact despite the no-wrap run", () => {
+    expect(home).toContain("## Book a free 30-minute call.");
+  });
+});

@@ -69,8 +69,21 @@
 
   /* ---------- sections ---------- */
   main { display: block; }
-  section { padding: clamp(64px, 8vw, 112px) 0; }
+  /* One rhythm for every section: equal space above and below a hairline. */
+  :root { --section-y: clamp(56px, 6vw, 80px); }
+  section { padding: var(--section-y) 0; }
   section.tight { padding-top: clamp(24px, 3vw, 40px); }
+  /* Hairline at the section boundary, aligned to the content edge. The
+     negative margin lifts it into the section's top padding so the gap
+     above and below it is the same. */
+  .has-rule::before {
+    content: "";
+    display: block;
+    height: 1px;
+    background: var(--line);
+    margin-top: calc(var(--section-y) * -1);
+    margin-bottom: var(--section-y);
+  }
 
   /* Heading, link and lede sit in DOM reading order: h2, lede, link.
      Desktop places the link top right through grid areas, mobile stacks. */

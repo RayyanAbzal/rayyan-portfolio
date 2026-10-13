@@ -33,6 +33,7 @@ export const HOME = {
   servicesTitle: "What I build.",
   servicesLede:
     "Most engagements start with finding where AI or automation can replace manual work. When the project needs a whole product, I build that too.",
+  aboutHeading: "Who builds it",
   aboutRole: "Founder, AI engineer, the person who writes the code",
   aboutBig:
     "One operator, end to end. The person who scopes your project is the person who builds it, ships it, and picks up when something breaks.",
@@ -48,7 +49,8 @@ export const HOME = {
   quoteRole: "Agency Director",
   quoteProject: "Influence v2, Malta",
   quoteLink: "More client words",
-  ctaTitle: "Book a free 30-minute call.",
+  // The nowrap run keeps "30-minute" from splitting at the hyphen.
+  ctaTitle: ["Book a free ", { nowrap: "30-minute" }, " call."] as Rich,
   ctaBody:
     "You describe how your business runs. I tell you honestly whether AI can help, what I would build, and what it would cost.",
   ctaButton: "Book a free intro call",
