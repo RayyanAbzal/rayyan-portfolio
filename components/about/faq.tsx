@@ -15,7 +15,9 @@ export function AboutFaq() {
         {FAQ_ITEMS.map((item, index) => (
           <AccordionItem key={item.question} value={`faq-${index}`}>
             <AccordionTrigger>{item.question}</AccordionTrigger>
-            <AccordionContent className="a">{item.answer}</AccordionContent>
+            <AccordionContent className="a">
+              <div className="faq-answer">{item.answer}</div>
+            </AccordionContent>
           </AccordionItem>
         ))}
       </Accordion>

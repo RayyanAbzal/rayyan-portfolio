@@ -165,11 +165,37 @@
     color: var(--ink-3);
   }
   .faq-list [data-slot="accordion-trigger"][data-state="open"]::after { content: "\2212" / ""; }
-  .faq-list [data-slot="accordion-content"] { grid-column: 2; grid-row: 1; padding: 22px 0; }
-  .faq-list [data-slot="accordion-content"][data-state="closed"] { display: none; }
-  .faq-list .a { color: var(--ink-2); max-width: 60ch; font-size: 1.03125rem; }
+  /* Height animates through grid rows (0fr to 1fr), so there is no
+     measured-height keyframe and nothing runs on first render. Closed
+     answers stay in the HTML (force-mounted) and leave the a11y tree via
+     visibility once the row has collapsed. */
+  .faq-list [data-slot="accordion-content"] {
+    grid-column: 2;
+    grid-row: 1;
+    display: grid;
+    grid-template-rows: 0fr;
+    visibility: hidden;
+  }
+  .faq-list [data-slot="accordion-content"][data-state="open"] {
+    grid-template-rows: 1fr;
+    visibility: visible;
+  }
+  .faq-list .a { min-height: 0; overflow: hidden; }
+  .faq-answer { padding: 22px 0; color: var(--ink-2); max-width: 60ch; font-size: 1.03125rem; }
+  /* !important: Radix sets an inline `transition-duration: 0s` while it
+     suppresses its mount animation and can leave it in place on the first
+     toggle, which would make the row jump. */
+  @media (prefers-reduced-motion: no-preference) {
+    .faq-list [data-slot="accordion-content"] {
+      transition: grid-template-rows 200ms ease-out, visibility 0s linear 200ms !important;
+    }
+    .faq-list [data-slot="accordion-content"][data-state="open"] {
+      transition: grid-template-rows 200ms ease-out, visibility 0s !important;
+    }
+  }
   @media (max-width: 760px) {
     .faq-list [data-slot="accordion-item"] { grid-template-columns: minmax(0, 1fr); }
-    .faq-list [data-slot="accordion-content"] { grid-column: 1; grid-row: 2; padding: 0 0 22px; }
+    .faq-list [data-slot="accordion-content"] { grid-column: 1; grid-row: 2; }
+    .faq-answer { padding: 0 0 22px; }
   }
 }
