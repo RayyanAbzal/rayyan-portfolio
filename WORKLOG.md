@@ -1,16 +1,23 @@
 # WORKLOG
 
-**Updated:** 2026-09-12
+**Updated:** 2026-10-12
 
 ## Active task
 
-Full redesign toward bencium.io's calm, image-led world in Ray's own colours. Single-scroll page split into Home + Projects + About. Built with the impeccable skill (init, direction contract, build, two inspection rounds, finish review, DESIGN.md). On `feat/work-schematic-cards`.
+Migrate the static site to Next.js (App Router) + Tailwind v4 + shadcn/ui, approved by Ray 2026-10-12 (docs/decisions.md). Same copy and look, plus the better-interface review fixes. On `feat/nextjs-shadcn`, not pushed or merged. Session log: docs/worklog/2026-10-12-feat-nextjs-shadcn.md.
 
 ## Phase
 
-built, finish review shipped (3 rounds: 8 material fixes, all resolved), awaiting Ray's eyeball + merge
+built and verified locally (tsc, lint, build, vitest, curl checks, text diff of every page against the legacy HTML). Awaiting Ray's browser QA, confirmation that the Vercel project framework preset is Next.js, then merge.
 
-## Files changed this session
+## Next.js migration (2026-10-12)
+
+- Legacy html/css/js moved to `legacy-static/`, then deleted in the final cleanup commit. Tokens, schematics, case content and JSON-LD ported verbatim (JSON-LD in `content/jsonld`).
+- Old `*.html` URLs 301 to clean paths (`next.config.ts`); sitemap, robots and llms.txt use the clean paths.
+- Review fixes applied: scroll-padding-top, pine focus ring, reduced-motion neutralisation, skip link on every page, hover-only styling in `(hover: hover)`, preview text alpha .55+, DOM-order offers and section heads, distinct case-study link names, curly quotes, no `overflow-x: clip`, stretched single-link cards, single-line mobile nav pills.
+- Known open: home canonical renders without the trailing slash (Next normalises the root); CLAUDE.md Open list unchanged.
+
+## Files changed in the previous session (static redesign, 2026-09-12)
 
 - `index.html` rewritten: nav (Home / Projects / About / Book a call), sage hero panel with one big sentence, 4 client cards with CSS schematics, 3 offers, about teaser + side cards, 4 process steps, one quote, pine CTA panel. Principles and FAQ cut. FAQPage JSON-LD moved to about.
 - `work.html` new: 4 client cards + 3 personal builds (text only), CTA.

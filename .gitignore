@@ -4,3 +4,13 @@ logo-exports/
 .superpowers/
 *.zip
 .impeccable/review/
+
+# Next.js / node
+node_modules/
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+.env*
+npm-debug.log*
+.vitest/
