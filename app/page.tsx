@@ -28,7 +28,7 @@ export default function HomePage() {
       <JsonLd data={homeLd} />
       <main id="top" tabIndex={-1}>
         <section className="hero wrap">
-          <Reveal className="hero-panel">
+          <div className="hero-panel">
             <h1 className="display"><RichText value={HOME.heroHeadline} /></h1>
             <p className="lede">{HOME.heroLede}</p>
             <div className="hero-actions">
@@ -37,7 +37,7 @@ export default function HomePage() {
               </Button>
               <a className="link link-arrow" href="#work">{HOME.heroSecondary}</a>
             </div>
-          </Reveal>
+          </div>
         </section>
 
         <section id="work" className="wrap">
@@ -46,7 +46,7 @@ export default function HomePage() {
             <p className="lede">{HOME.workLede}</p>
             <Link className="link link-arrow" href="/work">{HOME.workLink}</Link>
           </div>
-          <Reveal className="grid-2" stagger={90}>
+          <Reveal className="grid-2" stagger={100}>
             {CLIENT_PROJECTS.map((project) => (
               <ClientProjectCard key={project.slug} project={project} />
             ))}

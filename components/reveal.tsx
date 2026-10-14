@@ -11,7 +11,7 @@ interface RevealProps {
   stagger?: number;
 }
 
-const SETTLE_MS = 1400;
+const SETTLE_MS = 700;
 const FAILSAFE_MS = 1500;
 const NEAR_VIEWPORT_PX = 200;
 
@@ -22,7 +22,8 @@ declare global {
 }
 
 /**
- * Reveal-once wrapper. The hidden state is CSS keyed on `html.js`, which an
+ * Reveal-once wrapper for the card grids (the hero animates in pure CSS).
+ * The hidden state is CSS keyed on `html.js`, which an
  * inline script sets only when motion is allowed, so no-JS and
  * reduced-motion visitors always get the full static page. The element is
  * toggled through classList because React never re-renders it: `.in` starts

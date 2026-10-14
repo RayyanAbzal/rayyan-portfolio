@@ -39,7 +39,7 @@ export default function WorkPage() {
           <div className="section-head">
             <h2 className="display text-[clamp(1.625rem,3vw,2.125rem)]">{WORK.clientHeading}</h2>
           </div>
-          <Reveal className="grid-2" stagger={90}>
+          <Reveal className="grid-2" stagger={100}>
             {CLIENT_PROJECTS.map((project) => (
               <ClientProjectCard key={project.slug} project={project} />
             ))}
@@ -53,7 +53,7 @@ export default function WorkPage() {
               <h2 className="display text-[clamp(1.625rem,3vw,2.125rem)]">{WORK.personalHeading}</h2>
               <p className="lede">{WORK.personalLede}</p>
             </div>
-            <Reveal className="grid-3" stagger={90}>
+            <Reveal className="grid-3" stagger={100}>
               {PERSONAL_PROJECTS.map((project) => (
                 <PersonalProjectCard key={project.title} project={project} />
               ))}
