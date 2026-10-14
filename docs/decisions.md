@@ -31,3 +31,7 @@
 **Privacy.** /privacy keeps "a booking creates an appointment with me, so I see the details you enter" and "if you email me I receive your message and address and use them to reply". Hosting wording is "my hosting provider, Vercel, may process request data such as IP addresses". Policy links are https://calendly.com/legal/privacy-notice and https://vercel.com/legal/privacy-notice (Ray verified both return 200). The page does not claim Vercel Analytics is cookieless.
 
 **Reveal.** The blanket 1.5s reveal-everything failsafe is replaced by one that reveals only elements within one viewport height; below-the-fold cards animate on scroll. `html.motion-failed` (3s) stays for a failed hydration.
+
+## 2026-10-14: motion pass
+
+Hero entrance is CSS-only (no `.js` gate, no hydration dependency) so the LCP element paints at first frame; the sage panel no longer fades or scales. Grid reveals are 300ms / 12px / blur 4px with a 100ms stagger and a failsafe limited to near-viewport elements. Hover feedback is 150ms or less with a 0.96 press scale on buttons. Nav and footer have view-transition names so they do not flicker on navigation. The FAQ animates open and close through grid-template-rows. The decorative runner no longer re-fires on hover and the status pulse stops after two cycles.

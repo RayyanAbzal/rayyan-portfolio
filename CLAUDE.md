@@ -47,13 +47,16 @@ logo-exports/           raw Claude Design export, source only (never deployed)
 docs/                   specs, plans, decisions, worklog, client drafts (never deployed)
 ```
 
-## Motion conventions (components/reveal.tsx + app/styles/motion.css)
+## Motion conventions (app/styles/motion.css + components/reveal.tsx)
 
-- `html.js` gates all hiding. An inline script in the layout adds it only when `prefers-reduced-motion` is not reduce; no-JS and reduced-motion visitors get the full static page.
-- `Reveal` toggles `.in` (start the transition) then `.done` (~1.4s later); a `stagger` prop (ms) cascades direct children. Failsafe: reveals after 1.5s, and `.motion-failed` (3s, set by the inline script) shows everything if hydration never runs.
-- Reveal only on `.hero-panel` and the card grids. Everything else is static.
-- Reduced motion also neutralises the sticky CTA slide, card arrow, accordion chevron, nav underline, hover lifts, smooth scroll and view transitions. Hover-only styling lives in `@media (hover: hover)`.
-- Sticky mobile CTA (`StickyBookCta`) is a direct child of the page, not inside a transformed ancestor; `showAfter` / `hideAt` are selector props.
+- Every animation is declared inside `prefers-reduced-motion: no-preference`; reduced-motion and no-JS visitors get the full static page. Animate opacity, transform and filter by name, never `all`. Entrances are 300ms on `cubic-bezier(0.2, 0, 0, 1)`; hover feedback is 150ms or less.
+- Hero: pure CSS, no `.js` gate. h1, lede and actions run the `site-enter` keyframe (opacity, 12px, blur 4px) with 0, 100, 200ms delays; the sage panel is static. (`enter` is taken by tw-animate-css.)
+- Card grids only use `Reveal` (`stagger` prop, ms; default 100ms in CSS). `html.js` (inline script, only when motion is allowed) hides the children; Reveal adds `.in`, then `.done` at 700ms. Below-fold grids reveal on scroll; the 1.5s failsafe only reveals what is within one viewport height. `.motion-failed` (3s) shows everything if hydration never ran.
+- Reveal only on the card grids. Everything else is static.
+- Button: 150ms, 1px hover lift, press scale 0.96 (not disabled or aria-disabled). Hover-only styling lives in `@media (hover: hover)`.
+- View transitions: nav and footer have their own names so only main content crossfades (150ms); `navigation: none` under reduced motion.
+- FAQ: height animates through `grid-template-rows` 0fr to 1fr in 200ms (`!important`, because Radix leaves an inline `transition-duration: 0s`); closed answers stay in the HTML.
+- Sticky mobile CTA (`StickyBookCta`) is a direct child of the page, not inside a transformed ancestor; `showAfter` / `hideAt` are selector props. 300ms slide, 200ms fade, fade-only under reduced motion.
 - Every booking CTA is `BookLink` (real Calendly href, popup when loaded) with a typed `BookingSource`; sources feed Vercel Analytics events.
 
 ## Design system
@@ -85,7 +88,7 @@ Product visuals: no client screenshots. Cards use CSS-drawn schematics (`compone
 - No em dashes in copy
 - Keep each file under 800 lines
 - Nav is name (home) / Projects / About / Book a call text link; mark the current page with `aria-current="page"`. Skip link first in body.
-- Reveal motion only on `.hero-panel` and the card grids. Everything else is static.
+- Reveal (JS) motion only on the card grids; the hero entrance is CSS. Everything else is static.
 - One gold `.mark` per page at most (home hero, home quote). Card h3 is outcome-first with a `.card-name` line above.
 
 ## SEO + AEO
