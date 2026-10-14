@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils"
  * on one line, and wrap (centred) below 360px instead of clipping.
  */
 const buttonVariants = cva(
-  "inline-flex max-w-full shrink-0 items-center justify-center gap-2.5 rounded-full border border-transparent px-[26px] py-[15px] text-base leading-none font-semibold whitespace-nowrap shadow-[0_1px_0_rgb(var(--ink-rgb)/0.04)] transition-[transform,background-color,box-shadow] duration-[350ms] ease-site select-none active:translate-y-0 active:duration-75 max-[360px]:text-center max-[360px]:leading-tight max-[360px]:whitespace-normal [&_svg]:size-4 [&_svg]:shrink-0 motion-safe:hover:-translate-y-0.5",
+  "inline-flex max-w-full shrink-0 items-center justify-center gap-2.5 rounded-full border border-transparent px-[26px] py-[15px] text-base leading-none font-semibold whitespace-nowrap shadow-[0_1px_0_rgb(var(--ink-rgb)/0.04)] transition-[translate,scale,background-color,box-shadow] duration-150 ease-out select-none [&:not(:disabled):not([aria-disabled=true])]:active:scale-[0.96] max-[360px]:text-center max-[360px]:leading-tight max-[360px]:whitespace-normal [&_svg]:size-4 [&_svg]:shrink-0 motion-safe:hover:-translate-y-px",
   {
     variants: {
       variant: {

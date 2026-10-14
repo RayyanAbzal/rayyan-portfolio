@@ -10,7 +10,7 @@
     font-size: 0.9375rem;
     font-weight: 600;
     color: var(--ink-2);
-    transition: color 0.2s, gap 0.2s;
+    transition: color 150ms ease-out, gap 150ms ease-out;
   }
   .case-back::before { content: "\2190"; }
 
@@ -132,7 +132,7 @@
     background: var(--paper);
     border: 1px solid var(--line);
     border-radius: 20px;
-    transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+    transition: transform 150ms ease-out, box-shadow 150ms ease-out;
   }
   .case-nav a .label { font-size: 0.84375rem; color: var(--ink-3); font-weight: 500; }
   .case-nav a .target { font-size: 1.3125rem; font-weight: 700; letter-spacing: -0.02em; }

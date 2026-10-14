@@ -29,7 +29,7 @@
     background: var(--gold);
     transform: scaleX(0);
     transform-origin: left;
-    transition: transform 0.35s var(--ease);
+    transition: transform 150ms ease-out;
   }
   .nav-links a[aria-current="page"]::after { transform: scaleX(1); }
   .nav-links a[aria-current="page"] { color: var(--ink); }
@@ -138,14 +138,14 @@
     opacity: 0;
     visibility: hidden;
     transform: translate3d(0, calc(100% + 32px), 0);
-    transition: transform 0.45s var(--ease), opacity 0.3s, visibility 0s linear 0.45s;
+    transition: transform 300ms ease-out, opacity 200ms ease-out, visibility 0s linear 300ms;
   }
   @media (max-width: 640px) { .mobile-cta { display: block; } }
   .mobile-cta.show {
     opacity: 1;
     visibility: visible;
     transform: translate3d(0, 0, 0);
-    transition: transform 0.45s var(--ease), opacity 0.3s, visibility 0s;
+    transition: transform 300ms ease-out, opacity 200ms ease-out, visibility 0s;
   }
 }
 
