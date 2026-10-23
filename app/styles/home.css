@@ -15,7 +15,7 @@
     font-size: clamp(2.5rem, 5.6vw, 5rem);
     font-weight: 700;
     letter-spacing: -0.04em;
-    line-height: 1.02;
+    line-height: 1.1;
   }
   .hero-lede { font-size: clamp(1.0625rem, 1.5vw, 1.1875rem); line-height: 1.5; color: var(--ink-2); margin-bottom: 28px; text-wrap: pretty; }
   .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 24px; }
@@ -24,7 +24,7 @@
   /* ---------- section frame ---------- */
   .home-sec { padding-top: clamp(48px, 6vw, 72px); }
   .sec-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px 24px; flex-wrap: wrap; margin-bottom: 20px; }
-  .sec-head h2 { font-size: 0.9375rem; font-weight: 600; letter-spacing: 0; color: var(--ink-2); }
+  .sec-head h2 { font-size: 0.875rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink-2); }
   .sec-lede { color: var(--ink-2); font-size: 1.0625rem; max-width: 56ch; margin-bottom: 20px; text-wrap: pretty; }
 
   /* ---------- work table ---------- */
@@ -80,9 +80,9 @@
     flex-wrap: wrap;
   }
   .home-close h2 { font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 700; letter-spacing: -0.035em; line-height: 1.04; }
-  .home-close p { color: rgb(var(--cream) / 0.78); margin-top: 16px; max-width: 48ch; text-wrap: pretty; }
+  .home-close p { color: color-mix(in oklch, var(--on-fill) 78%, transparent); margin-top: 16px; max-width: 48ch; text-wrap: pretty; }
   .close-actions { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; }
-  .close-actions .alt { font-size: 0.9375rem; color: rgb(var(--cream) / 0.78); }
+  .close-actions .alt { font-size: 0.9375rem; color: color-mix(in oklch, var(--on-fill) 78%, transparent); }
   .close-actions .alt a { color: var(--on-fill); text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: 4px; }
 }
 
@@ -92,6 +92,6 @@
   .home-hero .hero-side { animation-delay: 100ms; }
 }
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
-  .build h3 { transition: transform 180ms cubic-bezier(0.22, 0.61, 0.36, 1); }
+  .build h3 { transition: transform 150ms cubic-bezier(0.2, 0, 0, 1); }
   .build:hover h3 { transform: translateX(6px); }
 }
