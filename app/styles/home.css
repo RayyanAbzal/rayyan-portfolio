@@ -91,7 +91,11 @@
   .home-hero h1, .home-hero .hero-side { animation: site-enter 300ms cubic-bezier(0.2, 0, 0, 1) backwards; }
   .home-hero .hero-side { animation-delay: 100ms; }
 }
-@media (hover: hover) and (prefers-reduced-motion: no-preference) {
-  .build h3 { transition: transform 150ms cubic-bezier(0.2, 0, 0, 1); }
-  .build:hover h3 { transform: translateX(6px); }
+/* Row hover is high-frequency: colour only, 150ms, no movement. */
+@media (hover: hover) {
+  .build-link::after { transition: color 150ms cubic-bezier(0.2, 0, 0, 1); }
+  .build:hover .build-link::after { color: var(--pine); }
+}
+@media (hover: hover) and (prefers-reduced-motion: reduce) {
+  .build-link::after { transition: none; }
 }
