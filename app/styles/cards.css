@@ -26,7 +26,7 @@
      ::before covers the card so a click anywhere follows it. */
   .card-link::before { content: ""; position: absolute; inset: 0; z-index: 1; }
   .card-link:focus-visible { outline: none; }
-  .card:has(.card-link:focus-visible) { outline: 3px solid var(--gold); outline-offset: 3px; }
+  .card:has(.card-link:focus-visible) { outline: 3px solid var(--pine); outline-offset: 3px; }
   .card:has(.card-link) h3::after {
     content: "\2192";
     font-weight: 500;
