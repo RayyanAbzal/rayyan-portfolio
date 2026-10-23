@@ -1,0 +1,97 @@
+/* Home: Chalk. A big sentence, then ruled tables, then one deep band.
+   Rhythm: 8pt steps; section rules are hairlines, the only heavy line is the table top. */
+
+@layer components {
+  /* ---------- hero ---------- */
+  .home-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+    gap: clamp(32px, 5vw, 64px);
+    align-items: end;
+    padding: clamp(48px, 8vw, 104px) 0 clamp(56px, 9vw, 104px);
+    border-bottom: 1px solid var(--line);
+  }
+  .home-hero h1 {
+    font-size: clamp(2.5rem, 5.6vw, 5rem);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1.02;
+  }
+  .hero-lede { font-size: clamp(1.0625rem, 1.5vw, 1.1875rem); line-height: 1.5; color: var(--ink-2); margin-bottom: 28px; text-wrap: pretty; }
+  .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 24px; }
+  @media (max-width: 860px) { .home-hero { grid-template-columns: 1fr; align-items: start; } }
+
+  /* ---------- section frame ---------- */
+  .home-sec { padding-top: clamp(48px, 6vw, 72px); }
+  .sec-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px 24px; flex-wrap: wrap; margin-bottom: 20px; }
+  .sec-head h2 { font-size: 0.9375rem; font-weight: 600; letter-spacing: 0; color: var(--ink-2); }
+  .sec-lede { color: var(--ink-2); font-size: 1.0625rem; max-width: 56ch; margin-bottom: 20px; text-wrap: pretty; }
+
+  /* ---------- work table ---------- */
+  .builds { list-style: none; border-top: 1px solid var(--ink); }
+  .build {
+    position: relative;
+    display: grid;
+    grid-template-columns: 150px minmax(0, 1.2fr) minmax(0, 1.4fr);
+    gap: 8px 28px;
+    align-items: baseline;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .build-name { font-size: 0.9375rem; color: var(--ink-2); }
+  .build h3 { font-size: clamp(1.25rem, 2vw, 1.5rem); font-weight: 650; letter-spacing: -0.02em; line-height: 1.15; text-wrap: balance; }
+  .build p { color: var(--ink-2); }
+  .build-link { text-decoration: none; }
+  .build-link::before { content: ""; position: absolute; inset: 0; }
+  .build-link::after { content: " \2197"; color: var(--ink-3); }
+  .build-link:focus-visible { outline: none; }
+  .build:has(.build-link:focus-visible) { outline: 3px solid var(--pine); outline-offset: 4px; border-radius: 6px; }
+  @media (max-width: 860px) { .build { grid-template-columns: 1fr; padding: 20px 0; } }
+
+  /* ---------- services table ---------- */
+  .offers { list-style: none; border-top: 1px solid var(--ink); }
+  .offer-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.6fr) 160px;
+    gap: 8px 28px;
+    padding: 26px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .offer-row h3 { font-size: clamp(1.25rem, 2vw, 1.5rem); font-weight: 650; letter-spacing: -0.02em; line-height: 1.15; text-wrap: balance; }
+  .offer-body p { color: var(--ink-2); max-width: 52ch; margin-bottom: 12px; text-wrap: pretty; }
+  .offer-row .when { font-weight: 650; }
+  .offer-row .when small { display: block; font-weight: 400; font-size: 0.875rem; color: var(--ink-2); margin-top: 2px; }
+  @media (max-width: 860px) { .offer-row { grid-template-columns: 1fr; padding: 22px 0; } }
+
+  /* ---------- about, flat ---------- */
+  .home-sec .about-split { padding-bottom: 0; }
+
+  /* ---------- closing band ---------- */
+  .home-close {
+    margin: clamp(56px, 7vw, 88px) 0 clamp(40px, 6vw, 72px);
+    background: var(--deep);
+    color: var(--on-fill);
+    border-radius: 28px;
+    padding: clamp(32px, 6vw, 64px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .home-close h2 { font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 700; letter-spacing: -0.035em; line-height: 1.04; }
+  .home-close p { color: rgb(var(--cream) / 0.78); margin-top: 16px; max-width: 48ch; text-wrap: pretty; }
+  .close-actions { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; }
+  .close-actions .alt { font-size: 0.9375rem; color: rgb(var(--cream) / 0.78); }
+  .close-actions .alt a { color: var(--on-fill); text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: 4px; }
+}
+
+/* Hero entrance: CSS only, reduced motion gets the static page. */
+@media (prefers-reduced-motion: no-preference) {
+  .home-hero h1, .home-hero .hero-side { animation: site-enter 300ms cubic-bezier(0.2, 0, 0, 1) backwards; }
+  .home-hero .hero-side { animation-delay: 100ms; }
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .build h3 { transition: transform 180ms cubic-bezier(0.22, 0.61, 0.36, 1); }
+  .build:hover h3 { transform: translateX(6px); }
+}

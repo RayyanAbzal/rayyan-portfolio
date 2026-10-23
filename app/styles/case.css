@@ -45,10 +45,10 @@
   .case-block-body > p { grid-column: 2; }
   @media (max-width: 820px) { .case-block-body { grid-template-columns: 1fr; gap: 18px; } .case-block-body > h2, .case-block-body > p { grid-column: 1; } }
   .case-block h2 { font-size: clamp(1.625rem, 3.2vw, 2.375rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.05; text-wrap: balance; }
-  .case-block h2 .hi { background: var(--gold); padding: 0 0.12em; border-radius: 0.2em; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+  .case-block h2 .hi { background: var(--gold); color: var(--on-gold); padding: 0 0.12em; border-radius: 0.2em; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
   .case-block p { font-size: 1.0625rem; color: var(--ink-2); line-height: 1.6; }
   .case-block p + p { margin-top: 14px; }
-  .case-block p .mark { color: var(--ink); font-weight: 600; background: var(--gold); padding: 0 0.16em; border-radius: 0.22em; }
+  .case-block p .mark { color: var(--on-gold); font-weight: 600; background: var(--gold); padding: 0 0.16em; border-radius: 0.22em; }
 
   /* Stack block */
   .case-stack-block .case-block-body { grid-template-columns: 1fr; padding-top: 26px; padding-bottom: 26px; }
@@ -58,7 +58,7 @@
   /* Preview panel: the one dark surface, synthetic data in the body face.
      Low-alpha text sits at .55 or above so it stays at 4.5:1 on ink. */
   .case-preview {
-    background: var(--ink);
+    background: var(--deep);
     color: rgb(var(--cream) / 0.7);
     padding: 26px 26px 22px;
     font-family: var(--data);
@@ -110,7 +110,7 @@
   .case-cta {
     margin-top: clamp(40px, 6vw, 64px);
     background: var(--pine);
-    color: var(--paper);
+    color: var(--on-fill);
     border-radius: var(--r);
     padding: clamp(28px, 4vw, 40px);
     display: flex;

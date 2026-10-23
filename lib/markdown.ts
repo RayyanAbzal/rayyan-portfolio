@@ -98,7 +98,6 @@ function homeMarkdown(): string {
     ...HOME.aboutParagraphs,
     `[${HOME.aboutLink}](${mirrorUrl("/about")})`,
     HOME_SIDE_CARDS.map((card) => bullet(`**${card.title}**: ${richToMarkdown(card.body)}`)).join("\n"),
-    `> ${richToText(HOME.quote)} (${HOME.quoteRole}, ${HOME.quoteProject})`,
     `## ${richToText(HOME.ctaTitle)}`,
     HOME.ctaBody,
     contactBlock(HOME.ctaButton),

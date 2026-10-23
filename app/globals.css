@@ -2,6 +2,7 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 @import "./styles/layout.css";
+@import "./styles/home.css";
 @import "./styles/cards.css";
 @import "./styles/sections.css";
 @import "./styles/about.css";
@@ -17,24 +18,33 @@
    ============================================================ */
 
 :root {
-  --bg: #f5f3ee;
-  --bg-2: #ebe8e1;
-  --paper: #fffdf9;
-  --paper-2: #f6f4ef;
-  --well: #e6ebe3;
-  --sage: #dde7da;
-  --sage-2: #c9d8c5;
-  --ink: #17150f;
-  --ink-2: #45413a;
-  --ink-3: #5c574f;
-  --line: rgb(23 21 15 / 0.1);
-  --line-2: rgb(23 21 15 / 0.18);
-  --pine: #1f3d2b;
-  --pine-2: #2f5e3e;
-  --pine-tint: rgb(47 94 62 / 0.12);
-  --gold: #f3c94a;
-  --gold-2: #e0b12e;
-  --warn: #c17a2a;
+  color-scheme: light;
+
+  /* Chalk, in OKLCH. Neutrals hold hue 95, the accent ramp holds hue 160, so nothing drifts.
+     Measured WCAG 2: ink 16.7:1, ink-2 7.8:1, ink-3 5.5:1 on bg; on-fill 7.7:1 on pine;
+     pine 7.5:1 on bg; pine-2 5.3:1 on bg; warn 5.8:1 on bg; cream text 12.5:1 on deep. */
+  --bg: oklch(0.972 0.006 95);
+  --bg-2: oklch(0.955 0.007 95);
+  --deep: oklch(0.2 0.03 160);
+  --paper: oklch(0.995 0.003 95);
+  --paper-2: oklch(0.965 0.006 95);
+  --well: oklch(0.94 0.008 95);
+  --sage: oklch(0.93 0.02 150);
+  --sage-2: oklch(0.8 0.025 150);
+  --ink: oklch(0.2 0.01 95);
+  --ink-2: oklch(0.42 0.012 95);
+  --ink-3: oklch(0.5 0.012 95);
+  --line: oklch(0.2 0.01 95 / 0.12);
+  --line-2: oklch(0.2 0.01 95 / 0.3);
+  --pine: oklch(0.42 0.09 160);
+  --pine-hover: oklch(0.37 0.07 160);
+  --pine-2: oklch(0.5 0.1 160);
+  --pine-tint: oklch(0.5 0.1 160 / 0.14);
+  --gold: oklch(0.86 0.1 150);
+  --gold-2: oklch(0.8 0.1 150);
+  --warn: oklch(0.5 0.12 55);
+  --on-gold: oklch(0.2 0.012 92);
+  --on-fill: oklch(0.985 0.005 95);
 
   /* Repeated literals promoted to tokens. Channel triplets feed rgb(... / a). */
   --cream: 250 248 244;
@@ -69,12 +79,12 @@
   --popover: var(--paper);
   --popover-foreground: var(--ink);
   --primary: var(--pine);
-  --primary-foreground: var(--paper);
+  --primary-foreground: var(--on-fill);
   --secondary: var(--sage);
-  --secondary-foreground: var(--pine);
+  --secondary-foreground: var(--ink);
   --muted: var(--bg-2);
   --muted-foreground: var(--ink-3);
-  --accent: var(--gold);
+  --accent: var(--sage);
   --accent-foreground: var(--ink);
   --destructive: var(--warn);
   --border: var(--line);
@@ -105,8 +115,12 @@
   --color-line: var(--line);
   --color-line-2: var(--line-2);
   --color-pine: var(--pine);
+  --color-pine-hover: var(--pine-hover);
   --color-pine-2: var(--pine-2);
   --color-pine-tint: var(--pine-tint);
+  --color-deep: var(--deep);
+  --color-on-gold: var(--on-gold);
+  --color-on-fill: var(--on-fill);
   --color-gold: var(--gold);
   --color-gold-2: var(--gold-2);
   --color-warn: var(--warn);
@@ -159,17 +173,17 @@
   img, svg { display: block; max-width: 100%; }
   strong { font-weight: 600; }
   button { cursor: pointer; }
-  ::selection { background: var(--gold); color: var(--ink); }
+  ::selection { background: var(--gold); color: var(--on-gold); }
 
-  /* Focus ring: pine on light grounds (gold-2 is 1.8:1 on bg and fails 3:1).
-     Gold is allowed only inside the pine panels. */
+  /* Focus ring: pine on the light ground (7.5:1), gold on the deep bands. */
   :focus-visible {
     outline: 3px solid var(--pine);
     outline-offset: 3px;
     border-radius: 6px;
   }
   .cta-panel :focus-visible,
-  .case-cta :focus-visible {
+  .case-cta :focus-visible,
+  .home-close :focus-visible {
     outline-color: var(--gold);
   }
   main:focus { outline: none; }
@@ -201,7 +215,7 @@
   }
   .mark {
     background: var(--gold);
-    color: var(--ink);
+    color: var(--on-gold);
     padding: 0 0.16em;
     margin: 0 -0.04em;
     border-radius: 0.22em;
@@ -219,4 +233,5 @@
     transition: text-decoration-color 150ms ease-out, color 150ms ease-out;
   }
   .link-arrow::after { content: " \2192"; }
+
 }

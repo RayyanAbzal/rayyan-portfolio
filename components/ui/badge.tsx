@@ -15,7 +15,7 @@ const badgeVariants = cva(
     variants: {
       variant: {
         chip: "bg-bg-2 px-3 py-1.5 text-sm text-ink-2",
-        tag: "justify-self-start bg-pine px-[7px] py-px text-[0.65625rem] text-paper",
+        tag: "justify-self-start bg-pine px-[7px] py-px text-[0.65625rem] text-on-fill",
         outline:
           "border border-pine-2 px-2 py-0.5 font-normal text-pine-2",
         green:

@@ -35,3 +35,23 @@
 ## 2026-10-14: motion pass
 
 Hero entrance is CSS-only (no `.js` gate, no hydration dependency) so the LCP element paints at first frame; the sage panel no longer fades or scales. Grid reveals are 300ms / 12px / blur 4px with a 100ms stagger and a failsafe limited to near-viewport elements. Hover feedback is 150ms or less with a 0.96 press scale on buttons. Nav and footer have view-transition names so they do not flicker on navigation. The FAQ animates open and close through grid-template-rows. The decorative runner no longer re-fires on hover and the status pulse stops after two cycles.
+
+## 2026-10-21: home redesign "Open grid" (N4), animation stack
+
+**Decision.** Rebuild the home page on the N4 direction (large plain headline across a 12-column grid, overlapping paper block with the four client builds, no imagery). Brief: `.impeccable/surfaces/home-n4-brief.md`. Ray chose N4 from `.impeccable/mocks/round5-references.html` and approved the "full skill stack" for motion: GSAP, ScrollTrigger and Lenis (desktop fine-pointer only), installed from npm.
+
+**Overrides.** Lifts CLAUDE.md "no further frameworks or heavy dependencies without asking" for these three packages only, and relaxes "Reveal motion only on card grids; everything else static" to allow masked heading reveals, row rule-ins and the quote reveal below the fold. The hero stays CSS-only, with the headline painted at full opacity on first frame.
+
+**Why.** The previous big-tagline hero read as generic. MengTo/Skills (read as reference, not installed) supplies the grammar and the awwwards build phases.
+
+**Guards.** Reduced motion and touch get native scroll and final states with no animation. No Three.js. No new typeface (Inter Tight only). One gold `.mark` per page. Copy limited to facts already in `content/`.
+
+## 2026-10-23: home "Chalk" palette and flat layout; Lenis, GSAP and HomeMotion dropped
+
+**Decision.** Ray disliked the dark granite look and chose Chalk (option A of `.impeccable/mocks/round7-oklch.html`): light paper ground, deep green accent, a large left headline with lede and CTA on the right, ruled tables for the four builds and three offers, a flat about section and one rounded deep closing band. Tokens in `app/globals.css` are now OKLCH, one hue per ramp (neutrals 95, accent 160). Measured WCAG pairs: ink 16.7:1, ink-2 7.8:1, ink-3 5.5:1, on-fill on pine 7.7:1, pine 7.5:1, gold on deep 12.2:1.
+
+**Reverses.** The 2026-10-21 N4 entry: GSAP, ScrollTrigger, Lenis and `HomeMotion` are removed (`npm uninstall gsap lenis`), so the "no heavy dependencies" rule applies again. `AucklandTime` is removed. Motion is the CSS-only hero entrance plus a hover nudge on build rows. The home quote stays off the page (Ray: quotes read as AI slop); `/about` testimonials are unchanged.
+
+**Why.** Less JS on the LCP path, fewer moving parts for a one-page-per-purpose site, and the table layout reads faster than the overlapping paper block.
+
+**Open.** `--gold` is now a soft green kept under the legacy name, so a rename is a later cleanup. DESIGN.md still describes the older palette and needs a documenter pass.

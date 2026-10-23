@@ -26,7 +26,7 @@
     position: absolute;
     left: 0; right: 0; bottom: 0;
     height: 2px;
-    background: var(--gold);
+    background: var(--pine);
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 150ms ease-out;
@@ -61,7 +61,7 @@
       white-space: nowrap;
     }
     .mobile-nav a[aria-current="page"] { background: var(--ink); color: var(--paper); }
-    .mobile-nav .nav-book { margin-left: auto; background: var(--pine); border-color: var(--pine); color: var(--paper); font-weight: 600; }
+    .mobile-nav .nav-book { margin-left: auto; background: var(--pine); border-color: var(--pine); color: var(--on-fill); font-weight: 600; }
   }
   @media (min-width: 400px) and (max-width: 640px) {
     .mobile-nav { font-size: 0.875rem; gap: 6px; }
