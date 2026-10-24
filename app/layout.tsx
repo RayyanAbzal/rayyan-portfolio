@@ -1,4 +1,4 @@
-import type { Metadata, Viewport } from "next";
+import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
 
 import "./globals.css";
@@ -7,11 +7,6 @@ import { CalendlyAssets } from "@/components/calendly-assets";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteNav } from "@/components/site-nav";
 import { SITE_URL } from "@/lib/site";
-
-export const viewport: Viewport = {
-  themeColor: "#111111",
-  colorScheme: "dark",
-};
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

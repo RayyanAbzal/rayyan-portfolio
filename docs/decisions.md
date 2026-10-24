@@ -65,3 +65,11 @@ Hero entrance is CSS-only (no `.js` gate, no hydration dependency) so the LCP el
 **Why.** Ray's explicit request in chat. Index reads like a table of contents and fits the "few elements per view" aim.
 
 **Open.** `--gold` is now sky blue (`#70b8ff`) under the legacy name; `.mark` is dark text on it. DESIGN.md and `.impeccable/surfaces/index-html.md` still describe Chalk and need a documenter pass. `public/og.png` is still the light card. Brand fill `pine` is white-on-`#2870bd` (about 5:1); Interfere's own `#0090ff` fails 4.5:1 with white, so the 9 step is not used as a fill.
+
+## 2026-10-24: Interfere dark palette reversed; Index layout stays
+
+**Decision.** Ray reversed the dark palette the same day ("let's stick with our original colour scheme"). Tokens, panel backgrounds and focus rings return to the Chalk values from c2b7385; `color-scheme: light`. The Index home layout (type-only head, numbered work and service columns, two-column about) stays, in Chalk colours. The dark-palette decision entry above is superseded for colour only.
+
+**Why.** Ray's explicit request in chat.
+
+**Open.** None added; the earlier Chalk open items (DESIGN.md, og.png) are unchanged and no longer stale on colour.

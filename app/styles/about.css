@@ -51,7 +51,7 @@
 
   /* ---------- principles: the one dark surface ---------- */
   .principles-panel {
-    background: var(--deep);
+    background: var(--pine);
     color: var(--on-fill);
     border-radius: 32px;
     padding: clamp(32px, 6vw, 80px) clamp(24px, 6vw, 88px);

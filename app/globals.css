@@ -11,46 +11,45 @@
 
 /* ============================================================
    rayyanabzal.com - quiet room, one loud sentence.
-   Dark neutral ground, raised cards on a hairline, blue buttons,
-   sky-blue marker. Tokens live in :root with the legacy names, are exposed
+   Near-white warm ground, white cards on a hairline, pine buttons,
+   kowhai marker. Tokens live in :root with the legacy names, are exposed
    to Tailwind through @theme inline, and are mapped onto the shadcn
    semantic variables below.
    ============================================================ */
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 
-  /* Night, from the Interfere design system dark theme (design.interfere.com): a neutral gray ramp
-     with one blue brand. Neutrals are the published gray steps; the blue ramp is its blue-4 to blue-11.
-     Measured WCAG 2 (recheck after edits): ink 16.3:1, ink-2 9.1:1, ink-3 5.8:1 on bg; white on pine 4.9:1
-     (tightest pair, do not lighten pine); white on deep 14.3:1; on-gold text on gold 9.4:1; pine-2 link 9.0:1. */
-  --bg: #111;
-  --bg-2: #0b0b0b;
-  --deep: #0d2847;
-  --paper: #191919;
-  --paper-2: #222;
-  --well: #0b0b0b;
-  --sage: #2a2a2a;
-  --sage-2: #484848;
-  --ink: #eee;
-  --ink-2: #b4b4b4;
-  --ink-3: #8f8f8f;
-  --line: oklch(1 0 0 / 0.12);
-  --line-2: oklch(1 0 0 / 0.3);
-  --pine: #2870bd;
-  --pine-hover: #205d9e;
-  --pine-2: #70b8ff;
-  --pine-tint: oklch(0.7 0.14 250 / 0.16);
-  --gold: #70b8ff;
-  --gold-2: #3b9eff;
-  --warn: oklch(0.78 0.14 60);
-  --on-gold: #0b0b0b;
-  --on-fill: #fafafa;
+  /* Chalk, in OKLCH. Neutrals hold hue 95, the accent ramp holds hue 160, so nothing drifts.
+     Measured WCAG 2: ink 16.7:1, ink-2 7.8:1, ink-3 5.5:1 on bg; on-fill 7.7:1 on pine;
+     pine 7.5:1 on bg; pine-2 5.3:1 on bg; warn 5.8:1 on bg; cream text 12.5:1 on deep. */
+  --bg: oklch(0.972 0.006 95);
+  --bg-2: oklch(0.955 0.007 95);
+  --deep: oklch(0.2 0.03 160);
+  --paper: oklch(0.995 0.003 95);
+  --paper-2: oklch(0.965 0.006 95);
+  --well: oklch(0.94 0.008 95);
+  --sage: oklch(0.93 0.02 150);
+  --sage-2: oklch(0.8 0.025 150);
+  --ink: oklch(0.2 0.01 95);
+  --ink-2: oklch(0.42 0.012 95);
+  --ink-3: oklch(0.5 0.012 95);
+  --line: oklch(0.2 0.01 95 / 0.12);
+  --line-2: oklch(0.2 0.01 95 / 0.3);
+  --pine: oklch(0.42 0.09 160);
+  --pine-hover: oklch(0.37 0.07 160);
+  --pine-2: oklch(0.5 0.1 160);
+  --pine-tint: oklch(0.5 0.1 160 / 0.14);
+  --gold: oklch(0.86 0.1 150);
+  --gold-2: oklch(0.8 0.1 150);
+  --warn: oklch(0.5 0.12 55);
+  --on-gold: oklch(0.2 0.012 92);
+  --on-fill: oklch(0.985 0.005 95);
 
   /* Repeated literals promoted to tokens. Channel triplets feed rgb(... / a). */
-  --cream: 250 250 250;
-  --ink-rgb: 0 0 0;
-  --pine-rgb: 40 112 189;
+  --cream: 250 248 244;
+  --ink-rgb: 23 21 15;
+  --pine-rgb: 12 92 60;
   --ok-on-dark: #a8d5b5;
   --warn-on-dark: #e8b878;
 
@@ -176,9 +175,9 @@
   button { cursor: pointer; }
   ::selection { background: var(--gold); color: var(--on-gold); }
 
-  /* Focus ring: sky blue on the dark ground (8:1), gold on the deep bands. */
+  /* Focus ring: pine on the light ground (7.5:1), gold on the deep bands. */
   :focus-visible {
-    outline: 3px solid var(--pine-2);
+    outline: 3px solid var(--pine);
     outline-offset: 3px;
     border-radius: 6px;
   }
