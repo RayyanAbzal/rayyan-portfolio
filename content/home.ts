@@ -21,7 +21,7 @@ export const HOME = {
   title: "AI Consultant & Automation, Auckland NZ | Rayyan Abzal",
   description:
     "AI consultant in Auckland, New Zealand. I build AI automation and custom software that replaces manual work for startups and small businesses. Free intro call.",
-  heroHeadline: ["I build ", { mark: "AI" }, " that runs your business."] as Rich,
+  heroHeadline: ["Software and ", { mark: "AI" }, " that take manual work off small teams."] as Rich,
   heroLede:
     "Automation for a manual process, AI inside the product you already have, or the whole tool built from scratch. One person, end to end, from Auckland.",
   heroCta: "Book a free 30-minute call",

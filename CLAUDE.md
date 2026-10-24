@@ -16,7 +16,7 @@ Next.js (App Router) portfolio site with Tailwind v4 and shadcn/ui. Migrated fro
 
 ```
 app/layout.tsx          shell: skip link, sticky nav, footer, Calendly, Analytics, motion gate script
-app/page.tsx            home: hero panel, 4 client cards, offer list, about teaser, one quote, CTA
+app/page.tsx            home (Index layout, Chalk colours): type-only head, numbered columns for 4 client builds and 3 offers, two-column about, deep closing band
 app/work/page.tsx       projects: 4 client cards + 3 personal builds
 app/work/[slug]/page.tsx  case studies (generateStaticParams over content/case-studies)
 app/contact/page.tsx    contact: ways to reach me, where I work, what to include in a first message (footer link only)
@@ -67,7 +67,7 @@ Tokens live in `app/globals.css` (`:root`, legacy names, mapped to shadcn variab
 
 | Token   | Value     | Use                              |
 |---------|-----------|----------------------------------|
-| bg      | `#f5f3ee` | page ground (near-white stone)   |
+| bg      | `oklch(0.972 0.006 95)` | page ground (warm paper) |
 | paper   | `#fffdf9` | cards, blocks; 1px `--line`      |
 | well    | `#e6ebe3` | bed behind card schematics       |
 | sage    | `#dde7da` | hero panel only                  |

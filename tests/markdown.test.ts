@@ -11,7 +11,7 @@ import { GET as markdownGet } from "@/app/md/[...slug]/route";
 import { markdownFallback, markdownHeaders, markdownRewrites } from "../next.config";
 
 const H1: Record<string, string> = {
-  "/": "I build AI that runs your business.",
+  "/": "Software and AI that take manual work off small teams.",
   "/work": "Client work, all of it live.",
   "/about": "I scope it, build it, and ship it myself.",
   "/contact": "Get in touch.",

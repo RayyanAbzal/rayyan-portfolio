@@ -35,3 +35,41 @@
 ## 2026-10-14: motion pass
 
 Hero entrance is CSS-only (no `.js` gate, no hydration dependency) so the LCP element paints at first frame; the sage panel no longer fades or scales. Grid reveals are 300ms / 12px / blur 4px with a 100ms stagger and a failsafe limited to near-viewport elements. Hover feedback is 150ms or less with a 0.96 press scale on buttons. Nav and footer have view-transition names so they do not flicker on navigation. The FAQ animates open and close through grid-template-rows. The decorative runner no longer re-fires on hover and the status pulse stops after two cycles.
+
+## 2026-10-21: home redesign "Open grid" (N4), animation stack
+
+**Decision.** Rebuild the home page on the N4 direction (large plain headline across a 12-column grid, overlapping paper block with the four client builds, no imagery). Brief: `.impeccable/surfaces/home-n4-brief.md`. Ray chose N4 from `.impeccable/mocks/round5-references.html` and approved the "full skill stack" for motion: GSAP, ScrollTrigger and Lenis (desktop fine-pointer only), installed from npm.
+
+**Overrides.** Lifts CLAUDE.md "no further frameworks or heavy dependencies without asking" for these three packages only, and relaxes "Reveal motion only on card grids; everything else static" to allow masked heading reveals, row rule-ins and the quote reveal below the fold. The hero stays CSS-only, with the headline painted at full opacity on first frame.
+
+**Why.** The previous big-tagline hero read as generic. MengTo/Skills (read as reference, not installed) supplies the grammar and the awwwards build phases.
+
+**Guards.** Reduced motion and touch get native scroll and final states with no animation. No Three.js. No new typeface (Inter Tight only). One gold `.mark` per page. Copy limited to facts already in `content/`.
+
+## 2026-10-23: home "Chalk" palette and flat layout; Lenis, GSAP and HomeMotion dropped
+
+**Decision.** Ray disliked the dark granite look and chose Chalk (option A of `.impeccable/mocks/round7-oklch.html`): light paper ground, deep green accent, a large left headline with lede and CTA on the right, ruled tables for the four builds and three offers, a flat about section and one rounded deep closing band. Tokens in `app/globals.css` are now OKLCH, one hue per ramp (neutrals 95, accent 160). Measured WCAG pairs: ink 16.7:1, ink-2 7.8:1, ink-3 5.5:1, on-fill on pine 7.7:1, pine 7.5:1, gold on deep 12.2:1.
+
+**Reverses.** The 2026-10-21 N4 entry: GSAP, ScrollTrigger, Lenis and `HomeMotion` are removed (`npm uninstall gsap lenis`), so the "no heavy dependencies" rule applies again. `AucklandTime` is removed. Motion is the CSS-only hero entrance plus a hover nudge on build rows. The home quote stays off the page (Ray: quotes read as AI slop); `/about` testimonials are unchanged.
+
+**Why.** Less JS on the LCP path, fewer moving parts for a one-page-per-purpose site, and the table layout reads faster than the overlapping paper block.
+
+**Open.** `--gold` is now a soft green kept under the legacy name, so a rename is a later cleanup. DESIGN.md still describes the older palette and needs a documenter pass.
+
+## 2026-10-24: Interfere dark palette site-wide; home becomes the "Index" layout
+
+**Decision.** Ray picked the Index layout from three variants (Index, Editorial, Ledger) and asked for the dark-mode colour scheme of design.interfere.com. The home page is now a type-only head (up to 7.25rem), a four-column numbered work table, a three-column numbered services table, a two-column about, and one deep band. Tokens in `app/globals.css` keep their legacy names but now hold the Interfere dark neutrals (`#111` ground, `#191919`/`#222`/`#2a2a2a` surfaces, `#eee` ink) and its blue ramp (`pine` `#2870bd`, `pine-2` `#70b8ff`, `deep` `#0d2847`). `color-scheme: dark`; no light theme. Big panels (about principles, CTA panel, case CTA, home close) share `--deep`. Fonts unchanged: Inter Tight only, no monospace.
+
+**Reverses.** The 2026-10-23 Chalk light palette and ruled-row home layout. Home side cards and the secondary hero link are no longer rendered (copy stays in `content/`, so the markdown mirrors and JSON-LD are unchanged).
+
+**Why.** Ray's explicit request in chat. Index reads like a table of contents and fits the "few elements per view" aim.
+
+**Open.** `--gold` is now sky blue (`#70b8ff`) under the legacy name; `.mark` is dark text on it. DESIGN.md and `.impeccable/surfaces/index-html.md` still describe Chalk and need a documenter pass. `public/og.png` is still the light card. Brand fill `pine` is white-on-`#2870bd` (about 5:1); Interfere's own `#0090ff` fails 4.5:1 with white, so the 9 step is not used as a fill.
+
+## 2026-10-24: Interfere dark palette reversed; Index layout stays
+
+**Decision.** Ray reversed the dark palette the same day ("let's stick with our original colour scheme"). Tokens, panel backgrounds and focus rings return to the Chalk values from c2b7385; `color-scheme: light`. The Index home layout (type-only head, numbered work and service columns, two-column about) stays, in Chalk colours. The dark-palette decision entry above is superseded for colour only.
+
+**Why.** Ray's explicit request in chat.
+
+**Open.** None added; the earlier Chalk open items (DESIGN.md, og.png) are unchanged and no longer stale on colour.

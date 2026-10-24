@@ -63,7 +63,7 @@
   /* ---------- closing CTA ---------- */
   .cta-panel {
     background: var(--pine);
-    color: var(--paper);
+    color: var(--on-fill);
     border-radius: 32px;
     padding: clamp(40px, 6vw, 80px) clamp(24px, 6vw, 88px);
     display: grid;
@@ -74,10 +74,10 @@
     overflow: hidden;
   }
   .cta-panel h2 { font-size: clamp(2rem, 4.4vw, 3.5rem); position: relative; }
-  .cta-panel .mark { background: var(--gold); color: var(--ink); }
+  .cta-panel .mark { background: var(--gold); color: var(--on-gold); }
   .cta-panel p { color: rgb(var(--cream) / 0.78); font-size: 1.0625rem; margin-top: 16px; max-width: 48ch; position: relative; }
   .cta-actions { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; position: relative; }
   @media (max-width: 860px) { .cta-panel { grid-template-columns: 1fr; } }
   .cta-actions .alt { font-size: 0.9375rem; color: rgb(var(--cream) / 0.7); }
-  .cta-actions .alt a { color: var(--paper); text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: 4px; }
+  .cta-actions .alt a { color: var(--on-fill); text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: 4px; }
 }

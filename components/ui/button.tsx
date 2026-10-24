@@ -15,11 +15,11 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-pine text-paper hover:bg-pine-2 hover:shadow-[0_14px_28px_-16px_rgb(var(--pine-rgb)/0.6)]",
+          "bg-pine text-on-fill hover:bg-pine-hover hover:shadow-[0_14px_28px_-16px_rgb(var(--pine-rgb)/0.55)]",
         gold:
-          "bg-gold text-ink hover:bg-gold-2 hover:shadow-[0_14px_28px_-16px_rgb(224_177_46/0.6)]",
+          "bg-on-fill text-deep hover:bg-paper-2 hover:shadow-[0_14px_28px_-16px_rgb(0_0_0/0.5)]",
         outline:
-          "border-line-2 bg-paper text-ink shadow-none hover:bg-paper-2 hover:shadow-[0_14px_28px_-18px_rgb(var(--ink-rgb)/0.35)]",
+          "border-line-2 bg-paper text-ink shadow-none hover:bg-paper-2 hover:shadow-[0_14px_28px_-18px_rgb(var(--ink-rgb)/0.6)]",
       },
     },
     defaultVariants: {
