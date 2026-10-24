@@ -67,16 +67,20 @@ Tokens live in `app/globals.css` (`:root`, legacy names, mapped to shadcn variab
 
 | Token   | Value     | Use                              |
 |---------|-----------|----------------------------------|
-| bg      | `oklch(0.972 0.006 95)` | page ground (warm paper) |
-| paper   | `#fffdf9` | cards, blocks; 1px `--line`      |
-| well    | `#e6ebe3` | bed behind card schematics       |
-| sage    | `#dde7da` | hero panel only                  |
-| ink     | `#17150f` | text, dark preview panel         |
-| pine    | `#1f3d2b` | buttons, CTA panels              |
-| gold    | `#f3c94a` | `.mark` highlight, links, CTA    |
+| bg      | `#111`    | page ground                      |
+| paper   | `#191919` | cards, blocks; 1px `--line`      |
+| well    | `#0b0b0b` | bed behind card schematics       |
+| sage    | `#2a2a2a` | secondary fills                  |
+| ink     | `#eee`    | text                             |
+| deep    | `#0d2847` | big panels (about, CTA, home close) |
+| pine    | `#2870bd` | buttons, fills                   |
+| pine-2  | `#70b8ff` | links, focus ring, text accents  |
+| gold    | `#70b8ff` | `.mark` highlight (dark text on it) |
 | radius  | `24px`    | every rounded surface            |
 
-Aesthetic: a quiet room with one loud sentence. Near-white warm ground, big rounded white surfaces on a hairline, few elements per view, gold as the only accent. Bencium-style calm, own colours.
+Palette is the Interfere dark theme (design.interfere.com, Ray 2026-10-24); `color-scheme: dark`, no light theme. Rationale: docs/decisions.md.
+
+Aesthetic: a quiet room with one loud sentence. Dark neutral ground, raised surfaces on a hairline, few elements per view, one blue brand. Home is the Index layout: type-only head, numbered columns.
 
 Product visuals: no client screenshots. Cards use CSS-drawn schematics (`components/schematics`, `.card-visual` > `.vis-frame`) with synthetic data; case pages use the dark `.case-preview` panel (low-alpha text stays at .55 or above for contrast). `--data` resolves to the body face; schematic and preview data use tabular numerals, never monospace.
 

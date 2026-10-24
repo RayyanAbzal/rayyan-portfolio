@@ -6,7 +6,7 @@ import { RichText } from "@/components/case/rich-text";
 import { JsonLd } from "@/components/json-ld";
 import { StickyBookCta } from "@/components/sticky-book-cta";
 import { Button } from "@/components/ui/button";
-import { HOME, HOME_SIDE_CARDS, OFFERS } from "@/content/home";
+import { HOME, OFFERS } from "@/content/home";
 import homeLd from "@/content/jsonld/home.json";
 import { CLIENT_PROJECTS } from "@/content/projects";
 import { EMAIL } from "@/lib/site";
@@ -26,14 +26,11 @@ export default function HomePage() {
         <div className="wrap">
           <section className="home-hero" aria-label="Introduction">
             <h1 className="display"><RichText value={HOME.heroHeadline} /></h1>
-            <div className="hero-side">
+            <div className="hero-sub">
               <p className="hero-lede">{HOME.heroLede}</p>
-              <div className="hero-actions">
-                <Button asChild>
-                  <BookLink source="hero">{HOME.heroCta}</BookLink>
-                </Button>
-                <a className="link link-arrow" href="#work">{HOME.heroSecondary}</a>
-              </div>
+              <Button asChild>
+                <BookLink source="hero">{HOME.heroCta}</BookLink>
+              </Button>
             </div>
           </section>
 
@@ -42,20 +39,15 @@ export default function HomePage() {
               <h2 id="work-title">{HOME.workTitle}</h2>
               <Link className="link link-arrow" href="/work">{HOME.workLink}</Link>
             </div>
-            <ol className="builds">
-              {CLIENT_PROJECTS.map((project) => (
-                <li key={project.slug} className="build">
+            <ol className="cols cols-4">
+              {CLIENT_PROJECTS.map((project, index) => (
+                <li key={project.slug} className="col">
+                  <span className="col-num">{String(index + 1).padStart(2, "0")}</span>
                   <span className="build-name">{project.name}</span>
                   <h3>
-                    <Link
-                      href={`/work/${project.slug}`}
-                      className="build-link"
-                      aria-describedby={`build-${project.slug}-outcome`}
-                    >
-                      {project.title}
-                    </Link>
+                    <Link href={`/work/${project.slug}`} className="col-stretch">{project.title}</Link>
                   </h3>
-                  <p id={`build-${project.slug}-outcome`}>{project.outcome}</p>
+                  <p>{project.outcome}</p>
                 </li>
               ))}
             </ol>
@@ -65,19 +57,14 @@ export default function HomePage() {
             <div className="sec-head">
               <h2 id="services-title">{HOME.servicesTitle}</h2>
             </div>
-            <p className="sec-lede">{HOME.servicesLede}</p>
-            <ul className="offers">
-              {OFFERS.map((offer) => (
-                <li key={offer.title} className="offer-row">
+            <ul className="cols cols-3">
+              {OFFERS.map((offer, index) => (
+                <li key={offer.title} className="col">
+                  <span className="col-num">{String.fromCharCode(65 + index)}</span>
                   <h3>{offer.title}</h3>
-                  <div className="offer-body">
-                    <p>{offer.body}</p>
-                    <Link className="link link-arrow" href={offer.linkHref}>{offer.linkLabel}</Link>
-                  </div>
-                  <div className="when">
-                    {offer.duration}
-                    <small>{offer.price}</small>
-                  </div>
+                  <p>{offer.body}</p>
+                  <p className="col-meta">{offer.duration}, {offer.price.toLowerCase()}</p>
+                  <Link className="link link-arrow" href={offer.linkHref}>{offer.linkLabel}</Link>
                 </li>
               ))}
             </ul>
@@ -87,30 +74,13 @@ export default function HomePage() {
             <div className="sec-head">
               <h2 id="about-title">{HOME.aboutHeading}</h2>
             </div>
-            <div className="about-split">
-              <div>
-                <div className="who">
-                  <div className="mono-mark" aria-hidden="true">RA</div>
-                  <div>
-                    <div className="name">Rayyan Abzal</div>
-                    <div className="role">{HOME.aboutRole}</div>
-                  </div>
-                </div>
-                <div className="prose">
-                  <p className="big">{HOME.aboutBig}</p>
-                  {HOME.aboutParagraphs.map((paragraph) => (
-                    <p key={paragraph}>{paragraph}</p>
-                  ))}
-                  <p><Link className="link link-arrow" href="/about">{HOME.aboutLink}</Link></p>
-                </div>
-              </div>
-              <div className="side">
-                {HOME_SIDE_CARDS.map((card) => (
-                  <div key={card.title} className="side-card">
-                    <div className="v">{card.title}</div>
-                    <p><RichText value={card.body} /></p>
-                  </div>
+            <div className="about-grid">
+              <p className="big">{HOME.aboutBig}</p>
+              <div className="prose">
+                {HOME.aboutParagraphs.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
                 ))}
+                <p><Link className="link link-arrow" href="/about">{HOME.aboutLink}</Link></p>
               </div>
             </div>
           </section>

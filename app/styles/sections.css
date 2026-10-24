@@ -62,7 +62,7 @@
 
   /* ---------- closing CTA ---------- */
   .cta-panel {
-    background: var(--pine);
+    background: var(--deep);
     color: var(--on-fill);
     border-radius: 32px;
     padding: clamp(40px, 6vw, 80px) clamp(24px, 6vw, 88px);
