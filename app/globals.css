@@ -22,8 +22,8 @@
 
   /* Night, from the Interfere design system dark theme (design.interfere.com): a neutral gray ramp
      with one blue brand. Neutrals are the published gray steps; the blue ramp is its blue-4 to blue-11.
-     Measured WCAG 2 (recheck after edits): ink 16:1, ink-2 8.6:1, ink-3 5.9:1 on bg; white on pine 5:1;
-     black on gold 10:1; pine-2 text 8:1 on bg. */
+     Measured WCAG 2 (recheck after edits): ink 16.3:1, ink-2 9.1:1, ink-3 5.8:1 on bg; white on pine 4.9:1
+     (tightest pair, do not lighten pine); white on deep 14.3:1; on-gold text on gold 9.4:1; pine-2 link 9.0:1. */
   --bg: #111;
   --bg-2: #0b0b0b;
   --deep: #0d2847;
