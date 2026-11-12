@@ -5,10 +5,6 @@ export interface HarnessLayer {
   /** Matches a part id in content/harness/drawing.ts. */
   id: string;
   name: string;
-  /** The cartridge part that stands for this layer in the drawing. */
-  part: string;
-  /** Marks the layer that runs on its own; shows a quiet loop indicator. */
-  live?: boolean;
   what: string;
   why: string;
   fact: string;
@@ -36,12 +32,11 @@ export const HARNESS = {
   lede:
     "Anyone can prompt a model. What I bring is the harness around it: the rules it reads, the guardrails it cannot cross, the reviewers that check its work and the loop that runs it overnight. I change it most weeks, and every change starts with something that went wrong.",
   drawingHeading: "Take it apart",
-  drawingHint: "Scroll to take it apart, one layer at a time, from the cap down. Tap a part in the drawing to jump to it.",
-  skipLabel: "Skip the walkthrough",
+  drawingHint: "Pick a layer to see what it does and why it is there.",
   whyLabel: "Why it is there:",
   explodedLabel: "Exploded",
   assembledLabel: "Assembled",
-  drawingCaption: "Concept drawing of the harness as a water filter. Work enters at the cap and passes down through every stage; what each stage catches settles in the bowl.",
+  drawingCaption: "Concept drawing. The model sits at the core and every other layer of the harness is a ring around it, the goal runner on the outside.",
   statsHeading: "In numbers",
   changesHeading: "What changed, and why",
   changesIntro:
@@ -58,29 +53,25 @@ export const HARNESS = {
   teaserLink: "See the harness",
 } as const;
 
-/** Flow order: where work enters first, top of the cartridge down to the bowl. */
+/** Core outwards, matching the drawing: the model first, the goal runner last. */
 export const HARNESS_LAYERS: readonly HarnessLayer[] = [
   {
-    id: "runner",
-    name: "Goal runner",
-    part: "Inlet cap",
-    live: true,
-    what: "I write a goal with a finish line a test can check. The runner works it in its own branch, loops until the checks pass, and opens a pull request.",
-    why: "Prompting step by step was the bottleneck. Goals and loops let the work run overnight.",
-    fact: "It only interrupts me for things that cannot be undone: a production deploy, a destructive database change, money.",
+    id: "model",
+    name: "Model",
+    what: "Claude does the thinking. Three tiers: the strongest for architecture, a fast one for routine building, the cheapest for searching and sweeping.",
+    why: "Matching the model to the job keeps quality high where it matters and cost low where it does not.",
+    fact: "Model picks are reviewed at every release, not set once.",
   },
   {
-    id: "hooks",
-    name: "Guardrails",
-    part: "Relief valve",
-    what: "Scripts that run before and after every action and block the dangerous ones outright: force pushes, production deploys, reading secret files.",
-    why: "Asking a model to be careful is not a control. Anything irreversible is blocked in code.",
-    fact: "27 guardrail scripts, each with a smoke test that proves it still fires.",
+    id: "memory",
+    name: "Memory",
+    what: "A decision log, an index of what each project has learned, and a list of ideas I tried and rejected.",
+    why: "A fresh session forgets everything. Without memory it re-proposes the idea we already ruled out.",
+    fact: "Memory only records what I said or what was checked against a source, never something an email or web page claimed.",
   },
   {
     id: "rules",
     name: "Rules",
-    part: "Mesh screen",
     what: "Standing instructions the model reads before it starts: how to commit, how to handle secrets, what done means.",
     why: "Every repeated mistake gets written down once so it never needs correcting twice.",
     fact: "Rules that only matter for one kind of file load only when that file is touched, so they cost nothing elsewhere.",
@@ -88,23 +79,20 @@ export const HARNESS_LAYERS: readonly HarnessLayer[] = [
   {
     id: "skills",
     name: "Skills",
-    part: "Insert sleeves",
     what: "Written playbooks for jobs I do often: shipping a change, reviewing an interface, scoping a client process.",
     why: "A workflow I repeat should be one file, not a long prompt I retype and get slightly wrong.",
     fact: "76 active skills. A skill unused for 30 days gets deleted at the next audit.",
   },
   {
-    id: "model",
-    name: "Model",
-    part: "Core tube",
-    what: "Claude does the thinking. Three tiers, like the three hole sizes in the core: the strongest for architecture, a fast one for routine building, the cheapest for searching and sweeping.",
-    why: "Matching the model to the job keeps quality high where it matters and cost low where it does not.",
-    fact: "Model picks are reviewed at every release, not set once.",
+    id: "hooks",
+    name: "Guardrails",
+    what: "Scripts that run before and after every action and block the dangerous ones outright: force pushes, production deploys, reading secret files.",
+    why: "Asking a model to be careful is not a control. Anything irreversible is blocked in code.",
+    fact: "27 guardrail scripts, each with a smoke test that proves it still fires.",
   },
   {
     id: "reviewers",
     name: "Reviewers",
-    part: "Pleated media",
     what: "Separate agents, each with a fresh context and one lens: correctness, security, blast radius. A judge checks their findings against the code.",
     why: "A model reviewing its own work in the same session agrees with itself. Fresh eyes do not.",
     fact: "Findings default to refuted until the judge finds evidence in the code.",
@@ -112,18 +100,16 @@ export const HARNESS_LAYERS: readonly HarnessLayer[] = [
   {
     id: "second",
     name: "Second opinion",
-    part: "Carbon block",
     what: "On risky changes, a model from a different company reads the diff in an empty folder and reports what it sees.",
     why: "Two models from the same family share blind spots. A different family catches different bugs.",
     fact: "Claude plus an outside model caught 56.7% of planted bugs, against 42.7% for two Claude reviewers.",
   },
   {
-    id: "memory",
-    name: "Memory",
-    part: "Sediment bowl",
-    what: "A decision log, an index of what each project has learned, and a list of ideas I tried and rejected. It keeps what every stage above caught.",
-    why: "A fresh session forgets everything. Without memory it re-proposes the idea we already ruled out.",
-    fact: "Memory only records what I said or what was checked against a source, never something an email or web page claimed.",
+    id: "runner",
+    name: "Goal runner",
+    what: "I write a goal with a finish line a test can check. The runner works it in its own branch, loops until the checks pass, and opens a pull request.",
+    why: "Prompting step by step was the bottleneck. Goals and loops let the work run overnight.",
+    fact: "It only interrupts me for things that cannot be undone: a production deploy, a destructive database change, money.",
   },
 ];
 

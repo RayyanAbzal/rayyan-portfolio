@@ -7,23 +7,18 @@
   .harness-head h1 { font-size: clamp(2.5rem, 6.4vw, 5.5rem); font-weight: 700; letter-spacing: -0.045em; line-height: 1.02; max-width: 16ch; text-wrap: balance; }
   .harness-head p { margin-top: clamp(24px, 3vw, 32px); font-size: clamp(1.0625rem, 1.5vw, 1.1875rem); line-height: 1.5; color: var(--ink-2); max-width: 58ch; text-wrap: pretty; }
 
-  /* ---------- explorer: a pinned walkthrough ----------
-     The stage (toggle + drawing) sticks below the nav while one step per layer
-     scrolls past it. --stage-top clears the sticky nav. */
+  /* ---------- explorer ---------- */
   .harness-explorer {
-    --stage-top: 93px;
     display: grid;
     grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
     gap: 32px clamp(32px, 5vw, 64px);
-    align-items: start;
     border-top: 1px solid var(--ink);
     padding-top: 24px;
   }
-  .harness-stage { position: sticky; top: var(--stage-top); display: flex; flex-direction: column; gap: 16px; }
+  .harness-stage { position: relative; display: flex; flex-direction: column; gap: 16px; }
+  .harness-stage figcaption { font-size: 0.875rem; color: var(--ink-3); max-width: 52ch; }
   .harness-canvas { background: var(--paper); border: 1px solid var(--line); border-radius: var(--r); padding: clamp(16px, 3vw, 32px); }
-  .harness-svg { --cx: var(--cx-wide); display: block; width: 100%; height: auto; max-height: min(62vh, 640px); margin-inline: auto; overflow: visible; }
-  /* Toggle, canvas padding and a margin below must fit under the nav too. */
-  .harness-stage .harness-svg { max-height: min(calc(100svh - 260px), 640px); }
+  .harness-svg { display: block; width: 100%; height: auto; max-height: min(62vh, 640px); margin-inline: auto; overflow: visible; }
 
   .harness-toggle { display: inline-flex; align-self: flex-start; padding: 4px; gap: 4px; background: var(--well); border-radius: 999px; }
   .harness-toggle button {
@@ -37,7 +32,7 @@
   .harness-toggle button[aria-pressed="true"] { background: var(--paper); color: var(--ink); box-shadow: var(--shadow-card); }
 
   /* Linework. Widths are the teardown's technical weights, in drawing units (mm). */
-  .harness-svg g[data-part], .harness-svg g[data-label] { cursor: pointer; }
+  .harness-svg [data-part] { cursor: pointer; }
   .harness-svg path[data-fill] { fill: var(--paper); stroke: none; }
   .harness-svg path[data-line-role] { fill: none; stroke: var(--ink); stroke-linecap: round; stroke-linejoin: round; }
   .harness-svg path[data-line-role="outline"] { stroke-width: 0.35; }
@@ -46,104 +41,68 @@
   .harness-svg path[data-line-role="axis"] { stroke-width: 0.13; }
   .harness-svg path[data-line-role="texture"] { stroke-width: 0.09; }
 
-  /* The active step's part takes the one accent. One rule per part keeps it server-rendered. */
-  .harness-explorer[data-selected="model"] g[data-part="model"],
-  .harness-explorer[data-selected="memory"] g[data-part="memory"],
-  .harness-explorer[data-selected="rules"] g[data-part="rules"],
-  .harness-explorer[data-selected="skills"] g[data-part="skills"],
-  .harness-explorer[data-selected="hooks"] g[data-part="hooks"],
-  .harness-explorer[data-selected="reviewers"] g[data-part="reviewers"],
-  .harness-explorer[data-selected="second"] g[data-part="second"],
-  .harness-explorer[data-selected="runner"] g[data-part="runner"] {
-    --part-fill: var(--gold);
+  /* Selected ring takes the one accent. One rule per part keeps it server-rendered. */
+  .harness-explorer[data-selected="model"] [data-part="model"],
+  .harness-explorer[data-selected="memory"] [data-part="memory"],
+  .harness-explorer[data-selected="rules"] [data-part="rules"],
+  .harness-explorer[data-selected="skills"] [data-part="skills"],
+  .harness-explorer[data-selected="hooks"] [data-part="hooks"],
+  .harness-explorer[data-selected="reviewers"] [data-part="reviewers"],
+  .harness-explorer[data-selected="second"] [data-part="second"],
+  .harness-explorer[data-selected="runner"] [data-part="runner"] {
+    --plate: var(--gold);
   }
-  .harness-svg g path[data-fill] { fill: var(--part-fill, var(--paper)); }
+  .harness-svg path[data-fill] { fill: var(--plate, var(--hover-fill, var(--paper))); }
 
-  /* Assembled: every part slides back along its own explosion vector, and the
-     whole object shifts by --cx/--cy so it sits centred in the taller box. */
-  .harness-explorer[data-view="assembled"] .harness-svg g[data-part] {
-    transform: translate(calc((var(--cx) - var(--dx)) * 1px), calc((var(--cy) - var(--dy)) * 1px));
-  }
-  /* The core tube sits inside the pleats. The drawing is one exploded hidden-line pass,
-     so assembled it would show through; hide it unless it is the active layer (x-ray). */
-  .harness-explorer[data-view="assembled"]:not([data-selected="model"]) g[data-part="model"] { opacity: 0; }
+  /* Two drawn states, one shown. The hidden one waits where the shown one's parts
+     will travel to, so a toggle reads as each ring sliding into place. */
+  .harness-svg g[data-state="assembled"] { opacity: 0; visibility: hidden; }
+  .harness-svg g[data-state="assembled"] [data-part] { transform: translate(calc(var(--dx) * 1px), calc(var(--dy) * 1px)); }
+  .harness-explorer[data-view="assembled"] g[data-state="exploded"] { opacity: 0; visibility: hidden; }
+  .harness-explorer[data-view="assembled"] g[data-state="exploded"] [data-part] { transform: translate(calc(var(--dx) * -1px), calc(var(--dy) * -1px)); }
+  .harness-explorer[data-view="assembled"] g[data-state="assembled"] { opacity: 1; visibility: visible; }
+  .harness-explorer[data-view="assembled"] g[data-state="assembled"] [data-part] { transform: none; }
 
-  /* Leader-line labels: exploded view only. The steps carry the same names for
-     assistive tech; the whole drawing is aria-hidden. */
-  .harness-labels text { fill: var(--ink-3); font-family: var(--font); }
-  .harness-labels .label-name { fill: var(--ink); font-weight: 600; }
-  .harness-labels .harness-leader { fill: none; stroke: var(--ink-3); stroke-width: 0.18; }
-  .harness-labels circle { fill: var(--ink); }
-  .harness-explorer[data-view="assembled"] .harness-labels { opacity: 0; pointer-events: none; }
-  .harness-explorer[data-selected="model"] g[data-label="model"],
-  .harness-explorer[data-selected="memory"] g[data-label="memory"],
-  .harness-explorer[data-selected="rules"] g[data-label="rules"],
-  .harness-explorer[data-selected="skills"] g[data-label="skills"],
-  .harness-explorer[data-selected="hooks"] g[data-label="hooks"],
-  .harness-explorer[data-selected="reviewers"] g[data-label="reviewers"],
-  .harness-explorer[data-selected="second"] g[data-label="second"],
-  .harness-explorer[data-selected="runner"] g[data-label="runner"] {
-    --leader: var(--ink);
-  }
-  .harness-labels g[data-label] .harness-leader { stroke: var(--leader, var(--ink-3)); }
-
-  /* Centre line, the drafting convention for an exploded stack: a long-short chain down
-     the shared axis. Behind the parts, so it shows only in the gaps. Exploded view only. */
-  .harness-axis { fill: none; stroke: var(--ink-3); stroke-width: 0.18; stroke-dasharray: 6 1.6 1 1.6; pointer-events: none; }
-  .harness-explorer[data-view="assembled"] .harness-axis { opacity: 0; }
-
-  /* ---------- steps ---------- */
-  .harness-panel { display: flex; flex-direction: column; gap: 12px; }
-  .harness-caption { font-size: 0.875rem; color: var(--ink-3); max-width: 52ch; }
+  /* ---------- layer list + detail ---------- */
+  .harness-panel { display: flex; flex-direction: column; gap: 16px; }
   .harness-hint { font-size: 0.9375rem; color: var(--ink-2); }
-  .harness-skip { align-self: flex-start; font-size: 0.9375rem; }
-  .harness-steps { list-style: none; margin-top: 12px; border-top: 1px solid var(--line); }
-  /* Tall enough that each part gets its own stretch of scroll; the last step only needs
-     to reach mid-screen. */
-  .harness-steps > li { min-height: 62svh; padding: 24px 0 48px; border-bottom: 1px solid var(--line); }
-  .harness-steps > li:last-child { min-height: 0; border-bottom: 0; }
-  .harness-steps .harness-part { display: flex; align-items: baseline; gap: 12px; font-size: 0.875rem; font-weight: 600; color: var(--ink-3); }
-  .harness-steps .layer-num { font-variant-numeric: tabular-nums; }
-  .harness-steps > li[data-active] .layer-num { color: var(--pine); }
-  .harness-steps > li[data-active] .harness-part::after {
+  .harness-layers { list-style: none; border-top: 1px solid var(--line); }
+  .harness-layers li { border-bottom: 1px solid var(--line); }
+  .harness-layers button {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    width: 100%;
+    min-height: 44px;
+    padding: 10px 0;
+    text-align: left;
+    font-size: 1.0625rem;
+    font-weight: 600;
+    color: var(--ink-2);
+  }
+  .harness-layers .layer-num { font-size: 0.875rem; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+  .harness-layers button[aria-pressed="true"] { color: var(--ink); }
+  .harness-layers button[aria-pressed="true"] .layer-num { color: var(--pine); }
+  .harness-layers button[aria-pressed="true"]::after {
     content: "";
     align-self: center;
+    margin-left: auto;
     width: 10px;
     height: 10px;
     border-radius: 999px;
     background: var(--gold);
     box-shadow: 0 0 0 1px var(--ink);
   }
-  .harness-steps h3 { display: flex; align-items: center; gap: 10px; margin-top: 4px; font-size: 1.375rem; font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; }
-  .harness-steps .layer-live { flex: none; }
-  .harness-steps p:not(.harness-part) { margin-top: 12px; color: var(--ink-2); max-width: 46ch; text-wrap: pretty; }
-  .harness-steps strong { color: var(--ink); font-weight: 600; }
-  .harness-steps .harness-fact { padding-top: 12px; border-top: 1px solid var(--line); color: var(--ink); font-weight: 500; }
 
-  /* One column: the stage sticks across the top of the screen, on the page ground so
-     the steps scroll out of sight beneath it. */
+  .harness-detail { background: var(--paper); border: 1px solid var(--line); border-radius: var(--r); padding: clamp(20px, 2.5vw, 28px); }
+  .harness-detail h3 { font-size: 1.375rem; font-weight: 650; letter-spacing: -0.02em; line-height: 1.2; }
+  .harness-detail p { margin-top: 12px; color: var(--ink-2); text-wrap: pretty; }
+  .harness-detail strong { color: var(--ink); font-weight: 600; }
+  .harness-detail .harness-fact { padding-top: 12px; border-top: 1px solid var(--line); color: var(--ink); font-weight: 500; }
+
   @media (max-width: 860px) {
-    .harness-explorer { --stage-top: 69px; grid-template-columns: 1fr; gap: 16px; }
-    .harness-stage { z-index: 2; gap: 10px; padding-block: 8px 12px; background: var(--bg); border-bottom: 1px solid var(--line); }
-    .harness-stage .harness-svg { max-height: 34svh; }
-    .harness-canvas { padding: 12px; }
-    .harness-steps > li { min-height: 48svh; }
-  }
-  /* Too narrow for readable labels: drop them and crop the svg to the ink, so the
-     drawing keeps its full width. The steps name every part. */
-  @media (max-width: 640px) {
-    .harness-explorer { --stage-top: 104px; }
-    .harness-canvas { overflow: hidden; }
-    .harness-canvas .harness-svg[style*="--zoom"] {
-      --cx: var(--cx-ink);
-      width: calc(100% * var(--zoom));
-      max-width: none;
-      max-height: none;
-      margin-left: calc(-100% * var(--crop));
-    }
-    /* Cropped, the width sets the height: cap it through the width instead. */
-    .harness-canvas:has(.harness-svg[style*="--zoom"]) { max-width: min(100%, calc(21svh + 24px)); margin-inline: auto; }
-    .harness-labels { display: none; }
+    .harness-explorer { grid-template-columns: 1fr; }
+    .harness-svg { max-height: 60vh; }
   }
 
   /* ---------- numbers ---------- */
@@ -160,7 +119,7 @@
     border-bottom: 1px solid var(--line);
   }
   .harness-log time { font-size: 0.875rem; font-weight: 600; color: var(--ink-3); font-variant-numeric: tabular-nums; padding-top: 3px; }
-  .harness-log h3 { font-size: 1.125rem; font-weight: 600; letter-spacing: -0.015em; line-height: 1.3; text-wrap: balance; }
+  .harness-log h3 { font-size: 1.125rem; font-weight: 650; letter-spacing: -0.015em; line-height: 1.3; text-wrap: balance; }
   .harness-log .trigger { margin-top: 6px; font-size: 0.9375rem; color: var(--ink-3); }
   .harness-log .result { color: var(--ink-2); text-wrap: pretty; }
   @media (max-width: 860px) {
@@ -185,107 +144,22 @@
   @media (max-width: 860px) { .harness-teaser { grid-template-columns: 1fr; } }
 }
 
-/* Parts travel with an ease-in-out (on-screen movement), staggered bottom up.
-   Reduced motion: the views swap instantly and the walkthrough leaves the drawing open. */
+/* Rings travel with an ease-in-out (on-screen movement) while the two drawn states
+   crossfade. Hover is colour only, fine pointers only. Reduced motion: the views swap instantly. */
 @media (prefers-reduced-motion: no-preference) {
-  .harness-explorer .harness-svg g[data-part] {
-    transition: transform 520ms cubic-bezier(0.77, 0, 0.175, 1), opacity 200ms cubic-bezier(0.2, 0, 0, 1),
-      translate 150ms cubic-bezier(0.2, 0, 0, 1);
-    transition-delay: calc(var(--i) * 40ms), calc(var(--i) * 40ms), 0ms;
+  .harness-explorer .harness-svg [data-part] { transition: transform 480ms cubic-bezier(0.77, 0, 0.175, 1); }
+  .harness-explorer .harness-svg g[data-state] { transition: opacity 240ms cubic-bezier(0.2, 0, 0, 1) 120ms, visibility 0s linear 360ms; }
+  /* The state coming in turns visible at once; the one going out hides after its fade. */
+  .harness-explorer:not([data-view="assembled"]) g[data-state="exploded"],
+  .harness-explorer[data-view="assembled"] g[data-state="assembled"] {
+    transition: opacity 240ms cubic-bezier(0.2, 0, 0, 1) 120ms, visibility 0s;
   }
-  /* Labels follow the parts out (after the explode lands) and leave at once. */
-  .harness-labels, .harness-axis { transition: opacity 240ms cubic-bezier(0.2, 0, 0, 1) 560ms; }
-  .harness-explorer[data-view="assembled"] :is(.harness-labels, .harness-axis) { transition-delay: 0ms; }
-
-  /* Take it apart on scroll: each step's own trip up the screen is a named timeline,
-     shared up to the explorer (timeline-scope) so the drawing can read it. A part lifts
-     out while its step rises towards the active band (mid-screen; lower on one column,
-     under the pinned stage), and its label follows. Before its step the part sits in the
-     assembled stack; scrolling back up puts it back. Pure CSS, so it also runs without
-     JS; the first press on the view toggle (data-toggled) hands the parts over. */
-  @supports (timeline-scope: --a) and (animation-timeline: view()) {
-    .harness-explorer {
-      --lift: cover 10% cover 32%;
-      --label: cover 28% cover 36%;
-      timeline-scope: --step-runner, --step-hooks, --step-rules, --step-skills, --step-model, --step-reviewers, --step-second, --step-memory;
-    }
-    .harness-steps [data-step="runner"] { view-timeline: --step-runner block; }
-    .harness-steps [data-step="hooks"] { view-timeline: --step-hooks block; }
-    .harness-steps [data-step="rules"] { view-timeline: --step-rules block; }
-    .harness-steps [data-step="skills"] { view-timeline: --step-skills block; }
-    .harness-steps [data-step="model"] { view-timeline: --step-model block; }
-    .harness-steps [data-step="reviewers"] { view-timeline: --step-reviewers block; }
-    .harness-steps [data-step="second"] { view-timeline: --step-second block; }
-    .harness-steps [data-step="memory"] { view-timeline: --step-memory block; }
-
-    .harness-explorer:not([data-toggled]) .harness-svg g[data-part] {
-      animation: harness-open linear both;
-      animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
-      animation-range: var(--lift);
-    }
-    .harness-explorer:not([data-toggled]) .harness-svg g[data-part="model"] { animation-name: harness-open-core; }
-    .harness-explorer:not([data-toggled]) .harness-labels g[data-label] {
-      animation: harness-show linear both;
-      animation-range: var(--label);
-    }
-    .harness-explorer:not([data-toggled]) .harness-axis {
-      animation: harness-show linear both;
-      animation-timeline: --step-runner;
-      animation-range: var(--lift);
-    }
-    .harness-explorer:not([data-toggled]) .harness-svg :is(g[data-part="runner"], g[data-label="runner"]) { animation-timeline: --step-runner; }
-    .harness-explorer:not([data-toggled]) .harness-svg :is(g[data-part="hooks"], g[data-label="hooks"]) { animation-timeline: --step-hooks; }
-    .harness-explorer:not([data-toggled]) .harness-svg :is(g[data-part="rules"], g[data-label="rules"]) { animation-timeline: --step-rules; }
-    .harness-explorer:not([data-toggled]) .harness-svg :is(g[data-part="skills"], g[data-label="skills"]) { animation-timeline: --step-skills; }
-    .harness-explorer:not([data-toggled]) .harness-svg :is(g[data-part="model"], g[data-label="model"]) { animation-timeline: --step-model; }
-    .harness-explorer:not([data-toggled]) .harness-svg :is(g[data-part="reviewers"], g[data-label="reviewers"]) { animation-timeline: --step-reviewers; }
-    .harness-explorer:not([data-toggled]) .harness-svg :is(g[data-part="second"], g[data-label="second"]) { animation-timeline: --step-second; }
-    .harness-explorer:not([data-toggled]) .harness-svg :is(g[data-part="memory"], g[data-label="memory"]) { animation-timeline: --step-memory; }
-
-    /* One column: the active band sits lower, below the pinned stage. */
-    @media (max-width: 860px) {
-      .harness-explorer { --lift: cover 0% cover 18%; --label: cover 14% cover 20%; }
-    }
-  }
-  .harness-explorer .harness-svg path[data-fill] { transition: fill 150ms cubic-bezier(0.2, 0, 0, 1); }
+  .harness-explorer .harness-svg path[data-fill] { transition: transform 480ms cubic-bezier(0.77, 0, 0.175, 1), fill 150ms cubic-bezier(0.2, 0, 0, 1); }
   .harness-toggle button { transition: background-color 150ms cubic-bezier(0.2, 0, 0, 1), color 150ms cubic-bezier(0.2, 0, 0, 1); }
 }
 @media (hover: hover) and (pointer: fine) {
-  /* Lower specificity than the selected rule, so the selected part keeps its accent. */
-  .harness-explorer .harness-svg g[data-part]:hover { --part-fill: var(--well); }
-  .harness-explorer .harness-svg:has(g[data-label]:hover) { cursor: pointer; }
+  /* Its own variable, read after --plate, so the selected ring keeps its accent. */
+  .harness-explorer .harness-svg [data-part]:hover { --hover-fill: var(--sage); }
+  .harness-layers button:hover { color: var(--ink); }
   .harness-toggle button:hover { color: var(--ink); }
-}
-
-/* Lift on hover: the part rises and its label's leader darkens. Fine pointers only,
-   and the rise only when motion is allowed (the darker leader stays either way). */
-@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  .harness-explorer .harness-svg g[data-part]:hover { translate: 0 -2.5px; }
-}
-@media (hover: hover) and (pointer: fine) {
-  .harness-svg:has(g[data-part="model"]:hover) g[data-label="model"],
-  .harness-svg:has(g[data-part="memory"]:hover) g[data-label="memory"],
-  .harness-svg:has(g[data-part="rules"]:hover) g[data-label="rules"],
-  .harness-svg:has(g[data-part="skills"]:hover) g[data-label="skills"],
-  .harness-svg:has(g[data-part="hooks"]:hover) g[data-label="hooks"],
-  .harness-svg:has(g[data-part="reviewers"]:hover) g[data-label="reviewers"],
-  .harness-svg:has(g[data-part="second"]:hover) g[data-label="second"],
-  .harness-svg:has(g[data-part="runner"]:hover) g[data-label="runner"],
-  .harness-labels g[data-label]:hover { --leader: var(--ink); }
-}
-
-@keyframes harness-open {
-  from { transform: translate(calc((var(--cx) - var(--dx)) * 1px), calc((var(--cy) - var(--dy)) * 1px)); }
-  to { transform: translate(0, 0); }
-}
-/* The core tube starts inside the pleats, so it stays hidden until it is half out. */
-@keyframes harness-open-core {
-  from { transform: translate(calc((var(--cx) - var(--dx)) * 1px), calc((var(--cy) - var(--dy)) * 1px)); opacity: 0; }
-  35% { opacity: 0; }
-  60% { opacity: 1; }
-  to { transform: translate(0, 0); opacity: 1; }
-}
-@keyframes harness-show {
-  from { opacity: 0; }
-  to { opacity: 1; }
 }

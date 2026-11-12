@@ -42,17 +42,16 @@ export default function HarnessPage() {
             </div>
             <HarnessExplorer
               layers={HARNESS_LAYERS}
-              skipTo="#numbers"
+              defaultSelected="hooks"
               labels={{
                 exploded: HARNESS.explodedLabel,
                 assembled: HARNESS.assembledLabel,
                 hint: HARNESS.drawingHint,
                 caption: HARNESS.drawingCaption,
                 why: HARNESS.whyLabel,
-                skip: HARNESS.skipLabel,
               }}
             >
-              <HarnessDrawing annotated />
+              <HarnessDrawing />
             </HarnessExplorer>
           </section>
 

@@ -1,7 +1,8 @@
 #!/usr/bin/env node
-// Renders the harness drawing once, exploded, and writes content/harness/drawing.ts.
-// The site shows the assembled state by translating each part group back along its
-// projected explosion vector, so one hidden-line pass serves both views.
+// Renders the harness drawing twice, exploded and assembled, at one shared scale, and
+// writes content/harness/drawing.ts. The rings nest, so what hides what differs between
+// the two states: each needs its own hidden-line pass. The site crossfades the two and
+// slides each part along its projected explosion vector (dx, dy) while it fades.
 // Run: node tools/teardown/harness/build.cjs
 const fs = require('node:fs'), path = require('node:path'), vm = require('node:vm');
 
@@ -17,116 +18,60 @@ for (const file of ['sheet.js', 'geometry.js', 'projection.js'].map(f => path.jo
   vm.runInContext(fs.readFileSync(file, 'utf8'), context, {filename: file});
 }
 
-const result = context.DrawingModels.harness({}, {explosion: 1, fitExplosion: 1, isolated: null, fill: true, annotate: false});
+// Each pass fits the union of both states, so the two share one scale and offset.
+const render = explosion => context.DrawingModels.harness({}, {explosion, fitExplosion: 1 - explosion, isolated: null, fill: true, annotate: false});
+const exploded = render(1), assembled = render(0);
+if (exploded.scale !== assembled.scale) throw Error('The two passes fitted different scales');
 const {project} = context.TechnicalProjection;
 const round = n => Math.round(n * 1000) / 1000;
 
-// Fill paths come in one group behind every part; move each into its own part so it travels with it.
-const fills = new Map();
-for (const [, id, rest] of result.markup.matchAll(/<path data-fill="([^"]+)"([^>]*)\/>/g)) {
-  const d = /\sd="([^"]+)"/.exec(rest)[1];
-  fills.set(id, (fills.get(id) ?? '') + `<path data-fill="" d="${d}"/>`);
+// The renderer paints every fill back to front, then all the ink on top. Keep that
+// order: a ring's fill must cover the rings behind it, never the lines in front.
+function partMarkup(result) {
+  const fills = new Map();
+  for (const [, id, rest] of result.markup.matchAll(/<path data-fill="([^"]+)"([^>]*)\/>/g)) {
+    fills.set(id, (fills.get(id) ?? '') + /\sd="([^"]+)"/.exec(rest)[1]);
+  }
+  const parts = new Map();
+  for (const [, id, body] of result.markup.matchAll(/<g id="[^"]+" data-item="([^"]+)"[^>]*>([\s\S]*?)<\/g>/g)) {
+    parts.set(id, {fill: fills.get(id) ?? '', ink: body.replace(/<title>[\s\S]*?<\/title>/, '')});
+  }
+  return {parts, fillOrder: [...fills.keys()]};
 }
+const explodedInk = partMarkup(exploded).parts, assembledInk = partMarkup(assembled).parts;
+const fillOrder = partMarkup(exploded).fillOrder;
+if (fillOrder.join() !== partMarkup(assembled).fillOrder.join()) throw Error('The two passes paint fills in different orders');
 
-const origin = project([0, 0, 0], result.camera);
+const origin = project([0, 0, 0], exploded.camera);
 const parts = [];
-for (const [, id, body] of result.markup.matchAll(/<g id="[^"]+" data-item="([^"]+)"[^>]*>([\s\S]*?)<\/g>/g)) {
+for (const [id, markup] of explodedInk) {
+  if (!fillOrder.includes(id)) throw Error(`Part ${id} has no fill`);
   const meta = drawing.parts.find(p => p.id === id);
   if (!meta) throw Error(`Part ${id} missing from drawing.json`);
-  const ink = body.replace(/<title>[\s\S]*?<\/title>/, '');
-  const moved = project(result.explosions[id], result.camera);
-  const dx = round((moved[0] - origin[0]) * result.scale), dy = round((moved[1] - origin[1]) * result.scale);
-  parts.push({id, name: meta.name, dx, dy, markup: (fills.get(id) ?? '') + ink});
+  if (!assembledInk.has(id)) throw Error(`Part ${id} missing from the assembled pass`);
+  const moved = project(exploded.explosions[id], exploded.camera);
+  const dx = round((moved[0] - origin[0]) * exploded.scale), dy = round((moved[1] - origin[1]) * exploded.scale);
+  parts.push({id, name: meta.name, dx, dy, exploded: markup, assembled: assembledInk.get(id)});
 }
 if (parts.length !== drawing.parts.length) throw Error(`Expected ${drawing.parts.length} parts, rendered ${parts.length}`);
 
-// Crop to the union of the exploded and assembled ink, plus padding.
+// Crop to the union of both states' ink, plus padding.
 const box = [Infinity, Infinity, -Infinity, -Infinity];
-const together = [Infinity, Infinity, -Infinity, -Infinity];   // assembled ink only
 for (const part of parts) {
-  for (const [, d] of part.markup.matchAll(/\sd="([^"]+)"/g)) {
+  for (const d of [part.exploded, part.assembled].flatMap(s => [s.fill, ...[...s.ink.matchAll(/\sd="([^"]+)"/g)].map(m => m[1])])) {
     const nums = d.split(/[MLCZ\s]+/).filter(Boolean).map(Number);
     for (let i = 0; i + 1 < nums.length; i += 2) {
-      for (const [x, y] of [[nums[i], nums[i + 1]], [nums[i] - part.dx, nums[i + 1] - part.dy]]) {
-        box[0] = Math.min(box[0], x); box[1] = Math.min(box[1], y);
-        box[2] = Math.max(box[2], x); box[3] = Math.max(box[3], y);
-      }
-      const [ax, ay] = [nums[i] - part.dx, nums[i + 1] - part.dy];
-      together[0] = Math.min(together[0], ax); together[1] = Math.min(together[1], ay);
-      together[2] = Math.max(together[2], ax); together[3] = Math.max(together[3], ay);
+      box[0] = Math.min(box[0], nums[i]); box[1] = Math.min(box[1], nums[i + 1]);
+      box[2] = Math.max(box[2], nums[i]); box[3] = Math.max(box[3], nums[i + 1]);
     }
   }
 }
-// Exploded ink per part: every point, plus its bbox.
-const ink = new Map(parts.map(part => {
-  const points = [];
-  for (const [, d] of part.markup.matchAll(/\sd="([^"]+)"/g)) {
-    const nums = d.split(/[MLCZ\s]+/).filter(Boolean).map(Number);
-    for (let i = 0; i + 1 < nums.length; i += 2) points.push([nums[i], nums[i + 1]]);
-  }
-  const xs = points.map(p => p[0]), ys = points.map(p => p[1]);
-  return [part.id, {points, bbox: [Math.min(...xs), Math.min(...ys), Math.max(...xs), Math.max(...ys)]}];
-}));
-
-// Leader-line labels for the exploded view, in two margin columns. `region` picks which
-// slice of the part the leader lands on (top keeps the pleats' leader clear of the carbon block).
-const FONT = 5.6, LINE = FONT * 1.3, GAP = 7;
-const LABELS = {
-  hooks: {side: 'right'}, runner: {side: 'right'}, rules: {side: 'right'}, skills: {side: 'right'},
-  reviewers: {side: 'right', region: [0, 0.3]}, second: {side: 'right'}, memory: {side: 'right'},
-  model: {side: 'left'},
-};
-const labelWidth = text => text.length * FONT * 0.56;
-// The page renders the copy from content/harness.ts; read it here only to size the columns.
-const copy = fs.readFileSync(path.resolve(here, '../../../content/harness.ts'), 'utf8');
-const labelText = Object.fromEntries([...copy.matchAll(/id: "(\w+)",\s*name: "([^"]+)",\s*part: "([^"]+)"/g)].map(([, id, name, part]) => [id, [name, part]]));
-for (const id of Object.keys(LABELS)) if (!labelText[id]) throw Error(`No copy for label ${id} in content/harness.ts`);
-const columns = {right: box[2] + GAP * 2.2, left: box[0] - GAP * 2.2};
-const labels = [];
-for (const [id, {side, region = [0, 1]}] of Object.entries(LABELS)) {
-  const {points, bbox} = ink.get(id);
-  const h = bbox[3] - bbox[1];
-  const inBand = points.filter(([, y]) => y >= bbox[1] + region[0] * h && y <= bbox[1] + region[1] * h);
-  const pick = inBand.reduce((best, p) => (side === 'right' ? p[0] > best[0] : p[0] < best[0]) ? p : best);
-  labels.push({id, side, anchor: pick.map(round), y: pick[1]});
-}
-// Spread each column so no two labels overlap (two lines each).
-const SPACING = LINE * 2 + 3;
-for (const side of ['left', 'right']) {
-  const column = labels.filter(l => l.side === side).sort((a, b) => a.y - b.y);
-  for (let pass = 0; pass < 20; pass++) {
-    for (let i = 1; i < column.length; i++) {
-      const overlap = SPACING - (column[i].y - column[i - 1].y);
-      if (overlap > 0) { column[i - 1].y -= overlap / 2; column[i].y += overlap / 2; }
-    }
-  }
-}
-for (const label of labels) label.at = [round(columns[label.side]), round(label.y)];
-const labelBox = [...box];
-for (const label of labels) {
-  const width = Math.max(...labelText[label.id].map(labelWidth));
-  labelBox[0] = Math.min(labelBox[0], label.side === 'left' ? label.at[0] - width : label.at[0]);
-  labelBox[2] = Math.max(labelBox[2], label.side === 'right' ? label.at[0] + width : label.at[0]);
-  labelBox[1] = Math.min(labelBox[1], label.at[1] - LINE);
-  labelBox[3] = Math.max(labelBox[3], label.at[1] + LINE * 1.4);
-}
-
-// Exploded-view centre line: the stack's shared axis, just past the port and the bowl.
-// Drawn behind the parts, so it only shows in the gaps between stages.
-const stack = ink.get('memory').bbox, port = ink.get('runner').bbox;
-const axis = {x: round((stack[0] + stack[2]) / 2), y0: round(port[1] - 6), y1: round(stack[3] + 3)};
-
 const PAD = 4;
-const viewBox = [labelBox[0] - PAD, labelBox[1] - PAD, labelBox[2] - labelBox[0] + PAD * 2, labelBox[3] - labelBox[1] + PAD * 2].map(round);
-// The assembled object is much shorter than the exploded stack; this shift centres it in the same box.
-const centre = [round((labelBox[0] + labelBox[2] - together[0] - together[2]) / 2), round((box[1] + box[3] - together[1] - together[3]) / 2)];
-// Without labels (home teaser, narrow screens) the drawing crops to the ink, and centres there.
-const inkBox = [box[0] - PAD, box[0] + (box[2] - box[0]) + PAD].map(round);
-const centreInk = round((box[0] + box[2] - together[0] - together[2]) / 2);
+const viewBox = [box[0] - PAD, box[1] - PAD, box[2] - box[0] + PAD * 2, box[3] - box[1] + PAD * 2].map(round);
 const strokes = context.TechnicalSheet.linework.technical;
 
 const body = `// Generated by tools/teardown/harness/build.cjs. Do not edit by hand.
-// Concept drawing: a water-filter cartridge, one part per layer of the harness.
+// Concept drawing: the model is the core, each ring around it is one layer of the harness.
 
 export interface HarnessDrawingPart {
   id: string;
@@ -134,31 +79,22 @@ export interface HarnessDrawingPart {
   /** Paper-space shift from assembled to exploded, in viewBox units. */
   dx: number;
   dy: number;
-  markup: string;
+  /** Each state, drawn on its own: the rings nest, so occlusion differs. */
+  exploded: HarnessDrawingState;
+  assembled: HarnessDrawingState;
 }
 
-export interface HarnessDrawingLabel {
-  /** Part id; the text comes from content/harness.ts. */
-  id: string;
-  side: "left" | "right";
-  /** Where the leader touches the part, and where the text starts. */
-  anchor: readonly [number, number];
-  at: readonly [number, number];
+export interface HarnessDrawingState {
+  /** Path data for the part's fill. */
+  fill: string;
+  /** Hidden-line ink, as SVG markup. */
+  ink: string;
 }
 
 export const HARNESS_DRAWING = {
   viewBox: ${JSON.stringify(viewBox.join(' '))},
-  /** Shift that centres the assembled view in the viewBox. */
-  centre: ${JSON.stringify(centre)},
-  /** Left and right edge of the ink alone, and the assembled shift that centres it there. */
-  ink: ${JSON.stringify(inkBox)},
-  centreInk: ${centreInk},
-  /** Label type size and line height, in viewBox units. */
-  labelFont: ${round(FONT)},
-  labelLine: ${round(LINE)},
-  labels: ${JSON.stringify(labels.map(({id, side, anchor, at}) => ({id, side, anchor, at})), null, 2)} satisfies HarnessDrawingLabel[],
-  /** Centre line down the stack axis (x, top, bottom), behind the parts. */
-  axis: ${JSON.stringify(axis)},
+  /** Part ids back to front: fills are painted in this order, under all the ink. */
+  fillOrder: ${JSON.stringify(fillOrder)},
   strokes: ${JSON.stringify(strokes)},
   parts: ${JSON.stringify(parts, null, 2)} satisfies HarnessDrawingPart[],
 } as const;

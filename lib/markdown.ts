@@ -188,7 +188,7 @@ function privacyMarkdown(): string {
 
 function harnessMarkdown(): string {
   const layers = HARNESS_LAYERS.flatMap((layer) => [
-    `### ${layer.name} (${layer.part.toLowerCase()})`,
+    `### ${layer.name}`,
     layer.what,
     `${HARNESS.whyLabel} ${layer.why}`,
     layer.fact,

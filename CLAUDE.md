@@ -8,7 +8,6 @@ Next.js (App Router) portfolio site with Tailwind v4 and shadcn/ui. Migrated fro
 - Hosting: Vercel. Auto-deploys on push to `main`. Confirm the Vercel project framework preset is Next.js (it was created for a static site).
 - Analytics: `@vercel/analytics`; `lib/book.ts` fires the `book_click` event
 - Font: Open Runde (OFL 1.1), self-hosted static WOFF2 in `app/fonts/` via `next/font/local` (400, 500, 600, 700; subset to latin, latin-ext A and macrons, ~45 KB each). No 650-style in-between weights. No monospace anywhere.
-- Loading indicator: `loading-dev` (`Loop` beside the Goal runner layer on /harness, decorative)
 - Booking: Calendly popup widget, loaded after interactive by `components/calendly-assets.tsx`
 - Tests: Vitest (`npm test`): redirect map, sitemap, robots, canonical on every page module
 - Commands: `npm run dev`, `npm run build`, `npm start`, `npm run lint`, `npx tsc --noEmit`
@@ -23,7 +22,7 @@ app/work/[slug]/page.tsx  case studies (generateStaticParams over content/case-s
 app/contact/page.tsx    contact: ways to reach me, where I work, what to include in a first message (footer link only)
 app/privacy/page.tsx    privacy: plain-language, factual draft (footer link only; Ray to review)
 app/about/page.tsx      about: composes components/about/* (editorial layout, no cards, no reveal)
-app/harness/page.tsx    how I build: teardown drawing of my AI harness as a water-filter cartridge (pinned walkthrough: drawing sticks while one step per layer scrolls past, exploded/assembled toggle), numbers, dated change log, principles. Home has a teaser band; not in the nav
+app/harness/page.tsx    how I build: teardown drawing of my AI harness as rings around a core (model in the middle, each layer a ring; exploded/assembled toggle, layer list with a detail card), numbers, dated change log, principles. Home has a teaser band; not in the nav
 app/not-found.tsx       branded 404 (noindex)
 app/sitemap.ts, robots.ts  10 URLs, update lastmod in lib/sitemap-entries.ts; robots rules as the legacy file
 app/globals.css         tokens (:root), @theme inline, base, type
@@ -34,7 +33,7 @@ components/             book-link, sticky-book-cta, reveal, site-nav, site-foote
 components/schematics/  CSS-drawn card visuals (synthetic data, aria-hidden)
 components/case/        case preview panels and rich text
 components/about/       about sections: opening, facts, principles (pine panel), process, testimonials, faq
-components/harness/     HarnessDrawing (server SVG, ~190 KB kept out of the client bundle) + HarnessExplorer (client: view toggle, layer selection)
+components/harness/     HarnessDrawing (server SVG, both states, ~145 KB kept out of the client bundle) + HarnessExplorer (client: view toggle, layer selection)
 tools/teardown/         vendored teardown skill tooling; harness/model.js is the drawing model, `npm run drawing:harness` regenerates content/harness/drawing.ts (never hand-edit it)
 content/                typed copy (home, work, about, contact, privacy, agent-guidance, projects, case-studies) and content/jsonld/*.json (verbatim JSON-LD). Pages and markdown mirrors both read it.
 lib/                    site constants, seo helper (pageMetadata), booking, sitemap entries, pages.ts (page registry, no imports), markdown.ts (mirrors + llms.txt renderer)
@@ -60,7 +59,7 @@ docs/                   specs, plans, decisions, worklog, client drafts (never d
 - Button: 150ms, 1px hover lift, press scale 0.96 (not disabled or aria-disabled). Hover-only styling lives in `@media (hover: hover)`.
 - View transitions: nav and footer have their own names so only main content crossfades (150ms); `navigation: none` under reduced motion.
 - FAQ: height animates through `grid-template-rows` 0fr to 1fr in 200ms (`!important`, because Radix leaves an inline `transition-duration: 0s`); closed answers stay in the HTML.
-- /harness walkthrough (harness.css): each step is a named view timeline shared up via `timeline-scope`; its part lifts out as the step rises, pure CSS, gated by `@supports` and no-preference. A small IntersectionObserver marks the active step (accent). First toggle press sets `data-toggled` and hands parts over with a WAAPI move. Reduced motion, no support: static exploded.
+- /harness drawing (harness.css): exploded and assembled are separate hidden-line renders (the rings nest, so occlusion differs). The toggle crossfades them (240ms) while each part slides along its own (dx, dy) (480ms ease-in-out). Reduced motion: instant swap. No scroll motion.
 - Sticky mobile CTA (`StickyBookCta`) is a direct child of the page, not inside a transformed ancestor; `showAfter` / `hideAt` are selector props. 300ms slide, 200ms fade, fade-only under reduced motion.
 - Every booking CTA is `BookLink` (real Calendly href, popup when loaded) with a typed `BookingSource`; sources feed Vercel Analytics events.
 
