@@ -8,7 +8,9 @@ import type { HarnessLayer } from "@/content/harness";
 type View = "exploded" | "assembled";
 
 const noSubscribe = () => () => {};
-const scrollTimelines = () => CSS.supports("animation-timeline: view()");
+// Same test as the @supports block in harness.css: the steps' timelines drive the parts.
+const scrollTimelines = () => CSS.supports("timeline-scope: --a") && CSS.supports("animation-timeline: view()");
+const motionAllowed = () => matchMedia("(prefers-reduced-motion: no-preference)").matches;
 const EASE_IN_OUT = "cubic-bezier(0.77, 0, 0.175, 1)";
 
 interface Pose { node: SVGGElement; transform: string; opacity: string }
@@ -17,48 +19,51 @@ interface HarnessExplorerProps {
   /** The server-rendered drawing (HarnessDrawing). */
   children: ReactNode;
   layers: readonly HarnessLayer[];
-  labels: { exploded: string; assembled: string; hint: string; caption: string; why: string };
-  /** Layer shown first, so the panel is never empty (and no-JS readers see one). */
-  defaultSelected: string;
+  labels: { exploded: string; assembled: string; hint: string; caption: string; why: string; skip: string };
+  /** Where the skip link lands, past the walkthrough. */
+  skipTo: string;
 }
 
 /**
- * Drives the teardown: the view toggle and the layer list are the accessible
- * controls; clicking a part in the drawing is a pointer shortcut to the same
- * selection. Highlight lives in CSS, keyed on data-selected (harness.css).
+ * The teardown as a pinned walkthrough: the drawing stays put while one step per
+ * layer scrolls past it. Every step's text is in the HTML; the drawing is decorative.
  *
- * Motion (all of it CSS, all of it off under reduced motion): where the browser has
- * scroll-driven animations, the drawing opens with the scroll (data-scrub="on"): it is
- * assembled as it enters and fully exploded by the time it is centred, and closes again
- * on the way back up. Elsewhere it waits assembled (data-intro="pending", only under
- * html.js) and explodes once, the first time it is mostly on screen. Either way the
- * first press on the view toggle hands control to the toggle.
+ * Motion is CSS (harness.css): where the browser has scroll-driven animations, each
+ * step's own trip through the viewport lifts its part out of the stack, so the drawing
+ * is fully exploded by the last step. Elsewhere, and under reduced motion, it stays
+ * exploded. JS only marks the step at mid-screen (its part takes the accent), turns a
+ * click on the drawing into a jump to that step, and hands the parts to the view
+ * toggle on its first press.
  */
-export function HarnessExplorer({ children, layers, labels, defaultSelected }: HarnessExplorerProps) {
+export function HarnessExplorer({ children, layers, labels, skipTo }: HarnessExplorerProps) {
   const [view, setView] = useState<View>("exploded");
-  const [selected, setSelected] = useState<string | null>(defaultSelected);
-  const [intro, setIntro] = useState<"pending" | "done">("pending");
-  // Server and first paint: false. The animations override the pending (assembled) pose.
-  const canScrub = useSyncExternalStore(noSubscribe, scrollTimelines, () => false);
+  const [active, setActive] = useState<string>(layers[0]?.id ?? "");
   const [toggled, setToggled] = useState(false);
-  const scrub = canScrub && !toggled;
+  // Server and first paint: false. Only the toggle handoff needs to know.
+  const canScrub = useSyncExternalStore(noSubscribe, scrollTimelines, () => false);
   const canvas = useRef<HTMLDivElement>(null);
+  const steps = useRef<HTMLOListElement>(null);
   // Where each part sat on the scroll timeline when the toggle took over (see choose).
   const handoff = useRef<Pose[] | null>(null);
 
   useEffect(() => {
     // Hydration ran, so the 3s no-JS failsafe (layout.tsx) is not needed.
     if (window.__mfail) window.clearTimeout(window.__mfail);
-    if (scrollTimelines()) return;
-    const node = canvas.current;
-    if (!node) return;
+    const list = steps.current;
+    if (!list) return;
+    // A thin band across the screen: whichever step crosses it is active. Mid-screen,
+    // or lower on one column, where the pinned stage covers the top (harness.css).
+    const band = matchMedia("(max-width: 860px)").matches ? "-72% 0px -27% 0px" : "-45% 0px -54% 0px";
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.intersectionRatio >= 0.4) setIntro("done");
+      (entries) => {
+        for (const entry of entries) {
+          const id = (entry.target as HTMLElement).dataset.step;
+          if (entry.isIntersecting && id) setActive(id);
+        }
       },
-      { threshold: 0.4 },
+      { rootMargin: band },
     );
-    observer.observe(node);
+    list.querySelectorAll("[data-step]").forEach((node) => observer.observe(node));
     return () => observer.disconnect();
   }, []);
 
@@ -79,32 +84,35 @@ export function HarnessExplorer({ children, layers, labels, defaultSelected }: H
 
   function choose(option: View) {
     const node = canvas.current;
-    if (scrub && node && matchMedia("(prefers-reduced-motion: no-preference)").matches) {
+    if (canScrub && !toggled && node && motionAllowed()) {
       handoff.current = [...node.querySelectorAll<SVGGElement>("g[data-part]")].map((part) => {
         const style = getComputedStyle(part);
         return { node: part, transform: style.transform, opacity: style.opacity };
       });
     }
     setToggled(true);
-    setIntro("done");
     setView(option);
   }
 
   function pickFromDrawing(event: MouseEvent<HTMLDivElement>) {
     const group = (event.target as Element).closest<SVGGElement>("g[data-part], g[data-label]");
     const id = group?.dataset.part ?? group?.dataset.label;
-    if (id) setSelected((current) => (current === id ? null : id));
+    if (!id) return;
+    setActive(id);
+    document.getElementById(`layer-${id}`)?.scrollIntoView({
+      behavior: motionAllowed() ? "smooth" : "auto",
+      block: "center",
+    });
   }
 
   return (
     <div
       className="harness-explorer"
       data-view={view}
-      data-selected={selected ?? undefined}
-      data-intro={intro}
-      data-scrub={scrub ? "on" : undefined}
+      data-selected={active || undefined}
+      data-toggled={toggled ? "" : undefined}
     >
-      <figure className="harness-stage">
+      <div className="harness-stage">
         <div className="harness-toggle" role="group" aria-label="Drawing view">
           {(["exploded", "assembled"] as const).map((option) => (
             <button
@@ -117,48 +125,40 @@ export function HarnessExplorer({ children, layers, labels, defaultSelected }: H
             </button>
           ))}
         </div>
-        {/* Pointer shortcut only; the layer buttons are the keyboard path. */}
+        {/* Pointer shortcut only; the steps carry the same content for everyone. */}
         <div ref={canvas} className="harness-canvas" onClick={pickFromDrawing}>
           {children}
         </div>
-        <figcaption>{labels.caption}</figcaption>
-      </figure>
+      </div>
 
       <div className="harness-panel">
+        <p className="harness-caption">{labels.caption}</p>
         <p className="harness-hint">{labels.hint}</p>
-        <ol className="harness-layers">
-          {layers.map((layer, index) => {
-            const number = index + 1;
-            return (
-              <li key={layer.id}>
-                <button
-                  type="button"
-                  aria-pressed={selected === layer.id}
-                  aria-controls="harness-detail"
-                  onClick={() => setSelected((current) => (current === layer.id ? null : layer.id))}
-                >
-                  <span className="layer-num">{String(number).padStart(2, "0")}</span>
-                  <span>{layer.name}</span>
-                  {/* Decorative (loading-dev sets aria-hidden, stops under reduced motion):
-                      the runner is the one layer that keeps going on its own. */}
-                  {layer.live ? <Loop className="layer-live" size={16} color="var(--pine-2)" duration={2400} /> : null}
-                </button>
-              </li>
-            );
-          })}
-        </ol>
-        {/* Every layer ships in the HTML; only the selected one is shown. */}
-        <div id="harness-detail" className="harness-detail" aria-live="polite">
-          {layers.map((layer) => (
-            <div key={layer.id} hidden={layer.id !== selected}>
-              <p className="harness-part">{layer.part}</p>
-              <h3>{layer.name}</h3>
+        <a className="harness-skip link" href={skipTo}>{labels.skip}</a>
+        <ol ref={steps} className="harness-steps">
+          {layers.map((layer, index) => (
+            <li
+              key={layer.id}
+              id={`layer-${layer.id}`}
+              data-step={layer.id}
+              data-active={active === layer.id ? "" : undefined}
+            >
+              <p className="harness-part">
+                <span className="layer-num">{String(index + 1).padStart(2, "0")}</span>
+                {layer.part}
+              </p>
+              <h3>
+                {layer.name}
+                {/* Decorative (loading-dev sets aria-hidden, stops under reduced motion):
+                    the runner is the one layer that keeps going on its own. */}
+                {layer.live ? <Loop className="layer-live" size={16} color="var(--pine-2)" duration={2400} /> : null}
+              </h3>
               <p>{layer.what}</p>
               <p><strong>{labels.why}</strong> {layer.why}</p>
               <p className="harness-fact">{layer.fact}</p>
-            </div>
+            </li>
           ))}
-        </div>
+        </ol>
       </div>
     </div>
   );

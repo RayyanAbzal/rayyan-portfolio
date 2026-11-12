@@ -23,7 +23,7 @@ app/work/[slug]/page.tsx  case studies (generateStaticParams over content/case-s
 app/contact/page.tsx    contact: ways to reach me, where I work, what to include in a first message (footer link only)
 app/privacy/page.tsx    privacy: plain-language, factual draft (footer link only; Ray to review)
 app/about/page.tsx      about: composes components/about/* (editorial layout, no cards, no reveal)
-app/harness/page.tsx    how I build: teardown drawing of my AI harness as a water-filter cartridge (exploded/assembled, layer list in flow order), numbers, dated change log, principles. Home has a teaser band; not in the nav
+app/harness/page.tsx    how I build: teardown drawing of my AI harness as a water-filter cartridge (pinned walkthrough: drawing sticks while one step per layer scrolls past, exploded/assembled toggle), numbers, dated change log, principles. Home has a teaser band; not in the nav
 app/not-found.tsx       branded 404 (noindex)
 app/sitemap.ts, robots.ts  10 URLs, update lastmod in lib/sitemap-entries.ts; robots rules as the legacy file
 app/globals.css         tokens (:root), @theme inline, base, type
@@ -60,6 +60,7 @@ docs/                   specs, plans, decisions, worklog, client drafts (never d
 - Button: 150ms, 1px hover lift, press scale 0.96 (not disabled or aria-disabled). Hover-only styling lives in `@media (hover: hover)`.
 - View transitions: nav and footer have their own names so only main content crossfades (150ms); `navigation: none` under reduced motion.
 - FAQ: height animates through `grid-template-rows` 0fr to 1fr in 200ms (`!important`, because Radix leaves an inline `transition-duration: 0s`); closed answers stay in the HTML.
+- /harness walkthrough (harness.css): each step is a named view timeline shared up via `timeline-scope`; its part lifts out as the step rises, pure CSS, gated by `@supports` and no-preference. A small IntersectionObserver marks the active step (accent). First toggle press sets `data-toggled` and hands parts over with a WAAPI move. Reduced motion, no support: static exploded.
 - Sticky mobile CTA (`StickyBookCta`) is a direct child of the page, not inside a transformed ancestor; `showAfter` / `hideAt` are selector props. 300ms slide, 200ms fade, fade-only under reduced motion.
 - Every booking CTA is `BookLink` (real Calendly href, popup when loaded) with a typed `BookingSource`; sources feed Vercel Analytics events.
 

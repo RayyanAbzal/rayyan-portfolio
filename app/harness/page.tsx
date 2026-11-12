@@ -42,13 +42,14 @@ export default function HarnessPage() {
             </div>
             <HarnessExplorer
               layers={HARNESS_LAYERS}
-              defaultSelected="runner"
+              skipTo="#numbers"
               labels={{
                 exploded: HARNESS.explodedLabel,
                 assembled: HARNESS.assembledLabel,
                 hint: HARNESS.drawingHint,
                 caption: HARNESS.drawingCaption,
                 why: HARNESS.whyLabel,
+                skip: HARNESS.skipLabel,
               }}
             >
               <HarnessDrawing annotated />

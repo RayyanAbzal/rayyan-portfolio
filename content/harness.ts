@@ -36,7 +36,8 @@ export const HARNESS = {
   lede:
     "Anyone can prompt a model. What I bring is the harness around it: the rules it reads, the guardrails it cannot cross, the reviewers that check its work and the loop that runs it overnight. I change it most weeks, and every change starts with something that went wrong.",
   drawingHeading: "Take it apart",
-  drawingHint: "Pick a layer to see what it does and why it is there.",
+  drawingHint: "Scroll to take it apart, one layer at a time, from the cap down. Tap a part in the drawing to jump to it.",
+  skipLabel: "Skip the walkthrough",
   whyLabel: "Why it is there:",
   explodedLabel: "Exploded",
   assembledLabel: "Assembled",
