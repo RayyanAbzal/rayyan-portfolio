@@ -1,11 +1,17 @@
 "use client";
 
-import { useEffect, useRef, useState, type MouseEvent, type ReactNode } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore, type MouseEvent, type ReactNode } from "react";
 import { Loop } from "loading-dev";
 
 import type { HarnessLayer } from "@/content/harness";
 
 type View = "exploded" | "assembled";
+
+const noSubscribe = () => () => {};
+const scrollTimelines = () => CSS.supports("animation-timeline: view()");
+const EASE_IN_OUT = "cubic-bezier(0.77, 0, 0.175, 1)";
+
+interface Pose { node: SVGGElement; transform: string; opacity: string }
 
 interface HarnessExplorerProps {
   /** The server-rendered drawing (HarnessDrawing). */
@@ -21,35 +27,65 @@ interface HarnessExplorerProps {
  * controls; clicking a part in the drawing is a pointer shortcut to the same
  * selection. Highlight lives in CSS, keyed on data-selected (harness.css).
  *
- * Motion (all of it CSS, all of it off under reduced motion): the drawing waits
- * assembled (data-intro="pending", only under html.js) and explodes the first time
- * it is mostly on screen; while exploded and on screen, a drop runs down the stack
- * (data-flow) and each part ticks as it passes.
+ * Motion (all of it CSS, all of it off under reduced motion): where the browser has
+ * scroll-driven animations, the drawing opens with the scroll (data-scrub="on"): it is
+ * assembled as it enters and fully exploded by the time it is centred, and closes again
+ * on the way back up. Elsewhere it waits assembled (data-intro="pending", only under
+ * html.js) and explodes once, the first time it is mostly on screen. Either way the
+ * first press on the view toggle hands control to the toggle.
  */
 export function HarnessExplorer({ children, layers, labels, defaultSelected }: HarnessExplorerProps) {
   const [view, setView] = useState<View>("exploded");
   const [selected, setSelected] = useState<string | null>(defaultSelected);
   const [intro, setIntro] = useState<"pending" | "done">("pending");
-  const [onScreen, setOnScreen] = useState(false);
+  // Server and first paint: false. The animations override the pending (assembled) pose.
+  const canScrub = useSyncExternalStore(noSubscribe, scrollTimelines, () => false);
+  const [toggled, setToggled] = useState(false);
+  const scrub = canScrub && !toggled;
   const canvas = useRef<HTMLDivElement>(null);
+  // Where each part sat on the scroll timeline when the toggle took over (see choose).
+  const handoff = useRef<Pose[] | null>(null);
 
   useEffect(() => {
     // Hydration ran, so the 3s no-JS failsafe (layout.tsx) is not needed.
     if (window.__mfail) window.clearTimeout(window.__mfail);
+    if (scrollTimelines()) return;
     const node = canvas.current;
     if (!node) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
-        setOnScreen(entry.isIntersecting);
         if (entry.intersectionRatio >= 0.4) setIntro("done");
       },
-      { threshold: [0, 0.4] },
+      { threshold: 0.4 },
     );
     observer.observe(node);
     return () => observer.disconnect();
   }, []);
 
+  // Dropping a CSS animation does not start a transition, so the parts would jump from
+  // their scroll pose to the toggled view. Animate that one move by hand instead.
+  useLayoutEffect(() => {
+    const poses = handoff.current;
+    handoff.current = null;
+    if (!poses) return;
+    poses.forEach(({ node, transform, opacity }, index) => {
+      const end = getComputedStyle(node);
+      node.animate(
+        [{ transform, opacity }, { transform: end.transform, opacity: end.opacity }],
+        { duration: 520, delay: index * 40, easing: EASE_IN_OUT, fill: "backwards" },
+      );
+    });
+  }, [toggled]);
+
   function choose(option: View) {
+    const node = canvas.current;
+    if (scrub && node && matchMedia("(prefers-reduced-motion: no-preference)").matches) {
+      handoff.current = [...node.querySelectorAll<SVGGElement>("g[data-part]")].map((part) => {
+        const style = getComputedStyle(part);
+        return { node: part, transform: style.transform, opacity: style.opacity };
+      });
+    }
+    setToggled(true);
     setIntro("done");
     setView(option);
   }
@@ -60,15 +96,13 @@ export function HarnessExplorer({ children, layers, labels, defaultSelected }: H
     if (id) setSelected((current) => (current === id ? null : id));
   }
 
-  const flowing = intro === "done" && view === "exploded" && onScreen;
-
   return (
     <div
       className="harness-explorer"
       data-view={view}
       data-selected={selected ?? undefined}
       data-intro={intro}
-      data-flow={flowing ? "on" : undefined}
+      data-scrub={scrub ? "on" : undefined}
     >
       <figure className="harness-stage">
         <div className="harness-toggle" role="group" aria-label="Drawing view">

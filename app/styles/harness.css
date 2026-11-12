@@ -18,7 +18,7 @@
   .harness-stage { position: relative; display: flex; flex-direction: column; gap: 16px; }
   .harness-stage figcaption { font-size: 0.875rem; color: var(--ink-3); max-width: 52ch; }
   .harness-canvas { background: var(--paper); border: 1px solid var(--line); border-radius: var(--r); padding: clamp(16px, 3vw, 32px); }
-  .harness-svg { display: block; width: 100%; height: auto; max-height: min(62vh, 640px); margin-inline: auto; overflow: visible; }
+  .harness-svg { --cx: var(--cx-wide); display: block; width: 100%; height: auto; max-height: min(62vh, 640px); margin-inline: auto; overflow: visible; }
 
   .harness-toggle { display: inline-flex; align-self: flex-start; padding: 4px; gap: 4px; background: var(--well); border-radius: 999px; }
   .harness-toggle button {
@@ -85,8 +85,11 @@
   }
   .harness-labels g[data-label] .harness-leader { stroke: var(--leader, var(--ink-3)); }
 
-  /* The flow drop is invisible until it runs. */
-  .harness-drop { fill: var(--pine-2); stroke: var(--paper); stroke-width: 0.9; paint-order: stroke; opacity: 0; pointer-events: none; }
+  /* Centre line, the drafting convention for an exploded stack: a long-short chain down
+     the shared axis. Behind the parts, so it shows only in the gaps. Exploded view only. */
+  .harness-axis { fill: none; stroke: var(--ink-3); stroke-width: 0.18; stroke-dasharray: 6 1.6 1 1.6; pointer-events: none; }
+  .harness-explorer[data-view="assembled"] .harness-axis,
+  html.js:not(.motion-failed) .harness-explorer[data-intro="pending"] .harness-axis { opacity: 0; }
 
   /* ---------- layer list + detail ---------- */
   .harness-panel { display: flex; flex-direction: column; gap: 16px; }
@@ -193,17 +196,29 @@
     transition-delay: calc(var(--i) * 40ms), calc(var(--i) * 40ms), 0ms;
   }
   /* Labels follow the parts out (after the explode lands) and leave at once. */
-  .harness-labels { transition: opacity 240ms cubic-bezier(0.2, 0, 0, 1) 560ms; }
-  .harness-explorer[data-view="assembled"] .harness-labels { transition-delay: 0ms; }
+  .harness-labels, .harness-axis { transition: opacity 240ms cubic-bezier(0.2, 0, 0, 1) 560ms; }
+  .harness-explorer[data-view="assembled"] :is(.harness-labels, .harness-axis) { transition-delay: 0ms; }
 
-  /* Flow: a drop falls port to bowl (2.8s of a 7s cycle), in front of the stack;
-     each part dips 1.4 units as the drop reaches it (--t, 0 to 1).
-     Starts 900ms after the attribute lands so the explode finishes first. */
-  .harness-explorer[data-flow="on"] .harness-drop {
-    animation: harness-drop 7s linear 900ms infinite;
-  }
-  .harness-explorer[data-flow="on"] .harness-ink {
-    animation: harness-tick 7s cubic-bezier(0.2, 0, 0, 1) calc(900ms + var(--t) * 2800ms) infinite;
+  /* Open on scroll (data-scrub, set by the explorer only where this is supported): the
+     drawing's own trip through the viewport is the timeline. Assembled as it enters,
+     fully open by the time it sits mid-screen, closed again on the way back up.
+     Parts open bottom up, 2% of the trip apart; the centre line and then the labels
+     follow. Ease-in-out per part, because the scroll itself is linear. */
+  @supports (animation-timeline: view()) {
+    .harness-canvas { view-timeline: --harness block; }
+    .harness-explorer[data-scrub="on"] .harness-svg g[data-part] {
+      animation: harness-open linear both;
+      animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+      animation-timeline: --harness;
+      animation-range: cover calc(18% + var(--i) * 2%) cover calc(36% + var(--i) * 2%);
+    }
+    .harness-explorer[data-scrub="on"] .harness-svg g[data-part="model"] { animation-name: harness-open-core; }
+    .harness-explorer[data-scrub="on"] :is(.harness-labels, .harness-axis) {
+      animation: harness-show linear both;
+      animation-timeline: --harness;
+      animation-range: cover 40% cover 50%;
+    }
+    .harness-explorer[data-scrub="on"] .harness-labels { animation-range: cover 46% cover 54%; }
   }
   .harness-explorer .harness-svg path[data-fill] { transition: fill 150ms cubic-bezier(0.2, 0, 0, 1); }
   .harness-toggle button { transition: background-color 150ms cubic-bezier(0.2, 0, 0, 1), color 150ms cubic-bezier(0.2, 0, 0, 1); }
@@ -233,14 +248,18 @@
   .harness-labels g[data-label]:hover { --leader: var(--ink); }
 }
 
-@keyframes harness-drop {
-  0% { translate: 0 0; opacity: 0; }
-  3% { opacity: 1; }
-  37% { opacity: 1; }
-  40% { translate: 0 var(--fall); opacity: 0; }
-  100% { translate: 0 var(--fall); opacity: 0; }
+@keyframes harness-open {
+  from { transform: translate(calc((var(--cx) - var(--dx)) * 1px), calc((var(--cy) - var(--dy)) * 1px)); }
+  to { transform: translate(0, 0); }
 }
-@keyframes harness-tick {
-  0%, 12%, 100% { translate: 0 0; }
-  4% { translate: 0 1.4px; }
+/* The core tube starts inside the pleats, so it stays hidden until it is half out. */
+@keyframes harness-open-core {
+  from { transform: translate(calc((var(--cx) - var(--dx)) * 1px), calc((var(--cy) - var(--dy)) * 1px)); opacity: 0; }
+  35% { opacity: 0; }
+  60% { opacity: 1; }
+  to { transform: translate(0, 0); opacity: 1; }
+}
+@keyframes harness-show {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }

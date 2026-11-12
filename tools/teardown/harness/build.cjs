@@ -111,13 +111,10 @@ for (const label of labels) {
   labelBox[3] = Math.max(labelBox[3], label.at[1] + LINE * 1.4);
 }
 
-// Water path for the flow animation: down the stack's axis, port top to the bowl floor.
-// Each part ticks as the drop reaches it (t = 0 at the port, 1 at the bowl).
+// Exploded-view centre line: the stack's shared axis, just past the port and the bowl.
+// Drawn behind the parts, so it only shows in the gaps between stages.
 const stack = ink.get('memory').bbox, port = ink.get('runner').bbox;
-const flow = {x: round((stack[0] + stack[2]) / 2), y0: round(port[1] + 2), y1: round(stack[1] + (stack[3] - stack[1]) * 0.6)};
-const tOf = id => { const b = ink.get(id).bbox; return round(Math.min(1, Math.max(0, ((b[1] + b[3]) / 2 - flow.y0) / (flow.y1 - flow.y0)))); };
-const flowAt = {hooks: tOf('runner'), model: tOf('reviewers'), second: tOf('reviewers')};
-for (const part of parts) part.t = flowAt[part.id] ?? tOf(part.id);
+const axis = {x: round((stack[0] + stack[2]) / 2), y0: round(port[1] - 6), y1: round(stack[3] + 3)};
 
 const PAD = 4;
 const viewBox = [labelBox[0] - PAD, labelBox[1] - PAD, labelBox[2] - labelBox[0] + PAD * 2, labelBox[3] - labelBox[1] + PAD * 2].map(round);
@@ -137,8 +134,6 @@ export interface HarnessDrawingPart {
   /** Paper-space shift from assembled to exploded, in viewBox units. */
   dx: number;
   dy: number;
-  /** When the flow drop reaches this part, 0 (port) to 1 (bowl). */
-  t: number;
   markup: string;
 }
 
@@ -162,8 +157,8 @@ export const HARNESS_DRAWING = {
   labelFont: ${round(FONT)},
   labelLine: ${round(LINE)},
   labels: ${JSON.stringify(labels.map(({id, side, anchor, at}) => ({id, side, anchor, at})), null, 2)} satisfies HarnessDrawingLabel[],
-  /** The drop's path down the stack axis. */
-  flow: ${JSON.stringify(flow)},
+  /** Centre line down the stack axis (x, top, bottom), behind the parts. */
+  axis: ${JSON.stringify(axis)},
   strokes: ${JSON.stringify(strokes)},
   parts: ${JSON.stringify(parts, null, 2)} satisfies HarnessDrawingPart[],
 } as const;

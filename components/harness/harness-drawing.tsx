@@ -4,7 +4,7 @@ import { HARNESS_LAYERS } from "@/content/harness";
 import { HARNESS_DRAWING } from "@/content/harness/drawing";
 
 interface HarnessDrawingProps {
-  /** Leader-line labels and the flow drop: on in the explorer, off in the home teaser. */
+  /** Leader-line labels and the centre line: on in the explorer, off in the home teaser. */
   annotated?: boolean;
 }
 
@@ -15,7 +15,7 @@ interface HarnessDrawingProps {
  * Everything here is decorative; the layer list is the accessible path.
  */
 export function HarnessDrawing({ annotated = false }: HarnessDrawingProps) {
-  const { viewBox, centre, ink, centreInk, parts, labels, labelFont, labelLine, flow } = HARNESS_DRAWING;
+  const { viewBox, centre, ink, centreInk, parts, labels, labelFont, labelLine, axis } = HARNESS_DRAWING;
   const [x, y, width, height] = viewBox.split(" ").map(Number);
   const box = annotated ? viewBox : `${ink[0]} ${y} ${ink[1] - ink[0]} ${height}`;
   const names = new Map(HARNESS_LAYERS.map((layer) => [layer.id, layer]));
@@ -32,31 +32,25 @@ export function HarnessDrawing({ annotated = false }: HarnessDrawingProps) {
       aria-hidden="true"
       focusable="false"
       style={{
-        "--cx": annotated ? centre[0] : centreInk,
+        // harness.css picks --cx from these, so the narrow-screen crop can swap it.
+        "--cx-wide": annotated ? centre[0] : centreInk,
         "--cx-ink": centreInk,
         "--cy": centre[1],
         ...(annotated ? crop : {}),
       } as CSSProperties}
     >
+      {annotated ? (
+        // Exploded-view centre line, behind the parts: it shows only in the gaps between stages.
+        <path className="harness-axis" d={`M${axis.x} ${axis.y0}V${axis.y1}`} />
+      ) : null}
       {parts.map((part, index) => (
         <g
           key={part.id}
           data-part={part.id}
-          style={{ "--dx": part.dx, "--dy": part.dy, "--i": index, "--t": part.t } as CSSProperties}
-        >
-          <g className="harness-ink" dangerouslySetInnerHTML={{ __html: part.markup }} />
-        </g>
+          style={{ "--dx": part.dx, "--dy": part.dy, "--i": index } as CSSProperties}
+          dangerouslySetInnerHTML={{ __html: part.markup }}
+        />
       ))}
-      {annotated ? (
-        // In front of the parts with a paper halo, so it reads over the linework.
-        <g transform={`translate(${flow.x} ${flow.y0 - 10})`}>
-          <path
-            className="harness-drop"
-            d="M0 -6.2C2.5 -2.9 4.1 -0.8 4.1 1.7A4.1 4.1 0 0 1 -4.1 1.7C-4.1 -0.8 -2.5 -2.9 0 -6.2Z"
-            style={{ "--fall": `${flow.y1 - flow.y0 + 10}px` } as CSSProperties}
-          />
-        </g>
-      ) : null}
       {annotated ? (
         <g className="harness-labels" fontSize={labelFont}>
           {labels.map((label) => {
