@@ -1,0 +1,20 @@
+{
+  "dependencies": "../../../node_modules",
+  "modelScripts": ["model.js"],
+  "drawings": [{
+    "id": "harness",
+    "title": "Agent harness",
+    "description": "Concept drawing. Each layer of my Claude Code harness drawn as one plate. Shapes are illustrative, not physical.",
+    "parts": [
+      {"id": "model", "name": "Model"},
+      {"id": "memory", "name": "Memory"},
+      {"id": "rules", "name": "Rules"},
+      {"id": "skills", "name": "Skills"},
+      {"id": "hooks", "name": "Guardrails"},
+      {"id": "reviewers", "name": "Reviewers"},
+      {"id": "second", "name": "Second opinion"},
+      {"id": "runner", "name": "Goal runner"}
+    ],
+    "parameters": []
+  }]
+}

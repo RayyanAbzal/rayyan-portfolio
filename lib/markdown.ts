@@ -11,6 +11,7 @@ import {
 import { AGENT_GUIDANCE } from "@/content/agent-guidance";
 import { CONTACT } from "@/content/contact";
 import { CASE_STUDIES } from "@/content/case-studies";
+import { HARNESS, HARNESS_CHANGES, HARNESS_LAYERS, HARNESS_PRINCIPLES, HARNESS_STATS } from "@/content/harness";
 import type { CaseBlock, CaseStudy } from "@/content/case-studies/types";
 import { PRIVACY } from "@/content/privacy";
 import { DATA_NOTE, HOME, HOME_SIDE_CARDS, OFFERS } from "@/content/home";
@@ -185,6 +186,34 @@ function privacyMarkdown(): string {
   return join([`# ${PRIVACY.h1}`, PRIVACY.lede, PRIVACY.updatedLabel, ...sections, PRIVACY.contactNote]);
 }
 
+function harnessMarkdown(): string {
+  const layers = [...HARNESS_LAYERS].reverse().flatMap((layer) => [
+    `### ${layer.name}`,
+    layer.what,
+    `${HARNESS.whyLabel} ${layer.why}`,
+    layer.fact,
+  ]);
+  return join([
+    `# ${HARNESS.h1}`,
+    HARNESS.lede,
+    `## ${HARNESS.drawingHeading}`,
+    HARNESS.drawingCaption,
+    ...layers,
+    `## ${HARNESS.statsHeading}`,
+    HARNESS_STATS.map((stat) => bullet(`**${stat.value}** ${stat.label}`)).join("\n"),
+    `## ${HARNESS.changesHeading}`,
+    HARNESS.changesIntro,
+    HARNESS_CHANGES.map((change) =>
+      bullet(`**${change.date}: ${change.title}.** ${change.trigger} ${change.result}`),
+    ).join("\n"),
+    `## ${HARNESS.principlesHeading}`,
+    HARNESS_PRINCIPLES.map((principle) => bullet(`**${principle.title}** ${principle.body}`)).join("\n"),
+    `## ${HARNESS.closingTitle}`,
+    HARNESS.closingBody,
+    contactBlock(HARNESS.closingButton),
+  ]);
+}
+
 function blockMarkdown(block: CaseBlock): string[] {
   return [`## ${richToText(block.heading)}`, ...block.paragraphs.map(richToMarkdown)];
 }
@@ -225,6 +254,7 @@ export function markdownPages(): readonly MarkdownPage[] {
     "/about": aboutMarkdown,
     "/contact": contactMarkdown,
     "/privacy": privacyMarkdown,
+    "/harness": harnessMarkdown,
   };
   return PAGE_PATHS.map((path) => {
     const render = fixed[path];
@@ -260,6 +290,7 @@ export function llmsTxt(): string {
   const about = [
     bullet(`[About](${absoluteUrl(markdownPath("/about"))}): ${ABOUT.big}`),
     bullet(`[Projects](${absoluteUrl(markdownPath("/work"))}): ${WORK.lede}`),
+    bullet(`[How I build](${absoluteUrl(markdownPath("/harness"))}): ${HARNESS.description}`),
     bullet(`[Contact](${absoluteUrl(markdownPath("/contact"))}): ${CONTACT.lede}`),
     bullet(`[Privacy](${absoluteUrl(markdownPath("/privacy"))}): ${PRIVACY.lede}`),
     bullet(`[Sitemap](${absoluteUrl("/sitemap.xml")}): every public page.`),

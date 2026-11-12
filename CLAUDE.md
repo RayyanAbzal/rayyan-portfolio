@@ -22,8 +22,9 @@ app/work/[slug]/page.tsx  case studies (generateStaticParams over content/case-s
 app/contact/page.tsx    contact: ways to reach me, where I work, what to include in a first message (footer link only)
 app/privacy/page.tsx    privacy: plain-language, factual draft (footer link only; Ray to review)
 app/about/page.tsx      about: composes components/about/* (editorial layout, no cards, no reveal)
+app/harness/page.tsx    how I build: teardown drawing of my AI harness (exploded/assembled, layer list), numbers, dated change log, principles. Home has a teaser band; not in the nav
 app/not-found.tsx       branded 404 (noindex)
-app/sitemap.ts, robots.ts  9 URLs, update lastmod in lib/sitemap-entries.ts; robots rules as the legacy file
+app/sitemap.ts, robots.ts  10 URLs, update lastmod in lib/sitemap-entries.ts; robots rules as the legacy file
 app/globals.css         tokens (:root), @theme inline, base, type
 app/styles/*.css        layout (--section-y rhythm, .has-rule hairlines), cards (schematics), sections, about, case, motion
 app/fonts.ts, app/fonts/  Inter Tight
@@ -32,6 +33,8 @@ components/             book-link, sticky-book-cta, reveal, site-nav, site-foote
 components/schematics/  CSS-drawn card visuals (synthetic data, aria-hidden)
 components/case/        case preview panels and rich text
 components/about/       about sections: opening, facts, principles (pine panel), process, testimonials, faq
+components/harness/     HarnessDrawing (server SVG, ~190 KB kept out of the client bundle) + HarnessExplorer (client: view toggle, layer selection)
+tools/teardown/         vendored teardown skill tooling; harness/model.js is the drawing model, `npm run drawing:harness` regenerates content/harness/drawing.ts (never hand-edit it)
 content/                typed copy (home, work, about, contact, privacy, agent-guidance, projects, case-studies) and content/jsonld/*.json (verbatim JSON-LD). Pages and markdown mirrors both read it.
 lib/                    site constants, seo helper (pageMetadata), booking, sitemap entries, pages.ts (page registry, no imports), markdown.ts (mirrors + llms.txt renderer)
 app/md/[...slug]/route.ts  serves the markdown mirrors (text/markdown, Vary: Accept)
@@ -111,3 +114,4 @@ Push to GitHub, repo connected in Vercel, auto-deploys on push to `main`. Old `*
 - Testimonial attribution: permission messages drafted (docs/clients/testimonial-permission-messages.md); swap real names in when clients approve.
 - OG preview: re-check LinkedIn Post Inspector after deploy (og.png regenerated 2026-09-04 in the new world).
 - Submit sitemap.xml in Google Search Console (create the property if none exists).
+- /harness facts are a 2026-11-12 snapshot of ~/.claude (commit count, hook count, review log rows). Refresh content/harness.ts when they drift; no employer, client or repo names on that page.

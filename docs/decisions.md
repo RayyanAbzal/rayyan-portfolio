@@ -73,3 +73,13 @@ Hero entrance is CSS-only (no `.js` gate, no hydration dependency) so the LCP el
 **Why.** Ray's explicit request in chat.
 
 **Open.** None added; the earlier Chalk open items (DESIGN.md, og.png) are unchanged and no longer stale on colour.
+
+## 2026-11-12: /harness page, teardown drawing, privacy level 2
+
+**Decision.** New page /harness ("How I build") shows my Claude Code harness as an exploded teardown drawing (8 plates, one per layer) with an exploded/assembled toggle and a layer list, then numbers, a dated change log and principles. Home gets a teaser band linking to it; the nav stays name / Projects / About / Book a call. Detail level is option 2: tool names and real numbers, no employer, client or repo names, incidents described generically with no secret fragments.
+
+**Why.** Ray asked to show the harness and how it keeps improving. Placement ("Home teaser + page") and scope ("Harness page first") were Ray's picks. Privacy: Ray asked "2 or 3?"; I recommended 2 and went with it. Flip to 3 (high level only, incidents off the page) if Ray prefers.
+
+**How.** One hidden-line render, exploded, from tools/teardown/harness/model.js. Each part carries its projected (dx, dy); the assembled view is a CSS translate back, so one SVG serves both states. Reduced motion swaps instantly.
+
+**Open.** Ray to confirm privacy level 2. Mobile: the layer list sits below the drawing, so picking a layer means scrolling; revisit in the redesign pass.

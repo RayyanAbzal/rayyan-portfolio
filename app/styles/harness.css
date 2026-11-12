@@ -1,0 +1,158 @@
+/* /harness: a teardown drawing with a layer list, then numbers, a dated change log
+   and principles. Reuses the home frame (.home-sec, .sec-head, .cols, .home-close). */
+
+@layer components {
+  /* ---------- head ---------- */
+  .harness-head { padding: clamp(48px, 8vw, 96px) 0 clamp(32px, 5vw, 56px); border-bottom: 1px solid var(--line); }
+  .harness-head h1 { font-size: clamp(2.5rem, 6.4vw, 5.5rem); font-weight: 700; letter-spacing: -0.045em; line-height: 1.02; max-width: 16ch; text-wrap: balance; }
+  .harness-head p { margin-top: clamp(24px, 3vw, 32px); font-size: clamp(1.0625rem, 1.5vw, 1.1875rem); line-height: 1.5; color: var(--ink-2); max-width: 58ch; text-wrap: pretty; }
+
+  /* ---------- explorer ---------- */
+  .harness-explorer {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    gap: 32px clamp(32px, 5vw, 64px);
+    border-top: 1px solid var(--ink);
+    padding-top: 24px;
+  }
+  .harness-stage { position: relative; display: flex; flex-direction: column; gap: 16px; }
+  .harness-stage figcaption { font-size: 0.875rem; color: var(--ink-3); max-width: 52ch; }
+  .harness-canvas { background: var(--paper); border: 1px solid var(--line); border-radius: var(--r); padding: clamp(16px, 3vw, 32px); }
+  .harness-svg { display: block; width: 100%; height: auto; max-height: min(62vh, 640px); margin-inline: auto; overflow: visible; }
+
+  .harness-toggle { display: inline-flex; align-self: flex-start; padding: 4px; gap: 4px; background: var(--well); border-radius: 999px; }
+  .harness-toggle button {
+    min-height: 36px;
+    padding: 0 16px;
+    border-radius: 999px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--ink-2);
+  }
+  .harness-toggle button[aria-pressed="true"] { background: var(--paper); color: var(--ink); box-shadow: var(--shadow-card); }
+
+  /* Linework. Widths are the teardown's technical weights, in drawing units (mm). */
+  .harness-svg g { cursor: pointer; }
+  .harness-svg path[data-fill] { fill: var(--paper); stroke: none; }
+  .harness-svg path[data-line-role] { fill: none; stroke: var(--ink); stroke-linecap: round; stroke-linejoin: round; }
+  .harness-svg path[data-line-role="outline"] { stroke-width: 0.35; }
+  .harness-svg path[data-line-role="edge"] { stroke-width: 0.22; }
+  .harness-svg path[data-line-role="detail"],
+  .harness-svg path[data-line-role="axis"] { stroke-width: 0.13; }
+  .harness-svg path[data-line-role="texture"] { stroke-width: 0.09; }
+
+  /* Selected plate takes the one accent. One rule per part keeps it server-rendered. */
+  .harness-explorer[data-selected="model"] g[data-part="model"],
+  .harness-explorer[data-selected="memory"] g[data-part="memory"],
+  .harness-explorer[data-selected="rules"] g[data-part="rules"],
+  .harness-explorer[data-selected="skills"] g[data-part="skills"],
+  .harness-explorer[data-selected="hooks"] g[data-part="hooks"],
+  .harness-explorer[data-selected="reviewers"] g[data-part="reviewers"],
+  .harness-explorer[data-selected="second"] g[data-part="second"],
+  .harness-explorer[data-selected="runner"] g[data-part="runner"] {
+    --plate: var(--gold);
+  }
+  .harness-svg g path[data-fill] { fill: var(--plate, var(--paper)); }
+
+  /* Assembled: every plate slides back along its own explosion vector. */
+  .harness-explorer[data-view="assembled"] .harness-svg g {
+    transform: translate(calc(var(--dx) * -1px), calc(var(--dy) * -1px));
+  }
+
+  /* ---------- layer list + detail ---------- */
+  .harness-panel { display: flex; flex-direction: column; gap: 16px; }
+  .harness-hint { font-size: 0.9375rem; color: var(--ink-2); }
+  .harness-layers { list-style: none; border-top: 1px solid var(--line); }
+  .harness-layers li { border-bottom: 1px solid var(--line); }
+  .harness-layers button {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    width: 100%;
+    min-height: 44px;
+    padding: 10px 0;
+    text-align: left;
+    font-size: 1.0625rem;
+    font-weight: 600;
+    color: var(--ink-2);
+  }
+  .harness-layers .layer-num { font-size: 0.875rem; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+  .harness-layers button[aria-pressed="true"] { color: var(--ink); }
+  .harness-layers button[aria-pressed="true"] .layer-num { color: var(--pine); }
+  .harness-layers button[aria-pressed="true"]::after {
+    content: "";
+    align-self: center;
+    margin-left: auto;
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    background: var(--gold);
+    box-shadow: 0 0 0 1px var(--ink);
+  }
+
+  .harness-detail { background: var(--paper); border: 1px solid var(--line); border-radius: var(--r); padding: clamp(20px, 2.5vw, 28px); }
+  .harness-detail h3 { font-size: 1.375rem; font-weight: 650; letter-spacing: -0.02em; line-height: 1.2; }
+  .harness-detail p { margin-top: 12px; color: var(--ink-2); text-wrap: pretty; }
+  .harness-detail strong { color: var(--ink); font-weight: 600; }
+  .harness-detail .harness-fact { padding-top: 12px; border-top: 1px solid var(--line); color: var(--ink); font-weight: 500; }
+
+  @media (max-width: 860px) {
+    .harness-explorer { grid-template-columns: 1fr; }
+    .harness-svg { max-height: 60vh; }
+  }
+
+  /* ---------- numbers ---------- */
+  .harness-stat .stat-value { font-size: clamp(2.25rem, 4vw, 3.25rem); font-weight: 700; letter-spacing: -0.04em; line-height: 1; font-variant-numeric: tabular-nums; color: var(--ink); }
+
+  /* ---------- change log ---------- */
+  .harness-intro { color: var(--ink-2); max-width: 60ch; margin-bottom: 24px; text-wrap: pretty; }
+  .harness-log { list-style: none; border-top: 1px solid var(--ink); }
+  .harness-log li {
+    display: grid;
+    grid-template-columns: 7rem minmax(0, 1fr) minmax(0, 1.2fr);
+    gap: 8px clamp(24px, 4vw, 48px);
+    padding: 20px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .harness-log time { font-size: 0.875rem; font-weight: 600; color: var(--ink-3); font-variant-numeric: tabular-nums; padding-top: 3px; }
+  .harness-log h3 { font-size: 1.125rem; font-weight: 650; letter-spacing: -0.015em; line-height: 1.3; text-wrap: balance; }
+  .harness-log .trigger { margin-top: 6px; font-size: 0.9375rem; color: var(--ink-3); }
+  .harness-log .result { color: var(--ink-2); text-wrap: pretty; }
+  @media (max-width: 860px) {
+    .harness-log li { grid-template-columns: 5rem minmax(0, 1fr); }
+    .harness-log .result { grid-column: 2; }
+  }
+
+  /* ---------- home teaser ---------- */
+  .harness-teaser {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 24px clamp(32px, 6vw, 80px);
+    align-items: center;
+    border-top: 1px solid var(--ink);
+    padding-top: 24px;
+  }
+  .harness-teaser .big { font-size: clamp(1.375rem, 2.4vw, 1.875rem); font-weight: 600; letter-spacing: -0.02em; line-height: 1.25; text-wrap: balance; }
+  .harness-teaser p:not(.big) { color: var(--ink-2); margin-top: 12px; max-width: 46ch; }
+  .harness-teaser .link { display: inline-block; margin-top: 16px; }
+  .harness-teaser-art { display: block; background: var(--paper); border: 1px solid var(--line); border-radius: var(--r); padding: 16px 24px; }
+  .harness-teaser-art .harness-svg { max-height: 280px; }
+  @media (max-width: 860px) { .harness-teaser { grid-template-columns: 1fr; } }
+}
+
+/* Plates travel with an ease-in-out (on-screen movement), staggered bottom up.
+   Hover is colour only, fine pointers only. Reduced motion: the views swap instantly. */
+@media (prefers-reduced-motion: no-preference) {
+  .harness-explorer .harness-svg g {
+    transition: transform 520ms cubic-bezier(0.77, 0, 0.175, 1);
+    transition-delay: calc(var(--i) * 40ms);
+  }
+  .harness-explorer .harness-svg path[data-fill] { transition: fill 150ms cubic-bezier(0.2, 0, 0, 1); }
+  .harness-toggle button { transition: background-color 150ms cubic-bezier(0.2, 0, 0, 1), color 150ms cubic-bezier(0.2, 0, 0, 1); }
+}
+@media (hover: hover) and (pointer: fine) {
+  /* Lower specificity than the selected rule, so the selected plate keeps its accent. */
+  .harness-explorer .harness-svg g:hover { --plate: var(--sage); }
+  .harness-layers button:hover { color: var(--ink); }
+  .harness-toggle button:hover { color: var(--ink); }
+}

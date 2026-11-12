@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     "legacy-static/**",
     ".claude/**",
+    // Vendored teardown skill tooling (CommonJS build scripts), not app code.
+    "tools/teardown/**",
     ".superpowers/**",
     "docs/**",
     ".impeccable/**",
