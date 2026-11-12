@@ -4,7 +4,7 @@
   "drawings": [{
     "id": "harness",
     "title": "Agent harness",
-    "description": "Concept drawing. Each layer of my Claude Code harness drawn as one plate. Shapes are illustrative, not physical.",
+    "description": "Concept drawing. My Claude Code harness drawn as a water-filter cartridge, one part per layer. Shapes are illustrative, not physical.",
     "parts": [
       {"id": "model", "name": "Model"},
       {"id": "memory", "name": "Memory"},

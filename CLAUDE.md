@@ -7,7 +7,8 @@ Next.js (App Router) portfolio site with Tailwind v4 and shadcn/ui. Migrated fro
 - Next.js App Router, TypeScript strict, Tailwind v4 (CSS-first, `@tailwindcss/postcss`), shadcn/ui (radix, CSS variables)
 - Hosting: Vercel. Auto-deploys on push to `main`. Confirm the Vercel project framework preset is Next.js (it was created for a static site).
 - Analytics: `@vercel/analytics`; `lib/book.ts` fires the `book_click` event
-- Font: Inter Tight, self-hosted variable WOFF2 in `app/fonts/` via `next/font/local` (weights 400-700, latin file preloaded). No monospace anywhere.
+- Font: Open Runde (OFL 1.1), self-hosted static WOFF2 in `app/fonts/` via `next/font/local` (400, 500, 600, 700; subset to latin, latin-ext A and macrons, ~45 KB each). No 650-style in-between weights. No monospace anywhere.
+- Loading indicator: `loading-dev` (`Loop` beside the Goal runner layer on /harness, decorative)
 - Booking: Calendly popup widget, loaded after interactive by `components/calendly-assets.tsx`
 - Tests: Vitest (`npm test`): redirect map, sitemap, robots, canonical on every page module
 - Commands: `npm run dev`, `npm run build`, `npm start`, `npm run lint`, `npx tsc --noEmit`
@@ -16,18 +17,18 @@ Next.js (App Router) portfolio site with Tailwind v4 and shadcn/ui. Migrated fro
 
 ```
 app/layout.tsx          shell: skip link, sticky nav, footer, Calendly, Analytics, motion gate script
-app/page.tsx            home (Index layout, Chalk colours): type-only head, numbered columns for 4 client builds and 3 offers, two-column about, deep closing band
+app/page.tsx            home (Index layout, light neutrals): type-only head, numbered columns for 4 client builds and 3 offers, two-column about, deep closing band
 app/work/page.tsx       projects: 4 client cards + 3 personal builds
 app/work/[slug]/page.tsx  case studies (generateStaticParams over content/case-studies)
 app/contact/page.tsx    contact: ways to reach me, where I work, what to include in a first message (footer link only)
 app/privacy/page.tsx    privacy: plain-language, factual draft (footer link only; Ray to review)
 app/about/page.tsx      about: composes components/about/* (editorial layout, no cards, no reveal)
-app/harness/page.tsx    how I build: teardown drawing of my AI harness (exploded/assembled, layer list), numbers, dated change log, principles. Home has a teaser band; not in the nav
+app/harness/page.tsx    how I build: teardown drawing of my AI harness as a water-filter cartridge (exploded/assembled, layer list in flow order), numbers, dated change log, principles. Home has a teaser band; not in the nav
 app/not-found.tsx       branded 404 (noindex)
 app/sitemap.ts, robots.ts  10 URLs, update lastmod in lib/sitemap-entries.ts; robots rules as the legacy file
 app/globals.css         tokens (:root), @theme inline, base, type
 app/styles/*.css        layout (--section-y rhythm, .has-rule hairlines), cards (schematics), sections, about, case, motion
-app/fonts.ts, app/fonts/  Inter Tight
+app/fonts.ts, app/fonts/  Open Runde
 components/ui/          shadcn: button, accordion, card, badge, separator
 components/             book-link, sticky-book-cta, reveal, site-nav, site-footer, project-card, json-ld, calendly-assets
 components/schematics/  CSS-drawn card visuals (synthetic data, aria-hidden)
@@ -70,16 +71,16 @@ Tokens live in `app/globals.css` (`:root`, legacy names, mapped to shadcn variab
 
 | Token   | Value     | Use                              |
 |---------|-----------|----------------------------------|
-| bg      | `oklch(0.972 0.006 95)` | page ground (warm paper) |
-| paper   | `#fffdf9` | cards, blocks; 1px `--line`      |
-| well    | `#e6ebe3` | bed behind card schematics       |
-| sage    | `#dde7da` | hero panel only                  |
-| ink     | `#17150f` | text, dark preview panel         |
-| pine    | `#1f3d2b` | buttons, CTA panels              |
-| gold    | `#f3c94a` | `.mark` highlight, links, CTA    |
+| bg      | `oklch(0.991 0 0)` `#fcfcfc` | page ground (neutral near-white) |
+| paper   | `oklch(1 0 0)` `#fff` | cards, blocks; 1px `--line` |
+| well    | `oklch(0.955 0 0)` `#f0f0f0` | bed behind schematics, toggle track, drawing hover |
+| sage    | `oklch(0.955 0 0)` | legacy name, now the same grey as well |
+| ink     | `oklch(0.235 0 0)` `#1e1e1e` | text |
+| pine    | `oklch(0.42 0.09 160)` `#0c5c3c` | buttons, focus ring |
+| gold    | `oklch(0.86 0.1 150)` `#a1e4ae` | legacy name, soft green: `.mark`, selected drawing part |
 | radius  | `24px`    | every rounded surface            |
 
-Aesthetic: a quiet room with one loud sentence. Near-white warm ground, big rounded white surfaces on a hairline, few elements per view, gold as the only accent. Bencium-style calm, own colours.
+Aesthetic: a quiet room with one loud sentence. Neutral near-white ground (zero-chroma greys after jakub.kr), big rounded white surfaces on a hairline, few elements per view, gold as the only accent. Bencium-style calm, own colours.
 
 Product visuals: no client screenshots. Cards use CSS-drawn schematics (`components/schematics`, `.card-visual` > `.vis-frame`) with synthetic data; case pages use the dark `.case-preview` panel (low-alpha text stays at .55 or above for contrast). `--data` resolves to the body face; schematic and preview data use tabular numerals, never monospace.
 

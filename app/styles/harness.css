@@ -32,7 +32,7 @@
   .harness-toggle button[aria-pressed="true"] { background: var(--paper); color: var(--ink); box-shadow: var(--shadow-card); }
 
   /* Linework. Widths are the teardown's technical weights, in drawing units (mm). */
-  .harness-svg g { cursor: pointer; }
+  .harness-svg g[data-part], .harness-svg g[data-label] { cursor: pointer; }
   .harness-svg path[data-fill] { fill: var(--paper); stroke: none; }
   .harness-svg path[data-line-role] { fill: none; stroke: var(--ink); stroke-linecap: round; stroke-linejoin: round; }
   .harness-svg path[data-line-role="outline"] { stroke-width: 0.35; }
@@ -41,7 +41,7 @@
   .harness-svg path[data-line-role="axis"] { stroke-width: 0.13; }
   .harness-svg path[data-line-role="texture"] { stroke-width: 0.09; }
 
-  /* Selected plate takes the one accent. One rule per part keeps it server-rendered. */
+  /* Selected part takes the one accent. One rule per part keeps it server-rendered. */
   .harness-explorer[data-selected="model"] g[data-part="model"],
   .harness-explorer[data-selected="memory"] g[data-part="memory"],
   .harness-explorer[data-selected="rules"] g[data-part="rules"],
@@ -50,14 +50,43 @@
   .harness-explorer[data-selected="reviewers"] g[data-part="reviewers"],
   .harness-explorer[data-selected="second"] g[data-part="second"],
   .harness-explorer[data-selected="runner"] g[data-part="runner"] {
-    --plate: var(--gold);
+    --part-fill: var(--gold);
   }
-  .harness-svg g path[data-fill] { fill: var(--plate, var(--paper)); }
+  .harness-svg g path[data-fill] { fill: var(--part-fill, var(--paper)); }
 
-  /* Assembled: every plate slides back along its own explosion vector. */
-  .harness-explorer[data-view="assembled"] .harness-svg g {
-    transform: translate(calc(var(--dx) * -1px), calc(var(--dy) * -1px));
+  /* Assembled: every part slides back along its own explosion vector, and the
+     whole object shifts by --cx/--cy so it sits centred in the taller box. */
+  .harness-explorer[data-view="assembled"] .harness-svg g[data-part],
+  html.js:not(.motion-failed) .harness-explorer[data-intro="pending"] .harness-svg g[data-part] {
+    transform: translate(calc((var(--cx) - var(--dx)) * 1px), calc((var(--cy) - var(--dy)) * 1px));
   }
+  /* The core tube sits inside the pleats. The drawing is one exploded hidden-line pass,
+     so assembled it would show through; hide it unless it is the selected layer (x-ray). */
+  .harness-explorer[data-view="assembled"]:not([data-selected="model"]) g[data-part="model"],
+  html.js:not(.motion-failed) .harness-explorer[data-intro="pending"] g[data-part="model"] { opacity: 0; }
+
+  /* Leader-line labels: exploded view only. The layer list carries the same names for
+     assistive tech; the whole drawing is aria-hidden. */
+  .harness-labels text { fill: var(--ink-3); font-family: var(--font); }
+  .harness-labels .label-name { fill: var(--ink); font-weight: 600; }
+  .harness-labels .harness-leader { fill: none; stroke: var(--ink-3); stroke-width: 0.18; }
+  .harness-labels circle { fill: var(--ink); }
+  .harness-explorer[data-view="assembled"] .harness-labels,
+  html.js:not(.motion-failed) .harness-explorer[data-intro="pending"] .harness-labels { opacity: 0; pointer-events: none; }
+  .harness-explorer[data-selected="model"] g[data-label="model"],
+  .harness-explorer[data-selected="memory"] g[data-label="memory"],
+  .harness-explorer[data-selected="rules"] g[data-label="rules"],
+  .harness-explorer[data-selected="skills"] g[data-label="skills"],
+  .harness-explorer[data-selected="hooks"] g[data-label="hooks"],
+  .harness-explorer[data-selected="reviewers"] g[data-label="reviewers"],
+  .harness-explorer[data-selected="second"] g[data-label="second"],
+  .harness-explorer[data-selected="runner"] g[data-label="runner"] {
+    --leader: var(--ink);
+  }
+  .harness-labels g[data-label] .harness-leader { stroke: var(--leader, var(--ink-3)); }
+
+  /* The flow drop is invisible until it runs. */
+  .harness-drop { fill: var(--pine-2); stroke: var(--paper); stroke-width: 0.9; paint-order: stroke; opacity: 0; pointer-events: none; }
 
   /* ---------- layer list + detail ---------- */
   .harness-panel { display: flex; flex-direction: column; gap: 16px; }
@@ -77,6 +106,7 @@
     color: var(--ink-2);
   }
   .harness-layers .layer-num { font-size: 0.875rem; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+  .harness-layers .layer-live { align-self: center; flex: none; }
   .harness-layers button[aria-pressed="true"] { color: var(--ink); }
   .harness-layers button[aria-pressed="true"] .layer-num { color: var(--pine); }
   .harness-layers button[aria-pressed="true"]::after {
@@ -91,7 +121,8 @@
   }
 
   .harness-detail { background: var(--paper); border: 1px solid var(--line); border-radius: var(--r); padding: clamp(20px, 2.5vw, 28px); }
-  .harness-detail h3 { font-size: 1.375rem; font-weight: 650; letter-spacing: -0.02em; line-height: 1.2; }
+  .harness-detail .harness-part { margin-top: 0; margin-bottom: 4px; font-size: 0.875rem; font-weight: 600; color: var(--ink-3); }
+  .harness-detail h3 { font-size: 1.375rem; font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; }
   .harness-detail p { margin-top: 12px; color: var(--ink-2); text-wrap: pretty; }
   .harness-detail strong { color: var(--ink); font-weight: 600; }
   .harness-detail .harness-fact { padding-top: 12px; border-top: 1px solid var(--line); color: var(--ink); font-weight: 500; }
@@ -99,6 +130,19 @@
   @media (max-width: 860px) {
     .harness-explorer { grid-template-columns: 1fr; }
     .harness-svg { max-height: 60vh; }
+  }
+  /* Too narrow for readable labels: drop them and crop the svg to the ink, so the
+     drawing keeps its full width. The layer list below names every part. */
+  @media (max-width: 640px) {
+    .harness-canvas { overflow: hidden; }
+    .harness-canvas .harness-svg[style*="--zoom"] {
+      --cx: var(--cx-ink);
+      width: calc(100% * var(--zoom));
+      max-width: none;
+      max-height: none;
+      margin-left: calc(-100% * var(--crop));
+    }
+    .harness-labels { display: none; }
   }
 
   /* ---------- numbers ---------- */
@@ -115,7 +159,7 @@
     border-bottom: 1px solid var(--line);
   }
   .harness-log time { font-size: 0.875rem; font-weight: 600; color: var(--ink-3); font-variant-numeric: tabular-nums; padding-top: 3px; }
-  .harness-log h3 { font-size: 1.125rem; font-weight: 650; letter-spacing: -0.015em; line-height: 1.3; text-wrap: balance; }
+  .harness-log h3 { font-size: 1.125rem; font-weight: 600; letter-spacing: -0.015em; line-height: 1.3; text-wrap: balance; }
   .harness-log .trigger { margin-top: 6px; font-size: 0.9375rem; color: var(--ink-3); }
   .harness-log .result { color: var(--ink-2); text-wrap: pretty; }
   @media (max-width: 860px) {
@@ -140,19 +184,63 @@
   @media (max-width: 860px) { .harness-teaser { grid-template-columns: 1fr; } }
 }
 
-/* Plates travel with an ease-in-out (on-screen movement), staggered bottom up.
+/* Parts travel with an ease-in-out (on-screen movement), staggered bottom up.
    Hover is colour only, fine pointers only. Reduced motion: the views swap instantly. */
 @media (prefers-reduced-motion: no-preference) {
-  .harness-explorer .harness-svg g {
-    transition: transform 520ms cubic-bezier(0.77, 0, 0.175, 1);
-    transition-delay: calc(var(--i) * 40ms);
+  .harness-explorer .harness-svg g[data-part] {
+    transition: transform 520ms cubic-bezier(0.77, 0, 0.175, 1), opacity 200ms cubic-bezier(0.2, 0, 0, 1),
+      translate 150ms cubic-bezier(0.2, 0, 0, 1);
+    transition-delay: calc(var(--i) * 40ms), calc(var(--i) * 40ms), 0ms;
+  }
+  /* Labels follow the parts out (after the explode lands) and leave at once. */
+  .harness-labels { transition: opacity 240ms cubic-bezier(0.2, 0, 0, 1) 560ms; }
+  .harness-explorer[data-view="assembled"] .harness-labels { transition-delay: 0ms; }
+
+  /* Flow: a drop falls port to bowl (2.8s of a 7s cycle), in front of the stack;
+     each part dips 1.4 units as the drop reaches it (--t, 0 to 1).
+     Starts 900ms after the attribute lands so the explode finishes first. */
+  .harness-explorer[data-flow="on"] .harness-drop {
+    animation: harness-drop 7s linear 900ms infinite;
+  }
+  .harness-explorer[data-flow="on"] .harness-ink {
+    animation: harness-tick 7s cubic-bezier(0.2, 0, 0, 1) calc(900ms + var(--t) * 2800ms) infinite;
   }
   .harness-explorer .harness-svg path[data-fill] { transition: fill 150ms cubic-bezier(0.2, 0, 0, 1); }
   .harness-toggle button { transition: background-color 150ms cubic-bezier(0.2, 0, 0, 1), color 150ms cubic-bezier(0.2, 0, 0, 1); }
 }
 @media (hover: hover) and (pointer: fine) {
-  /* Lower specificity than the selected rule, so the selected plate keeps its accent. */
-  .harness-explorer .harness-svg g:hover { --plate: var(--sage); }
+  /* Lower specificity than the selected rule, so the selected part keeps its accent. */
+  .harness-explorer .harness-svg g[data-part]:hover { --part-fill: var(--well); }
+  .harness-explorer .harness-svg:has(g[data-label]:hover) { cursor: pointer; }
   .harness-layers button:hover { color: var(--ink); }
   .harness-toggle button:hover { color: var(--ink); }
+}
+
+/* Lift on hover: the part rises and its label's leader darkens. Fine pointers only,
+   and the rise only when motion is allowed (the darker leader stays either way). */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .harness-explorer .harness-svg g[data-part]:hover { translate: 0 -2.5px; }
+}
+@media (hover: hover) and (pointer: fine) {
+  .harness-svg:has(g[data-part="model"]:hover) g[data-label="model"],
+  .harness-svg:has(g[data-part="memory"]:hover) g[data-label="memory"],
+  .harness-svg:has(g[data-part="rules"]:hover) g[data-label="rules"],
+  .harness-svg:has(g[data-part="skills"]:hover) g[data-label="skills"],
+  .harness-svg:has(g[data-part="hooks"]:hover) g[data-label="hooks"],
+  .harness-svg:has(g[data-part="reviewers"]:hover) g[data-label="reviewers"],
+  .harness-svg:has(g[data-part="second"]:hover) g[data-label="second"],
+  .harness-svg:has(g[data-part="runner"]:hover) g[data-label="runner"],
+  .harness-labels g[data-label]:hover { --leader: var(--ink); }
+}
+
+@keyframes harness-drop {
+  0% { translate: 0 0; opacity: 0; }
+  3% { opacity: 1; }
+  37% { opacity: 1; }
+  40% { translate: 0 var(--fall); opacity: 0; }
+  100% { translate: 0 var(--fall); opacity: 0; }
+}
+@keyframes harness-tick {
+  0%, 12%, 100% { translate: 0 0; }
+  4% { translate: 0 1.4px; }
 }

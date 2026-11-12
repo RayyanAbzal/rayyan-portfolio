@@ -12,7 +12,7 @@
 
 /* ============================================================
    rayyanabzal.com - quiet room, one loud sentence.
-   Near-white warm ground, white cards on a hairline, pine buttons,
+   Near-white neutral ground, white cards on a hairline, pine buttons,
    kowhai marker. Tokens live in :root with the legacy names, are exposed
    to Tailwind through @theme inline, and are mapped onto the shadcn
    semantic variables below.
@@ -21,22 +21,23 @@
 :root {
   color-scheme: light;
 
-  /* Chalk, in OKLCH. Neutrals hold hue 95, the accent ramp holds hue 160, so nothing drifts.
-     Measured WCAG 2: ink 16.7:1, ink-2 7.8:1, ink-3 5.5:1 on bg; on-fill 7.7:1 on pine;
-     pine 7.5:1 on bg; pine-2 5.3:1 on bg; warn 5.8:1 on bg; cream text 12.5:1 on deep. */
-  --bg: oklch(0.972 0.006 95);
-  --bg-2: oklch(0.955 0.007 95);
+  /* Light neutrals after jakub.kr (zero chroma, so greys never drift warm or cool);
+     the accent ramp holds hue 160. Measured WCAG 2: ink 16.3:1, ink-2 7.6:1, ink-3 5.2:1
+     on bg (4.6:1 on well); on-fill 7.9:1 on pine; pine 7.9:1 and pine-2 5.6:1 on bg;
+     warn 6.1:1 on bg; on-fill 17.5:1 on deep; ink 11.3:1 on gold. */
+  --bg: oklch(0.991 0 0);
+  --bg-2: oklch(0.973 0 0);
   --deep: oklch(0.2 0.03 160);
-  --paper: oklch(0.995 0.003 95);
-  --paper-2: oklch(0.965 0.006 95);
-  --well: oklch(0.94 0.008 95);
-  --sage: oklch(0.93 0.02 150);
-  --sage-2: oklch(0.8 0.025 150);
-  --ink: oklch(0.2 0.01 95);
-  --ink-2: oklch(0.42 0.012 95);
-  --ink-3: oklch(0.5 0.012 95);
-  --line: oklch(0.2 0.01 95 / 0.12);
-  --line-2: oklch(0.2 0.01 95 / 0.3);
+  --paper: oklch(1 0 0);
+  --paper-2: oklch(0.973 0 0);
+  --well: oklch(0.955 0 0);
+  --sage: oklch(0.955 0 0);
+  --sage-2: oklch(0.85 0 0);
+  --ink: oklch(0.235 0 0);
+  --ink-2: oklch(0.44 0 0);
+  --ink-3: oklch(0.53 0 0);
+  --line: oklch(0 0 0 / 0.09);
+  --line-2: oklch(0 0 0 / 0.22);
   --pine: oklch(0.42 0.09 160);
   --pine-hover: oklch(0.37 0.07 160);
   --pine-2: oklch(0.5 0.1 160);
@@ -44,17 +45,17 @@
   --gold: oklch(0.86 0.1 150);
   --gold-2: oklch(0.8 0.1 150);
   --warn: oklch(0.5 0.12 55);
-  --on-gold: oklch(0.2 0.012 92);
-  --on-fill: oklch(0.985 0.005 95);
+  --on-gold: oklch(0.235 0 0);
+  --on-fill: oklch(0.99 0 0);
 
   /* Repeated literals promoted to tokens. Channel triplets feed rgb(... / a). */
-  --cream: 250 248 244;
-  --ink-rgb: 23 21 15;
+  --cream: 252 252 252;
+  --ink-rgb: 30 30 30;
   --pine-rgb: 12 92 60;
   --ok-on-dark: #a8d5b5;
   --warn-on-dark: #e8b878;
 
-  --font: var(--font-it-latin), var(--font-it-ext), "Helvetica Neue", Arial, system-ui, sans-serif;
+  --font: var(--font-runde), Inter, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
   --data: var(--font);
 
   --max: 1200px;

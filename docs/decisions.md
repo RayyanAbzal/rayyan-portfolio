@@ -83,3 +83,14 @@ Hero entrance is CSS-only (no `.js` gate, no hydration dependency) so the LCP el
 **How.** One hidden-line render, exploded, from tools/teardown/harness/model.js. Each part carries its projected (dx, dy); the assembled view is a CSS translate back, so one SVG serves both states. Reduced motion swaps instantly.
 
 **Open.** Ray to confirm privacy level 2. Mobile: the layer list sits below the drawing, so picking a layer means scrolling; revisit in the redesign pass.
+
+## 2026-11-12: light neutral palette and Open Runde; harness drawn as a water filter
+
+**Decision.** Ray picked "Light, jakub-style" colours and the Open Runde font. Neutral tokens in `app/globals.css` are now zero-chroma OKLCH greys after jakub.kr (`bg` #fcfcfc, `paper` #fff, `well` #f0f0f0, `ink` #1e1e1e); the green accent ramp (`pine`, legacy-named `gold`) is unchanged. Open Runde replaces Inter Tight, four static weights subset to about 45 KB each; 650 weights became 600. `loading-dev` is installed and its `Loop` marks the Goal runner as the one layer that runs on its own. The /harness drawing is redrawn as an exploded water-filter cartridge (Ray: "yeah that sounds good, show me your pick"): inlet cap = goal runner, relief valve = guardrails, mesh = rules, sleeves = skills, core tube = model (three hole sizes, three tiers), pleats = reviewers, carbon block = second opinion, sediment bowl = memory. Layers now list in flow order, top first.
+
+**Reverses.** The warm Chalk neutrals and Inter Tight (CLAUDE.md, 2026-10-24 entry). The 2026-11-12 "8 plates" drawing.
+
+**Why.** Ray's picks in chat, from the jakub.kr better-typography, better-colors and better-writing demos. Contrast measured (OKLab to sRGB to WCAG 2): ink 16.3:1, ink-2 7.6:1, ink-3 5.2:1 on bg (4.6:1 on well), white on pine 7.9:1.
+
+**Open.** DESIGN.md still describes Chalk and Inter Tight; it needs a documenter pass. The assembled view hides the core tube (it sits inside the pleats) unless Model is selected.
+

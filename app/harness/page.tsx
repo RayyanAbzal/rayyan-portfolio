@@ -42,7 +42,7 @@ export default function HarnessPage() {
             </div>
             <HarnessExplorer
               layers={HARNESS_LAYERS}
-              defaultSelected="hooks"
+              defaultSelected="runner"
               labels={{
                 exploded: HARNESS.explodedLabel,
                 assembled: HARNESS.assembledLabel,
@@ -51,7 +51,7 @@ export default function HarnessPage() {
                 why: HARNESS.whyLabel,
               }}
             >
-              <HarnessDrawing />
+              <HarnessDrawing annotated />
             </HarnessExplorer>
           </section>
 
