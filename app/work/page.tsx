@@ -37,7 +37,7 @@ export default function WorkPage() {
 
         <section id="client" className="wrap tight">
           <div className="section-head">
-            <h2 className="display text-[clamp(1.625rem,3vw,2.125rem)]">{WORK.clientHeading}</h2>
+            <h2 className="display text-[clamp(1.625rem,3vw,2.125rem)]">{WORK.clientHeading} <span className="count">({CLIENT_PROJECTS.length})</span></h2>
           </div>
           <Reveal className="grid-2" stagger={100}>
             {CLIENT_PROJECTS.map((project) => (
@@ -50,7 +50,7 @@ export default function WorkPage() {
         <section id="personal">
           <div className="wrap">
             <div className="section-head">
-              <h2 className="display text-[clamp(1.625rem,3vw,2.125rem)]">{WORK.personalHeading}</h2>
+              <h2 className="display text-[clamp(1.625rem,3vw,2.125rem)]">{WORK.personalHeading} <span className="count">({PERSONAL_PROJECTS.length})</span></h2>
               <p className="lede">{WORK.personalLede}</p>
             </div>
             <Reveal className="grid-3" stagger={100}>

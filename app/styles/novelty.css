@@ -55,21 +55,39 @@
   .b-list li + li { border-top: 1px solid var(--line); }
   .b-list a { display: block; padding: 14px 12px; border-radius: 10px; }
   .b-list .name { display: flex; justify-content: space-between; gap: 12px; font-weight: 500; }
-  .b-list .name span { color: var(--ink-3); font-weight: 400; font-size: 0.90625rem; font-variant-numeric: tabular-nums; }
+  .b-list .name .meta { display: inline-flex; align-items: center; gap: 10px; color: var(--ink-3); font-weight: 400; }
+  .b-list .chip { padding: 2px 8px; border-radius: 6px; background: var(--sunken); font-size: 0.78125rem; font-variant-numeric: tabular-nums; color: var(--ink-2); }
+  .b-list a[data-active] .chip { background: var(--surface); }
+  .b-list .arrow { color: var(--ink-3); opacity: 0.5; }
+  .b-list a[data-active] .arrow { color: var(--ink); opacity: 1; }
   .b-list .what { display: block; color: var(--ink-2); }
   .b-list .out { display: block; margin-top: 2px; font-size: 0.875rem; color: var(--ink-3); }
   .b-list a[data-active] { background: var(--sunken); }
   .b-list a[data-active] .out { color: var(--ink); }
   @media (hover: hover) { .b-list a:hover { background: var(--sunken); } }
-  .b-stage { position: relative; perspective: 1400px; min-height: 440px; display: grid; place-items: center; padding-right: 190px; }
+  .b-side { display: flex; flex-direction: column; min-width: 0; }
+  .b-stage { position: relative; perspective: 1400px; min-height: 440px; display: grid; place-items: center; padding-right: 190px; border-radius: 24px; cursor: pointer; color: inherit; text-decoration: none; }
+  .b-plate[data-hot] .b-face { box-shadow: inset 0 0 0 1px var(--tint-ink), 0 36px 44px -24px oklch(0 0 0 / 0.3); }
+  .b-stage[data-hot] .b-plate:not([data-hot]) .b-face { opacity: 0.6; }
+  .b-cta { position: absolute; left: 0; bottom: 8px; display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px 8px 14px; border-radius: 999px; background: var(--ink); color: var(--bg); font-size: 0.84375rem; font-weight: 500; }
+  .b-cta .arrow, .b-list .arrow { flex: none; }
+  .b-cta-name { color: color-mix(in oklch, var(--bg) 70%, transparent); font-weight: 400; }
+  .b-pager { display: none; flex-wrap: wrap; justify-content: center; gap: 6px; padding-top: 12px; }
+  .b-pager button { padding: 6px 12px; border-radius: 999px; background: var(--sunken); color: var(--ink-2); font: inherit; font-size: 0.84375rem; border: 0; min-height: 36px; }
+  .b-pager button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+  @media (hover: none) { .b-pager { display: flex; } }
   .b-rig { position: relative; width: min(100%, 340px); height: 250px; transform-style: preserve-3d; transform: rotateX(var(--rx, 52deg)) rotateZ(var(--rz, -38deg)); }
-  .b-plate { position: absolute; inset: 0; transform-style: preserve-3d; transform: translateZ(calc(var(--z) * var(--open, 1) * var(--zk, 1) * 1px)); }
+  .b-plate { position: absolute; inset: 0; transform-style: preserve-3d; transform: translateZ(calc((var(--z) * var(--open, 1) + var(--lift, 0)) * var(--zk, 1) * 1px)); }
   .b-face { position: absolute; inset: 0; border-radius: 14px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line-2), 0 30px 40px -24px oklch(0 0 0 / 0.25); padding: 14px; overflow: hidden; }
   .b-plate:nth-child(1) .b-face { background: var(--sunken); }
-  .b-legend { position: absolute; right: 0; top: 0; bottom: 0; display: flex; flex-direction: column; justify-content: space-between; padding: 64px 0 96px; pointer-events: none; }
+  .b-legend { position: absolute; right: 0; top: 0; bottom: 0; display: flex; flex-direction: column; justify-content: space-between; padding: 64px 0 96px; }
   .b-tag { display: flex; align-items: center; justify-content: flex-end; gap: 8px; white-space: nowrap; font-size: 0.78125rem; font-weight: 500; opacity: var(--open, 1); }
   .b-tag::after { content: ""; width: 22px; height: 1px; background: var(--ink-3); }
+  .b-tag { margin-right: -8px; padding: 4px 8px; border-radius: 8px; }
   .b-tag small { color: var(--ink-3); font-weight: 400; font-size: inherit; }
+  .b-tag[data-hot] { background: var(--tint); color: var(--tint-ink); }
+  .b-tag[data-hot] small { color: inherit; }
+  .b-tag[data-hot]::after { background: var(--tint-ink); }
   .b-data { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; height: 100%; align-content: start; }
   .b-data i { height: 18px; border-radius: 4px; background: var(--line-2); }
   .b-data i:nth-child(6n + 1) { grid-column: span 2; background: var(--ink-3); opacity: 0.35; }
@@ -88,7 +106,9 @@
   }
   @media (max-width: 860px) {
     .b-work { grid-template-columns: minmax(0, 1fr); gap: 8px; }
-    .b-stage { order: -1; min-height: 0; padding: 72px 0 8px; }
+    .b-side { order: -1; }
+    .b-stage { min-height: 0; padding: 72px 0 56px; }
+    .b-cta { left: 0; right: 0; width: max-content; margin-inline: auto; white-space: nowrap; }
     .b-rig { width: min(78%, 260px); height: 190px; --zk: 0.55; }
     .b-legend { justify-content: center; padding-top: 72px; }
   }
@@ -158,8 +178,14 @@
   .b-rig { transition: transform 600ms var(--ease-out); }
   .b-rig.tilting { transition: none; }
   .b-plate { transition: transform 700ms var(--ease-out); transition-delay: calc(var(--i) * 50ms); }
-  .b-tag { transition: opacity 300ms ease; transition-delay: calc(200ms + var(--i) * 60ms); }
   .b-face > * { transition: opacity 220ms ease, filter 220ms ease; }
+  .b-face { transition: opacity 200ms ease, box-shadow 200ms ease; }
+  .b-tag { transition: opacity 300ms ease, background-color 150ms ease, color 150ms ease; transition-delay: calc(200ms + var(--i) * 60ms), 0s, 0s; }
+  .b-list .arrow, .b-cta .arrow { transition: transform 150ms var(--ease-out), opacity 150ms ease; }
+  .b-cta { transition: transform 150ms var(--ease-out); }
+  .b-stage:active .b-cta { scale: 0.97; }
+  .b-pager button { transition: transform 150ms var(--ease-out); }
+  .b-pager button:active { transform: scale(0.97); }
   .b-stage.swap .b-face > * { opacity: 0; filter: blur(3px); }
   .c-scene { transition: opacity 260ms ease, visibility 0s linear 260ms; }
   .c-scene.on { transition: opacity 260ms ease 80ms, visibility 0s; }
@@ -174,6 +200,10 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .c-meter { display: none; }
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .b-list a:hover .arrow, .b-list a[data-active] .arrow, .b-stage:hover .b-cta .arrow { transform: translate(2px, -2px); }
+  .b-list a:hover .arrow { opacity: 1; color: var(--ink); }
 }
 
 /* Touch screens have no hover, and a tap opens the case study: the hint would promise

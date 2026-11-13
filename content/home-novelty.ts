@@ -49,7 +49,9 @@ export const SECTION_LABELS = {
   offersNote: "Every project is fixed price.",
 } as const;
 
-export const WORK_HINT = "Client work. Hover or focus one to take it apart.";
+export const WORK_HINT = "Client work. Hover or focus one to take it apart, then click to read the case study.";
+export const WORK_OPEN = "Open case study";
+export const WORK_PREVIEW = "Preview a build";
 export const PLATE_KINDS = ["Interface", "Logic", "Data"] as const;
 export const DATA_LABEL = "Representative data";
 

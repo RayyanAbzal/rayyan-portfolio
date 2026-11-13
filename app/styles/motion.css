@@ -84,6 +84,7 @@
   .card, .case-back, .case-nav a, .link { transition: none !important; }
   .case-nav a:hover { transform: none; box-shadow: none; }
   .card:has(.card-link) h3::after { transform: none !important; transition: none !important; }
+  .card .vis-frame { transform: none !important; transition: none !important; }
   .nav-links a::after { transition: none !important; }
   .faq-list [data-slot="accordion-content"] { transition: none !important; }
   .vis-live i { animation: none; }
