@@ -22,7 +22,7 @@ app/work/[slug]/page.tsx  case studies (generateStaticParams over content/case-s
 app/contact/page.tsx    contact: ways to reach me, where I work, what to include in a first message (footer link only)
 app/privacy/page.tsx    privacy: plain-language, factual draft (footer link only; Ray to review)
 app/about/page.tsx      about: composes components/about/* (editorial layout, no cards, no reveal)
-app/harness/page.tsx    how I build: teardown drawing of my AI harness as rings around a core (model in the middle, each layer a ring; exploded/assembled toggle, layer list with a detail card), numbers, dated change log, principles. Home has a teaser band; not in the nav
+app/harness/page.tsx    how I build: teardown drawing of my AI harness as a horse and open carriage (horse = model, each piece of tack = one layer, the orchestrator drives as coachman, I ride in the back with the route card; assembled/taken-apart toggle, run button, layer and people lists with a sticky detail card), numbers, dated change log, principles. Home has a teaser band; not in the nav
 app/not-found.tsx       branded 404 (noindex)
 app/sitemap.ts, robots.ts  10 URLs, update lastmod in lib/sitemap-entries.ts; robots rules as the legacy file
 app/globals.css         tokens (:root), @theme inline, base, type
@@ -33,7 +33,7 @@ components/             book-link, sticky-book-cta, reveal, site-nav, site-foote
 components/schematics/  CSS-drawn card visuals (synthetic data, aria-hidden)
 components/case/        case preview panels and rich text
 components/about/       about sections: opening, facts, principles (pine panel), process, testimonials, faq
-components/harness/     HarnessDrawing (server SVG, both states, ~145 KB kept out of the client bundle) + HarnessExplorer (client: view toggle, layer selection)
+components/harness/     HarnessDrawing (server SVG, both states plus gallop frame 0, ~340 KB kept out of the client bundle) + HarnessExplorer (client: view toggle, run button, layer selection; lazy-loads gallop frames 1 to 7 from public/harness/gallop.json, ~1 MB raw, ~294 KB gzip)
 tools/teardown/         vendored teardown skill tooling; harness/model.js is the drawing model, `npm run drawing:harness` regenerates content/harness/drawing.ts (never hand-edit it)
 content/                typed copy (home, work, about, contact, privacy, agent-guidance, projects, case-studies) and content/jsonld/*.json (verbatim JSON-LD). Pages and markdown mirrors both read it.
 lib/                    site constants, seo helper (pageMetadata), booking, sitemap entries, pages.ts (page registry, no imports), markdown.ts (mirrors + llms.txt renderer)
@@ -59,7 +59,7 @@ docs/                   specs, plans, decisions, worklog, client drafts (never d
 - Button: 150ms, 1px hover lift, press scale 0.96 (not disabled or aria-disabled). Hover-only styling lives in `@media (hover: hover)`.
 - View transitions: nav and footer have their own names so only main content crossfades (150ms); `navigation: none` under reduced motion.
 - FAQ: height animates through `grid-template-rows` 0fr to 1fr in 200ms (`!important`, because Radix leaves an inline `transition-duration: 0s`); closed answers stay in the HTML.
-- /harness drawing (harness.css): exploded and assembled are separate hidden-line renders (the rings nest, so occlusion differs). The toggle crossfades them (240ms) while each part slides along its own (dx, dy) (480ms ease-in-out). Reduced motion: instant swap. No scroll motion.
+- /harness drawing (harness.css): exploded and assembled are separate hidden-line renders. The toggle crossfades them (240ms) while each part slides along its own (dx, dy) and the assembled zoom (build-computed `--zx/--zy/--zs`) eases out, all 480ms `cubic-bezier(0.77, 0, 0.175, 1)`; labels fade in after the parts settle. Gallop: 8 frames stepped with `steps(1, end)` on a 560ms stride, started by mouse hover or the run button (press scale 0.96); frames load on first use. Reduced motion: instant swap, no gallop, run button disabled. No scroll motion.
 - Sticky mobile CTA (`StickyBookCta`) is a direct child of the page, not inside a transformed ancestor; `showAfter` / `hideAt` are selector props. 300ms slide, 200ms fade, fade-only under reduced motion.
 - Every booking CTA is `BookLink` (real Calendly href, popup when loaded) with a typed `BookingSource`; sources feed Vercel Analytics events.
 
