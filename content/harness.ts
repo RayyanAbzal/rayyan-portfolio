@@ -45,7 +45,7 @@ export const HARNESS = {
   stopLabel: "Stop",
   motionOffLabel: "Motion is off",
   drawingCaption:
-    "Concept drawing. The horse is the model and each piece of tack is one layer of the harness. I drive, and a footman on the back keeps the job list.",
+    "Concept drawing. The horse is the model and each piece of tack is one layer of the harness. I set the route and ride in the back. The orchestrator drives, and stops to ask me only about calls that cannot be undone.",
   statsHeading: "In numbers",
   changesHeading: "What changed, and why",
   changesIntro:
@@ -68,7 +68,7 @@ export const HARNESS_LAYERS: readonly HarnessLayer[] = [
     id: "model",
     name: "Model",
     piece: "Horse",
-    what: "Claude does the work. Four tiers, from the strongest for planning big jobs to the cheapest for searching and sweeping.",
+    what: "Claude does the work: the planning, the building and the checking.",
     why: "A horse is strong and fast, and it will run anywhere. Matching the model to the job keeps quality high where it matters and cost low where it does not.",
     fact: "Model picks are reviewed at every release, not set once.",
   },
@@ -135,16 +135,16 @@ export const HARNESS_PEOPLE: readonly HarnessLayer[] = [
   {
     id: "me",
     name: "Me",
-    piece: "Driver",
+    piece: "Passenger",
     what: "I set the destination and make the calls that cannot be undone, up front, before the work starts.",
     why: "Direction is the part a model cannot supply. Once it is set, the work runs without me steering every step.",
-    fact: "I take the reins only for production deploys, destructive database changes and money.",
+    fact: "The carriage stops for my yes only on production deploys, destructive database changes, leaked secrets and money.",
   },
   {
     id: "orchestrator",
     name: "Orchestrator",
-    piece: "Footman",
-    what: "A bot that rides along: it writes up incoming jobs, sorts them and hands each one to the carriage in turn.",
+    piece: "Coachman",
+    what: "A bot on the box seat: it writes up incoming jobs, sorts them and sends the carriage out on each one in turn.",
     why: "Sorting work is a job too. Handing it off means I only hear about what needs a decision.",
     fact: "It never builds or merges anything. It files, sorts and pings me on critical calls only.",
   },

@@ -4,7 +4,7 @@
   "drawings": [{
     "id": "harness",
     "title": "Agent harness",
-    "description": "Concept drawing. My Claude Code harness as a horse in harness: the horse is the model, each piece of tack one layer, I drive and a footman on the back keeps the job list. Shapes are illustrative, not physical.",
+    "description": "Concept drawing. My Claude Code harness as a horse in harness: the horse is the model, each piece of tack one layer, the orchestrator drives and I ride in the back with the route. Shapes are illustrative, not physical.",
     "parts": [
       {"id": "model", "name": "Model"},
       {"id": "skills", "name": "Skills"},
