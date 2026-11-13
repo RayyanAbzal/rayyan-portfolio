@@ -46,9 +46,6 @@ export default function HomePage() {
         <div className="wrap">
           <section className="n-hero" aria-label="Introduction">
             <div className="n-copy">
-              <h1 className="lede">
-                <RichText value={HOME.heroHeadline} /> <span className="soft">{HOME.heroLede}</span>
-              </h1>
               <div className="status">
                 <span>
                   <span className="dot" aria-hidden="true" />
@@ -56,6 +53,9 @@ export default function HomePage() {
                 </span>
                 <AucklandClock place={HERO.place} />
               </div>
+              <h1 className="lede">
+                <RichText value={HOME.heroHeadline} /> <span className="soft">{HOME.heroLede}</span>
+              </h1>
               <div className="actions">
                 <Button asChild>
                   <BookLink source="hero">{HOME.heroCta}</BookLink>

@@ -46,6 +46,16 @@
   [data-stagger].reveal.in > :nth-child(5) { transition-delay: calc(var(--stagger, 100ms) * 4); }
   [data-stagger].reveal.in > :nth-child(6) { transition-delay: calc(var(--stagger, 100ms) * 5); }
 
+  /* Section titles and home rows sharpen from a blur as they scroll in (Sharpen adds .seen). */
+  .js :is(.home-n section.row > *, main h2) {
+    transition:
+      opacity 500ms cubic-bezier(0.2, 0, 0, 1),
+      transform 500ms cubic-bezier(0.2, 0, 0, 1),
+      filter 500ms cubic-bezier(0.2, 0, 0, 1);
+  }
+  .js :is(.home-n section.row > *, main h2):not(.seen) { opacity: 0; transform: translateY(8px); filter: blur(6px); }
+  .js .home-n section.row > :nth-child(2) { transition-delay: 90ms; }
+
   /* Page-to-page: only the main content crossfades; nav and footer stay put. */
   .nav { view-transition-name: site-nav; }
   footer { view-transition-name: site-footer; }
@@ -55,6 +65,7 @@
 }
 
 @layer components {
+  .motion-failed :is(.home-n section.row > *, main h2),
   .motion-failed [data-stagger].reveal > * {
     opacity: 1 !important;
     transform: none !important;

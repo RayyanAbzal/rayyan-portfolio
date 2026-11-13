@@ -2,7 +2,7 @@
 name: rayyanabzal.com
 description: A quiet room with one loud sentence. Zero-chroma neutrals in light and dark, one green hue for live and selected, blue only for focus. Home shows the work moving; inner pages stay calm.
 colors:
-  bg: "oklch(0.985 0 0)"
+  bg: "oklch(0.988 0 0)"
   bg-dark: "oklch(0.17 0 0)"
   surface: "oklch(1 0 0)"
   surface-dark: "oklch(0.21 0 0)"
@@ -32,15 +32,15 @@ typography:
   display:
     fontFamily: "Open Runde, Inter, system-ui, Helvetica Neue, Arial, sans-serif"
     fontSize: "clamp(34px, 4.6vw, 56px)"
-    fontWeight: 700
+    fontWeight: 600
     lineHeight: 1.02
     letterSpacing: "-0.03em"
   hero-sentence:
     fontFamily: "Open Runde, Inter, system-ui, Helvetica Neue, Arial, sans-serif"
-    fontSize: "22px"
-    fontWeight: 500
-    lineHeight: 1.45
-    letterSpacing: "-0.012em"
+    fontSize: "clamp(36px, 1.1rem + 3.4vw, 64px)"
+    fontWeight: 600
+    lineHeight: 1.04
+    letterSpacing: "-0.035em"
   lede:
     fontFamily: "Open Runde, Inter, system-ui, Helvetica Neue, Arial, sans-serif"
     fontSize: "clamp(18px, 1.6vw, 21px)"
@@ -153,7 +153,7 @@ This replaces the earlier warm stone, pine-green and kowhai-gold world. None of 
 Neutral by construction. All values are in `app/globals.css` `:root`; the dark block overrides only the values that must change.
 
 ### Neutral
-- **Bg** (`--bg`, `oklch(0.985 0 0)`; dark `0.17`): page ground, nav ground, the on-fill text colour.
+- **Bg** (`--bg`, `oklch(0.988 0 0)`; dark `0.17`): page ground, nav ground, the on-fill text colour.
 - **Bg 2** (`--bg-2`, `0.965`; dark `0.2`): muted fill.
 - **Surface** (`--surface`, `oklch(1 0 0)`; dark `0.21`): cards, mini panels, plates, steps, tooltips. Aliased as `paper`.
 - **Sunken** (`--sunken`, `0.965`; dark `0.235`): the bed behind drawn product, the active list row, the offer stage. Aliased as `well`, `sage`, `paper-2`.
@@ -188,12 +188,13 @@ Neutral by construction. All values are in `app/globals.css` `:root`; the dark b
 **Family:** Open Runde (OFL 1.1), self-hosted static WOFF2 in `app/fonts/` through `next/font/local`, weights 400, 500, 600, 700, subset to latin, latin-ext A and macrons. Fallbacks: Inter, system-ui, Helvetica Neue, Arial. `cv11` and `ss03` on. Data uses the same face (`--data: var(--font)`) with `font-variant-numeric: tabular-nums`.
 
 ### Hierarchy
-- **Display** (700, `clamp(34px, 4.6vw, 56px)`, 1.02, -0.03em): `h2.display` section headings on inner pages and the closing band.
-- **Hero sentence** (500, 22px, 1.45, -0.012em, max 30ch): the home h1. Headline words in ink, the rest in `.soft` (ink-2). It is a sentence, not a display headline; the loudness comes from the room around it.
+- **Display** (600, `clamp(34px, 4.6vw, 56px)`, 1.02, -0.03em): `h2.display` section headings on inner pages and the closing band.
+- **Hero headline** (600, `clamp(36px, 1.1rem + 3.4vw, 64px)`, 1.04, -0.035em, max 17ch, balanced): the home h1, after astapable's tight grotesk name. The `.soft` part drops to its own block at body-large size (400, 17 to 20px, ink-2, max 40ch).
+- **Row title** (600, `clamp(28px, 1.3rem + 1.4vw, 37px)`, 1.1, -0.03em, ink-3, centred): home section titles, pale so the content below stays the louder thing.
 - **Lede** (400, `clamp(18px, 1.6vw, 21px)`, 1.5, ink-2, max 58ch): inner-page intros.
 - **Body** (400, 17px, 1.55): base on inner pages. Home scopes `.home-n` down to 15.5px at 1.6.
 - **Row label** (400, 14.5px, ink-3): the quiet left-column heading of each home row. Sentence case, no tracking.
-- **Name and value** (500): project names, step labels, `b` lines in cards. 600 is for links and inner-page headings; 700 for display only.
+- **Name and value** (500): project names, step labels, `b` lines in cards. 600 is for links, headings and display; 700 is the nav name only.
 - **Note** (400, 13.5px, ink-3): hints and disclosures. Footer text on the home closing row is 14.5px.
 - **Data** (400, 12.5px, 1.35, tabular): drawn product inside `.panel`, 11.5px for headers, 10.5px inside the exploded interface plate.
 
@@ -243,7 +244,7 @@ Radius scales with the thing. Content surfaces use `--r` 24px. Drawn product ste
 600 weight, 2px `--line-2` underline at 5px offset. `.link-arrow` appends an arrow. In the closing row the email link uses a 3px offset.
 
 ### Teardown hero (home signature)
-The server-rendered harness drawing sits in `.td-stage` with its own labels hidden. The canvas is draggable (`touch-action: pan-y`, grab cursor) and a range input scrubs the same exploded state (accent ink). Hovering or selecting a part fills it with the tint; the teardown card below (12px radius, shadow, min-height 92px) names the piece in 500 with the layer in ink-3 and a plain sentence in ink-2. A "more" link goes to /harness.
+Below the hero copy, the server-rendered harness drawing runs full width on a sunken plate (24px radius, edge to edge below 760px) with its part labels shown in ink-2 once taken apart. The canvas is draggable (`touch-action: pan-y`, grab cursor) and a range input scrubs the same exploded state (accent ink). Hovering or selecting a part fills it with the tint; the teardown card below (12px radius, shadow, min-height 92px) names the piece in 500 with the layer in ink-3 and a plain sentence in ink-2. A "more" link goes to /harness.
 
 ### Exploded work (home signature)
 A list of the four client builds on the left (name 500, tabular detail in ink-3, one-line result; active and hover rows on `sunken`, 10px radius). On the right a rig tilted `rotateX(52deg) rotateZ(-38deg)` holds three plates (data, logic, interface) spaced by `--z` times `--open`. Each plate is a 14px surface with a `--line-2` edge; the data plate sits on sunken. A legend tags each plate with a 22px leader line. Selecting a project blurs and swaps plate contents. Below 860px the rig shrinks (`--zk: 0.55`) and moves above the list. The hover hint is hidden on touch.
@@ -261,7 +262,7 @@ Quotes are plain blockquotes at body size with a role and project footer in ink-
 Offers as a three-column hairline list, numbered build columns, about as an editorial layout (principles panel on `--panel`), FAQ as native disclosure rows with a grid-rows height transition, case pages with a back link, a facts line, and the dark `.case-preview` on `--deep` holding synthetic data. Client screenshots are never used; product is drawn.
 
 ### Motion
-Defined in `app/styles/motion.css`, `novelty.css` and CLAUDE.md. Everything animates only inside `prefers-reduced-motion: no-preference`. Entrances 300ms on `cubic-bezier(0.2, 0, 0, 1)`; hover 150ms or less; exploded plates 700ms on `--ease-out` staggered 50ms, legend tags fade 300ms after 200ms plus 60ms per tag; scene crossfade 260ms; blocks assemble over 900ms staggered 70ms; drawing toggle uses `--ease-io` at 480ms. Animate opacity, transform and filter by name, never `all`. Reduced motion shows the complete static page.
+Defined in `app/styles/motion.css`, `novelty.css` and CLAUDE.md. Everything animates only inside `prefers-reduced-motion: no-preference`. Entrances 300ms on `cubic-bezier(0.2, 0, 0, 1)`; hover 150ms or less; exploded plates 700ms on `--ease-out` staggered 50ms, legend tags fade 300ms after 200ms plus 60ms per tag; scene crossfade 260ms; blocks assemble over 900ms staggered 70ms; drawing toggle uses `--ease-io` at 480ms. Section titles and home rows sharpen from a 6px blur and 8px rise over 500ms the first time they scroll in (`components/sharpen.tsx`, after astapable). Animate opacity, transform and filter by name, never `all`. Reduced motion shows the complete static page.
 
 ## Do's and Don'ts
 

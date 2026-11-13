@@ -26,7 +26,7 @@
      hue (150) for live dots and the selected tint; one blue for focus. Fills (--pine,
      the legacy name) are ink-coloured and flip with the scheme; --deep stays a dark
      panel in both, so text on it uses --cream. */
-  --bg: oklch(0.985 0 0);
+  --bg: oklch(0.988 0 0);
   --bg-2: oklch(0.965 0 0);
   --surface: oklch(1 0 0);
   --sunken: oklch(0.965 0 0);
@@ -243,7 +243,7 @@
   .skip:focus { top: 12px; }
 
   .display {
-    font-weight: 700;
+    font-weight: 600;
     letter-spacing: -0.035em;
     line-height: 1;
     text-wrap: balance;

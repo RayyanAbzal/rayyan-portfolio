@@ -2,40 +2,47 @@
    other pages keep their own type. Motion lives at the bottom, behind the motion query. */
 @layer components {
   .home-n { font-size: 0.96875rem; line-height: 1.6; }
-  .home-n .lede { color: var(--ink); font-size: 1.375rem; font-weight: 500; line-height: 1.45; letter-spacing: -0.012em; text-wrap: pretty; max-width: 30ch; margin: 0; }
-  .home-n .lede .soft { color: var(--ink-2); }
+  .home-n { letter-spacing: -0.01em; }
+  .home-n .lede { color: var(--ink); font-size: clamp(2.25rem, 1.1rem + 3.4vw, 4rem); font-weight: 600; line-height: 1.04; letter-spacing: -0.035em; text-wrap: balance; max-width: 17ch; margin: 0; }
+  .home-n .lede .soft { display: block; max-width: 40ch; margin-top: 22px; color: var(--ink-2); font-size: clamp(1.0625rem, 0.95rem + 0.4vw, 1.25rem); font-weight: 400; line-height: 1.45; letter-spacing: -0.012em; text-wrap: pretty; }
   .home-n .hint { color: var(--ink-3); font-size: 0.84375rem; }
-  .home-n .status { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 20px; color: var(--ink-2); font-size: 0.90625rem; font-variant-numeric: tabular-nums; }
+  .home-n .status { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 18px; margin-bottom: 22px; color: var(--ink-2); font-size: 0.90625rem; font-variant-numeric: tabular-nums; }
   .home-n .dot { display: inline-block; width: 7px; height: 7px; border-radius: 7px; background: var(--live); margin-right: 8px; vertical-align: 1px; box-shadow: 0 0 0 3px color-mix(in oklch, var(--live) 18%, transparent); }
   .home-n .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
 
-  /* Hero: lede left, drawing right. */
-  .n-hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 420px); gap: 56px; align-items: start; padding: 72px 0 56px; }
+  /* Hero: the offer and the call on top, then the harness drawing full width and
+     annotated, on a sunken plate (after astapable's image-led cards). */
+  .n-hero { display: grid; gap: clamp(32px, 4vw, 48px); padding: clamp(32px, 4.5vw, 64px) 0 clamp(48px, 6vw, 80px); }
   .n-hero h1 { margin: 0; }
-  .n-hero .n-copy { padding-top: 120px; }
-  @media (max-width: 860px) {
-    .n-hero { grid-template-columns: minmax(0, 1fr); gap: 32px; padding-top: 40px; }
-    .n-hero .n-copy { padding-top: 0; }
-  }
+  .n-hero .status > span:first-child { padding: 3px 9px; border-radius: 4px; background: var(--sunken); color: var(--ink); font-size: 0.8125rem; }
+  .n-hero .actions { margin-top: 32px; }
 
   /* Teardown stage around the server-rendered drawing. */
   .td-stage { position: relative; }
   .td-canvas { position: relative; touch-action: pan-y; cursor: grab; user-select: none; -webkit-user-select: none; }
   .td-canvas.dragging { cursor: grabbing; }
-  .td-stage .harness-svg { max-height: 440px; }
-  .td-stage .harness-labels { display: none; }
-  .td-controls { display: flex; align-items: center; gap: 12px; margin-top: 14px; }
+  .td-stage { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 380px); gap: 16px 32px; padding: clamp(20px, 3vw, 40px); background: var(--sunken); border-radius: 24px; }
+  .td-canvas { grid-column: 1 / -1; }
+  /* Narrow screens: the plate runs edge to edge so the wide drawing keeps every pixel. */
+  @media (max-width: 760px) {
+    .td-stage { grid-template-columns: minmax(0, 1fr); margin-inline: calc(-1 * var(--pad)); padding: 20px var(--pad) var(--pad); border-radius: 0; }
+    .td-canvas { margin-inline: calc(-0.5 * var(--pad)); }
+  }
+  .td-stage .harness-svg { max-height: min(62vh, 560px); }
+  .td-stage .harness-svg g[data-state="exploded"] .harness-labels { opacity: 1; }
+  .td-stage .harness-labels text { fill: var(--ink-2); }
+  .td-controls { display: flex; align-items: center; gap: 12px; align-self: center; }
   .td-controls input[type="range"] { flex: 1; min-width: 0; accent-color: var(--ink); }
-  .td-card { margin-top: 14px; min-height: 92px; padding: 14px 16px; background: var(--surface); border-radius: 12px; box-shadow: var(--shadow), inset 0 0 0 1px var(--line); font-size: 0.875rem; }
+  .td-card { min-height: 92px; padding: 14px 16px; background: var(--surface); border-radius: 12px; box-shadow: var(--shadow), inset 0 0 0 1px var(--line); font-size: 0.875rem; }
   .td-card b { display: block; font-weight: 500; }
   .td-card b span { color: var(--ink-3); font-weight: 400; }
   .td-card p { margin: 2px 0 0; color: var(--ink-2); }
   .n-hero .td-more { display: inline-block; margin-top: 10px; font-size: 0.875rem; }
 
   /* Section rows: a quiet label column, then the content. */
-  section.row { display: grid; grid-template-columns: 132px minmax(0, 1fr); gap: 24px; padding: 40px 0; border-top: 1px solid var(--line); }
-  section.row > h2 { margin: 0; font-size: 0.90625rem; font-weight: 400; line-height: 1.6; color: var(--ink-3); letter-spacing: 0; }
-  @media (max-width: 640px) { section.row { grid-template-columns: minmax(0, 1fr); gap: 14px; } }
+  /* Section rows: a pale centred title, then the content (after astapable). */
+  section.row { display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px; padding: clamp(56px, 7vw, 96px) 0; }
+  section.row > h2 { justify-self: center; text-align: center; text-wrap: balance; margin: 0; font-size: clamp(1.75rem, 1.3rem + 1.4vw, 2.3rem); font-weight: 600; line-height: 1.1; letter-spacing: -0.03em; color: var(--ink-3); }
 
   /* Mini product panel. */
   .home-n .panel { background: var(--surface); border-radius: 12px; box-shadow: var(--shadow), inset 0 0 0 1px var(--line); overflow: hidden; font-size: 0.78125rem; line-height: 1.35; font-variant-numeric: tabular-nums; }
@@ -56,7 +63,7 @@
   .b-list a { display: block; padding: 14px 12px; border-radius: 10px; }
   .b-list .name { display: flex; justify-content: space-between; gap: 12px; font-weight: 500; }
   .b-list .name .meta { display: inline-flex; align-items: center; gap: 10px; color: var(--ink-3); font-weight: 400; }
-  .b-list .chip { padding: 2px 8px; border-radius: 6px; background: var(--sunken); font-size: 0.78125rem; font-variant-numeric: tabular-nums; color: var(--ink-2); }
+  .b-list .chip { padding: 1px 7px; border-radius: 4px; background: var(--sunken); font-size: 0.78125rem; font-variant-numeric: tabular-nums; color: var(--ink-2); }
   .b-list a[data-active] .chip { background: var(--surface); }
   .b-list .arrow { color: var(--ink-3); opacity: 0.5; }
   .b-list a[data-active] .arrow { color: var(--ink); opacity: 1; }
@@ -164,10 +171,10 @@
   /* Client words and the close. */
   .home-n .quotes { display: grid; gap: 24px; }
   .home-n .quotes blockquote { margin: 0; }
-  .home-n .quotes p { margin: 0; max-width: 60ch; }
+  .home-n .quotes p { margin: 0; max-width: 60ch; font-size: 1.125rem; letter-spacing: -0.015em; }
   .home-n .quotes footer { margin-top: 6px; padding: 0; border: 0; background: none; color: var(--ink-3); font-size: 0.90625rem; }
   .n-close p { margin: 0; max-width: 46ch; color: var(--ink-2); }
-  .n-close .n-close-title { color: var(--ink); font-weight: 500; font-size: 1.125rem; }
+  .n-close .n-close-title { color: var(--ink); font-weight: 600; font-size: clamp(1.5rem, 1.1rem + 1.2vw, 2rem); line-height: 1.15; letter-spacing: -0.03em; }
   .n-close .actions { align-items: center; }
   .n-close .alt { color: var(--ink-2); font-size: 0.90625rem; }
   .n-close .alt a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--line-2); text-underline-offset: 3px; }

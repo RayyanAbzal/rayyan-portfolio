@@ -16,7 +16,7 @@ Next.js (App Router) portfolio site with Tailwind v4 and shadcn/ui. Migrated fro
 
 ```
 app/layout.tsx          shell: skip link, sticky nav, footer, Calendly, Analytics, motion gate script
-app/page.tsx            home (novelty direction, 2026-11-13): teardown hero (the harness drawing, drag or auto-open), exploded client work (row hover takes a three-plate stack apart), living offers (each offer plays a short scene), client words, closing row. Scoped under `main.home-n`
+app/page.tsx            home (novelty direction, 2026-11-13; grotesk type after astapable): big headline, status and CTAs on top, then the teardown hero full width and annotated (the harness drawing, drag or auto-open), exploded client work (row hover takes a three-plate stack apart), living offers (each offer plays a short scene), client words, closing row. Scoped under `main.home-n`
 app/work/page.tsx       projects: 4 client cards + 3 personal builds
 app/work/[slug]/page.tsx  case studies (generateStaticParams over content/case-studies)
 app/contact/page.tsx    contact: ways to reach me, where I work, what to include in a first message (footer link only)
@@ -30,7 +30,7 @@ app/styles/*.css        layout (--section-y rhythm, .has-rule hairlines), cards 
 components/home/        teardown-hero, exploded-work, living-offers, auckland-clock (client); copy and scene data in content/home-novelty.ts
 app/fonts.ts, app/fonts/  Open Runde
 components/ui/          shadcn: button, accordion, card, badge, separator
-components/             book-link, sticky-book-cta, reveal, site-nav, site-footer, project-card, json-ld, calendly-assets
+components/             book-link, sticky-book-cta, reveal, sharpen, site-nav, site-footer, project-card, json-ld, calendly-assets
 components/schematics/  CSS-drawn card visuals (synthetic data, aria-hidden)
 components/case/        case preview panels and rich text
 components/about/       about sections: opening, facts, principles (pine panel), process, testimonials, faq
@@ -57,7 +57,7 @@ docs/                   specs, plans, decisions, worklog, client drafts (never d
 - Inner-page heroes: pure CSS, no `.js` gate. h1, lede and actions run the `site-enter` keyframe (opacity, 12px, blur 4px) with 0, 100, 200ms delays. (`enter` is taken by tw-animate-css.)
 - Home (novelty.css + components/home): teardown hero is a spring (k 170, d 26) between assembled and taken apart, auto-opens at 700ms, drag along the diagonal with a rubber band past either end; no-JS shows the assembled pose. Exploded work: row hover or focus closes the plates to 0.15, blurs, refills after 320ms, opens again; pointer tilt lerps at 0.12. Living offers: scenes play one pass (5.2s each) while the section is a third on screen, then rest on the last; a pick stops the rotation, reduced motion shows each end state and hides the meter.
 - Card grids only use `Reveal` (`stagger` prop, ms; default 100ms in CSS). `html.js` (inline script, only when motion is allowed) hides the children; Reveal adds `.in`, then `.done` at 700ms. Below-fold grids reveal on scroll; the 1.5s failsafe only reveals what is within one viewport height. `.motion-failed` (3s) shows everything if hydration never ran.
-- Reveal only on the card grids. Everything else outside the home novelties is static.
+- Sharpen (`components/sharpen.tsx`, mounted in layout, Ray chose the astapable direction 2026-11-13): every `main h2` and each home row child goes from blur 6px, 8px down, opacity 0 to sharp over 500ms the first time it is 15% on screen; it also clears the `__mfail` failsafe. Hidden only under `html.js`; `.motion-failed` and reduced motion show it. Everything else outside the card grids and home novelties is static.
 - Button: 150ms, 10px radius, opacity hover, press scale 0.97 (not disabled or aria-disabled). Hover-only styling lives in `@media (hover: hover)`.
 - View transitions: nav and footer have their own names so only main content crossfades (150ms); `navigation: none` under reduced motion.
 - FAQ: height animates through `grid-template-rows` 0fr to 1fr in 200ms (`!important`, because Radix leaves an inline `transition-duration: 0s`); closed answers stay in the HTML.
@@ -73,7 +73,7 @@ Tokens live in `app/globals.css` (`:root`, legacy names, mapped to shadcn variab
 
 | Token   | Light / dark | Use |
 |---------|--------------|-----|
-| bg      | `oklch(0.985 0 0)` / `0.17` | page ground |
+| bg      | `oklch(0.988 0 0)` / `0.17` | page ground |
 | surface (paper) | `1` / `0.21` | cards, blocks; 1px `--line` |
 | sunken (well, sage) | `0.965` / `0.235` | bed behind schematics, toggle track, drawing hover |
 | ink / ink-2 / ink-3 | `0.2, 0.47, 0.53` / `0.95, 0.74, 0.66` | text; ink-3 is the smallest step that passes AA |
@@ -99,7 +99,7 @@ Product visuals: no client screenshots. Cards use CSS-drawn schematics (`compone
 - No em dashes in copy
 - Keep each file under 800 lines
 - Nav is name (home) / Projects / About / Book a call text link; mark the current page with `aria-current="page"`. Skip link first in body.
-- Reveal (JS) motion only on the card grids; the hero entrance is CSS. Everything else is static.
+- Reveal (JS) motion only on the card grids; section titles use Sharpen; the hero entrance is CSS. Everything else is static.
 - One gold `.mark` per page at most (home hero, home quote). Card h3 is outcome-first with a `.card-name` line above.
 
 ## SEO + AEO
