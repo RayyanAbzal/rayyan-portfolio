@@ -496,7 +496,7 @@
   }
 
   function annotator(anchors, bounds, ink) {
-    const GAP = 7, SIZE = 3.2, top = SHEET.margin, bottom = SHEET.height - SHEET.margin, middle = bounds.x + bounds.width / 2;
+    const SIZE = SHEET.labelSize ?? 3.2, GAP = Math.max(7, SIZE * 2), top = SHEET.margin, bottom = SHEET.height - SHEET.margin, middle = bounds.x + bounds.width / 2;
     const sides = [anchors.filter(a => a.center < middle), anchors.filter(a => a.center >= middle)];
     let markup = '';
     sides.forEach((list, side) => {
@@ -508,7 +508,7 @@
       const direction = side ? 1 : -1;
       list.forEach(({point: [x, y], name}, i) => {
         const edge = reach(ink, ys[i] - SIZE, ys[i] + SIZE, side, x);
-        const column = edge + direction * 16, elbow = column - direction * 5;
+        const column = edge + direction * Math.max(16, SIZE * 3), elbow = column - direction * 5;
         markup += `<path data-line-role="detail" fill="none" d="M${round(x)} ${round(y)}L${round(elbow)} ${round(ys[i])}L${round(column)} ${round(ys[i])}"/>`
           + `<circle data-ink-fill="" cx="${round(x)}" cy="${round(y)}" r=".6"/>`
           + `<text data-ink-fill="" data-annotation="" x="${round(column + direction * 1.5)}" y="${round(ys[i] + SIZE * .35)}" font-size="${SIZE}" text-anchor="${side ? 'start' : 'end'}">${escape(name.toUpperCase())}</text>`;
@@ -547,7 +547,7 @@
     return {name: part.name, point, center};
   }
 
-  function render(parts, {explosion = 1, isolated = null, sample = .045, camera, fitExplosion = explosion, trails = [], fill = false, annotate = false, labels = annotate} = {}) {
+  function render(parts, {explosion = 1, isolated = null, sample = .045, camera, fitExplosion = explosion, trails = [], fill = false, annotate = false, labels = annotate, frame = null} = {}) {
     for (const [name, value] of [['Explosion', explosion], ['Fit explosion', fitExplosion]]) {
       if (!Number.isFinite(value) || value < 0 || value > 2) throw Error(name + ' must be 0–2');
     }
@@ -577,7 +577,8 @@
     });
 
     const current = scene(explosion);
-    const {scale, bounds, offset} = fit(fitExplosion === explosion ? [current] : [current, scene(fitExplosion)], annotate ? SHEET.labelMargin : SHEET.margin);
+    // A fixed frame ({scale, offset, bounds}) skips fitting, so animation frames share one paper space.
+    const {scale, bounds, offset} = frame ?? fit(fitExplosion === explosion ? [current] : [current, scene(fitExplosion)], annotate ? SHEET.labelMargin : SHEET.margin);
     const paper = p => [offset[0] + p[0] * scale, offset[1] + p[1] * scale, p[2]];
     const {visible, front} = occluder(current.meshes, paper, .01 / scale);
     const ink = inker({paper, scale, sample, visible});

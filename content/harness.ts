@@ -1,10 +1,12 @@
 // Copy for /harness. Facts come from my ~/.claude config and its git history,
-// checked on 2026-11-12. No employer, client or repo names on this page.
+// checked on 2026-11-13. No employer, client or repo names on this page.
 
 export interface HarnessLayer {
   /** Matches a part id in content/harness/drawing.ts. */
   id: string;
   name: string;
+  /** The piece of the drawing that stands for it. */
+  piece: string;
   what: string;
   why: string;
   fact: string;
@@ -30,13 +32,20 @@ export const HARNESS = {
     "The rules, guardrails, reviewers and second opinions around the AI I build with, drawn as a teardown, and the dated changes that put each one there.",
   h1: "The system around the AI is where the quality comes from.",
   lede:
-    "Anyone can prompt a model. What I bring is the harness around it: the rules it reads, the guardrails it cannot cross, the reviewers that check its work and the loop that runs it overnight. I change it most weeks, and every change starts with something that went wrong.",
-  drawingHeading: "Take it apart",
-  drawingHint: "Pick a layer to see what it does and why it is there.",
+    "Anyone can prompt a model. The model is the horse: fast, strong and always running, and on its own it goes wherever it likes. What I bring is the harness: the rules it reads, the guardrails it cannot cross, the reviewers that check its work and the loop that runs it overnight. I change it most weeks, and every change starts with something that went wrong.",
+  drawingHeading: "A strong horse needs a harness",
+  drawingHint: "Pick a piece to see which layer it stands for and why it is there.",
+  layersHeading: "The harness, piece by piece",
+  peopleHeading: "Who holds the reins",
   whyLabel: "Why it is there:",
-  explodedLabel: "Exploded",
-  assembledLabel: "Assembled",
-  drawingCaption: "Concept drawing. The model sits at the core and every other layer of the harness is a ring around it, the goal runner on the outside.",
+  pieceLabel: "In the drawing: the",
+  explodedLabel: "Taken apart",
+  assembledLabel: "In harness",
+  runLabel: "Let it run",
+  stopLabel: "Stop",
+  motionOffLabel: "Motion is off",
+  drawingCaption:
+    "Concept drawing. The horse is the model and each piece of tack is one layer of the harness. I drive, and a footman on the back keeps the job list.",
   statsHeading: "In numbers",
   changesHeading: "What changed, and why",
   changesIntro:
@@ -53,70 +62,98 @@ export const HARNESS = {
   teaserLink: "See the harness",
 } as const;
 
-/** Core outwards, matching the drawing: the model first, the goal runner last. */
+/** In the order the drawing reads: the horse, its tack, then what it pulls and passes. */
 export const HARNESS_LAYERS: readonly HarnessLayer[] = [
   {
     id: "model",
     name: "Model",
-    what: "Claude does the thinking. Three tiers: the strongest for architecture, a fast one for routine building, the cheapest for searching and sweeping.",
-    why: "Matching the model to the job keeps quality high where it matters and cost low where it does not.",
+    piece: "Horse",
+    what: "Claude does the work. Four tiers, from the strongest for planning big jobs to the cheapest for searching and sweeping.",
+    why: "A horse is strong and fast, and it will run anywhere. Matching the model to the job keeps quality high where it matters and cost low where it does not.",
     fact: "Model picks are reviewed at every release, not set once.",
-  },
-  {
-    id: "memory",
-    name: "Memory",
-    what: "A decision log, an index of what each project has learned, and a list of ideas I tried and rejected.",
-    why: "A fresh session forgets everything. Without memory it re-proposes the idea we already ruled out.",
-    fact: "Memory only records what I said or what was checked against a source, never something an email or web page claimed.",
   },
   {
     id: "rules",
     name: "Rules",
+    piece: "Blinkers",
     what: "Standing instructions the model reads before it starts: how to commit, how to handle secrets, what done means.",
-    why: "Every repeated mistake gets written down once so it never needs correcting twice.",
+    why: "Blinkers keep a horse's eyes on the road. Every repeated mistake gets written down once, so it never needs correcting twice.",
     fact: "Rules that only matter for one kind of file load only when that file is touched, so they cost nothing elsewhere.",
+  },
+  {
+    id: "memory",
+    name: "Memory",
+    piece: "Saddlebag",
+    what: "A decision log, an index of what each project has learned, and a list of ideas I tried and rejected.",
+    why: "A fresh session forgets everything. The saddlebag carries what earlier trips learned, so it never re-proposes an idea we already ruled out.",
+    fact: "Memory only records what I said or what was checked against a source, never something an email or web page claimed.",
   },
   {
     id: "skills",
     name: "Skills",
+    piece: "Collar and traces",
     what: "Written playbooks for jobs I do often: shipping a change, reviewing an interface, scoping a client process.",
-    why: "A workflow I repeat should be one file, not a long prompt I retype and get slightly wrong.",
-    fact: "76 active skills. A skill unused for 30 days gets deleted at the next audit.",
+    why: "A collar lets one horse pull a cart, a plough or a sled. A workflow I repeat should be one file, not a long prompt I retype and get slightly wrong.",
+    fact: "78 active skills. A skill unused for 30 days gets deleted at the next audit.",
   },
   {
     id: "hooks",
     name: "Guardrails",
+    piece: "Bit and reins",
     what: "Scripts that run before and after every action and block the dangerous ones outright: force pushes, production deploys, reading secret files.",
-    why: "Asking a model to be careful is not a control. Anything irreversible is blocked in code.",
-    fact: "27 guardrail scripts, each with a smoke test that proves it still fires.",
+    why: "Asking a horse to be careful is not a control. Anything that cannot be undone is stopped in code.",
+    fact: "30 guardrail scripts, each with a smoke test that proves it still fires.",
+  },
+  {
+    id: "runner",
+    name: "Goal runner",
+    piece: "Carriage",
+    what: "I write a goal with a finish line a test can check. The runner works it in its own branch, loops until the checks pass, and opens a pull request.",
+    why: "Prompting step by step was the bottleneck. Goals and loops let the work run overnight.",
+    fact: "Each goal stops at a pull request with every check green; nothing reaches a live site on its own.",
   },
   {
     id: "reviewers",
     name: "Reviewers",
+    piece: "Inspection gate",
     what: "Separate agents, each with a fresh context and one lens: correctness, security, blast radius. A judge checks their findings against the code.",
-    why: "A model reviewing its own work in the same session agrees with itself. Fresh eyes do not.",
+    why: "Every load passes under the gate. A model reviewing its own work in the same session agrees with itself; fresh eyes do not.",
     fact: "Findings default to refuted until the judge finds evidence in the code.",
   },
   {
     id: "second",
     name: "Second opinion",
+    piece: "Outside flag",
     what: "On risky changes, a model from a different company reads the diff in an empty folder and reports what it sees.",
-    why: "Two models from the same family share blind spots. A different family catches different bugs.",
+    why: "An inspector from another stable. Two models from the same family share blind spots; a different family catches different bugs.",
     fact: "Claude plus an outside model caught 56.7% of planted bugs, against 42.7% for two Claude reviewers.",
   },
+];
+
+/** The two figures in the drawing: who sets the direction and who hands out the work. */
+export const HARNESS_PEOPLE: readonly HarnessLayer[] = [
   {
-    id: "runner",
-    name: "Goal runner",
-    what: "I write a goal with a finish line a test can check. The runner works it in its own branch, loops until the checks pass, and opens a pull request.",
-    why: "Prompting step by step was the bottleneck. Goals and loops let the work run overnight.",
-    fact: "It only interrupts me for things that cannot be undone: a production deploy, a destructive database change, money.",
+    id: "me",
+    name: "Me",
+    piece: "Driver",
+    what: "I set the destination and make the calls that cannot be undone, up front, before the work starts.",
+    why: "Direction is the part a model cannot supply. Once it is set, the work runs without me steering every step.",
+    fact: "I take the reins only for production deploys, destructive database changes and money.",
+  },
+  {
+    id: "orchestrator",
+    name: "Orchestrator",
+    piece: "Footman",
+    what: "A bot that rides along: it writes up incoming jobs, sorts them and hands each one to the carriage in turn.",
+    why: "Sorting work is a job too. Handing it off means I only hear about what needs a decision.",
+    fact: "It never builds or merges anything. It files, sorts and pings me on critical calls only.",
   },
 ];
 
 export const HARNESS_STATS: readonly HarnessStat[] = [
-  { value: "318", label: "changes to the harness since 6 September 2026" },
-  { value: "27", label: "guardrail scripts that block irreversible actions" },
-  { value: "1,154", label: "second-opinion reviews logged" },
+  { value: "324", label: "changes to the harness since 6 September 2026" },
+  { value: "30", label: "guardrail scripts that block irreversible actions" },
+  { value: "1,176", label: "second-opinion reviews logged" },
   { value: "56.7%", label: "of planted bugs caught with an outside reviewer, up from 42.7%" },
 ];
 

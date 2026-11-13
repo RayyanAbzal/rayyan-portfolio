@@ -10,9 +10,11 @@ import {
   HARNESS,
   HARNESS_CHANGES,
   HARNESS_LAYERS,
+  HARNESS_PEOPLE,
   HARNESS_PRINCIPLES,
   HARNESS_STATS,
 } from "@/content/harness";
+import { HARNESS_DRAWING } from "@/content/harness/drawing";
 import harnessLd from "@/content/jsonld/harness.json";
 import harnessBreadcrumbLd from "@/content/jsonld/harness-breadcrumb.json";
 import { EMAIL } from "@/lib/site";
@@ -42,13 +44,21 @@ export default function HarnessPage() {
             </div>
             <HarnessExplorer
               layers={HARNESS_LAYERS}
+              people={HARNESS_PEOPLE}
               defaultSelected="hooks"
+              gallop={{ src: HARNESS_DRAWING.gallop.src, fillOrder: HARNESS_DRAWING.fillOrder }}
               labels={{
                 exploded: HARNESS.explodedLabel,
                 assembled: HARNESS.assembledLabel,
+                run: HARNESS.runLabel,
+                stop: HARNESS.stopLabel,
+                motionOff: HARNESS.motionOffLabel,
                 hint: HARNESS.drawingHint,
                 caption: HARNESS.drawingCaption,
                 why: HARNESS.whyLabel,
+                piece: HARNESS.pieceLabel,
+                layersHeading: HARNESS.layersHeading,
+                peopleHeading: HARNESS.peopleHeading,
               }}
             >
               <HarnessDrawing />

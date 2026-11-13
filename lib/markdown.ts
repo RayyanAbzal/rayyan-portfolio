@@ -11,7 +11,15 @@ import {
 import { AGENT_GUIDANCE } from "@/content/agent-guidance";
 import { CONTACT } from "@/content/contact";
 import { CASE_STUDIES } from "@/content/case-studies";
-import { HARNESS, HARNESS_CHANGES, HARNESS_LAYERS, HARNESS_PRINCIPLES, HARNESS_STATS } from "@/content/harness";
+import {
+  HARNESS,
+  HARNESS_CHANGES,
+  HARNESS_LAYERS,
+  HARNESS_PEOPLE,
+  HARNESS_PRINCIPLES,
+  HARNESS_STATS,
+  type HarnessLayer,
+} from "@/content/harness";
 import type { CaseBlock, CaseStudy } from "@/content/case-studies/types";
 import { PRIVACY } from "@/content/privacy";
 import { DATA_NOTE, HOME, HOME_SIDE_CARDS, OFFERS } from "@/content/home";
@@ -187,18 +195,21 @@ function privacyMarkdown(): string {
 }
 
 function harnessMarkdown(): string {
-  const layers = HARNESS_LAYERS.flatMap((layer) => [
-    `### ${layer.name}`,
+  const entry = (layer: HarnessLayer) => [
+    `### ${layer.name} (${layer.piece.toLowerCase()})`,
     layer.what,
     `${HARNESS.whyLabel} ${layer.why}`,
     layer.fact,
-  ]);
+  ];
   return join([
     `# ${HARNESS.h1}`,
     HARNESS.lede,
     `## ${HARNESS.drawingHeading}`,
     HARNESS.drawingCaption,
-    ...layers,
+    `## ${HARNESS.layersHeading}`,
+    ...HARNESS_LAYERS.flatMap(entry),
+    `## ${HARNESS.peopleHeading}`,
+    ...HARNESS_PEOPLE.flatMap(entry),
     `## ${HARNESS.statsHeading}`,
     HARNESS_STATS.map((stat) => bullet(`**${stat.value}** ${stat.label}`)).join("\n"),
     `## ${HARNESS.changesHeading}`,

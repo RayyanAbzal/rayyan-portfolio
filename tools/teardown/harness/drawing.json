@@ -4,16 +4,18 @@
   "drawings": [{
     "id": "harness",
     "title": "Agent harness",
-    "description": "Concept drawing. The model as a core, each other layer of my Claude Code harness as a ring around it. Shapes are illustrative, not physical.",
+    "description": "Concept drawing. My Claude Code harness as a horse in harness: the horse is the model, each piece of tack one layer, I drive and a footman on the back keeps the job list. Shapes are illustrative, not physical.",
     "parts": [
       {"id": "model", "name": "Model"},
-      {"id": "memory", "name": "Memory"},
-      {"id": "rules", "name": "Rules"},
       {"id": "skills", "name": "Skills"},
+      {"id": "rules", "name": "Rules"},
+      {"id": "memory", "name": "Memory"},
       {"id": "hooks", "name": "Guardrails"},
+      {"id": "runner", "name": "Goal runner"},
+      {"id": "me", "name": "Me"},
+      {"id": "orchestrator", "name": "Orchestrator"},
       {"id": "reviewers", "name": "Reviewers"},
-      {"id": "second", "name": "Second opinion"},
-      {"id": "runner", "name": "Goal runner"}
+      {"id": "second", "name": "Second opinion"}
     ],
     "parameters": []
   }]
