@@ -8,6 +8,7 @@
 @import "./styles/about.css";
 @import "./styles/case.css";
 @import "./styles/harness.css";
+@import "./styles/novelty.css";
 @import "./styles/motion.css";
 
 /* ============================================================
@@ -19,38 +20,48 @@
    ============================================================ */
 
 :root {
-  color-scheme: light;
+  color-scheme: light dark;
 
-  /* Light neutrals after jakub.kr (zero chroma, so greys never drift warm or cool);
-     the accent ramp holds hue 160. Measured WCAG 2: ink 16.3:1, ink-2 7.6:1, ink-3 5.2:1
-     on bg (4.6:1 on well); on-fill 7.9:1 on pine; pine 7.9:1 and pine-2 5.6:1 on bg;
-     warn 6.1:1 on bg; on-fill 17.5:1 on deep; ink 11.3:1 on gold. */
-  --bg: oklch(0.991 0 0);
-  --bg-2: oklch(0.973 0 0);
+  /* Zero-chroma neutrals (the novelty direction, 2026-11-13), light and dark. One green
+     hue (150) for live dots and the selected tint; one blue for focus. Fills (--pine,
+     the legacy name) are ink-coloured and flip with the scheme; --deep stays a dark
+     panel in both, so text on it uses --cream. */
+  --bg: oklch(0.985 0 0);
+  --bg-2: oklch(0.965 0 0);
+  --surface: oklch(1 0 0);
+  --sunken: oklch(0.965 0 0);
   --deep: oklch(0.2 0.03 160);
-  --paper: oklch(1 0 0);
-  --paper-2: oklch(0.973 0 0);
-  --well: oklch(0.955 0 0);
-  --sage: oklch(0.955 0 0);
+  --paper: var(--surface);
+  --paper-2: var(--sunken);
+  --well: var(--sunken);
+  --sage: var(--sunken);
   --sage-2: oklch(0.85 0 0);
-  --ink: oklch(0.235 0 0);
-  --ink-2: oklch(0.44 0 0);
-  --ink-3: oklch(0.53 0 0);
-  --line: oklch(0 0 0 / 0.09);
-  --line-2: oklch(0 0 0 / 0.22);
-  --pine: oklch(0.42 0.09 160);
-  --pine-hover: oklch(0.37 0.07 160);
-  --pine-2: oklch(0.5 0.1 160);
-  --pine-tint: oklch(0.5 0.1 160 / 0.14);
+  --ink: oklch(0.2 0 0);
+  --ink-2: oklch(0.47 0 0);
+  --ink-3: oklch(0.53 0 0); /* mock had 0.56: 4.48:1 on the ground, just under AA */
+  --line: oklch(0 0 0 / 0.08);
+  --line-2: oklch(0 0 0 / 0.14);
+  --live: oklch(0.62 0.15 150);
+  --tint: oklch(0.93 0.06 150);
+  --tint-ink: oklch(0.38 0.09 150);
+  --focus: oklch(0.55 0.15 250);
+  --pine: var(--ink);
+  --pine-hover: oklch(0.32 0 0);
+  --pine-2: var(--tint-ink);
+  --pine-tint: var(--tint);
   --gold: oklch(0.86 0.1 150);
   --gold-2: oklch(0.8 0.1 150);
   --warn: oklch(0.5 0.12 55);
-  --on-gold: oklch(0.235 0 0);
-  --on-fill: oklch(0.99 0 0);
+  --on-gold: oklch(0.2 0 0);
+  --on-fill: var(--bg);
+  /* Feature panels (principles, closing bands): dark in both schemes, so they read
+     as a weighted block on a light ground and never turn into a white slab in dark. */
+  --panel: oklch(0.2 0 0);
+  --on-panel: oklch(0.985 0 0);
 
   /* Repeated literals promoted to tokens. Channel triplets feed rgb(... / a). */
-  --cream: 252 252 252;
-  --ink-rgb: 30 30 30;
+  --cream: 250 250 250;
+  --ink-rgb: 20 20 20;
   --pine-rgb: 12 92 60;
   --ok-on-dark: #a8d5b5;
   --warn-on-dark: #e8b878;
@@ -63,12 +74,15 @@
   --r: 24px;
   --r-sm: 14px;
   --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-io: cubic-bezier(0.77, 0, 0.175, 1);
 
-  /* One shadow base (ink) for every elevation. */
-  --shadow-card: 0 1px 2px rgb(var(--ink-rgb) / 0.04), 0 8px 24px -20px rgb(var(--ink-rgb) / 0.18);
-  --shadow-frame: 0 20px 44px -20px rgb(var(--ink-rgb) / 0.35);
+  --shadow: 0 1px 2px oklch(0 0 0 / 0.05), 0 4px 16px -4px oklch(0 0 0 / 0.07);
+  --shadow-lg: 0 2px 4px oklch(0 0 0 / 0.04), 0 16px 40px -12px oklch(0 0 0 / 0.16);
+  --shadow-card: var(--shadow);
+  --shadow-frame: var(--shadow-lg);
   --shadow-toast: 0 10px 22px -8px rgb(var(--ink-rgb) / 0.5);
-  --shadow-lift: 0 24px 40px -26px rgb(var(--ink-rgb) / 0.35);
+  --shadow-lift: var(--shadow-lg);
 
   /* Sticky nav heights, used for scroll-padding-top. */
   --scroll-pad: 84px;
@@ -91,12 +105,37 @@
   --destructive: var(--warn);
   --border: var(--line);
   --input: var(--line-2);
-  --ring: var(--pine);
+  --ring: var(--focus);
   --radius: 1.5rem;
 }
 
 @media (max-width: 640px) {
   :root { --scroll-pad: 132px; }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: oklch(0.17 0 0);
+    --bg-2: oklch(0.2 0 0);
+    --surface: oklch(0.21 0 0);
+    --sunken: oklch(0.235 0 0);
+    --deep: oklch(0.23 0.03 160);
+    --sage-2: oklch(0.4 0 0);
+    --ink: oklch(0.95 0 0);
+    --ink-2: oklch(0.74 0 0);
+    --ink-3: oklch(0.66 0 0);
+    --line: oklch(1 0 0 / 0.08);
+    --line-2: oklch(1 0 0 / 0.15);
+    --tint: oklch(0.36 0.07 150);
+    --tint-ink: oklch(0.86 0.1 150);
+    --focus: oklch(0.7 0.13 250);
+    --pine-hover: oklch(0.85 0 0);
+    --panel: oklch(0.25 0 0);
+    --on-panel: oklch(0.95 0 0);
+    --ink-rgb: 0 0 0;
+    --shadow: 0 1px 2px oklch(0 0 0 / 0.4), 0 6px 20px -6px oklch(0 0 0 / 0.5);
+    --shadow-lg: 0 2px 4px oklch(0 0 0 / 0.3), 0 20px 48px -12px oklch(0 0 0 / 0.7);
+  }
 }
 
 @theme inline {
@@ -123,6 +162,8 @@
   --color-deep: var(--deep);
   --color-on-gold: var(--on-gold);
   --color-on-fill: var(--on-fill);
+  --color-panel: var(--panel);
+  --color-on-panel: var(--on-panel);
   --color-gold: var(--gold);
   --color-gold-2: var(--gold-2);
   --color-warn: var(--warn);
@@ -179,8 +220,8 @@
 
   /* Focus ring: pine on the light ground (7.5:1), gold on the deep bands. */
   :focus-visible {
-    outline: 3px solid var(--pine);
-    outline-offset: 3px;
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
     border-radius: 6px;
   }
   .cta-panel :focus-visible,
@@ -229,7 +270,7 @@
   .link {
     font-weight: 600;
     text-decoration: underline;
-    text-decoration-color: var(--pine-2);
+    text-decoration-color: var(--line-2);
     text-decoration-thickness: 2px;
     text-underline-offset: 5px;
     transition: text-decoration-color 150ms ease-out, color 150ms ease-out;
