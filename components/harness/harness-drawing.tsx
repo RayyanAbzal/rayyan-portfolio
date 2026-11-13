@@ -15,7 +15,12 @@ const FIRST = { "--i": 0 } as CSSProperties;
  *   frames are fetched on the first run and dropped into the two empty
  *   [data-gallop] groups (HarnessExplorer), which React leaves alone.
  */
-export function HarnessDrawing() {
+interface HarnessDrawingProps {
+  /** Only the assembled pose: the home teaser never shows the exploded view or its labels. */
+  assembledOnly?: boolean;
+}
+
+export function HarnessDrawing({ assembledOnly = false }: HarnessDrawingProps) {
   const { viewBox, zoom, fillOrder, labels, parts, still, gallop } = HARNESS_DRAWING;
   const fit = { "--zx": zoom.x, "--zy": zoom.y, "--zs": zoom.s } as CSSProperties;
   const slide = (dx: number, dy: number) => ({ "--dx": dx, "--dy": dy }) as CSSProperties;
@@ -24,6 +29,7 @@ export function HarnessDrawing() {
   return (
     <svg className="harness-svg" viewBox={viewBox} aria-hidden="true" focusable="false">
       <g className="harness-zoom" style={fit}>
+      {!assembledOnly && (
       <g data-state="exploded">
         {parts.map((part) => (
           <path key={part.id} data-part={part.id} data-fill="" d={part.exploded.fill} style={slide(part.dx, part.dy)} />
@@ -38,6 +44,7 @@ export function HarnessDrawing() {
         ))}
         <g className="harness-labels" dangerouslySetInnerHTML={{ __html: labels }} />
       </g>
+      )}
       <g data-state="assembled">
         <g className="frame" data-frame="0" style={FIRST}>
           {fillOrder.map((id) => (

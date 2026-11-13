@@ -83,7 +83,7 @@ export default function HomePage() {
                 <Link className="link link-arrow" href="/harness">{HARNESS.teaserLink}</Link>
               </div>
               <Link href="/harness" className="harness-teaser-art" tabIndex={-1} aria-hidden="true">
-                <HarnessDrawing />
+                <HarnessDrawing assembledOnly />
               </Link>
             </div>
           </section>

@@ -57,7 +57,8 @@ function frameMarkup(frames: GallopFrame[], fillOrder: readonly string[]) {
  */
 export function HarnessExplorer({ children, layers, people, labels, gallop, defaultSelected }: HarnessExplorerProps) {
   const [view, setView] = useState<View>("assembled");
-  const [selected, setSelected] = useState<string | null>(defaultSelected);
+  const [selected, setSelected] = useState<string>(defaultSelected);
+  const detail = useRef<HTMLDivElement>(null);
   const [pinned, setPinned] = useState(false);
   const [hovering, setHovering] = useState(false);
   const [reduced, setReduced] = useState(false);
@@ -114,7 +115,24 @@ export function HarnessExplorer({ children, layers, people, labels, gallop, defa
   function pickFromDrawing(event: MouseEvent<HTMLDivElement>) {
     const part = (event.target as Element).closest<SVGElement>("[data-part]");
     const id = part?.dataset.part;
-    if (id && id !== "ground") setSelected((current) => (current === id ? null : id));
+    if (id && id !== "ground") setSelected(id);
+  }
+
+  // On one column the card sits below the lists, so bring it into view when it is off screen.
+  function pickFromList(id: string) {
+    setSelected(id);
+    const card = detail.current;
+    if (!card) return;
+    const box = card.getBoundingClientRect();
+    if (box.top < 0 || box.top > window.innerHeight - 120) {
+      card.scrollIntoView({ block: "nearest", behavior: reduced ? "auto" : "smooth" });
+    }
+  }
+
+  function pickView(next: View) {
+    setView(next);
+    // The horse only runs in harness, so leaving it stops the run instead of leaving a stale Stop.
+    if (next === "exploded") setPinned(false);
   }
 
   const entries = [...layers, ...people];
@@ -126,7 +144,7 @@ export function HarnessExplorer({ children, layers, people, labels, gallop, defa
             type="button"
             aria-pressed={selected === item.id}
             aria-controls="harness-detail"
-            onClick={() => setSelected((current) => (current === item.id ? null : item.id))}
+            onClick={() => pickFromList(item.id)}
           >
             <span className="layer-num">{String(offset + index + 1).padStart(2, "0")}</span>
             <span className="layer-name">{item.name}</span>
@@ -141,14 +159,14 @@ export function HarnessExplorer({ children, layers, people, labels, gallop, defa
     <div
       className="harness-explorer"
       data-view={view}
-      data-selected={selected ?? undefined}
+      data-selected={selected}
       data-running={running ? "" : undefined}
     >
       <figure className="harness-stage">
         <div className="harness-bar">
           <div className="harness-toggle" role="group" aria-label="Drawing view">
             {(["assembled", "exploded"] as const).map((option) => (
-              <button key={option} type="button" aria-pressed={view === option} onClick={() => setView(option)}>
+              <button key={option} type="button" aria-pressed={view === option} onClick={() => pickView(option)}>
                 {labels[option]}
               </button>
             ))}
@@ -156,7 +174,7 @@ export function HarnessExplorer({ children, layers, people, labels, gallop, defa
           <button
             type="button"
             className="harness-run"
-            aria-pressed={pinned && !reduced}
+            data-on={pinned && !reduced ? "" : undefined}
             disabled={reduced}
             onClick={toggleRun}
           >
@@ -183,7 +201,7 @@ export function HarnessExplorer({ children, layers, people, labels, gallop, defa
         <h3 className="harness-list-head">{labels.peopleHeading}</h3>
         {list(people, layers.length)}
         {/* Every entry ships in the HTML; only the selected one is shown. */}
-        <div id="harness-detail" className="harness-detail" aria-live="polite">
+        <div ref={detail} id="harness-detail" className="harness-detail" aria-live="polite">
           {entries.map((item) => (
             <div key={item.id} hidden={item.id !== selected}>
               <p className="harness-piece">{labels.piece} {item.piece.toLowerCase()}</p>

@@ -33,7 +33,7 @@
     background: var(--pine);
     color: var(--paper);
   }
-  .harness-run[aria-pressed="true"] { background: var(--ink); }
+  .harness-run[data-on] { background: var(--ink); }
   .harness-run:disabled { background: var(--well); color: var(--ink-3); cursor: default; }
   .harness-toggle { display: inline-flex; align-self: flex-start; padding: 4px; gap: 4px; background: var(--well); border-radius: 999px; }
   .harness-toggle button {
@@ -131,7 +131,7 @@
     box-shadow: 0 0 0 1px var(--ink);
   }
 
-  .harness-detail { background: var(--paper); border: 1px solid var(--line); border-radius: var(--r); padding: clamp(20px, 2.5vw, 28px); }
+  .harness-detail { scroll-margin: 96px 0 24px; background: var(--paper); border: 1px solid var(--line); border-radius: var(--r); padding: clamp(20px, 2.5vw, 28px); }
   .harness-detail .harness-piece { margin-top: 0; font-size: 0.875rem; font-weight: 600; color: var(--ink-3); }
   .harness-detail h3 { font-size: 1.375rem; font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; }
   .harness-detail h3 { margin-top: 4px; }
@@ -143,6 +143,10 @@
     .harness-panel { grid-template-columns: minmax(0, 1fr); }
     .harness-panel > .harness-detail { grid-column: 1; grid-row: auto; position: static; }
     .harness-svg { max-height: 60vh; }
+  }
+  /* Labels shrink below reading size on phones; the list names every piece instead. */
+  @media (max-width: 640px) {
+    .harness-svg .harness-labels { display: none; }
   }
 
   /* ---------- numbers ---------- */
