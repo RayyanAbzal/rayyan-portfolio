@@ -1,172 +1,131 @@
 ---
 name: rayyanabzal.com
-description: A quiet room with one loud sentence. Near-white warm ground, white cards on a hairline, pine buttons, one gold marker.
+description: A quiet room with one loud sentence. Zero-chroma neutrals in light and dark, one green hue for live and selected, blue only for focus. Home shows the work moving; inner pages stay calm.
 colors:
-  stone: "#f5f3ee"
-  stone-deep: "#ebe8e1"
-  paper: "#fffdf9"
-  paper-deep: "#f6f4ef"
-  well: "#e6ebe3"
-  sage: "#dde7da"
-  sage-deep: "#c9d8c5"
-  ink: "#17150f"
-  ink-soft: "#45413a"
-  ink-muted: "#5c574f"
-  line: "rgba(23, 21, 15, 0.1)"
-  line-strong: "rgba(23, 21, 15, 0.18)"
-  pine: "#1f3d2b"
-  pine-bright: "#2f5e3e"
-  pine-tint: "rgba(47, 94, 62, 0.12)"
-  gold: "#f3c94a"
-  gold-deep: "#e0b12e"
+  bg: "oklch(0.985 0 0)"
+  bg-dark: "oklch(0.17 0 0)"
+  surface: "oklch(1 0 0)"
+  surface-dark: "oklch(0.21 0 0)"
+  sunken: "oklch(0.965 0 0)"
+  sunken-dark: "oklch(0.235 0 0)"
+  ink: "oklch(0.2 0 0)"
+  ink-dark: "oklch(0.95 0 0)"
+  ink-2: "oklch(0.47 0 0)"
+  ink-2-dark: "oklch(0.74 0 0)"
+  ink-3: "oklch(0.53 0 0)"
+  ink-3-dark: "oklch(0.66 0 0)"
+  line: "oklch(0 0 0 / 0.08)"
+  line-2: "oklch(0 0 0 / 0.14)"
+  panel: "oklch(0.2 0 0)"
+  panel-dark: "oklch(0.25 0 0)"
+  on-panel: "oklch(0.985 0 0)"
+  on-panel-dark: "oklch(0.95 0 0)"
+  live: "oklch(0.62 0.15 150)"
+  tint: "oklch(0.93 0.06 150)"
+  tint-dark: "oklch(0.36 0.07 150)"
+  tint-ink: "oklch(0.38 0.09 150)"
+  tint-ink-dark: "oklch(0.86 0.1 150)"
+  focus: "oklch(0.55 0.15 250)"
+  focus-dark: "oklch(0.7 0.13 250)"
+  warn: "oklch(0.5 0.12 55)"
 typography:
   display:
-    fontFamily: "Inter Tight, Helvetica Neue, Arial, system-ui, sans-serif"
-    fontSize: "clamp(44px, 7.2vw, 96px)"
-    fontWeight: 700
-    lineHeight: 0.96
-    letterSpacing: "-0.035em"
-  display-case:
-    fontFamily: "Inter Tight, Helvetica Neue, Arial, system-ui, sans-serif"
-    fontSize: "clamp(48px, 9vw, 124px)"
-    fontWeight: 700
-    lineHeight: 0.96
-    letterSpacing: "-0.035em"
-  headline:
-    fontFamily: "Inter Tight, Helvetica Neue, Arial, system-ui, sans-serif"
+    fontFamily: "Open Runde, Inter, system-ui, Helvetica Neue, Arial, sans-serif"
     fontSize: "clamp(34px, 4.6vw, 56px)"
     fontWeight: 700
     lineHeight: 1.02
-    letterSpacing: "-0.035em"
-  headline-block:
-    fontFamily: "Inter Tight, Helvetica Neue, Arial, system-ui, sans-serif"
-    fontSize: "clamp(26px, 3.2vw, 38px)"
-    fontWeight: 700
-    lineHeight: 1.05
     letterSpacing: "-0.03em"
-  title:
-    fontFamily: "Inter Tight, Helvetica Neue, Arial, system-ui, sans-serif"
-    fontSize: "24px"
-    fontWeight: 700
-    lineHeight: 1.1
-    letterSpacing: "-0.025em"
+  hero-sentence:
+    fontFamily: "Open Runde, Inter, system-ui, Helvetica Neue, Arial, sans-serif"
+    fontSize: "22px"
+    fontWeight: 500
+    lineHeight: 1.45
+    letterSpacing: "-0.012em"
   lede:
-    fontFamily: "Inter Tight, Helvetica Neue, Arial, system-ui, sans-serif"
+    fontFamily: "Open Runde, Inter, system-ui, Helvetica Neue, Arial, sans-serif"
     fontSize: "clamp(18px, 1.6vw, 21px)"
     fontWeight: 400
     lineHeight: 1.5
   body:
-    fontFamily: "Inter Tight, Helvetica Neue, Arial, system-ui, sans-serif"
+    fontFamily: "Open Runde, Inter, system-ui, Helvetica Neue, Arial, sans-serif"
     fontSize: "17px"
     fontWeight: 400
     lineHeight: 1.55
-  body-small:
-    fontFamily: "Inter Tight, Helvetica Neue, Arial, system-ui, sans-serif"
-    fontSize: "16px"
+  body-home:
+    fontFamily: "Open Runde, Inter, system-ui, Helvetica Neue, Arial, sans-serif"
+    fontSize: "15.5px"
     fontWeight: 400
-    lineHeight: 1.55
-  value:
-    fontFamily: "Inter Tight, Helvetica Neue, Arial, system-ui, sans-serif"
-    fontSize: "17px"
-    fontWeight: 700
-    letterSpacing: "-0.015em"
+    lineHeight: 1.6
+  row-label:
+    fontFamily: "Open Runde, Inter, system-ui, Helvetica Neue, Arial, sans-serif"
+    fontSize: "14.5px"
+    fontWeight: 400
+    lineHeight: 1.6
   note:
-    fontFamily: "Inter Tight, Helvetica Neue, Arial, system-ui, sans-serif"
-    fontSize: "14px"
+    fontFamily: "Open Runde, Inter, system-ui, Helvetica Neue, Arial, sans-serif"
+    fontSize: "13.5px"
     fontWeight: 400
   data:
-    fontFamily: "Inter Tight, Helvetica Neue, Arial, system-ui, sans-serif"
-    fontSize: "12px"
+    fontFamily: "Open Runde, Inter, system-ui, Helvetica Neue, Arial, sans-serif"
+    fontSize: "12.5px"
     fontWeight: 400
-    lineHeight: 1.3
+    lineHeight: 1.35
 rounded:
-  pill: "999px"
-  panel: "32px"
   surface: "24px"
-  surface-sm: "20px"
-  cell: "18px"
-  frame: "12px"
-  focus: "6px"
+  plate: "14px"
+  stage: "16px"
+  panel: "12px"
+  control: "10px"
+  step: "10px"
+  pill: "999px"
 spacing:
   gutter: "clamp(20px, 3vw, 24px)"
-  section: "clamp(64px, 8vw, 112px)"
-  section-tight: "clamp(24px, 3vw, 40px)"
-  section-head: "clamp(32px, 4vw, 48px)"
-  grid-gap: "24px"
-  card-body: "26px 28px 28px"
-  surface-pad: "30px"
-  panel-pad: "clamp(40px, 7vw, 96px) clamp(24px, 6vw, 88px)"
-  nav-height: "70px"
+  section-y: "clamp(56px, 6vw, 80px)"
+  row-y: "40px"
+  row-label-col: "132px"
+  home-gap: "48px"
   max-width: "1200px"
 components:
-  button-primary:
-    backgroundColor: "{colors.pine}"
-    textColor: "{colors.paper}"
-    rounded: "{rounded.pill}"
-    padding: "15px 26px"
-    typography: "{typography.body-small}"
-  button-primary-hover:
-    backgroundColor: "{colors.pine-bright}"
-    textColor: "{colors.paper}"
-  button-gold:
-    backgroundColor: "{colors.gold}"
-    textColor: "{colors.ink}"
-    rounded: "{rounded.pill}"
-    padding: "15px 26px"
-  button-gold-hover:
-    backgroundColor: "{colors.gold-deep}"
-    textColor: "{colors.ink}"
-  button-light:
-    backgroundColor: "{colors.paper}"
-    textColor: "{colors.ink}"
-    rounded: "{rounded.pill}"
-    padding: "15px 26px"
-  button-nav:
-    backgroundColor: "{colors.pine}"
-    textColor: "{colors.paper}"
-    rounded: "{rounded.pill}"
-    padding: "12px 20px"
-  card:
-    backgroundColor: "{colors.paper}"
-    textColor: "{colors.ink}"
-    rounded: "{rounded.surface}"
-    padding: "{spacing.card-body}"
-  offer:
-    backgroundColor: "{colors.paper}"
-    textColor: "{colors.ink}"
-    rounded: "{rounded.surface}"
-    padding: "{spacing.surface-pad}"
-  side-card:
-    backgroundColor: "{colors.paper}"
-    textColor: "{colors.ink}"
-    rounded: "{rounded.surface-sm}"
-    padding: "22px 24px"
-  hero-panel:
-    backgroundColor: "{colors.sage}"
-    textColor: "{colors.ink}"
-    rounded: "{rounded.panel}"
-    padding: "{spacing.panel-pad}"
-  cta-panel:
-    backgroundColor: "{colors.pine}"
-    textColor: "{colors.paper}"
-    rounded: "{rounded.panel}"
-    padding: "clamp(40px, 6vw, 80px) clamp(24px, 6vw, 88px)"
-  chip:
-    backgroundColor: "{colors.stone}"
-    textColor: "{colors.ink-soft}"
-    rounded: "{rounded.pill}"
-    padding: "6px 12px"
-    typography: "{typography.note}"
-  mobile-nav-pill:
-    backgroundColor: "{colors.paper}"
-    textColor: "{colors.ink-soft}"
-    rounded: "{rounded.pill}"
-    padding: "6px 12px"
-  mobile-nav-pill-current:
+  button-default:
     backgroundColor: "{colors.ink}"
-    textColor: "{colors.paper}"
-    rounded: "{rounded.pill}"
-    padding: "6px 12px"
+    textColor: "{colors.bg}"
+    rounded: "{rounded.control}"
+    padding: "10px 16px"
+    height: "40px"
+  button-outline:
+    backgroundColor: "{colors.surface}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.control}"
+    padding: "10px 16px"
+    height: "40px"
+  button-inverse:
+    backgroundColor: "{colors.on-panel}"
+    textColor: "{colors.panel}"
+    rounded: "{rounded.control}"
+    padding: "10px 16px"
+    height: "40px"
+  mini-panel:
+    backgroundColor: "{colors.surface}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.panel}"
+  teardown-card:
+    backgroundColor: "{colors.surface}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.panel}"
+    padding: "14px 16px"
+  offer-stage:
+    backgroundColor: "{colors.sunken}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.stage}"
+  work-plate:
+    backgroundColor: "{colors.surface}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.plate}"
+    padding: "14px"
+  feature-panel:
+    backgroundColor: "{colors.panel}"
+    textColor: "{colors.on-panel}"
+    rounded: "{rounded.surface}"
 ---
 
 # Design System: rayyanabzal.com
@@ -175,203 +134,160 @@ components:
 
 **Creative North Star: "A Quiet Room with One Loud Sentence"**
 
-The site is a single-person AI engineering practice in Auckland, and the visual system is built so that one headline does the talking and everything else stays out of its way. The page ground is a near-white warm stone, every content block is a large rounded white surface on a hairline border set on that ground, and the only colour that ever raises its voice is a kowhai gold marker drawn behind a few words. Buttons are pine-dark pills. Type is one family, Inter Tight, set tight and heavy for headlines and plain for everything else, and the same face carries the synthetic product data with tabular numerals. There are few elements per view, and each view is meant to be read in one glance before the eye moves down.
+A single-person AI engineering practice in Auckland. The ground is zero-chroma grey, after jakub.kr: near-white in light, near-black in dark, switched by `prefers-color-scheme` with no toggle. Chroma is spent in two places only. One green hue (150) marks live state and the selected tint. One blue marks keyboard focus. Everything else, including the primary button, is ink.
 
-This world deliberately refuses the "terminal dashboard" arrangement the old site used: no monospace anywhere, no grid texture, no status pills, no at-a-glance tables. Where product needs to be shown, it is drawn as a CSS schematic with representative data, disclosed on the page as such, never as a client screenshot. The one dark surface on the whole site is the case-study preview panel, and it exists only to hold that synthetic product data.
+The home page shows the work moving. A teardown hero puts a draggable exploded drawing of the AI harness beside one plain sentence. The client builds are an exploded stack of three plates (data, logic, interface) that tilts and swaps per project. The offers are living scenes that play a short loop on select. Inner pages (work, case, about, contact, privacy) stay calm: static, hairline-ruled, no entrance motion beyond the card grids.
 
-The structure follows the calm, image-led rhythm of the pinned reference (bencium.io) in Rayyan's own materials. The hero panel is the memorable moment: one giant tight headline on a soft sage field with a single pine pill, then the four project schematics peeking under the fold.
+This replaces the earlier warm stone, pine-green and kowhai-gold world. None of those values survive in the build; the legacy token names (`pine`, `pine-2`, `gold`, `sage`, `well`) are kept as aliases so older CSS still resolves, and they now point at the neutrals and the green tint.
 
 **Key Characteristics:**
-- Near-white warm ground with white surfaces at 24px radius on a 1px hairline; the hero panel is the only sage field, the schematic well is a sage-grey step below it
-- Pine pill buttons everywhere, gold pill only on a pine field
-- Gold appears as a marker highlight behind at most one phrase per page, a link underline, and the CTA pill on pine; never as a fill for a surface and never as a glow
-- One typeface at four weights; display type at -0.035em, body at 17px
-- A hairline and a faint 1px shadow at rest; hover darkens the hairline and shows the title arrow, nothing lifts
-- No monospace; schematic and preview data is the body face at 12.5px with tabular numerals
-- No eyebrows, kickers, or uppercase tracked labels in the UI chrome
+- Zero-chroma ground, surface and sunken steps; text in three inks (ink, ink-2, ink-3)
+- Hairline edges (`--line`, `--line-2`) instead of borders; a soft two-layer shadow only on drawn product
+- One green hue (150) for live dots, selected tint and the mark; blue (250) only for focus
+- Fills are ink-coloured and flip with the scheme; feature panels are dark in both schemes
+- One typeface, Open Runde, 400 to 700; the same face with tabular numerals carries all drawn data
+- Press feedback is scale only (0.96 to 0.97); hover is opacity or a sunken wash
 
 ## Colors
 
-A warm neutral ground with two greens (a dark pine for action, a soft sage for the hero) and a single kowhai gold as the accent.
-
-### Primary
-- **Pine** (`pine`): the action colour. Every pill button, the closing CTA panel, the case-study booking panel, the initials mark on the About page, and the signature dot beside the name in the nav. Pine is the brand's surviving accent from the previous site.
-- **Pine Bright** (`pine-bright`): button hover state, the highlighted word in a case-study title, live indicators and progress bars inside schematics.
-- **Pine Tint** (`pine-tint`): a 12% pine wash for the highlighted row in a schematic table and the area fill under the schematic chart. Never used outside schematics.
-
-### Secondary
-- **Kowhai Gold** (`gold`): the one loud colour. Drawn behind a few words as a marker (`.mark`), the underline on every text link, the underline on the current nav item, text selection, and the `.btn-gold` pill that sits on pine fields. It also appears as a soft radial glow bleeding into the corner of the hero panel and the CTA panel at 22 to 28% opacity.
-- **Gold Deep** (`gold-deep`): gold button hover, the focus ring, and the moving runner dot in the flow schematic.
-
-### Tertiary
-- **Well** (`well`): the sage-grey bed behind every card schematic, one clear step darker than the ground so the card frame reads as a window, not as page.
-- **Sage** (`sage`): the hero panel field, the only sage surface on the site. Also the scrollbar thumb through `sage-deep`.
-- **Sage Deep** (`sage-deep`): the large step numbers in the process block, where a big numeral needs to sit back from the text.
+Neutral by construction. All values are in `app/globals.css` `:root`; the dark block overrides only the values that must change.
 
 ### Neutral
-- **Stone** (`stone`): the near-white page ground on every page and the nav background at 84% with a 14px blur.
-- **Stone Deep** (`stone-deep`): chip fill on the case stack list and the mobile nav pill border ground.
-- **Paper** (`paper`): warm near-white, every content surface (cards, offers, steps, quotes, FAQ, side cards, case blocks, case nav) and the text colour on pine.
-- **Paper Deep** (`paper-deep`): flow nodes inside schematics.
-- **Ink** (`ink`): headline and body text, the current mobile nav pill, the schematic toast, and the case preview panel ground.
-- **Ink Soft** (`ink-soft`): ledes, card copy, prose paragraphs, nav links, quote attribution.
-- **Ink Muted** (`ink-muted`): the quietest legible text (data notes, footer, side labels, case nav labels, stat labels). Set to 5c574f so it clears 4.5:1 on both stone and white. It is only ever used on those two surfaces.
-- **Line** (`line`) and **Line Strong** (`line-strong`): hairline dividers (FAQ rows, stat separators, nav bottom border), the 1px border on every white surface and on the schematic frame, and the border on `.btn-light` and schematic nodes.
+- **Bg** (`--bg`, `oklch(0.985 0 0)`; dark `0.17`): page ground, nav ground, the on-fill text colour.
+- **Bg 2** (`--bg-2`, `0.965`; dark `0.2`): muted fill.
+- **Surface** (`--surface`, `oklch(1 0 0)`; dark `0.21`): cards, mini panels, plates, steps, tooltips. Aliased as `paper`.
+- **Sunken** (`--sunken`, `0.965`; dark `0.235`): the bed behind drawn product, the active list row, the offer stage. Aliased as `well`, `sage`, `paper-2`.
+- **Ink** (`--ink`, `0.2`; dark `0.95`): headlines, body, filled buttons (`--pine` aliases ink).
+- **Ink 2** (`--ink-2`, `0.47`; dark `0.74`): ledes, card copy, quote attribution.
+- **Ink 3** (`--ink-3`, `0.53`; dark `0.66`): the quietest legible text (row labels, hints, notes). Held at 0.53 because 0.56 measured 4.48:1 on the ground, just under AA.
+- **Line** (`--line`, `oklch(0 0 0 / 0.08)`) and **Line 2** (`0.14`; dark uses white at 0.08 and 0.15): hairline rules between rows, inset edges on surfaces, resting fill of bars and meters.
+
+### Green (hue 150)
+- **Live** (`--live`, `oklch(0.62 0.15 150)`): the status dot (7px with an 18% halo) and the underline of a pressed offer pick. Never a fill for a surface.
+- **Tint** (`--tint`, `0.93 0.06 150`; dark `0.36 0.07 150`): highlighted table rows and suggested rows at 45 to 55% mix; the selected drawing part.
+- **Tint ink** (`--tint-ink`, `0.38 0.09 150`; dark `0.86 0.1 150`): text on tint. Aliased as `pine-2`.
+- **Gold** (legacy name, `oklch(0.86 0.1 150)`) and **Gold 2** (`0.8 0.1 150`): a soft green, kept for `.mark`, text selection and the focus ring on dark bands. Not yellow.
+
+### Blue (hue 250)
+- **Focus** (`--focus`, `oklch(0.55 0.15 250)`; dark `0.7 0.13 250`): the only blue. 2px outline, 2px offset, 6px radius on every `:focus-visible`; inside dark bands the ring switches to the green gold.
+
+### Panels
+- **Panel** (`--panel`, `oklch(0.2 0 0)`; dark `0.25`) and **On panel** (`oklch(0.985 0 0)`; dark `0.95`): the feature panels (principles, closing bands). Dark in both schemes so a weighted block never turns into a white slab in dark mode.
+- **Deep** (`--deep`, `oklch(0.2 0.03 160)`; dark `0.23`): the case-preview ground, a faintly green near-black. Text on it uses `--cream` (250 250 250); status colours on it are `--ok-on-dark` and `--warn-on-dark`.
+- **Warn** (`--warn`, `oklch(0.5 0.12 55)`): destructive and caution text. Rare.
 
 ### Named Rules
-**The One Loud Colour Rule.** Gold is a marker, an underline, and a glow. It is never the background of a card, panel, or section. The only gold-filled shape is a pill button, and that pill exists only on a pine field.
+**The Two Hues Rule.** Green (150) means live or selected. Blue (250) means focus. No other hue is introduced, and neither is used as a decorative fill.
 
-**The Pine Pill Rule.** Every pill button is pine (`.btn`). On a pine field (the CTA panel, the case CTA) the pill switches to gold (`.btn-gold`) for contrast. `.btn-light` (paper with a hairline border) is the secondary choice beside a pine pill, used on the 404 page.
+**The Ink Fill Rule.** The primary button and every solid control is ink on bg and flips with the scheme. Colour is never the signal that something is clickable.
 
-**The One Sage Field Rule.** The hero panel is the only sage surface. Sections sit directly on the stone ground; there is no full-bleed tint band.
-
-**The Coloured Surface Rule.** On pine or ink, text is paper or paper at reduced opacity (78%, 75%, 70%). Grey text (`ink-muted`, `ink-soft`) never sits on a coloured surface.
+**The Panel Text Rule.** On `--panel` or `--deep`, text is `--on-panel` or `--cream` at reduced opacity. Grey ink tokens never sit on a dark panel.
 
 ## Typography
 
-**Display Font:** Inter Tight (with Helvetica Neue, Arial, system-ui)
-**Body Font:** Inter Tight (same family)
-**Data Font:** Inter Tight with tabular numerals (schematics and case preview)
-
-**Character:** One neutral, tightly spaced grotesque doing every job, with `cv11` and `ss03` on for the single-storey a and the open shapes. Headlines are heavy and pulled tight so they read as one object; body copy is the same face at 400, sized generously at 17px so the site never feels small. The family is self-hosted from `app/fonts/` through `next/font/local` as two variable WOFF2 files (latin, latin-ext; OFL) at weights 400 to 700, no optical size axis, with `font-display: swap`, the latin file preloaded on every page.
+**Family:** Open Runde (OFL 1.1), self-hosted static WOFF2 in `app/fonts/` through `next/font/local`, weights 400, 500, 600, 700, subset to latin, latin-ext A and macrons. Fallbacks: Inter, system-ui, Helvetica Neue, Arial. `cv11` and `ss03` on. Data uses the same face (`--data: var(--font)`) with `font-variant-numeric: tabular-nums`.
 
 ### Hierarchy
-- **Display** (700, `clamp(44px, 7.2vw, 96px)`, line-height 0.96, -0.035em): the hero headline on Home, capped at 13ch so it breaks into two lines. Balanced wrapping.
-- **Display, case** (700, `clamp(48px, 9vw, 124px)`, line-height 0.96, -0.035em): the case-study title, capped at 12ch, one word coloured pine-bright.
-- **Headline** (700, `clamp(34px, 4.6vw, 56px)`, line-height 1.02, -0.035em): section headings on every page and the CTA panel heading. Usually four to six words, sometimes with one gold-marked phrase.
-- **Headline, block** (700, `clamp(26px, 3.2vw, 38px)`, line-height 1.05, -0.03em): case-study block headings in the left column of a case block.
-- **Title** (700, 24px, line-height 1.1, -0.025em): card and offer headings, prose subheads on About. Steps use 20px at the same weight; case nav targets use 21px.
-- **Lede** (400, `clamp(18px, 1.6vw, 21px)`, line-height 1.5, ink-soft, max 58ch): the paragraph under every display or headline. The case summary is the larger cousin at `clamp(19px, 2vw, 25px)` and 52ch.
-- **Body** (400, 17px, line-height 1.55): the base size. About prose runs `clamp(17px, 1.35vw, 19px)` at 1.6 and 62ch; card and offer copy drops to 16px; FAQ answers 16.5px at 65ch.
-- **Outcome** (600, 15px, pine-deep): the one-line result at the bottom of a project card, real numbers from the case study. The card title grows a small arrow on hover; there is no "read more" link.
-- **Value** (700, 17px, -0.015em): the bold opening line of a side card. The case facts line uses 600 at 16px with middle-dot separators. This is the only "label" the chrome has: a bold value, then a plain sentence beneath it.
-- **Note** (400, 14px, ink-muted): data disclosures, stat labels, footer, and the small labels above case nav targets (13.5px, 500).
-- **Quote** (500, `clamp(19px, 1.8vw, 24px)`, line-height 1.4, -0.015em): testimonial body, with one phrase in a gold mark at 600. In a three-up row the quote drops to 17.5px.
-- **Data** (400, 12.5px, line-height 1.3, tabular numerals): synthetic product data inside `.card-visual`. Inside `.case-preview` it runs 13.5px at 1.6. Column headers in both may be uppercase and tracked, because that is what the drawn products look like.
+- **Display** (700, `clamp(34px, 4.6vw, 56px)`, 1.02, -0.03em): `h2.display` section headings on inner pages and the closing band.
+- **Hero sentence** (500, 22px, 1.45, -0.012em, max 30ch): the home h1. Headline words in ink, the rest in `.soft` (ink-2). It is a sentence, not a display headline; the loudness comes from the room around it.
+- **Lede** (400, `clamp(18px, 1.6vw, 21px)`, 1.5, ink-2, max 58ch): inner-page intros.
+- **Body** (400, 17px, 1.55): base on inner pages. Home scopes `.home-n` down to 15.5px at 1.6.
+- **Row label** (400, 14.5px, ink-3): the quiet left-column heading of each home row. Sentence case, no tracking.
+- **Name and value** (500): project names, step labels, `b` lines in cards. 600 is for links and inner-page headings; 700 for display only.
+- **Note** (400, 13.5px, ink-3): hints and disclosures. Footer text on the home closing row is 14.5px.
+- **Data** (400, 12.5px, 1.35, tabular): drawn product inside `.panel`, 11.5px for headers, 10.5px inside the exploded interface plate.
 
 ### Named Rules
-**The No Kicker Rule.** No eyebrow, kicker, overline, or uppercase tracked label above any heading in the UI chrome. A section opens on its headline. A side card opens on a bold value line; a case page states its facts in one bold line. The only uppercase tracked text on the site is column headers inside a drawn schematic or the case preview, where it is product data.
+**The Weight Ladder Rule.** Four weights exist (400, 500, 600, 700). There are no in-between weights and no weight is synthesised.
 
-**The Data Face Rule.** There is no monospace on the site. Synthetic product data inside `.card-visual` and `.case-preview` is the body face with `font-variant-numeric: tabular-nums`, so columns align without reading as a terminal.
+**The No Kicker Rule.** No eyebrow, kicker or overline above a heading. A section opens on its row label or its headline.
 
-**The One Mark Rule.** A page carries at most one gold-marked phrase: the hero "AI" on Home, one phrase in the Home quote. Page titles, CTA panels, and the About quotes are plain ink.
+**The Data Face Rule.** Drawn product is the body face with tabular numerals. No second family for data.
 
 ## Layout
 
-A single centred column, max width 1200px, with a fluid gutter of `clamp(20px, 3vw, 24px)`. Sections stack vertically with `clamp(64px, 8vw, 112px)` of padding top and bottom, so at desktop widths roughly 112px separates one section from the next. Two exceptions to that rhythm are deliberate:
+One centred column, max 1200px, fluid gutter `clamp(20px, 3vw, 24px)`. Inner pages stack sections at `--section-y` (`clamp(56px, 6vw, 80px)`) with `.has-rule` hairlines.
 
-- The hero-to-"Outcomes" gap is tight on purpose. The hero section carries only 12px of bottom padding and the section after it only 12px of top padding, with its section head compressed to a 24px margin. This puts the first two project cards under a 900px fold, per the contract's first viewport.
-- `section.tight` (the single testimonial on Home) reduces top padding to `clamp(24px, 3vw, 40px)`.
+Home is a stack of rows. Each `section.row` is a 132px label column plus content, 24px gap, 40px vertical padding, a 1px `--line` rule on top; below 640px the label stacks above the content at a 14px gap. The hero is the exception: lede left, drawing right at `minmax(0, 420px)`, 56px gap, 72px top and 56px bottom padding, and the copy column drops 120px so the sentence sits level with the middle of the drawing. At 860px the hero stacks and the offset is removed.
 
-Inside a section, the section head is a column with an 18px gap between headline and lede, and `clamp(32px, 4vw, 48px)` below it. The head row can carry a text link on the right, aligned to the baseline of the headline.
+Home grids: exploded work is 1fr / 1.15fr at 48px; offers are 1fr / 380px at 48px (the scene moves above the list at 860px). Below 1100px the work legend becomes a wrapped row under the stage; at 860px the stage moves above the list.
 
-Grids are simple: two columns for project cards, three for offers and testimonials, four for process steps. Every grid gap is 24px (steps use 32px inside their shared paper block). At 860px and below, two- and three-column grids collapse to one column; the steps grid goes to two columns at 860px and one at 520px; the testimonial row goes to one column at 960px. The About page splits 1.3fr / 0.9fr (prose left, side cards right) with a `clamp(32px, 5vw, 72px)` gap, collapsing at 860px.
-
-The nav is a sticky 70px bar (62px on mobile) on a three-column grid: name left, three links centred, pine pill right. At 640px and below the centre links vanish and a row of paper pills (`.mobile-nav`) appears beneath the bar instead. A sticky mobile CTA, a full-width pine pill inset 16px from the viewport edges, slides up once the visitor has scrolled past a chosen section and hides while the closing CTA is in view. It is a direct child of `body`, positioned with `translate3d`, which is what keeps `position: fixed` stable on iOS Safari.
-
-Case pages follow the same column: back link, giant title, summary, one bold facts line (client, role, window, status separated by middle dots), then a stack of paper case blocks with a 20px gap, the dark preview panel first so the page shows its picture before its prose. Each case block body is a 1fr / 1.4fr grid with the heading left and prose right, no row gap so consecutive paragraphs keep their 14px spacing, collapsing at 820px. The closing CTA and prev/next nav sit `clamp(48px, 7vw, 80px)` below.
+Nav is name (home), Projects, About, Book a call as text links with `aria-current="page"` on the current page. A skip link is first in the body. A sticky mobile book bar is a direct child of the page, shown after `#services` and hidden at `#contact`.
 
 ## Elevation & Depth
 
-Depth is tonal first and shadowed second. Surfaces are paper on stone, and that value step is what separates a card from the page; at rest nothing casts a shadow except a one-pixel hairline under a pill button (`0 1px 0 rgba(23,21,15,0.04)`) and the drawn device frame inside a schematic. Shadows appear as a response to hover, always paired with a small upward translate, and always soft: large blur, large negative spread, so they read as ambient lift rather than a hard drop.
+Tonal first. Surface on ground, sunken inside surface. Two shadow tokens only:
+- **Shadow** (`0 1px 2px oklch(0 0 0 / 0.05), 0 4px 16px -4px oklch(0 0 0 / 0.07)`): default buttons, mini panels, the teardown card. Dark: stronger black at 0.4 and 0.5.
+- **Shadow large** (`0 2px 4px oklch(0 0 0 / 0.04), 0 16px 40px -12px oklch(0 0 0 / 0.16)`): the "automated" card in the offers scene and the device frame in case previews. Dark: 0.3 and 0.7.
+- **Plate edge** (`0 30px 40px -24px oklch(0 0 0 / 0.25)` plus a 1px `--line-2` inset): the exploded work plates, which need to separate from each other in depth.
 
-### Shadow Vocabulary
-- **Button lift** (`box-shadow: 0 14px 28px -16px rgba(31,61,43,0.6)`): pine pill on hover, with `translateY(-2px)`. Gold pills use the same shape in gold (`rgba(224,177,46,0.6)`); light pills use ink at 0.35 with -18px spread.
-- **Card lift** (`box-shadow: 0 30px 50px -30px rgba(23,21,15,0.35)`): project card on hover, with `translateY(-4px)`. Case nav cards use `0 24px 40px -26px` at the same colour with `translateY(-3px)`.
-- **Device frame** (`box-shadow: 0 20px 44px -22px rgba(23,21,15,0.45)`): the paper frame inside a card schematic, at rest. This is the one resting shadow, and it is inside the drawn product, not on the chrome. On card hover the frame rises a further 6px.
-- **Floating CTA** (`box-shadow: 0 16px 32px -14px rgba(31,61,43,0.7)`): the sticky mobile pill, which needs to separate from whatever scrolls beneath it.
-- **Toast** (`box-shadow: 0 10px 22px -8px rgba(23,21,15,0.5)`): the ink toast that fades in inside a schematic on hover.
-
-The nav gains depth by translucency instead: stone at 82% with a 14px backdrop blur and a hairline bottom border.
+Edges are drawn with `inset 0 0 0 1px var(--line)` so they cost no layout.
 
 ### Named Rules
-**The Flat-At-Rest Rule.** Chrome surfaces cast no shadow at rest. A shadow is a hover response, paired with a translate, and it is removed entirely under `prefers-reduced-motion`.
+**The Soft Shadow Rule.** Large blur, negative spread, never black at full strength. No hard offset shadows.
 
-**The Soft Lift Rule.** Every shadow uses a large blur and a negative spread at least half the blur, tinted with ink or pine, never black. No hard offset shadows anywhere.
+**The Hairline Rule.** Edges are 1px `--line` or `--line-2`. No heavier border.
 
 ## Shapes
 
-Everything is rounded, and the radius scales with the size of the thing. The two panels that hold a whole message (hero, closing CTA) use 32px. Content surfaces (cards, offers, steps, quotes, FAQ, case blocks, case CTA) use the base 24px. Smaller surfaces step down: side cards and case nav 20px, the initials mark 16px, the schematic device frame 12px on its top corners only (it runs off the bottom of the card). Buttons, chips, nav pills, and schematic tags are full pills at 999px. The focus ring is a 3px gold-deep outline offset 3px with a 6px radius.
-
-Borders are rare. `.btn-light` carries a hairline `line-strong` border; schematic nodes carry the same. Cards, panels, and blocks have no border; the paper-on-stone value step is the edge. Dividers inside a surface (FAQ rows, outcome stats, nav bottom) are 1px `line` hairlines.
-
-Recurring geometry: the gold marker behind text is a rounded highlight (0.22em radius, cloned across line breaks) with slight horizontal bleed; the signature dot beside the name in the nav is a 10px pine circle; the FAQ disclosure indicator is a 12px chevron drawn from two 2px ink borders, rotating 180 degrees on open; the radial gold glow is a circle at 55 to 60% of the panel width, bleeding off the corner.
+Radius scales with the thing. Content surfaces use `--r` 24px. Drawn product steps down: stage 16px, exploded plates 14px, mini panels and the teardown card 12px, steps and nodes 8 to 10px, checkbox 4px. Buttons are 10px (not pills) and 40px tall. Status dots, meters and the mobile pill are fully round. The focus ring radius is 6px.
 
 ## Components
 
-### Buttons
-Confident and quiet: a solid pill that lifts on hover and settles on press.
-- **Shape:** full pill (999px)
-- **Primary (`.btn`):** pine fill, paper text, 600 weight at 16px, 15px 26px padding, 10px gap to an optional 16px inline SVG icon. In the nav it shrinks to 12px 20px and 15px text.
-- **Hover / Focus:** pine-bright fill, `translateY(-2px)`, button-lift shadow, over 0.35s on the site ease. Active returns to `translateY(0)` in 80ms. Focus-visible gets the 3px gold-deep outline.
-- **Gold (`.btn-gold`):** gold fill, ink text, gold-deep on hover. Used only on pine fields (CTA panel, case CTA).
-- **Light (`.btn-light`):** paper fill, ink text, hairline `line-strong` border, no resting shadow, white on hover. The secondary button beside a primary.
+### Button
+- **Default:** ink fill, bg text, 10px radius, `min-h-10`, 10px 16px padding, 15px at 500, one line (wraps centred below 360px). Hover is opacity 0.88; press is scale 0.97 over 150ms on `cubic-bezier(0.23, 1, 0.32, 1)`; disabled and `aria-disabled` do not press. A transparent 1px border keeps an edge in forced-colors.
+- **Outline:** surface fill, ink text, `--line-2` border, hover to `paper-2`. The secondary beside a default button.
+- **Gold (variant name kept):** the inverse button on dark panels: `on-panel` fill, `panel` text. Not gold in colour.
 
 ### Text links
-- **Style:** 600 weight, 2px gold underline offset 5px; underline turns ink on hover. `.link-arrow` appends a right arrow glyph. Card link rows run at 15px with a 22px gap.
+600 weight, 2px `--line-2` underline at 5px offset. `.link-arrow` appends an arrow. In the closing row the email link uses a 3px offset.
 
-### Chips
-- **Style (`.case-stack-list .chip`):** stone fill on paper, ink-soft text, 14px, 6px 12px padding, full pill, no border. Read-only; used for a technology list prefixed by the words "Built with".
-- **Mobile nav pill:** paper fill, ink-soft text, 14px at 500; the current page pill inverts to ink fill and paper text.
+### Teardown hero (home signature)
+The server-rendered harness drawing sits in `.td-stage` with its own labels hidden. The canvas is draggable (`touch-action: pan-y`, grab cursor) and a range input scrubs the same exploded state (accent ink). Hovering or selecting a part fills it with the tint; the teardown card below (12px radius, shadow, min-height 92px) names the piece in 500 with the layer in ink-3 and a plain sentence in ink-2. A "more" link goes to /harness.
 
-### Cards / Containers
-Big paper surfaces that lift as one object.
-- **Corner Style:** 24px
-- **Background:** paper on stone
-- **Shadow Strategy:** none at rest, card-lift on hover with `translateY(-4px)` over 0.45s (see Elevation)
-- **Border:** none
-- **Internal Padding:** card body 26px 28px 28px with a 12px column gap; offers 30px 30px 28px with a 14px gap; steps block `clamp(24px, 3vw, 40px)`; quotes `clamp(28px, 4vw, 44px)`; side cards 22px 24px; case blocks `clamp(28px, 4vw, 44px)` all round.
-- **Variants:** the project card is a whole-card link with a schematic on top and body below; the offer is a heading, a paragraph, and a proof link; the side card opens on a bold value line then one plain sentence; the quote is a blockquote at 500 with one gold-marked phrase and a role-only attribution row (strong name-slot in ink, rest ink-soft); the FAQ is a single paper block of native `details` rows separated by hairlines, 19px 600 summaries with a chevron.
+### Exploded work (home signature)
+A list of the four client builds on the left (name 500, tabular detail in ink-3, one-line result; active and hover rows on `sunken`, 10px radius). On the right a rig tilted `rotateX(52deg) rotateZ(-38deg)` holds three plates (data, logic, interface) spaced by `--z` times `--open`. Each plate is a 14px surface with a `--line-2` edge; the data plate sits on sunken. A legend tags each plate with a 22px leader line. Selecting a project blurs and swaps plate contents. Below 860px the rig shrinks (`--zk: 0.55`) and moves above the list. The hover hint is hidden on touch.
 
-### Navigation
-- **Style:** sticky, stone at 82% with 14px blur, hairline bottom border, 70px tall. Name in 700 at 17px with a 10px pine dot before it. Links 500 at 15.5px in ink-soft, 28px apart, each with a 2px gold underline that scales in from the left on hover and stays in for `aria-current="page"` (which also sets the link to ink). Pine pill "Book a call" on the right.
-- **Mobile (640px and below):** 62px bar, links hidden, replaced by a row of paper pills under the bar with the current page in ink.
-- **Case pages:** a back link with a left arrow glyph above the title, and a two-card prev/next nav at the bottom (paper, 20px radius, small muted label over a 21px bold target; the next card right-aligned).
+### Living offers (home signature)
+A hairline list of offers (name, tabular duration in ink-3, one paragraph, proof link) and a 300px sunken stage with three scenes: a checklist that ticks and collapses into one automated card, a query that types and fills suggested rows in tint, and blocks that fly in and assemble with a sparkline. A pick is a text button; pressed state turns its underline live-green. A 3px meter per scene runs under the stage; it is hidden under reduced motion, which shows each scene in its settled state.
 
-### Hero panel (signature)
-The memorable moment. A full-column sage field at 32px radius with `clamp(40px, 7vw, 96px)` top padding, holding the display headline top-left (max 13ch, one gold-marked word), the lede `clamp(24px, 3vw, 36px)` below it, then a row with one pine pill and one arrowed text link at a 22px gap. A gold radial glow at 28% bleeds off the top-right corner. The panel ends 12px above the next section so the project cards peek under the fold. On load, the headline, lede, and actions fade up in sequence at 0.05s, 0.25s, and 0.4s delays.
+### Mini panel
+`.home-n .panel`: surface, 12px radius, shadow plus 1px inset line, 12.5px data with tabular numerals, header bar with a 500 title and ink-3 small text, hairline-separated rows, highlighted row in tint, right-aligned numeric column.
 
-### CTA panel (signature)
-The closing statement, and the counterpart to the hero: a pine field at the same 32px radius, paper headline with one gold-marked phrase, paper copy at 78% opacity capped at 48ch, and a gold pill with a small underlined alternative link beneath it. Laid out 1.4fr / 1fr, headline left, actions right, collapsing at 860px. A gold radial glow at 22% bleeds off the bottom-left corner. The case-study version (`.case-cta`) is the same field at 24px radius in a single row.
+### Quotes and closing row
+Quotes are plain blockquotes at body size with a role and project footer in ink-3; no card, no mark. The closing row has a 500 18px title, one paragraph at 46ch in ink-2, a default button and an "or email" alternative in ink-2.
 
-### Product schematic (signature)
-How product gets shown without screenshots. A 16:10 stone-deep frame (4:3 at 480px and below) holds a paper device at 12px top radius with the device-frame shadow, running off the bottom of the card. Inside, synthetic product data in the data face at 12px: a title bar with a pulsing live dot, table rows with a pine-tint highlighted row, flow nodes with a runner that crosses on hover, a chart with pine-bright line and pine-tint area, progress bars. On hover the device rises 6px and an ink toast fades in at the bottom-right. The section carries a visible `.data-note` disclosing that the visuals are drawn schematics with representative data.
-
-### Case preview (signature)
-The one dark surface. An ink panel inside a case block, data face at 13px and 1.6 line height, paper text at 70% with gold for highlighted values and the app name, and small pill badges (green, amber, dim) for status. Column headers here are uppercase and tracked because that is what the product looked like. Scrolls horizontally on narrow screens rather than wrapping.
+### Inner pages
+Offers as a three-column hairline list, numbered build columns, about as an editorial layout (principles panel on `--panel`), FAQ as native disclosure rows with a grid-rows height transition, case pages with a back link, a facts line, and the dark `.case-preview` on `--deep` holding synthetic data. Client screenshots are never used; product is drawn.
 
 ### Motion
-One fade-up per `.reveal`: 16px translate and opacity, 0.8s on the site ease `cubic-bezier(0.2, 0.8, 0.2, 1)`. A parent with `data-stagger="80"` (cards and steps use 80 to 90) cascades its direct children that many milliseconds apart. About 1.4s after starting, the `Reveal` component (components/reveal.tsx) drops `.reveal`/`.in` and gains a permanent `.done`, so hover transforms keep working. The `.js` class (set by an inline script only when motion is allowed) gates all hiding; no-JS visitors, `prefers-reduced-motion` visitors, and any browser without IntersectionObserver get the complete static page, and a 1.5s failsafe reveals everything regardless. Page-to-page navigation uses a 220ms root view transition. One idle moment exists: the FeedHack schematic runner dot crosses its pipeline once, 1.1s after the card grid reveals, and again on hover. No sweeps, scan lines, or decorative animation on panels.
+Defined in `app/styles/motion.css`, `novelty.css` and CLAUDE.md. Everything animates only inside `prefers-reduced-motion: no-preference`. Entrances 300ms on `cubic-bezier(0.2, 0, 0, 1)`; hover 150ms or less; exploded plates 700ms on `--ease-out` staggered 50ms, legend tags fade 300ms after 200ms plus 60ms per tag; scene crossfade 260ms; blocks assemble over 900ms staggered 70ms; drawing toggle uses `--ease-io` at 480ms. Animate opacity, transform and filter by name, never `all`. Reduced motion shows the complete static page.
 
 ## Do's and Don'ts
 
 ### Do:
-- **Do** set every content surface as white on the near-white ground at 24px radius, with a 1px `line` border and a faint 1px resting shadow.
-- **Do** make every pill button pine; switch to the gold pill only when the button sits on a pine field.
-- **Do** use gold as a marker behind at most one phrase per page, as the 2px link underline, and as the CTA pill on pine.
-- **Do** open a side card on a bold value line (700 at 17px) followed by one plain sentence; state case facts in one bold 16px line.
-- **Do** leave `clamp(64px, 7vw, 96px)` between the hero panel and the first section; the hero is a room of its own.
-- **Do** use `ink-muted` (5c574f) for the quietest text, and only on stone or paper.
-- **Do** show product as a drawn schematic with representative data inside `.card-visual` (on the `well` bed) or `.case-preview`, and disclose it in a visible `.data-note`.
-- **Do** attribute testimonials by role and project until clients approve names.
-- **Do** give a linked card exactly one hover signal: the hairline darkens to `ink-muted` and the title arrow appears. No translate, no shadow bloom.
-- **Do** mark the current nav item with `aria-current="page"` so the gold underline and the ink mobile pill follow.
+- **Do** use tokens (`--ink`, `--surface`, `--sunken`, `--live`, `--tint`, `--focus`) and let the dark block do the theming; check both schemes.
+- **Do** keep text on `--ink-3` at or above 0.53 lightness in light and 0.66 in dark.
+- **Do** draw product as synthetic data in the body face with tabular numerals and disclose it.
+- **Do** make every animation work with `prefers-reduced-motion` off the page's content: nothing is hidden behind motion.
+- **Do** keep hover-only styling inside `@media (hover: hover)` and hide hover hints on `(hover: none)`.
+- **Do** mark the current nav item with `aria-current="page"`.
+- **Do** use a plain-sentence row label, sentence case, no tracking.
 
 ### Don't:
-- **Don't** add an eyebrow, kicker, overline, or uppercase tracked label above a heading anywhere in the chrome.
-- **Don't** use monospace anywhere; tabular numerals in the body face do the data job.
-- **Don't** place a second sage field or a full-bleed tint band; the hero panel is the only sage surface, and the schematic `well` is the only other tinted bed.
-- **Don't** fill a card, panel, or section with gold; gold is a marker, an underline, a glow, and one pill on pine.
-- **Don't** put grey text (`ink-soft`, `ink-muted`) on pine or ink; use paper at reduced opacity.
-- **Don't** use client screenshots, a stock photo, or a placeholder portrait; the world runs without imagery.
-- **Don't** add hard offset shadows, a border heavier than the 1px hairline, or a second dark surface beyond the case preview.
-- **Don't** add sweep, scan-line, or looping decorative motion on panels; the only looping animation is the pulsing live dot inside a schematic.
-- **Don't** introduce a second typeface or a system display face; Inter Tight at 400 to 700 is the whole ramp.
+- **Don't** reintroduce pine green, kowhai yellow or warm stone values; legacy token names are aliases, not a palette.
+- **Don't** add a hue beyond green 150 and blue 250.
+- **Don't** use blue for anything but focus, or green as a surface fill.
+- **Don't** put grey ink tokens on `--panel` or `--deep`.
+- **Don't** use monospace, a second typeface or a system display face.
+- **Don't** add looping decorative motion; the only continuous motion is the gallop on /harness started by the visitor and the scene loops on home.
+- **Don't** add hard offset shadows or borders heavier than 1px.
+- **Don't** use client screenshots or stock imagery.
 
-## Round 5 additions (2026-09-12, de-slop pass)
+## Not canonized
 
-- **Nav:** name left; Projects, About, and a pine text link "Book a call" right. No centred link group, no pill in the nav, no blur. Mobile row adds a small pine "Book a call" pill at the right end. A skip link sits before the nav.
-- **Offers:** a hairline list (`.offer-list` > `.offer`), three rows on a 1.1fr / 1.5fr / 0.7fr grid: plain-verb heading, one paragraph plus proof link, then a bold duration with "Fixed price" beneath. On mobile the duration moves above the heading. Never three equal cards.
-- **Card titles:** a 14px `card-name` line (product name) above an outcome-first h3, so a stranger reads what the build did before what it was called.
-- **Motion:** two entrances only, the hero panel and the card grids. Section heads, prose, quotes, FAQ, and CTA panels are static.
-- **Copy:** section heads are plain statements ("What I build.", "Common questions."). Straight quotes are curly. Case titles are one colour.
+Recorded as defects the build carries, not rules for new surfaces:
+- `app/styles/home.css` `.sec-head h2` is uppercase, tracked and 600. That is a kicker-style label and the home rows deliberately replaced it with a sentence-case row label. Do not copy it.
+- `--font-mono` is mapped to the body face in `@theme inline` only so shadcn utilities resolve; monospace is not part of the system.
+- `--pine-rgb` (12 92 60) in `:root` is a leftover of the old green world and should be removed when its last reader is.
+- Legacy aliases (`pine`, `pine-2`, `pine-tint`, `gold`, `gold-2`, `sage`, `well`) exist for compatibility; new code uses the neutral names.
