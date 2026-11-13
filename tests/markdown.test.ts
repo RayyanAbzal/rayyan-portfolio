@@ -16,6 +16,7 @@ const H1: Record<string, string> = {
   "/about": "I scope it, build it, and ship it myself.",
   "/contact": "Get in touch.",
   "/privacy": "Privacy.",
+  "/harness": "The system around the AI is where the quality comes from.",
   "/work/influence": CASE_STUDIES.influence.title,
   "/work/influence-v2": CASE_STUDIES["influence-v2"].title,
   "/work/feedhack": CASE_STUDIES.feedhack.title,

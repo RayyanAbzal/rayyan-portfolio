@@ -14,3 +14,6 @@ next-env.d.ts
 .env*
 npm-debug.log*
 .vitest/
+
+# local scratch (palette probes, reference css)
+.scratch/

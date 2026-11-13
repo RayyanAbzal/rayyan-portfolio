@@ -27,6 +27,8 @@ export type BookingSource =
   | "sticky_mobile_work"
   | "sticky_mobile_about"
   | "sticky_mobile_case"
+  | "sticky_mobile_harness"
+  | "harness_contact"
   | "case_influence"
   | "case_influence_v2"
   | "case_feedhack"

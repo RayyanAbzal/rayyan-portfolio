@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "vitest run"
+    "test": "vitest run",
+    "drawing:harness": "node tools/teardown/harness/build.cjs"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",

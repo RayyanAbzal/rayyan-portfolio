@@ -3,9 +3,11 @@ import Link from "next/link";
 
 import { BookLink } from "@/components/book-link";
 import { RichText } from "@/components/case/rich-text";
+import { HarnessDrawing } from "@/components/harness/harness-drawing";
 import { JsonLd } from "@/components/json-ld";
 import { StickyBookCta } from "@/components/sticky-book-cta";
 import { Button } from "@/components/ui/button";
+import { HARNESS } from "@/content/harness";
 import { HOME, OFFERS } from "@/content/home";
 import homeLd from "@/content/jsonld/home.json";
 import { CLIENT_PROJECTS } from "@/content/projects";
@@ -68,6 +70,22 @@ export default function HomePage() {
                 </li>
               ))}
             </ul>
+          </section>
+
+          <section id="harness" className="home-sec" aria-labelledby="harness-title">
+            <div className="sec-head">
+              <h2 id="harness-title">{HARNESS.teaserHeading}</h2>
+            </div>
+            <div className="harness-teaser">
+              <div>
+                <p className="big">{HARNESS.teaserTitle}</p>
+                <p>{HARNESS.teaserBody}</p>
+                <Link className="link link-arrow" href="/harness">{HARNESS.teaserLink}</Link>
+              </div>
+              <Link href="/harness" className="harness-teaser-art" tabIndex={-1} aria-hidden="true">
+                <HarnessDrawing assembledOnly />
+              </Link>
+            </div>
           </section>
 
           <section id="about" className="home-sec" aria-labelledby="about-title">

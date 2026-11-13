@@ -1,0 +1,22 @@
+{
+  "dependencies": "../../../node_modules",
+  "modelScripts": ["model.js"],
+  "drawings": [{
+    "id": "harness",
+    "title": "Agent harness",
+    "description": "Concept drawing. My Claude Code harness as a horse in harness: the horse is the model, each piece of tack one layer, the orchestrator drives and I ride in the back with the route. Shapes are illustrative, not physical.",
+    "parts": [
+      {"id": "model", "name": "Model"},
+      {"id": "skills", "name": "Skills"},
+      {"id": "rules", "name": "Rules"},
+      {"id": "memory", "name": "Memory"},
+      {"id": "hooks", "name": "Guardrails"},
+      {"id": "runner", "name": "Goal runner"},
+      {"id": "me", "name": "Me"},
+      {"id": "orchestrator", "name": "Orchestrator"},
+      {"id": "reviewers", "name": "Reviewers"},
+      {"id": "second", "name": "Second opinion"}
+    ],
+    "parameters": []
+  }]
+}
