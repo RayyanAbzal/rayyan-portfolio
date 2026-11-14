@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { BookLink } from "@/components/book-link";
 import { CasePreview } from "@/components/case/previews";
 import { RichText } from "@/components/case/rich-text";
+import { RisePanel } from "@/components/rise-panel";
 import { JsonLd } from "@/components/json-ld";
 import { StickyBookCta } from "@/components/sticky-book-cta";
 import { Badge } from "@/components/ui/badge";
@@ -98,7 +99,9 @@ export default async function CasePage({ params }: CasePageProps) {
           </p>
 
           <div className="case-body">
-            <CasePreview data={study.preview} />
+            <RisePanel className="rise-bare">
+              <CasePreview data={study.preview} />
+            </RisePanel>
             <Block block={study.problem} />
             <Block block={study.built} />
             <Block block={study.outcome} />

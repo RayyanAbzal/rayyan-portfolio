@@ -19,6 +19,9 @@ export type BookingSource =
   | NavSource
   | `${NavSource}_m`
   | "hero"
+  | "hero_badge"
+  | "work_badge"
+  | "contact_badge"
   | "contact"
   | "work_contact"
   | "about_contact"

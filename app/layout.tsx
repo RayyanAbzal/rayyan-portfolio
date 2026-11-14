@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { fontVariables } from "./fonts";
 import { CalendlyAssets } from "@/components/calendly-assets";
+import { LogoPicker } from "@/components/logo-picker";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteNav } from "@/components/site-nav";
 import { Sharpen } from "@/components/sharpen";
@@ -40,6 +41,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SiteFooter />
         <Sharpen />
         <CalendlyAssets />
+        <LogoPicker />
         <Analytics />
       </body>
     </html>

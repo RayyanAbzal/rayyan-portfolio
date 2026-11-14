@@ -1,0 +1,155 @@
+/* Shared novelty layer: rising panel, lit words, pill buttons, book badge,
+   logo mark, floating pill nav. After Brightman (rising panel, badge),
+   SES and Nexora (pill nav), Outcrowd (threaded chips), Synapse (plus pill). */
+
+@layer components {
+  /* ---------- rising panel ---------- */
+  .rise {
+    position: relative;
+    margin-top: clamp(8px, 2vw, 24px);
+    padding: clamp(32px, 5vw, 72px);
+    border-radius: 32px;
+    background:
+      radial-gradient(90% 120% at 100% 0%, oklch(0.36 0.07 150 / 0.55), transparent 60%),
+      var(--panel);
+    color: var(--on-panel);
+    transform-origin: 50% 0;
+    overflow: hidden;
+  }
+  .rise-text {
+    margin: 0;
+    max-width: 24ch;
+    font-size: clamp(1.75rem, 1rem + 2.6vw, 3.25rem);
+    font-weight: 500;
+    line-height: 1.12;
+    letter-spacing: -0.03em;
+    text-wrap: pretty;
+  }
+  .rise-text.small { font-size: clamp(1.375rem, 1rem + 1.4vw, 2.25rem); max-width: 30ch; }
+  .rise .eyebrow { margin: 0 0 18px; color: color-mix(in oklch, var(--on-panel) 62%, transparent); font-size: 0.9375rem; font-weight: 500; }
+  .rise .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: clamp(28px, 4vw, 44px); }
+  .rise[data-live] .lit-w { color: color-mix(in oklch, var(--on-panel) 30%, transparent); }
+  .rise[data-live] .lit-w.on { color: var(--on-panel); }
+
+  /* Threaded chips (after Outcrowd): labels hang on hairlines in the panel corner. */
+  .rise-chips { position: absolute; top: 0; right: clamp(24px, 5vw, 72px); display: flex; align-items: flex-start; gap: 18px; pointer-events: none; }
+  @media (min-width: 1101px) { .rise:has(.rise-chips) .rise-text { max-width: 19ch; } }
+  .rise-chips span { position: relative; display: block; padding: 6px 12px; border-radius: 999px; border: 1px solid color-mix(in oklch, var(--on-panel) 18%, transparent); background: color-mix(in oklch, var(--on-panel) 8%, transparent); color: color-mix(in oklch, var(--on-panel) 78%, transparent); font-size: 0.8125rem; white-space: nowrap; }
+  .rise-chips span::before { content: ""; position: absolute; left: 50%; bottom: 100%; width: 1px; height: var(--thread, 60px); background: color-mix(in oklch, var(--on-panel) 22%, transparent); }
+  .rise-chips span:nth-child(1) { margin-top: 56px; --thread: 56px; }
+  .rise-chips span:nth-child(2) { margin-top: 112px; --thread: 112px; }
+  .rise-chips span:nth-child(3) { margin-top: 32px; --thread: 32px; }
+  .rise-chips span:nth-child(4) { margin-top: 84px; --thread: 84px; }
+  @media (max-width: 1100px) { .rise-chips { display: none; } }
+
+  /* ---------- pills ---------- */
+  .pill {
+    display: inline-flex; align-items: center; gap: 10px;
+    min-height: 44px; padding: 0 8px 0 20px;
+    border-radius: 999px; border: 1px solid transparent;
+    font-size: 0.96875rem; font-weight: 600; line-height: 1;
+  }
+  .pill-solid { background: var(--on-panel); color: var(--panel); }
+  .pill-ghost { padding-right: 20px; border-color: color-mix(in oklch, var(--on-panel) 24%, transparent); color: var(--on-panel); }
+  .pill-ink { background: var(--ink); color: var(--bg); }
+  /* Plus chip at the end of a pill (after Synapse). */
+  .pill-plus { display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--live); color: #fff; font-size: 1.05rem; font-weight: 500; }
+  @media (hover: hover) { .pill:hover { opacity: 0.88; } }
+  .pill:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+
+  /* ---------- book badge (after Brightman) ---------- */
+  .book-badge {
+    position: relative; flex: none; display: grid; place-items: center;
+    width: 132px; height: 132px; border-radius: 50%;
+    background: var(--ink); color: var(--bg);
+  }
+  .book-badge svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .book-badge text { fill: currentColor; font-size: 11.5px; font-weight: 500; letter-spacing: 0.04em; }
+  .book-badge-arrow { font-size: 1.75rem; line-height: 1; }
+  .book-badge:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; }
+  @media (max-width: 640px) { .book-badge { width: 108px; height: 108px; } }
+
+  /* Page top with a badge: title left, badge right, stacked on phones. */
+  .page-top { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; }
+  @media (max-width: 640px) { .page-top { flex-direction: column; align-items: flex-start; } }
+
+  /* ---------- logo ---------- */
+  .logo { position: relative; display: inline-grid; width: 28px; height: 28px; flex: none; }
+  .logo-opt { grid-area: 1 / 1; display: none; place-items: center; }
+  html:not([data-logo]) .logo-opt[data-logo-opt="plates"],
+  html[data-logo="plates"] .logo-opt[data-logo-opt="plates"],
+  html[data-logo="rising"] .logo-opt[data-logo-opt="rising"],
+  html[data-logo="mono"] .logo-opt[data-logo-opt="mono"] { display: grid; }
+
+  .logo-plates { width: 28px; height: 28px; overflow: visible; }
+  .logo-plates path { stroke: var(--ink); stroke-width: 1.4; stroke-linejoin: round; }
+  .logo-plates .lp-1 path { fill: var(--live); stroke: var(--live); }
+  .logo-plates .lp-2 path, .logo-plates .lp-3 path { fill: var(--bg); }
+
+  .logo-rising { position: relative; width: 24px; height: 24px; }
+  .lr-plate { position: absolute; inset: 6px 0 0 4px; border-radius: 7px; background: var(--line-2); }
+  .lr-tile { position: absolute; inset: 0 4px 6px 0; border-radius: 7px; background: var(--live); }
+
+  .logo-mono { position: relative; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 8px; background: var(--ink); color: var(--bg); font-size: 1rem; font-weight: 700; letter-spacing: -0.04em; }
+  .lm-dot { position: absolute; right: 5px; bottom: 5px; width: 5px; height: 5px; border-radius: 50%; background: var(--live); }
+
+  /* ---------- floating pill nav (SES, Nexora, refined) ---------- */
+  .nav { background: transparent; border-bottom: 0; padding-top: 12px; }
+  .nav-inner {
+    height: 60px; padding: 0 8px 0 18px;
+    border-radius: 999px; border: 1px solid var(--line);
+    background: color-mix(in oklch, var(--bg) 82%, transparent);
+    backdrop-filter: blur(14px) saturate(1.4);
+    -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  }
+  .nav-links { gap: 4px; }
+  .nav-links a { padding: 8px 14px; border-radius: 999px; }
+  .nav-links a::after { display: none; }
+  .nav-links a[aria-current="page"] { background: var(--sunken); }
+  .nav-links .nav-book { display: inline-flex; align-items: center; gap: 8px; margin-left: 8px; padding: 6px 6px 6px 16px; background: var(--ink); color: var(--bg); }
+  .nav-links .nav-book::after { content: "+"; display: inline-grid; place-items: center; position: static; width: 28px; height: 28px; border-radius: 50%; background: var(--live); color: #fff; font-weight: 500; transform: none; }
+  @media (max-width: 640px) {
+    .nav { padding-top: 8px; background: color-mix(in oklch, var(--bg) 86%, transparent); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+    .nav .nav-inner { height: 52px; margin: 0 10px; width: auto; }
+    .mobile-nav { padding-top: 8px; }
+  }
+  /* Case preview rides the rise without the panel chrome. */
+  .rise.rise-bare { margin-top: 0; padding: 0; background: none; border-radius: 0; overflow: visible; color: inherit; }
+
+  /* Tall client cards (astapable, Nexora): bigger radius, round arrow chip. */
+  .tall-cards .card { border-radius: 32px; }
+  .tall-cards .card-visual { aspect-ratio: 4 / 3; }
+  .tall-cards .card:has(.card-link) h3::after {
+    content: "\2197"; flex: none; display: inline-grid; place-items: center;
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--sunken); color: var(--ink); opacity: 1; font-size: 1.05rem;
+  }
+  .tall-cards .card:has(.card-link:focus-visible) h3::after { background: var(--ink); color: var(--bg); transform: none; }
+  @media (hover: hover) { .tall-cards .card:has(.card-link):hover h3::after { background: var(--ink); color: var(--bg); } }
+}
+
+/* ---------- motion (no-preference only) ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .rise[data-live] .lit-w { transition: color 200ms ease; }
+  .pill, .book-badge { transition: transform 150ms ease-out, opacity 150ms ease; }
+  .pill:active { transform: scale(0.97); }
+  .book-badge:active { transform: scale(0.96); }
+  .book-badge svg { animation: badge-turn 14s linear infinite; }
+  .logo-plates .lp { transition: transform 240ms cubic-bezier(0.23, 1, 0.32, 1); }
+  .nav-name:hover .logo-plates .lp-1 { transform: translateY(-3px); }
+  .nav-name:hover .logo-plates .lp-3 { transform: translateY(3px); }
+  .lr-tile { transition: transform 240ms cubic-bezier(0.23, 1, 0.32, 1); }
+  .nav-name:hover .lr-tile { transform: translate(-2px, -3px); }
+  .lm-dot { transition: transform 240ms cubic-bezier(0.23, 1, 0.32, 1); }
+  .nav-name:hover .lm-dot { transform: scale(1.6); }
+}
+@keyframes badge-turn { to { transform: rotate(360deg); } }
+
+/* ---------- TEMPORARY logo picker chrome (outside the design system) ---------- */
+.vp { position: fixed; z-index: 90; right: 12px; bottom: 12px; width: 220px; padding: 10px; border-radius: 8px; background: #111; color: #eee; font: 12px/1.3 system-ui, sans-serif; box-shadow: 0 8px 24px rgb(0 0 0 / 0.3); }
+.vp p { margin: 0 0 6px; color: #999; text-transform: uppercase; letter-spacing: 0.06em; font-size: 10px; }
+.vp ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.vp button { width: 100%; display: flex; gap: 8px; align-items: center; padding: 6px 8px; border: 0; border-radius: 5px; background: transparent; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.vp button[aria-pressed="true"] { background: #fff; color: #111; }
+.vp button:focus-visible { outline: 2px solid #6af; }
+.vp kbd { font: inherit; opacity: 0.6; }

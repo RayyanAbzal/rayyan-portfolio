@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { BookBadge } from "@/components/book-badge";
 import { BookLink } from "@/components/book-link";
 import { RichText } from "@/components/case/rich-text";
 import { HarnessDrawing } from "@/components/harness/harness-drawing";
@@ -9,6 +10,7 @@ import { ExplodedWork, type WorkRow } from "@/components/home/exploded-work";
 import { LivingOffers } from "@/components/home/living-offers";
 import { TeardownHero, type HeroPiece } from "@/components/home/teardown-hero";
 import { JsonLd } from "@/components/json-ld";
+import { LitText, RisePanel } from "@/components/rise-panel";
 import { StickyBookCta } from "@/components/sticky-book-cta";
 import { Button } from "@/components/ui/button";
 import { TESTIMONIALS } from "@/content/about";
@@ -45,26 +47,38 @@ export default function HomePage() {
       <main id="top" tabIndex={-1} className="home-n">
         <div className="wrap">
           <section className="n-hero" aria-label="Introduction">
-            <div className="n-copy">
-              <div className="status">
-                <span>
-                  <span className="dot" aria-hidden="true" />
-                  {HERO.status}
-                </span>
-                <AucklandClock place={HERO.place} />
+            <div className="page-top n-top">
+              <div>
+                <div className="status">
+                  <span>
+                    <span className="dot" aria-hidden="true" />
+                    {HERO.status}
+                  </span>
+                  <AucklandClock place={HERO.place} />
+                </div>
+                <h1 className="lede">
+                  <RichText value={HOME.heroHeadline} />
+                </h1>
               </div>
-              <h1 className="lede">
-                <RichText value={HOME.heroHeadline} /> <span className="soft">{HOME.heroLede}</span>
-              </h1>
-              <div className="actions">
-                <Button asChild>
-                  <BookLink source="hero">{HOME.heroCta}</BookLink>
-                </Button>
-                <Button asChild variant="outline">
-                  <Link href="/harness">{HERO.secondary}</Link>
-                </Button>
-              </div>
+              <BookBadge source="hero_badge" label={HOME.heroCta} />
             </div>
+            <RisePanel>
+              <div className="rise-chips" aria-hidden="true">
+                {HARNESS_LAYERS.slice(0, 4).map((layer) => (
+                  <span key={layer.id}>{layer.name}</span>
+                ))}
+              </div>
+              <p className="rise-text">
+                <LitText text={HOME.heroLede} />
+              </p>
+              <div className="actions">
+                <BookLink source="hero" className="pill pill-solid">
+                  {HOME.heroCta}
+                  <span className="pill-plus" aria-hidden="true">+</span>
+                </BookLink>
+                <Link href="/harness" className="pill pill-ghost">{HERO.secondary} ↗</Link>
+              </div>
+            </RisePanel>
             <TeardownHero pieces={PIECES}>
               <HarnessDrawing />
             </TeardownHero>
