@@ -1,0 +1,252 @@
+/* outcrowd reference design. Every selector is scoped under .ref-outcrowd. */
+
+.ref-outcrowd {
+  --oc-green: oklch(0.8 0.12 150);
+  --oc-lift: color-mix(in oklch, var(--panel) 90%, var(--on-panel));
+  --oc-edge: color-mix(in oklch, var(--on-panel) 14%, transparent);
+  --oc-dim: color-mix(in oklch, var(--on-panel) 72%, transparent);
+  padding: 16px;
+  background: radial-gradient(70% 40% at 50% 0%, oklch(0.93 0.04 150 / 0.7), transparent 70%), var(--bg);
+  font-family: var(--font);
+}
+@media (prefers-color-scheme: dark) {
+  .ref-outcrowd { background: radial-gradient(70% 40% at 50% 0%, oklch(0.3 0.05 150 / 0.5), transparent 70%), var(--bg); }
+}
+
+.ref-outcrowd .oc-card {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  border-radius: 40px;
+  padding: 0 clamp(16px, 4vw, 56px) 24px;
+  color: var(--on-panel);
+  background:
+    radial-gradient(60% 30% at 15% 0%, oklch(0.36 0.07 150 / 0.5), transparent 70%),
+    radial-gradient(50% 25% at 90% 45%, oklch(0.34 0.07 150 / 0.35), transparent 70%),
+    radial-gradient(60% 25% at 50% 100%, oklch(0.36 0.07 150 / 0.5), transparent 70%),
+    var(--panel);
+}
+.ref-outcrowd .oc-card > * { position: relative; z-index: 1; }
+.ref-outcrowd .oc-card > .oc-stars { position: absolute; z-index: 0; inset: 0; pointer-events: none; }
+.ref-outcrowd .oc-stars {
+  background-image:
+    radial-gradient(1.5px 1.5px at 8% 12%, oklch(1 0 0 / 0.7), transparent),
+    radial-gradient(1px 1px at 22% 34%, oklch(1 0 0 / 0.5), transparent),
+    radial-gradient(1.5px 1.5px at 41% 8%, oklch(1 0 0 / 0.6), transparent),
+    radial-gradient(1px 1px at 67% 18%, oklch(1 0 0 / 0.5), transparent),
+    radial-gradient(1.5px 1.5px at 88% 27%, oklch(1 0 0 / 0.7), transparent),
+    radial-gradient(1px 1px at 95% 52%, oklch(1 0 0 / 0.45), transparent),
+    radial-gradient(1.5px 1.5px at 5% 63%, oklch(1 0 0 / 0.55), transparent),
+    radial-gradient(1px 1px at 34% 78%, oklch(1 0 0 / 0.5), transparent),
+    radial-gradient(1.5px 1.5px at 72% 86%, oklch(1 0 0 / 0.6), transparent),
+    radial-gradient(1px 1px at 55% 55%, oklch(1 0 0 / 0.4), transparent);
+}
+
+/* links and focus */
+.ref-outcrowd a { color: inherit; text-decoration: none; }
+.ref-outcrowd a:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; border-radius: 8px; }
+
+/* nav */
+.ref-outcrowd .oc-nav { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 12px; padding: 22px 0; }
+.ref-outcrowd .oc-name { font-weight: 600; letter-spacing: -0.02em; min-height: 44px; display: inline-flex; align-items: center; }
+.ref-outcrowd .oc-links { display: flex; gap: 4px; }
+.ref-outcrowd .oc-links a { min-height: 44px; display: inline-flex; align-items: center; padding: 0 12px; font-size: 0.875rem; color: var(--oc-dim); }
+.ref-outcrowd .oc-nav .oc-pill { justify-self: end; }
+
+/* pills */
+.ref-outcrowd .oc-pill { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 22px; border-radius: 999px; font-size: 0.9375rem; font-weight: 600; background: var(--on-panel); color: var(--panel); text-align: center; }
+.ref-outcrowd .oc-pill-sm { min-height: 44px; padding: 0 18px; font-size: 0.875rem; }
+.ref-outcrowd .oc-pill-ghost { background: color-mix(in oklch, var(--on-panel) 8%, transparent); color: var(--on-panel); border: 1px solid var(--oc-edge); }
+.ref-outcrowd .oc-pill-glow { background: oklch(0.45 0.12 150); color: var(--on-panel); border: 1px solid oklch(0.7 0.12 150 / 0.7); box-shadow: 0 0 32px oklch(0.62 0.15 150 / 0.55), inset 0 1px 0 oklch(1 0 0 / 0.25); }
+
+/* hero */
+.ref-outcrowd .oc-hero { position: relative; text-align: center; padding-top: clamp(24px, 5vw, 64px); }
+.ref-outcrowd .oc-beam { position: absolute; z-index: 0; top: -40px; left: -12%; width: 70%; height: 520px; pointer-events: none; background: linear-gradient(115deg, oklch(0.8 0.12 150 / 0.4), oklch(0.8 0.12 150 / 0.08) 35%, transparent 60%); clip-path: polygon(0 0, 22% 0, 100% 100%, 40% 100%); filter: blur(18px); }
+.ref-outcrowd .oc-hero-copy { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; }
+.ref-outcrowd .oc-h1 { margin: 0; max-width: 18ch; font-size: clamp(2rem, 1rem + 4.4vw, 4.25rem); font-weight: 500; line-height: 1.08; letter-spacing: -0.035em; text-wrap: balance; }
+.ref-outcrowd .oc-green { color: var(--oc-green); }
+.ref-outcrowd .oc-lede { margin: 20px 0 0; max-width: 52ch; color: var(--oc-dim); font-size: 1.0625rem; line-height: 1.5; text-wrap: pretty; }
+.ref-outcrowd .oc-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 28px; }
+
+/* dashboard mock */
+.ref-outcrowd .oc-dash-wrap { position: relative; z-index: 1; margin: clamp(32px, 5vw, 64px) auto 0; max-width: 980px; perspective: 1600px; }
+.ref-outcrowd .oc-dash { text-align: left; border-radius: 28px; padding: clamp(14px, 2.4vw, 24px); background: var(--oc-lift); border: 1px solid var(--oc-edge); box-shadow: 0 0 80px oklch(0.62 0.15 150 / 0.25), 0 40px 80px oklch(0 0 0 / 0.4); transform: rotateX(calc((8 * (1 - var(--flat, 0)) + var(--rx, 0)) * 1deg)) rotateY(calc(var(--ry, 0) * 1deg)); transform-origin: 50% 0; }
+.ref-outcrowd .oc-dash-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+.ref-outcrowd .oc-dash-title { margin: 0; font-size: 1.125rem; font-weight: 600; letter-spacing: -0.02em; }
+.ref-outcrowd .oc-live-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--oc-green); box-shadow: 0 0 12px var(--oc-green); }
+.ref-outcrowd .oc-dash-body { display: grid; grid-template-columns: 1fr 220px; gap: 16px; }
+.ref-outcrowd .oc-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 0 0 14px; padding: 0; list-style: none; }
+.ref-outcrowd .oc-stats li { padding: 14px; border-radius: 16px; background: color-mix(in oklch, var(--on-panel) 6%, transparent); border: 1px solid var(--oc-edge); }
+.ref-outcrowd .oc-stats b { display: block; font-size: clamp(1.25rem, 1rem + 1.2vw, 1.875rem); font-weight: 600; letter-spacing: -0.03em; color: var(--oc-green); font-variant-numeric: tabular-nums; }
+.ref-outcrowd .oc-stats span { display: block; margin-top: 6px; font-size: 0.75rem; line-height: 1.35; color: var(--oc-dim); }
+.ref-outcrowd .oc-chart { display: block; width: 100%; height: 120px; border-radius: 16px; background: color-mix(in oklch, var(--on-panel) 4%, transparent); border: 1px solid var(--oc-edge); }
+.ref-outcrowd .oc-grid path { stroke: var(--oc-edge); stroke-width: 1; fill: none; vector-effect: non-scaling-stroke; }
+.ref-outcrowd .oc-line-a, .ref-outcrowd .oc-line-b { fill: none; stroke-width: 2.5; vector-effect: non-scaling-stroke; stroke-linecap: round; }
+.ref-outcrowd .oc-line-a { stroke: var(--oc-green); }
+.ref-outcrowd .oc-line-b { stroke: color-mix(in oklch, var(--on-panel) 45%, transparent); }
+.ref-outcrowd .oc-dash-side { align-self: stretch; display: flex; flex-direction: column; justify-content: flex-end; padding: 18px; border-radius: 20px; background: linear-gradient(160deg, oklch(0.5 0.12 150), oklch(0.36 0.09 150)); }
+.ref-outcrowd .oc-side-k { margin: 0; font-size: 2rem; font-weight: 600; letter-spacing: -0.03em; }
+.ref-outcrowd .oc-side-t { margin: 6px 0 0; font-size: 0.8125rem; line-height: 1.4; }
+
+/* wordmarks */
+.ref-outcrowd .oc-marks { margin-top: clamp(40px, 6vw, 80px); }
+.ref-outcrowd .oc-marks ul { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px clamp(20px, 5vw, 64px); margin: 0; padding: 0; list-style: none; }
+.ref-outcrowd .oc-marks a { display: inline-flex; align-items: center; min-height: 44px; font-size: 1.25rem; font-weight: 600; letter-spacing: -0.02em; color: color-mix(in oklch, var(--on-panel) 62%, transparent); }
+
+/* wide card with threads */
+.ref-outcrowd .oc-wide { position: relative; overflow: hidden; margin-top: clamp(24px, 4vw, 48px); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 24px; min-height: 280px; padding: clamp(24px, 4vw, 48px); border-radius: 32px; border: 1px solid var(--oc-edge); background: radial-gradient(80% 120% at 85% 0%, oklch(0.4 0.09 150 / 0.7), transparent 65%), linear-gradient(135deg, oklch(0.3 0.05 150), var(--oc-lift)); }
+.ref-outcrowd .oc-wide-copy { align-self: center; }
+.ref-outcrowd .oc-h2-left { margin: 0; font-size: clamp(1.5rem, 1rem + 1.6vw, 2.25rem); font-weight: 500; letter-spacing: -0.03em; line-height: 1.12; }
+.ref-outcrowd .oc-wide-copy p { margin: 14px 0 0; max-width: 40ch; color: var(--oc-dim); font-size: 0.9375rem; line-height: 1.5; }
+.ref-outcrowd .oc-threads { position: relative; display: flex; justify-content: space-around; align-items: flex-start; gap: 8px; margin: calc(-1 * clamp(24px, 4vw, 48px)) 0 0; padding: 0; list-style: none; }
+.ref-outcrowd .oc-threads li { position: relative; transform-origin: 50% calc(-1 * var(--t)); }
+.ref-outcrowd .oc-threads li::before { content: ""; position: absolute; left: 50%; bottom: 100%; width: 1px; height: var(--t); background: color-mix(in oklch, var(--on-panel) 28%, transparent); }
+.ref-outcrowd .oc-threads span { display: block; margin-top: var(--t); padding: 8px 14px; border-radius: 12px; font-size: 0.8125rem; white-space: nowrap; background: color-mix(in oklch, var(--on-panel) 10%, transparent); border: 1px solid var(--oc-edge); color: var(--on-panel); }
+.ref-outcrowd .oc-threads li:nth-child(1) { --t: 60px; }
+.ref-outcrowd .oc-threads li:nth-child(2) { --t: 150px; }
+.ref-outcrowd .oc-threads li:nth-child(3) { --t: 90px; }
+.ref-outcrowd .oc-threads li:nth-child(4) { --t: 190px; }
+.ref-outcrowd .oc-threads li:nth-child(5) { --t: 40px; }
+.ref-outcrowd .oc-threads li:nth-child(6) { --t: 130px; }
+
+/* section headings */
+.ref-outcrowd .oc-platform, .ref-outcrowd .oc-caps, .ref-outcrowd .oc-found { margin-top: clamp(56px, 8vw, 112px); text-align: center; }
+.ref-outcrowd .oc-h2 { margin: 0; font-size: clamp(1.75rem, 1rem + 2.4vw, 3rem); font-weight: 500; letter-spacing: -0.03em; line-height: 1.1; text-wrap: balance; }
+.ref-outcrowd .oc-sub { margin: 14px auto 0; max-width: 52ch; color: var(--oc-dim); line-height: 1.5; }
+
+/* platform diagram */
+.ref-outcrowd .oc-flow { display: grid; grid-template-columns: minmax(0, 1.3fr) 140px minmax(0, 1fr); align-items: center; margin-top: clamp(28px, 4vw, 56px); text-align: left; }
+.ref-outcrowd .oc-flow-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 0; padding: 0; list-style: none; }
+.ref-outcrowd .oc-flow-cards li { padding: 16px; border-radius: 16px; background: var(--oc-lift); border: 1px solid oklch(0.7 0.12 150 / 0.35); }
+.ref-outcrowd .oc-flow-cards h3 { margin: 0; font-size: 0.9375rem; font-weight: 600; }
+.ref-outcrowd .oc-flow-cards p { margin: 6px 0 0; font-size: 0.8125rem; color: var(--oc-dim); }
+.ref-outcrowd .oc-circuit { width: 100%; height: 100%; min-height: 220px; }
+.ref-outcrowd .oc-circuit path { fill: none; stroke: oklch(0.8 0.12 150 / 0.7); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+.ref-outcrowd .oc-chipwrap { display: grid; place-items: center; }
+.ref-outcrowd .oc-chip { display: grid; place-items: center; width: clamp(110px, 16vw, 180px); aspect-ratio: 1; border-radius: 28px; font-size: clamp(2.25rem, 4vw, 3.5rem); font-weight: 600; letter-spacing: -0.03em; background: linear-gradient(150deg, oklch(0.62 0.15 150), oklch(0.4 0.1 150)); border: 1px solid oklch(0.85 0.1 150 / 0.7); box-shadow: 0 0 90px oklch(0.62 0.15 150 / 0.6), inset 0 1px 0 oklch(1 0 0 / 0.35); }
+
+/* bento */
+.ref-outcrowd .oc-bento { display: grid; grid-template-columns: 1fr 1.6fr; grid-template-rows: auto auto; gap: 14px; margin-top: clamp(28px, 4vw, 56px); text-align: left; }
+.ref-outcrowd .oc-b { margin: 0; border-radius: 28px; padding: clamp(20px, 3vw, 32px); border: 1px solid var(--oc-edge); background: var(--oc-lift); overflow: hidden; }
+.ref-outcrowd .oc-b { position: relative; }
+.ref-outcrowd .oc-b::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0; background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), oklch(0.85 0.1 150 / 0.22), transparent 70%); }
+.ref-outcrowd .oc-b h3 { margin: 0; font-size: 1.375rem; font-weight: 500; letter-spacing: -0.025em; line-height: 1.15; }
+.ref-outcrowd .oc-b p { margin: 12px 0 0; font-size: 0.9375rem; line-height: 1.5; color: var(--oc-dim); }
+.ref-outcrowd .oc-b .oc-meta { margin-top: 16px; font-weight: 600; font-size: 0.8125rem; color: var(--on-panel); }
+.ref-outcrowd .oc-b-green { background: linear-gradient(160deg, oklch(0.48 0.13 150), oklch(0.36 0.09 150)); border-color: oklch(0.7 0.12 150 / 0.5); }
+.ref-outcrowd .oc-b-green p { color: var(--on-panel); }
+.ref-outcrowd .oc-b-product { padding: clamp(14px, 2vw, 24px) 0 0 clamp(14px, 2vw, 24px); background: radial-gradient(70% 70% at 80% 0%, oklch(0.4 0.09 150 / 0.55), transparent 70%), var(--oc-lift); }
+.ref-outcrowd .oc-tilt { transform: perspective(900px) rotateY(-12deg) rotateX(6deg) scale(1.04); transform-origin: 0 0; border-radius: 14px; overflow: hidden; box-shadow: 0 30px 60px oklch(0 0 0 / 0.4); }
+.ref-outcrowd .oc-tilt .card-visual { border-radius: 14px; }
+.ref-outcrowd .oc-b-chat { display: flex; flex-direction: column; justify-content: flex-end; gap: 14px; }
+.ref-outcrowd .oc-bubble { margin: 0; padding: 16px 18px; border-radius: 22px 22px 22px 6px; background: color-mix(in oklch, var(--on-panel) 10%, transparent); border: 1px solid var(--oc-edge); font-size: 0.9375rem; line-height: 1.5; }
+.ref-outcrowd .oc-b-chat figcaption { padding-left: 6px; font-size: 0.8125rem; font-weight: 600; color: var(--oc-green); }
+.ref-outcrowd .oc-b-offers { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.ref-outcrowd .oc-b-offers h3 { font-size: 1.125rem; }
+
+/* foundation tiles */
+.ref-outcrowd .oc-tiles { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin: clamp(32px, 5vw, 64px) 0 0; padding: 0 0 24px; list-style: none; }
+.ref-outcrowd .oc-tile { width: 220px; --r: 0deg; --y: 0px; min-height: 220px; padding: 18px; text-align: left; border-radius: 24px; background: var(--oc-lift); border: 1px solid var(--oc-edge); box-shadow: 0 24px 48px oklch(0 0 0 / 0.35); }
+.ref-outcrowd .oc-tile { transform: rotate(calc(var(--r) * var(--fan, 1))) translate(calc(var(--x, 0px) * var(--fan, 1)), var(--y)); }
+.ref-outcrowd .oc-tile:nth-child(1) { --r: -5deg; --y: 10px; --x: -10px; }
+.ref-outcrowd .oc-tile:nth-child(2) { --r: 4deg; --y: 0px; --x: -4px; }
+.ref-outcrowd .oc-tile:nth-child(3) { --r: -3deg; --y: 36px; --x: 0px; }
+.ref-outcrowd .oc-tile:nth-child(4) { --r: 5deg; --y: 30px; --x: 4px; }
+.ref-outcrowd .oc-tile:nth-child(5) { --r: -4deg; --y: 4px; --x: 10px; }
+.ref-outcrowd .oc-tile:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+.ref-outcrowd .oc-tile-solid { background: linear-gradient(160deg, oklch(0.5 0.13 150), oklch(0.38 0.1 150)); border-color: oklch(0.7 0.12 150 / 0.6); }
+.ref-outcrowd .oc-icon { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 14px; font-weight: 600; background: color-mix(in oklch, var(--on-panel) 14%, transparent); border: 1px solid var(--oc-edge); }
+.ref-outcrowd .oc-tile h3 { margin: 16px 0 0; font-size: 0.9375rem; font-weight: 600; line-height: 1.25; }
+.ref-outcrowd .oc-tile p { margin: 8px 0 0; font-size: 0.8125rem; line-height: 1.4; color: var(--oc-dim); }
+.ref-outcrowd .oc-tile-solid p { color: var(--on-panel); }
+.ref-outcrowd .oc-found-note { margin: 28px 0 0; color: var(--oc-dim); font-size: 0.9375rem; }
+
+/* final cta */
+.ref-outcrowd .oc-cta { display: flex; flex-direction: column; align-items: center; text-align: center; margin-top: clamp(56px, 8vw, 112px); padding-bottom: 180px; position: relative; }
+.ref-outcrowd .oc-cta-name { margin: 0; font-size: 0.9375rem; font-weight: 600; color: var(--oc-dim); }
+.ref-outcrowd .oc-cta-h { margin: 8px 0 0; font-size: clamp(2rem, 1rem + 3.6vw, 3.75rem); font-weight: 500; letter-spacing: -0.035em; line-height: 1.08; text-wrap: balance; max-width: 16ch; }
+.ref-outcrowd .oc-cta .oc-pill { margin-top: 28px; }
+.ref-outcrowd .oc-cone { position: absolute; left: 50%; bottom: 0; width: min(520px, 90%); height: 180px; transform: translateX(-50%); pointer-events: none; background: linear-gradient(180deg, oklch(0.8 0.12 150 / 0.5), transparent); clip-path: polygon(40% 0, 60% 0, 100% 100%, 0 100%); filter: blur(10px); }
+
+/* footer */
+.ref-outcrowd .oc-foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 24px; padding-top: 8px; font-size: 0.875rem; color: var(--oc-dim); }
+.ref-outcrowd .oc-foot nav { display: flex; flex-wrap: wrap; gap: 0 8px; }
+.ref-outcrowd .oc-foot a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 8px; }
+
+/* responsive */
+@media (max-width: 960px) {
+  .ref-outcrowd .oc-wide { grid-template-columns: 1fr; }
+  .ref-outcrowd .oc-threads { margin-top: 0; justify-content: flex-start; flex-wrap: wrap; }
+  .ref-outcrowd .oc-threads li::before { display: none; }
+  .ref-outcrowd .oc-threads span { margin-top: 0; }
+  .ref-outcrowd .oc-flow { grid-template-columns: 1fr; gap: 12px; }
+  .ref-outcrowd .oc-circuit { display: none; }
+  .ref-outcrowd .oc-chipwrap { margin-top: 12px; }
+  .ref-outcrowd .oc-bento { grid-template-columns: 1fr; }
+  .ref-outcrowd .oc-dash-body { grid-template-columns: 1fr; }
+  .ref-outcrowd .oc-dash { transform: none; }
+}
+@media (max-width: 640px) {
+  .ref-outcrowd { padding: 8px; }
+  .ref-outcrowd .oc-card { border-radius: 28px; }
+  .ref-outcrowd .oc-nav { grid-template-columns: 1fr auto; }
+  .ref-outcrowd .oc-links { grid-column: 1 / -1; grid-row: 2; justify-content: flex-start; flex-wrap: wrap; }
+  .ref-outcrowd .oc-nav { padding-bottom: 8px; }
+  .ref-outcrowd .oc-stats { grid-template-columns: 1fr; }
+  .ref-outcrowd .oc-flow-cards { grid-template-columns: 1fr; }
+  .ref-outcrowd .oc-b-offers { grid-template-columns: 1fr; }
+  .ref-outcrowd .oc-tile { width: min(100%, 260px); transform: none; }
+  .ref-outcrowd .oc-beam { display: none; }
+}
+
+.ref-outcrowd .oc-pulses path { fill: none; stroke: oklch(0.92 0.12 150); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 5 95; stroke-dashoffset: 5; opacity: 0; filter: drop-shadow(0 0 4px oklch(0.8 0.12 150)); }
+
+/* motion */
+@media (prefers-reduced-motion: no-preference) {
+  .ref-outcrowd .oc-hero-copy > * { animation: oc-in 500ms cubic-bezier(0.23, 1, 0.32, 1) both; }
+  .ref-outcrowd .oc-hero-copy > :nth-child(2) { animation-delay: 80ms; }
+  .ref-outcrowd .oc-hero-copy > :nth-child(3) { animation-delay: 160ms; }
+  .ref-outcrowd .oc-pill { transition: transform 150ms cubic-bezier(0.23, 1, 0.32, 1), opacity 150ms linear; }
+  .ref-outcrowd .oc-pill:active { transform: scale(0.97); }
+  .ref-outcrowd .oc-live-dot { animation: oc-pulse 2s ease-in-out infinite; }
+  @keyframes oc-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+  @keyframes oc-pulse { 50% { opacity: 0.4; } }
+}
+@media (hover: hover) {
+  .ref-outcrowd .oc-pill:hover { opacity: 0.88; }
+  .ref-outcrowd .oc-links a:hover, .ref-outcrowd .oc-marks a:hover, .ref-outcrowd .oc-foot a:hover { color: var(--on-panel); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ref-outcrowd .oc-threads li { animation: oc-swing 5s ease-in-out infinite alternate; }
+  .ref-outcrowd .oc-threads li:nth-child(even) { animation-duration: 6.2s; animation-delay: -2s; }
+  .ref-outcrowd .oc-threads li:nth-child(3n) { animation-duration: 4.4s; animation-delay: -1s; }
+  .ref-outcrowd .oc-pulses path { opacity: 1; animation: oc-pulse-run 2.8s linear infinite; }
+  .ref-outcrowd .oc-pulses path:nth-child(2) { animation-delay: -0.7s; }
+  .ref-outcrowd .oc-pulses path:nth-child(3) { animation-delay: -1.4s; }
+  .ref-outcrowd .oc-pulses path:nth-child(4) { animation-delay: -2.1s; }
+  .ref-outcrowd .oc-chip { animation: oc-breathe 3.6s ease-in-out infinite; }
+  .ref-outcrowd .oc-tile { transition: transform 400ms cubic-bezier(0.23, 1, 0.32, 1); }
+  .ref-outcrowd .oc-tile:focus-visible, .ref-outcrowd .oc-tile:hover { transform: rotate(calc(var(--r) * var(--fan, 1) * 0.4)) translate(calc(var(--x, 0px) * var(--fan, 1)), calc(var(--y) - 16px)) scale(1.04); z-index: 2; }
+  .ref-outcrowd .oc-tiles:focus-within { --fan: 1.5; }
+  .ref-outcrowd .oc-b::after { transition: opacity 250ms linear; }
+  .ref-outcrowd .oc-b { transition: transform 250ms cubic-bezier(0.23, 1, 0.32, 1); }
+  .ref-outcrowd .oc-b:focus-within { transform: translateY(-3px); }
+  .ref-outcrowd .oc-cone { transition: opacity 300ms linear, filter 300ms linear; opacity: 0.7; }
+  .ref-outcrowd .oc-cta:has(.oc-pill:focus-visible) .oc-cone { opacity: 1; filter: blur(8px) brightness(1.4); }
+
+  html.js .ref-outcrowd .oc-reveal:not(.in) { opacity: 0; filter: blur(8px); transform: translateY(16px); }
+  html.js .ref-outcrowd .oc-reveal { transition: opacity 500ms cubic-bezier(0.23, 1, 0.32, 1), filter 500ms cubic-bezier(0.23, 1, 0.32, 1), transform 500ms cubic-bezier(0.23, 1, 0.32, 1); }
+  html.js .ref-outcrowd .oc-reveal.in { opacity: 1; filter: none; transform: none; }
+
+  @keyframes oc-swing { from { transform: rotate(-2.5deg); } to { transform: rotate(2.5deg); } }
+  @keyframes oc-pulse-run { from { stroke-dashoffset: 5; } to { stroke-dashoffset: -100; } }
+  @keyframes oc-breathe { 50% { box-shadow: 0 0 130px oklch(0.7 0.15 150 / 0.85), inset 0 1px 0 oklch(1 0 0 / 0.35); } }
+}
+@media (hover: hover) and (pointer: fine) {
+  .ref-outcrowd .oc-b:hover::after { opacity: 1; }
+  .ref-outcrowd .oc-b:hover { transform: translateY(-3px); }
+  .ref-outcrowd .oc-tiles:hover { --fan: 1.5; }
+  .ref-outcrowd .oc-threads:hover li { animation-duration: 1.6s; }
+  .ref-outcrowd .oc-cta:has(.oc-pill:hover) .oc-cone { opacity: 1; filter: blur(8px) brightness(1.4); }
+}

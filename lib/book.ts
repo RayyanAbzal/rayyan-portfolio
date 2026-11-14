@@ -22,6 +22,7 @@ export type BookingSource =
   | "hero_badge"
   | "work_badge"
   | "contact_badge"
+  | "design_preview"
   | "contact"
   | "work_contact"
   | "about_contact"

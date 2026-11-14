@@ -1,0 +1,17 @@
+/* TEMPORARY design-preview shell: hides the site chrome on /designs/* and
+   draws the direction switcher. Deliberately outside the design system. */
+
+body:has(.ref-root) > .nav,
+body:has(.ref-root) > footer,
+body:has(.ref-root) > .vp { display: none; }
+
+.ds-switch { position: fixed; z-index: 95; left: 12px; bottom: 12px; max-width: calc(100vw - 24px); padding: 8px 10px; border-radius: 10px; background: #111; color: #eee; font: 12px/1.3 system-ui, sans-serif; box-shadow: 0 8px 24px rgb(0 0 0 / 0.3); }
+.ds-switch p { margin: 0 0 6px; color: #999; }
+.ds-switch p a { color: #ccc; text-decoration: underline; }
+.ds-switch ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 2px; }
+.ds-switch li a { display: block; padding: 5px 8px; border-radius: 5px; color: inherit; text-decoration: none; }
+.ds-switch li a[aria-current="page"] { background: #fff; color: #111; }
+.ds-switch a:focus-visible { outline: 2px solid #6af; outline-offset: 1px; }
+@media (hover: hover) { .ds-switch li a:hover { background: #2a2a2a; } .ds-switch li a[aria-current="page"]:hover { background: #fff; } }
+@media (max-width: 640px) { .ds-switch { left: 8px; right: 8px; bottom: 8px; } .ds-switch p { display: none; } }
+.ref-root .vis-frame { text-align: start; }
