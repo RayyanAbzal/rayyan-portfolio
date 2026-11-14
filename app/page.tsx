@@ -1,14 +1,22 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { BookBadge } from "@/components/book-badge";
 import { BookLink } from "@/components/book-link";
 import { RichText } from "@/components/case/rich-text";
 import { HarnessDrawing } from "@/components/harness/harness-drawing";
+import { AucklandClock } from "@/components/home/auckland-clock";
+import { ExplodedWork, type WorkRow } from "@/components/home/exploded-work";
+import { LivingOffers } from "@/components/home/living-offers";
+import { TeardownHero, type HeroPiece } from "@/components/home/teardown-hero";
 import { JsonLd } from "@/components/json-ld";
+import { LitText, RisePanel } from "@/components/rise-panel";
 import { StickyBookCta } from "@/components/sticky-book-cta";
 import { Button } from "@/components/ui/button";
-import { HARNESS } from "@/content/harness";
+import { TESTIMONIALS } from "@/content/about";
+import { HARNESS_LAYERS, HARNESS_PEOPLE } from "@/content/harness";
 import { HOME, OFFERS } from "@/content/home";
+import { HERO, PROJECT_LAYERS, SECTION_LABELS } from "@/content/home-novelty";
 import homeLd from "@/content/jsonld/home.json";
 import { CLIENT_PROJECTS } from "@/content/projects";
 import { EMAIL } from "@/lib/site";
@@ -20,99 +28,102 @@ export const metadata: Metadata = pageMetadata({
   path: "/",
 });
 
+const PIECES: readonly HeroPiece[] = [...HARNESS_LAYERS, ...HARNESS_PEOPLE].map(({ id, name, piece, what }) => ({
+  id,
+  name,
+  piece,
+  what,
+}));
+
+const WORK_ROWS: readonly WorkRow[] = PROJECT_LAYERS.flatMap((layers) => {
+  const project = CLIENT_PROJECTS.find((p) => p.slug === layers.slug);
+  return project ? [{ ...layers, name: project.name, title: project.title }] : [];
+});
+
 export default function HomePage() {
   return (
     <>
       <JsonLd data={homeLd} />
-      <main id="top" tabIndex={-1}>
+      <main id="top" tabIndex={-1} className="home-n">
         <div className="wrap">
-          <section className="home-hero" aria-label="Introduction">
-            <h1 className="display"><RichText value={HOME.heroHeadline} /></h1>
-            <div className="hero-sub">
-              <p className="hero-lede">{HOME.heroLede}</p>
-              <Button asChild>
-                <BookLink source="hero">{HOME.heroCta}</BookLink>
-              </Button>
-            </div>
-          </section>
-
-          <section id="work" className="home-sec" aria-labelledby="work-title">
-            <div className="sec-head">
-              <h2 id="work-title">{HOME.workTitle}</h2>
-              <Link className="link link-arrow" href="/work">{HOME.workLink}</Link>
-            </div>
-            <ol className="cols cols-4">
-              {CLIENT_PROJECTS.map((project, index) => (
-                <li key={project.slug} className="col">
-                  <span className="col-num">{String(index + 1).padStart(2, "0")}</span>
-                  <span className="build-name">{project.name}</span>
-                  <h3>
-                    <Link href={`/work/${project.slug}`} className="col-stretch">{project.title}</Link>
-                  </h3>
-                  <p>{project.outcome}</p>
-                </li>
-              ))}
-            </ol>
-          </section>
-
-          <section id="services" className="home-sec" aria-labelledby="services-title">
-            <div className="sec-head">
-              <h2 id="services-title">{HOME.servicesTitle}</h2>
-            </div>
-            <ul className="cols cols-3">
-              {OFFERS.map((offer, index) => (
-                <li key={offer.title} className="col">
-                  <span className="col-num">{String.fromCharCode(65 + index)}</span>
-                  <h3>{offer.title}</h3>
-                  <p>{offer.body}</p>
-                  <p className="col-meta">{offer.duration}, {offer.price.toLowerCase()}</p>
-                  <Link className="link link-arrow" href={offer.linkHref}>{offer.linkLabel}</Link>
-                </li>
-              ))}
-            </ul>
-          </section>
-
-          <section id="harness" className="home-sec" aria-labelledby="harness-title">
-            <div className="sec-head">
-              <h2 id="harness-title">{HARNESS.teaserHeading}</h2>
-            </div>
-            <div className="harness-teaser">
+          <section className="n-hero" aria-label="Introduction">
+            <div className="page-top n-top">
               <div>
-                <p className="big">{HARNESS.teaserTitle}</p>
-                <p>{HARNESS.teaserBody}</p>
-                <Link className="link link-arrow" href="/harness">{HARNESS.teaserLink}</Link>
+                <div className="status">
+                  <span>
+                    <span className="dot" aria-hidden="true" />
+                    {HERO.status}
+                  </span>
+                  <AucklandClock place={HERO.place} />
+                </div>
+                <h1 className="lede">
+                  <RichText value={HOME.heroHeadline} />
+                </h1>
               </div>
-              <Link href="/harness" className="harness-teaser-art" tabIndex={-1} aria-hidden="true">
-                <HarnessDrawing assembledOnly />
-              </Link>
+              <BookBadge source="hero_badge" label={HOME.heroCta} />
             </div>
-          </section>
-
-          <section id="about" className="home-sec" aria-labelledby="about-title">
-            <div className="sec-head">
-              <h2 id="about-title">{HOME.aboutHeading}</h2>
-            </div>
-            <div className="about-grid">
-              <p className="big">{HOME.aboutBig}</p>
-              <div className="prose">
-                {HOME.aboutParagraphs.map((paragraph) => (
-                  <p key={paragraph}>{paragraph}</p>
+            <RisePanel>
+              <div className="rise-chips" aria-hidden="true">
+                {HARNESS_LAYERS.slice(0, 4).map((layer) => (
+                  <span key={layer.id}>{layer.name}</span>
                 ))}
-                <p><Link className="link link-arrow" href="/about">{HOME.aboutLink}</Link></p>
               </div>
+              <p className="rise-text">
+                <LitText text={HOME.heroLede} />
+              </p>
+              <div className="actions">
+                <BookLink source="hero" className="pill pill-solid">
+                  {HOME.heroCta}
+                  <span className="pill-plus" aria-hidden="true">+</span>
+                </BookLink>
+                <Link href="/harness" className="pill pill-ghost">{HERO.secondary} ↗</Link>
+              </div>
+            </RisePanel>
+            <TeardownHero pieces={PIECES}>
+              <HarnessDrawing />
+            </TeardownHero>
+          </section>
+
+          <section id="work" className="row" aria-labelledby="work-title">
+            <h2 id="work-title">{HOME.workTitle}</h2>
+            <div>
+              <ExplodedWork rows={WORK_ROWS} />
+              <p className="hint">
+                <Link className="link link-arrow" href="/work">{HOME.workLink}</Link>
+              </p>
             </div>
           </section>
 
-          <section id="contact" className="home-close" aria-labelledby="contact-title">
-            <div>
-              <h2 id="contact-title" className="display"><RichText value={HOME.ctaTitle} /></h2>
-              <p>{HOME.ctaBody}</p>
+          <section id="services" className="row" aria-labelledby="services-title">
+            <h2 id="services-title">{HOME.servicesTitle}</h2>
+            <LivingOffers offers={OFFERS} note={SECTION_LABELS.offersNote} />
+          </section>
+
+          <section className="row" aria-labelledby="words-title">
+            <h2 id="words-title">{SECTION_LABELS.words}</h2>
+            <div className="quotes">
+              {TESTIMONIALS.map((t) => (
+                <blockquote key={t.project}>
+                  <p>“{t.quote}”</p>
+                  <footer>
+                    {t.role}, <Link href={t.linkHref}>{t.project}</Link>
+                  </footer>
+                </blockquote>
+              ))}
             </div>
-            <div className="close-actions">
-              <Button asChild variant="gold">
-                <BookLink source="contact">{HOME.ctaButton}</BookLink>
-              </Button>
-              <span className="alt">or email <a href={`mailto:${EMAIL}`}>{EMAIL}</a></span>
+          </section>
+
+          <section id="contact" className="row n-close" aria-labelledby="contact-title">
+            <h2 id="contact-title">{SECTION_LABELS.next}</h2>
+            <div>
+              <p className="n-close-title"><RichText value={HOME.ctaTitle} /></p>
+              <p>{HOME.ctaBody}</p>
+              <div className="actions">
+                <Button asChild>
+                  <BookLink source="contact">{HOME.ctaButton}</BookLink>
+                </Button>
+                <span className="alt">or email <a href={`mailto:${EMAIL}`}>{EMAIL}</a></span>
+              </div>
             </div>
           </section>
         </div>

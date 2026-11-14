@@ -31,11 +31,12 @@
     content: "\2192";
     font-weight: 500;
     color: var(--ink-3);
-    opacity: 0;
-    transform: translateX(-6px);
+    opacity: 0.6;
     transition: opacity 150ms ease-out, transform 150ms ease-out;
   }
-  .card:has(.card-link:focus-visible) h3::after { opacity: 1; transform: none; }
+  .card:has(.card-link:focus-visible) h3::after { opacity: 1; color: var(--ink); transform: translateX(3px); }
+  .card:has(.card-link) .vis-frame { transition: transform 200ms cubic-bezier(0.2, 0, 0, 1); }
+  .count { margin-left: 6px; font-size: 0.5em; font-weight: 500; vertical-align: super; color: var(--ink-3); letter-spacing: 0; font-variant-numeric: tabular-nums; }
 
   .card-visual {
     position: relative;
@@ -142,5 +143,6 @@
 
 @media (hover: hover) {
   .card:has(.card-link):hover { border-color: var(--ink-3); }
-  .card:has(.card-link):hover h3::after { opacity: 1; transform: none; }
+  .card:has(.card-link):hover h3::after { opacity: 1; color: var(--ink); transform: translateX(3px); }
+  .card:has(.card-link):hover .vis-frame { transform: translateY(-4px); }
 }
