@@ -12,7 +12,8 @@ import {
 import { Arrow, AsClosing, AsRich, AsShell, dirHref } from "./astapable-shell";
 
 export function AstapableAbout() {
-  const [lead, ...rest] = TESTIMONIALS;
+  // TESTIMONIALS[0] is the home quote; About carries the others.
+  const [, lead, ...rest] = TESTIMONIALS;
   return (
     <AsShell current="about">
       <section className="as-pagehead" aria-labelledby="as-about-h1">

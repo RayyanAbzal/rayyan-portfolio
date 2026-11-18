@@ -103,9 +103,9 @@ export function RefinedAbout() {
       </section>
 
       <section className="rf-sec" aria-labelledby="rf-clients">
-        <SectionHead id="rf-clients" title={trim(ABOUT.testimonialsHeading)} count={TESTIMONIALS.length} />
+        <SectionHead id="rf-clients" title={trim(ABOUT.testimonialsHeading)} count={TESTIMONIALS.length - 1} />
         <ul className="rf-quotes">
-          {TESTIMONIALS.map((t) => (
+          {TESTIMONIALS.slice(1).map((t) => (
             <li key={t.project} className="rf-quote">
               <blockquote>{t.quote}</blockquote>
               <p className="rf-who">

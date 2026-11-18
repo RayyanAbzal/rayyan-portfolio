@@ -61,7 +61,7 @@ export function OcAbout() {
       <section className="oc-section oc-reveal" aria-labelledby="oc-says-h">
         <h2 id="oc-says-h" className="oc-h2">{ABOUT.testimonialsHeading}</h2>
         <div className="oc-quotes">
-          {TESTIMONIALS.map((t) => (
+          {TESTIMONIALS.slice(1).map((t) => (
             <figure key={t.project} className="oc-b oc-b-chat">
               <blockquote className="oc-bubble">{t.quote}</blockquote>
               <figcaption>{t.role}, {t.project}</figcaption>

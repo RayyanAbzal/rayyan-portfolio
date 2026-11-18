@@ -54,7 +54,7 @@
 .ref-outcrowd .oc-steps .oc-chip-tag { display: inline-block; margin-top: 14px; padding: 4px 10px; border-radius: 999px; font-size: 0.75rem; font-weight: 600; color: var(--oc-brand); background: var(--oc-brand-tint); }
 
 /* quotes and faq */
-.ref-outcrowd .oc-quotes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: clamp(28px, 4vw, 56px); }
+.ref-outcrowd .oc-quotes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: clamp(28px, 4vw, 56px); }
 .ref-outcrowd .oc-quotes .oc-bubble { font-size: 0.9375rem; }
 .ref-outcrowd .oc-faq { max-width: 780px; margin: clamp(28px, 4vw, 56px) auto 0; display: grid; gap: 10px; }
 .ref-outcrowd .oc-faq details { border-radius: 20px; background: var(--oc-raised); border: 1px solid var(--oc-line); }

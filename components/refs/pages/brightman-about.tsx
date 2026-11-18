@@ -79,7 +79,7 @@ export function BrightmanAbout() {
       <section className="bm-section bm-quotes-section" aria-labelledby="bm-quotes">
         <h2 id="bm-quotes" className="bm-big-h bm-big-h-md" data-rv>{ABOUT.testimonialsHeading}</h2>
         <ul className="bm-quotes">
-          {TESTIMONIALS.map((t) => (
+          {TESTIMONIALS.slice(1).map((t) => (
             <li key={t.project} className="bm-quote" data-rv>
               <blockquote>
                 <p>{t.quote}</p>

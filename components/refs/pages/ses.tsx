@@ -196,7 +196,7 @@ function About() {
           {ABOUT.testimonialsHeading}
         </h2>
         <div className="words" style={{ marginTop: "clamp(24px, 4vw, 44px)" }}>
-          {TESTIMONIALS.map((t) => (
+          {TESTIMONIALS.slice(1).map((t) => (
             <figure key={t.project} className="word">
               <figcaption className="word-who">
                 <b>{t.role}</b>

@@ -70,7 +70,7 @@ export function NxAbout() {
       <section className="nx-section" aria-labelledby="nx-words-h">
         <NxSplit id="nx-words-h" tag="Client words" title={ABOUT.testimonialsHeading} />
         <ul className="nx-quotes" data-nx-sharpen>
-          {TESTIMONIALS.map((t) => (
+          {TESTIMONIALS.slice(1).map((t) => (
             <li key={t.project}>
               <blockquote>
                 <p>{t.quote}</p>

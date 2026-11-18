@@ -103,7 +103,7 @@
 .ref-nexora .nx-feat[data-active="true"] :is(h3, p, .nx-feat-link) { color: var(--on-panel); }
 
 /* ---------- testimonials ---------- */
-.ref-nexora .nx-quotes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.ref-nexora .nx-quotes { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
 .ref-nexora .nx-quotes li { display: flex; flex-direction: column; justify-content: space-between; gap: 24px; padding: 24px; border-radius: 20px; border: 1px solid var(--line); background: var(--surface); }
 .ref-nexora .nx-quotes blockquote { margin: 0; }
 .ref-nexora .nx-quotes blockquote p { font-size: 0.875rem; line-height: 1.6; color: var(--ink-2); }
