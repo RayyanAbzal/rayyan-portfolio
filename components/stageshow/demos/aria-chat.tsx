@@ -1,131 +1,194 @@
 "use client";
 
-import {
-  Bar,
-  Collapse,
-  Field,
-  Stage,
-  Stream,
-  Text,
-  Window,
-  type Act,
-} from "../kit";
+import { ArrowUp, CalendarDays, Camera, CloudRain, Plus } from "lucide-react";
+import { Bar, Bubble, Collapse, Icon, Phone, Stage, Stream, Thread, type Act } from "../kit";
 import "../look.css";
 import "./aria-chat.css";
 
-// ARIA, after the ai-chat gold. An outfit photo goes up with a question, a
-// short Thinking state, then specific feedback streams in, using the
-// occasion and the weather; its context chips arrive last. The photo is a
-// CSS-drawn stand-in, not a real image.
+// ARIA, a stylist on a phone (after the phone-touch, messages and ai-chat
+// golds). An outfit photo is attached and sent with a question, Thinking, the
+// answer streams in with specific advice from the occasion and the weather,
+// then the context it used lands as chips and two suggested swaps land as a
+// small card on the phone's edge. The photo is CSS-drawn, never an image.
 
-const Q = "Does this work for a work dinner tonight?";
+const Q = "Does this work for dinner tonight?";
 const A =
-  "Mostly, yes. The navy blazer and grey trousers suit a work dinner. It will be 9°C and raining by seven, so swap the suede loafers for the leather boots and bring the wool coat. A plain white shirt under the blazer will look sharper than the graphic tee.";
+  "Close. The navy blazer and grey trousers suit a work dinner. It is 9°C and raining by seven, so wear the leather boots, not the suede loafers. A plain white shirt under the blazer will look sharper than the graphic tee.";
 const WORDS = A.split(" ").length;
 
 interface S {
+  attached: boolean;
   draft: string;
   sent: boolean;
   phase: "idle" | "thinking" | "answer";
   words: number;
-  sources: boolean;
+  chips: boolean;
+  swaps: boolean;
 }
 
-const initial: S = {
-  draft: "",
-  sent: false,
-  phase: "idle",
-  words: 0,
-  sources: false,
-};
-const poster: S = {
-  draft: "",
-  sent: true,
-  phase: "answer",
-  words: WORDS,
-  sources: true,
-};
+const START: S = { attached: false, draft: "", sent: false, phase: "idle", words: 0, chips: false, swaps: false };
+const POSTER: S = { attached: false, draft: "", sent: true, phase: "answer", words: WORDS, chips: true, swaps: true };
 
-async function script(a: Act<S>) {
-  await a.wait(700);
-  a.mark("type");
-  await a.type("draft", Q, { interval: 38 });
-  await a.wait(400);
+const script = async (a: Act<S>) => {
+  await a.wait(900);
+  a.mark("attach");
+  await a.move({ at: "attach", x: 0.5, y: 0.5 });
+  await a.click();
+  a.put({ attached: true });
+  await a.wait(600);
+  a.mark("ask");
+  await a.type("draft", Q, { interval: 44 });
+  await a.wait(350);
   a.mark("send");
-  a.put({ sent: true, draft: "" });
-  await a.wait(450);
+  await a.click({ at: "send", x: 0.5, y: 0.5 });
+  a.put({ sent: true, draft: "", attached: false });
+  await a.wait(500);
   a.put({ phase: "thinking" });
-  await a.wait(1100);
-  a.mark("stream");
+  await a.wait(1200);
+  a.mark("answer");
   a.put({ phase: "answer" });
   for (let i = 1; i <= WORDS; i++) {
     a.put({ words: i });
-    await a.wait(40);
+    await a.wait(48);
   }
-  await a.wait(300);
-  a.mark("sources");
-  a.put({ sources: true });
-  await a.wait(2600);
+  await a.wait(400);
+  a.mark("context");
+  a.put({ chips: true });
+  await a.wait(900);
+  a.put({ swaps: true });
+  await a.wait(3200);
+};
+
+// An outfit drawn from boxes: tee, blazer, trousers, loafers
+function Photo({ small }: { small?: boolean }) {
+  return (
+    <span className="ar-photo" data-small={small || undefined} aria-hidden="true">
+      <span className="ar-photo__head" />
+      <span className="ar-photo__sleeve ar-photo__sleeve--l" />
+      <span className="ar-photo__sleeve ar-photo__sleeve--r" />
+      <span className="ar-photo__tee">
+        <span className="ar-photo__print" />
+      </span>
+      <span className="ar-photo__blazer ar-photo__blazer--l" />
+      <span className="ar-photo__blazer ar-photo__blazer--r" />
+      <span className="ar-photo__leg ar-photo__leg--l" />
+      <span className="ar-photo__leg ar-photo__leg--r" />
+      <span className="ar-photo__shoe ar-photo__shoe--l" />
+      <span className="ar-photo__shoe ar-photo__shoe--r" />
+    </span>
+  );
 }
 
-export default function AiChat() {
+export default function AriaChat() {
   return (
     <Stage<S>
-      width={640}
-      height={420}
-      compact={{ below: 600, width: 358, height: 520 }}
-      initial={initial}
-      poster={poster}
+      width={760}
+      height={560}
+      compact={{ below: 600, width: 358, height: 560 }}
+      initial={START}
+      poster={POSTER}
       script={script}
       play="once"
-      className="look-ra ac"
+      cursor={{ at: "compose", style: "touch" }}
+      className="look-ra ar"
     >
-      {(s) => (
-        <Window title="ARIA" className="ac-win">
-          <div className="ac-body">
-            <div className="ac-thread">
-              <div className="ac-turn ac-turn--past">
-                <Bar w={180} h={30} r={15} tone={1} className="ac-past-q" />
-                <Bar w="86%" h={8} r={4} tone={2} />
-                <Bar w="62%" h={8} r={4} tone={2} />
+      {(s, _rect, layout) => {
+        const compact = layout === "compact";
+        return (
+          <>
+            <Phone width={326} className="ar-phone">
+              <div className="ar-head">
+                <span className="ar-head__title">ARIA</span>
+                <span className="ar-head__sub">Your stylist</span>
               </div>
-              <Collapse open={s.sent} reveal="drop" from="below">
-                <div className="ac-q">
-                  <span className="ac-photo" aria-hidden="true">
-                    <span className="ac-photo__coat" />
-                    <span className="ac-photo__legs" />
-                    <span className="ac-photo__shoes" />
+              <Thread app="chat" className="ar-thread">
+                <div className="ar-past" aria-hidden="true">
+                  <Bar w={150} h={34} r={17} tone={1} className="ar-past__q" />
+                  <Bar w="90%" h={8} r={4} tone={2} />
+                  <Bar w="64%" h={8} r={4} tone={2} />
+                </div>
+                {s.sent && (
+                  <Bubble from="me">
+                    <span className="ar-ask">
+                      <Photo />
+                      <span>{Q}</span>
+                    </span>
+                  </Bubble>
+                )}
+                {s.phase !== "idle" && (
+                  <Bubble from="them">
+                    <Collapse open={s.phase === "thinking"}>
+                      <span className="ar-thinking">Thinking</span>
+                    </Collapse>
+                    <Collapse open={s.phase === "answer"}>
+                      <Stream className="ar-answer" text={A} count={s.words} />
+                      <Collapse open={s.chips} reveal="drop">
+                        <span className="ar-chips">
+                          <span className="ar-chip">
+                            <Camera size={13} strokeWidth={1.75} />
+                            Photo
+                          </span>
+                          <span className="ar-chip">
+                            <CloudRain size={13} strokeWidth={1.75} />
+                            9°C, rain
+                          </span>
+                          <span className="ar-chip">
+                            <CalendarDays size={13} strokeWidth={1.75} />
+                            Work dinner
+                          </span>
+                        </span>
+                      </Collapse>
+                    </Collapse>
+                  </Bubble>
+                )}
+              </Thread>
+              <div className="ar-compose">
+                <span className="ar-plus" data-target="attach" aria-hidden="true">
+                  <Plus size={16} strokeWidth={2} />
+                </span>
+                <span className="ar-field" data-target="compose">
+                  <Collapse open={s.attached} reveal="drop">
+                    <span className="ar-attached">
+                      <Photo small />
+                    </span>
+                  </Collapse>
+                  <span className="ar-field__text">{s.draft}</span>
+                  {!s.draft && <span className="ar-field__ph">Ask ARIA</span>}
+                  <span className="ar-send" data-target="send" data-show={s.draft ? "" : undefined}>
+                    <ArrowUp size={16} strokeWidth={2.5} />
                   </span>
-                  <Text>{Q}</Text>
-                </div>
-              </Collapse>
-              {/* Thinking is one line; the answer opens to its own height as
-                  Thinking closes, so the thread grows once, smoothly, and the
-                  earlier turns move up with it. Before the send neither takes
-                  any room */}
-              <Collapse open={s.phase === "thinking"}>
-                <Text className="ac-thinking">Thinking</Text>
-              </Collapse>
-              <Collapse open={s.phase === "answer"}>
-                <div className="ac-a" data-on>
-                  <Stream className="ac-stream" text={A} count={s.words} />
-                  <div className="ac-sources" data-on={s.sources || undefined}>
-                    <span className="ac-source">Your photo</span>
-                    <span className="ac-source">Auckland, 9°C, rain</span>
-                    <span className="ac-source">Dinner, smart casual</span>
+                </span>
+              </div>
+            </Phone>
+
+            {!compact && (
+              <div className="ar-swaps">
+                <Collapse open={s.swaps} reveal="drop" from="below">
+                  <div className="ar-swaps__card">
+                    <span className="ar-swaps__title">Two swaps</span>
+                    <div className="ar-swap">
+                      <span className="ar-swap__art ar-swap__art--boot" aria-hidden="true" />
+                      <span className="ar-swap__text">
+                        <span className="ar-swap__name">Leather boots</span>
+                        <span className="ar-swap__sub">Instead of suede loafers</span>
+                      </span>
+                    </div>
+                    <div className="ar-swap">
+                      <span className="ar-swap__art ar-swap__art--shirt" aria-hidden="true">
+                        <Icon name="check" size={13} filled />
+                      </span>
+                      <span className="ar-swap__text">
+                        <span className="ar-swap__name">White shirt</span>
+                        <span className="ar-swap__sub">Instead of graphic tee</span>
+                      </span>
+                    </div>
                   </div>
-                </div>
-              </Collapse>
-            </div>
-            <Field
-              className="ac-composer"
-              value={s.draft}
-              placeholder="Ask about an outfit"
-              focused={!s.sent}
-            />
-          </div>
-        </Window>
-      )}
+                </Collapse>
+              </div>
+            )}
+          </>
+        );
+      }}
     </Stage>
   );
 }

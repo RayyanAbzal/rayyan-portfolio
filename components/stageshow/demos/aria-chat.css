@@ -1,157 +1,188 @@
-/* ARIA chat, adapted from the ai-chat gold. */
-.ac .ss-stage {
-  overflow: hidden;
-  background: var(--ss-well);
-}
+/* ARIA: a phone, bottom anchored so the top runs off the stage, with a small
+   swaps card on its edge. Zero-chroma; the outfit is drawn from boxes. */
+.ar {
+  & .ss-stage {
+    overflow: hidden;
+    border-radius: 14px;
+    background: var(--ss-canvas);
+    font-family: var(--ss-font);
+    color: var(--ss-text-strong);
+  }
 
-/* Pinned top and sides, off the bottom just under the composer */
-.ac-win {
-  position: absolute;
-  top: 28px;
-  left: 56px;
-  width: 528px;
-  height: 420px;
-}
+  .ar-phone { position: absolute; bottom: 16px; left: 96px; }
 
-.ac-body {
-  display: grid;
-  grid-template-rows: 1fr auto;
-  height: 100%;
-  /* The composer ends 28px above the stage's edge: the window runs off
-     below it, never at it */
-  padding: 16px 20px 56px;
-  background: var(--ss-surface);
-}
+  .ar-phone .ss-phone__content { display: flex; flex-direction: column; }
 
-/* The thread sits at the bottom, over the composer, the way chat apps
-   anchor it; older content goes up out of the window */
-.ac-thread {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  gap: 14px;
-  min-height: 0;
-  padding-bottom: 20px;
-  overflow: hidden;
-}
+  .ar-head {
+    display: grid;
+    justify-items: center;
+    gap: 1px;
+    padding: 4px 0 10px;
+    border-bottom: 1px solid var(--ss-line);
+  }
 
-.ac-turn--past {
-  display: grid;
-  gap: 8px;
-}
+  .ar-head__title { font-size: 15px; font-weight: 600; letter-spacing: 0.04em; }
+  .ar-head__sub { color: var(--ss-text-faint); font-size: 12px; }
 
-.ac-past-q {
-  justify-self: end;
-}
+  .ar-thread { flex: 1; padding: 0 20px 12px; font-size: 16px; }
 
-.ac-q {
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
-  gap: 8px;
-}
+  .ar-ask { display: grid; justify-items: start; gap: 8px; width: 150px; }
+  .ar-past { display: grid; gap: 8px; }
+  .ar-past__q { justify-self: end; }
+  .ar-thinking { display: block; color: var(--ss-text-faint); }
+  .ar-answer { display: block; }
 
-/* A stand-in outfit photo: coat, trousers, shoes as flat shapes */
-.ac-photo {
-  position: relative;
-  display: block;
-  width: 84px;
-  height: 104px;
-  border-radius: 12px;
-  flex: none;
-  zoom: 0.75;
-  overflow: hidden;
-  background: linear-gradient(180deg, oklch(0.93 0.01 80), oklch(0.88 0.01 80));
-}
+  .ar-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
 
-.ac-photo__coat {
-  position: absolute;
-  left: 24px;
-  top: 14px;
-  width: 36px;
-  height: 40px;
-  border-radius: 10px 10px 4px 4px;
-  background: oklch(0.32 0.06 260);
-}
+  .ar-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px 4px 8px;
+    border-radius: 999px;
+    background: var(--ss-ink-1);
+    box-shadow: inset 0 0 0 1px var(--ss-line);
+    color: var(--ss-text);
+    font-size: 13px;
+    white-space: nowrap;
+  }
 
-.ac-photo__legs {
-  position: absolute;
-  left: 30px;
-  top: 52px;
-  width: 24px;
-  height: 36px;
-  border-radius: 2px;
-  background: linear-gradient(90deg, oklch(0.55 0 0) 46%, transparent 46% 54%, oklch(0.55 0 0) 54%);
-}
+  /* Composer */
+  .ar-compose {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 16px 36px;
+  }
 
-.ac-photo__shoes {
-  position: absolute;
-  left: 27px;
-  top: 88px;
-  width: 30px;
-  height: 6px;
-  border-radius: 3px;
-  background: linear-gradient(90deg, oklch(0.5 0.06 60) 44%, transparent 44% 56%, oklch(0.5 0.06 60) 56%);
-}
+  .ar-plus {
+    display: grid;
+    flex: none;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--ss-ink-1);
+    color: var(--ss-text);
+  }
 
-.ac-q .ss-text {
-  max-width: 76%;
-  white-space: normal;
-  text-wrap: pretty;
-  padding: 8px 14px;
-  border-radius: 16px;
-  background: var(--ss-ink-1);
-  color: var(--ss-text-strong);
-  font-size: 13px;
-}
+  .ar-field {
+    position: relative;
+    display: flex;
+    flex: 1;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    min-height: 40px;
+    padding: 0 4px 0 6px;
+    border-radius: 20px;
+    background: var(--ss-surface);
+    box-shadow: inset 0 0 0 1px var(--ss-line);
+    font-size: 16px;
+  }
 
-.ac-a {
-  display: grid;
-  gap: 10px;
-  opacity: 0;
-  transition: opacity 0.25s ease;
-}
+  .ar-field__text { flex: 1; min-width: 0; padding-left: 8px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .ar-field__ph { position: absolute; left: 14px; color: var(--ss-text-faint); }
+  .ar-attached { display: block; }
 
-.ac-a[data-on] {
-  opacity: 1;
-}
+  .ar-send {
+    display: grid;
+    flex: none;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    margin-left: auto;
+    border-radius: 50%;
+    background: var(--ss-ink-1);
+    color: var(--ss-text-faint);
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
 
-.ac-thinking {
-  color: var(--ss-text);
-  font-size: 13px;
-}
+  .ar-send[data-show] { background: var(--ss-text-strong); color: #fff; }
 
-.ac-stream {
-  color: var(--ss-text-strong);
-  font-size: 13px;
-  line-height: 1.55;
-}
+  /* The outfit, drawn from boxes */
+  .ar-photo {
+    position: relative;
+    display: block;
+    width: 150px;
+    height: 180px;
+    overflow: hidden;
+    border-radius: 14px;
+    background: linear-gradient(180deg, oklch(0.93 0.008 80), oklch(0.85 0.01 80));
+  }
 
-.ac-sources {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  opacity: 0;
-  translate: 0 4px;
-  transition: opacity 0.35s ease, translate 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-}
+  .ar-photo > * { position: absolute; display: block; }
 
-.ac-sources[data-on] {
-  opacity: 1;
-  translate: 0 0;
-}
+  .ar-photo__head { left: 62px; top: 12px; width: 26px; height: 28px; border-radius: 50%; background: oklch(0.76 0.045 55); }
+  .ar-photo__tee { left: 52px; top: 44px; width: 46px; height: 62px; background: oklch(0.95 0 0); }
+  .ar-photo__print { left: 15px; top: 20px; width: 16px; height: 14px; border-radius: 3px; background: oklch(0.62 0 0); position: absolute; }
+  .ar-photo__blazer { top: 42px; width: 22px; height: 70px; background: oklch(0.3 0.05 260); }
+  .ar-photo__blazer--l { left: 33px; border-radius: 6px 0 0 4px; }
+  .ar-photo__blazer--r { left: 95px; border-radius: 0 6px 4px 0; }
+  .ar-photo__sleeve { top: 46px; width: 13px; height: 64px; border-radius: 6px; background: oklch(0.3 0.05 260); }
+  .ar-photo__sleeve--l { left: 20px; }
+  .ar-photo__sleeve--r { left: 117px; }
+  .ar-photo__leg { top: 108px; width: 22px; height: 56px; background: oklch(0.56 0 0); }
+  .ar-photo__leg--l { left: 52px; }
+  .ar-photo__leg--r { left: 76px; }
+  .ar-photo__shoe { top: 162px; width: 26px; height: 9px; border-radius: 4px; background: oklch(0.38 0.03 60); }
+  .ar-photo__shoe--l { left: 49px; }
+  .ar-photo__shoe--r { left: 75px; }
 
-.ac-source {
-  padding: 4px 10px;
-  border-radius: 999px;
-  box-shadow: inset 0 0 0 1px var(--ss-line);
-  color: var(--ss-text);
-  font-size: 11px;
-}
+  .ar-photo[data-small] { width: 30px; height: 30px; border-radius: 7px; }
+  .ar-photo[data-small] > * { display: none; }
+  .ar-photo[data-small] .ar-photo__head,
+  .ar-photo[data-small] .ar-photo__blazer--l,
+  .ar-photo[data-small] .ar-photo__blazer--r,
+  .ar-photo[data-small] .ar-photo__leg--l,
+  .ar-photo[data-small] .ar-photo__leg--r { display: block; }
+  .ar-photo[data-small] .ar-photo__head { left: 11px; top: 2px; width: 8px; height: 8px; }
+  .ar-photo[data-small] .ar-photo__blazer { top: 10px; width: 6px; height: 12px; }
+  .ar-photo[data-small] .ar-photo__blazer--l { left: 8px; }
+  .ar-photo[data-small] .ar-photo__blazer--r { left: 16px; }
+  .ar-photo[data-small] .ar-photo__leg { top: 20px; width: 6px; height: 10px; }
+  .ar-photo[data-small] .ar-photo__leg--l { left: 9px; }
+  .ar-photo[data-small] .ar-photo__leg--r { left: 15px; }
 
-/* Narrow: a gutter each side, the window full width of the stage */
-.ac .ss-stage[data-layout='compact'] .ac-win {
-  left: 16px;
-  width: 326px;
-  height: 520px;
+  /* Satellite: straddles the phone's right edge, past the text column */
+  .ar-swaps { position: absolute; top: 200px; left: 408px; width: 262px; }
+
+  .ar-swaps__card {
+    display: grid;
+    gap: 12px;
+    padding: 16px;
+    border-radius: 14px;
+    background: var(--ss-surface);
+    box-shadow: var(--ss-shadow-satellite);
+  }
+
+  .ar-swaps__title { font-size: 13px; font-weight: 600; }
+
+  .ar-swap { display: flex; align-items: center; gap: 12px; }
+
+  .ar-swap__art {
+    position: relative;
+    display: grid;
+    flex: none;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: var(--ss-ink-1);
+    color: var(--ss-success-text);
+  }
+
+  .ar-swap__art--boot::before {
+    content: "";
+    width: 22px;
+    height: 20px;
+    border-radius: 3px 3px 6px 6px;
+    background: oklch(0.38 0.03 60);
+  }
+
+  .ar-swap__text { display: grid; }
+  .ar-swap__name { font-size: 13px; font-weight: 600; }
+  .ar-swap__sub { color: var(--ss-text); font-size: 12px; }
+
+  & .ss-stage[data-layout='compact'] .ar-phone { left: 16px; }
 }
