@@ -1,17 +1,14 @@
+import { RefinedAbout } from "./refined-about";
+import { RefinedCase } from "./refined-case";
+import { RefinedContact } from "./refined-contact";
+import { RefinedProjects } from "./refined-projects";
 import type { DirectionPages } from "./types";
 
-// TEMPORARY: the refined direction's inner pages. Placeholder until designed.
-function Pending({ page }: { page: string }) {
-  return (
-    <main id="top" className="ref-root" style={{ padding: "120px 24px", textAlign: "center" }}>
-      <p>The refined {page} page is being designed.</p>
-    </main>
-  );
-}
-
+// TEMPORARY: the refined direction's inner pages. Shared chrome and tokens
+// live in refined-chrome.tsx and app/styles/refs/refined-pages.css.
 export const PAGES: DirectionPages = {
-  projects: () => <Pending page="projects" />,
-  about: () => <Pending page="about" />,
-  contact: () => <Pending page="contact" />,
-  caseStudy: () => <Pending page="case study" />,
+  projects: () => <RefinedProjects />,
+  about: () => <RefinedAbout />,
+  contact: () => <RefinedContact />,
+  caseStudy: ({ slug }) => <RefinedCase slug={slug} />,
 };
