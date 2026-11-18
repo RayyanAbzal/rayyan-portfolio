@@ -1,0 +1,162 @@
+/* nexora inner pages and the shared project rows. Every selector is scoped under .ref-nexora. */
+
+.ref-nexora .nx-pill-ink { background: var(--ink); color: var(--bg); }
+.ref-nexora .hi { color: var(--tint-ink); }
+.ref-nexora .link, .ref-nexora .nx-text-link { color: var(--tint-ink); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.ref-nexora .nx-text-link { font-size: 0.875rem; font-weight: 600; margin-top: 6px; }
+.ref-nexora .nx-section h2.nx-h2-sm { max-width: 24ch; font-size: clamp(1.5rem, 1.1rem + 1.6vw, 2.25rem); line-height: 1.1; }
+.ref-nexora .nx-more { display: flex; justify-content: center; margin-top: 28px; }
+
+/* ---------- page hero ---------- */
+.ref-nexora .nx-hero-sm { min-height: 0; }
+.ref-nexora .nx-hero-sm .nx-hero-copy { padding-bottom: clamp(96px, 12vw, 168px); }
+.ref-nexora .nx-hero-sm h1 { max-width: 20ch; font-size: clamp(2.125rem, 1rem + 4.4vw, 4.25rem); }
+.ref-nexora .nx-hero-sm .nx-lede strong { color: var(--on-panel); font-weight: 600; }
+.ref-nexora .nx-nav a[aria-current="page"] { background: color-mix(in oklch, var(--on-panel) 14%, transparent); color: var(--on-panel); }
+.ref-nexora .nx-facts-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.ref-nexora .nx-facts-row li { padding: 6px 14px; border-radius: 999px; border: 1px solid color-mix(in oklch, var(--on-panel) 22%, transparent); background: color-mix(in oklch, var(--on-panel) 8%, transparent); font-size: 0.8125rem; font-weight: 500; color: color-mix(in oklch, var(--on-panel) 90%, transparent); }
+
+/* ---------- project rows ---------- */
+.ref-nexora .nx-rows { display: grid; gap: 12px; }
+.ref-nexora .nx-row { position: relative; display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); overflow: hidden; border-radius: 24px; border: 1px solid var(--line); background: var(--surface); }
+.ref-nexora .nx-row-visual { container-type: inline-size; padding: 12px; background: var(--sunken); border-radius: 23px 0 0 23px; }
+.ref-nexora .nx-vbox { display: grid; align-content: center; overflow: hidden; border-radius: 14px; aspect-ratio: 760 / 520; max-height: 560px; }
+@container (max-width: 599px) {
+  .ref-nexora .nx-vbox { aspect-ratio: auto; height: 640px; max-height: none; }
+}
+.ref-nexora .nx-row-visual :is(.card-visual, .vis-frame) { pointer-events: none; }
+.ref-nexora .nx-row-body { display: flex; flex-direction: column; justify-content: center; gap: 12px; padding: clamp(24px, 3vw, 44px); }
+.ref-nexora .nx-proj-name { font-size: 0.8125rem; font-weight: 500; color: var(--ink-3); }
+.ref-nexora .nx-row h3 { font-size: clamp(1.375rem, 1rem + 1vw, 1.875rem); font-weight: 600; line-height: 1.12; letter-spacing: -0.03em; text-wrap: balance; }
+.ref-nexora .nx-row h3 a::before { content: ""; position: absolute; inset: 0; z-index: 1; }
+.ref-nexora .nx-row h3 a:focus-visible { outline: none; }
+.ref-nexora .nx-row:has(a:focus-visible) { outline: 2px solid var(--focus); outline-offset: 3px; }
+.ref-nexora .nx-row-blurb { font-size: 0.9375rem; line-height: 1.6; color: var(--ink-2); }
+.ref-nexora .nx-outcome { align-self: flex-start; margin-top: 8px; padding: 6px 12px; border-radius: 999px; background: var(--tint); color: var(--tint-ink); font-size: 0.8125rem; font-weight: 600; line-height: 1.4; }
+.ref-nexora .nx-arrow { position: absolute; top: 16px; right: 16px; z-index: 2; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--ink); color: var(--bg); font-size: 1.125rem; pointer-events: none; }
+.ref-nexora .nx-row:has(a:focus-visible) .nx-arrow { background: var(--brand); }
+
+/* ---------- section copy ---------- */
+.ref-nexora .nx-role { font-size: 0.9375rem; color: var(--ink-3); }
+.ref-nexora .nx-story { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 40px clamp(32px, 6vw, 96px); align-items: start; }
+.ref-nexora .nx-story-copy { display: flex; flex-direction: column; gap: 18px; }
+.ref-nexora .nx-story-copy > p:not(.nx-tag):not(.nx-role) { max-width: 62ch; font-size: 1rem; line-height: 1.65; color: var(--ink-2); }
+.ref-nexora .nx-story-copy .nx-tag { margin-bottom: 0; }
+.ref-nexora .nx-facts { border-top: 1px solid var(--line-2); }
+.ref-nexora .nx-facts li { display: grid; gap: 4px; padding: 18px 0; border-bottom: 1px solid var(--line-2); }
+.ref-nexora .nx-facts span { font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-2); }
+.ref-nexora .nx-facts strong { font-size: 1.0625rem; font-weight: 600; letter-spacing: -0.01em; }
+.ref-nexora .nx-facts p { font-size: 0.9375rem; line-height: 1.55; color: var(--ink-2); }
+
+/* Four principle cards: the green fill rests on the first and follows hover. */
+.ref-nexora .nx-prin-list { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.ref-nexora .nx-prin { display: flex; flex-direction: column; gap: 12px; min-height: 340px; padding: 22px; border-radius: 20px; border: 1px solid var(--line); background: var(--surface); }
+.ref-nexora .nx-prin-n { margin-bottom: auto; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; background: var(--tint); color: var(--tint-ink); font-size: 0.875rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+.ref-nexora .nx-prin h3 { font-size: 1.1875rem; font-weight: 600; line-height: 1.2; letter-spacing: -0.02em; }
+.ref-nexora .nx-prin p { font-size: 0.875rem; line-height: 1.55; color: var(--ink-2); }
+.ref-nexora .nx-prin:first-child { background: radial-gradient(90% 60% at 80% 100%, oklch(0.5 0.1 160 / 0.7), transparent 70%), linear-gradient(165deg, var(--brand), oklch(0.32 0.06 150)); border-color: transparent; }
+.ref-nexora .nx-prin:first-child .nx-prin-n { background: color-mix(in oklch, var(--on-panel) 16%, transparent); color: var(--on-panel); }
+.ref-nexora .nx-prin:first-child :is(h3, p) { color: var(--on-panel); }
+
+/* Process: a stats-style row with hairlines between steps. */
+.ref-nexora .nx-steps { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line-2); padding-top: 28px; margin: 0; padding-left: 0; list-style: none; }
+.ref-nexora .nx-steps li { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; padding: 0 clamp(14px, 2.4vw, 32px); }
+.ref-nexora .nx-steps li:first-child { padding-left: 0; }
+.ref-nexora .nx-steps li + li { border-left: 1px solid var(--line-2); }
+.ref-nexora .nx-step-n { font-size: clamp(1.75rem, 1.2rem + 1.6vw, 2.5rem); font-weight: 500; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; color: var(--ink-3); }
+.ref-nexora .nx-steps h3 { font-size: 1.125rem; font-weight: 600; letter-spacing: -0.02em; }
+.ref-nexora .nx-steps p { font-size: 0.9375rem; line-height: 1.55; color: var(--ink-2); }
+.ref-nexora .nx-when { margin-top: auto; padding: 5px 12px; border-radius: 999px; background: var(--tint); color: var(--tint-ink); font-size: 0.8125rem; font-weight: 600; }
+
+.ref-nexora .nx-who a { margin-top: 8px; }
+
+/* single large quote */
+.ref-nexora .nx-quote-big { display: flex; flex-direction: column; gap: 28px; margin: 0; padding: clamp(24px, 4vw, 48px); border-radius: 24px; border: 1px solid var(--line); background: var(--surface); }
+.ref-nexora .nx-quote-big blockquote { margin: 0; max-width: 62ch; }
+.ref-nexora .nx-quote-big blockquote p { font-size: clamp(1.125rem, 1rem + 0.7vw, 1.5rem); line-height: 1.45; letter-spacing: -0.015em; color: var(--ink); text-wrap: pretty; }
+.ref-nexora .nx-quote-big .nx-who { display: flex; flex-direction: column; gap: 2px; font-size: 0.875rem; }
+.ref-nexora .nx-quote-big .nx-who span { color: var(--ink-3); }
+
+/* ---------- contact ---------- */
+.ref-nexora .nx-ways { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 12px; }
+.ref-nexora .nx-way { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; min-height: 280px; padding: 22px; border-radius: 20px; border: 1px solid var(--line); background: var(--surface); }
+.ref-nexora .nx-way h3 { font-size: 1.25rem; font-weight: 600; line-height: 1.15; letter-spacing: -0.02em; }
+.ref-nexora .nx-way p { font-size: 0.9375rem; line-height: 1.55; color: var(--ink-2); }
+.ref-nexora .nx-way .nx-pill { margin-top: auto; }
+.ref-nexora .nx-way-link { margin-top: auto; align-self: stretch; font-size: 1rem; font-weight: 600; color: var(--tint-ink); overflow-wrap: anywhere; text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.ref-nexora .nx-way-fill { background: radial-gradient(90% 60% at 80% 100%, oklch(0.5 0.1 160 / 0.7), transparent 70%), linear-gradient(165deg, var(--brand), oklch(0.32 0.06 150)); border-color: transparent; }
+.ref-nexora .nx-way-fill .nx-icon { background: color-mix(in oklch, var(--on-panel) 16%, transparent); color: var(--on-panel); }
+.ref-nexora .nx-way-fill :is(h3, p) { color: var(--on-panel); }
+.ref-nexora .nx-contact-cols { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 48px clamp(32px, 6vw, 96px); align-items: start; }
+.ref-nexora .nx-contact-cols .nx-split-body { max-width: 58ch; margin-top: 16px; }
+.ref-nexora .nx-contact-side { display: flex; flex-direction: column; gap: 40px; }
+.ref-nexora .nx-checklist { margin: 24px 0 0; padding: 0; list-style: none; counter-reset: nx; border-top: 1px solid var(--line-2); }
+.ref-nexora .nx-checklist li { counter-increment: nx; display: grid; grid-template-columns: 36px 1fr; gap: 12px; padding: 16px 0; border-bottom: 1px solid var(--line-2); font-size: 0.9375rem; line-height: 1.55; color: var(--ink-2); }
+.ref-nexora .nx-checklist li::before { content: counter(nx); display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--tint); color: var(--tint-ink); font-size: 0.8125rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+/* ---------- case study ---------- */
+.ref-nexora .nx-case-visual { padding-top: 0; margin-top: calc(-1 * clamp(64px, 8vw, 120px)); position: relative; z-index: 2; }
+.ref-nexora .nx-case-demo { margin-inline: auto; max-width: 1100px; padding: clamp(12px, 2.4vw, 32px); border-radius: 24px; border: 1px solid var(--line); background: var(--sunken); }
+.ref-nexora .nx-case-demo .ssg-frame { margin-top: 0; }
+.ref-nexora .nx-case-schematic { max-width: 720px; }
+.ref-nexora .nx-case { display: grid; gap: clamp(32px, 5vw, 64px); max-width: calc(var(--max) + 2 * var(--pad)); margin-inline: auto; padding: clamp(48px, 7vw, 96px) var(--pad) 0; }
+.ref-nexora .nx-case-block { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 24px clamp(32px, 6vw, 96px); align-items: start; padding-top: clamp(24px, 3vw, 40px); border-top: 1px solid var(--line-2); }
+.ref-nexora .nx-case-block h2 { max-width: 16ch; font-weight: 500; letter-spacing: -0.03em; text-wrap: balance; }
+.ref-nexora .nx-case-copy { display: flex; flex-direction: column; gap: 18px; }
+.ref-nexora .nx-case-copy p { max-width: 62ch; font-size: 1.0625rem; line-height: 1.65; color: var(--ink-2); }
+.ref-nexora .nx-stack { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; padding-bottom: 0; }
+.ref-nexora .nx-stack .nx-tag { margin-bottom: 0; }
+.ref-nexora .nx-stack ul { display: flex; flex-wrap: wrap; gap: 8px; }
+.ref-nexora .nx-stack li { padding: 6px 14px; border-radius: 999px; background: var(--tint); color: var(--tint-ink); font-size: 0.875rem; font-weight: 600; }
+.ref-nexora .nx-case-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: calc(var(--max) + 2 * var(--pad)); margin: clamp(32px, 5vw, 64px) auto 0; padding-inline: var(--pad); }
+.ref-nexora .nx-case-link { display: flex; flex-direction: column; gap: 6px; min-height: 44px; padding: 20px 24px; border-radius: 20px; border: 1px solid var(--line); background: var(--surface); }
+.ref-nexora .nx-case-link span { font-size: 0.8125rem; font-weight: 500; color: var(--ink-3); }
+.ref-nexora .nx-case-link strong { font-size: 1.125rem; font-weight: 600; letter-spacing: -0.02em; }
+.ref-nexora .nx-case-next { text-align: right; }
+.ref-nexora .nx-case-link:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 1180px) {
+  .ref-nexora .nx-row { grid-template-columns: 1fr; }
+  .ref-nexora .nx-row-visual { border-radius: 23px 23px 0 0; }
+}
+@media (max-width: 1000px) {
+  .ref-nexora .nx-prin-list { grid-template-columns: repeat(2, 1fr); }
+  .ref-nexora .nx-steps { grid-template-columns: repeat(2, 1fr); row-gap: 32px; }
+  .ref-nexora .nx-steps li:nth-child(odd) { padding-left: 0; border-left: 0; }
+  .ref-nexora .nx-story, .ref-nexora .nx-contact-cols, .ref-nexora .nx-case-block { grid-template-columns: 1fr; }
+  .ref-nexora .nx-ways { grid-template-columns: 1fr; }
+  .ref-nexora .nx-way { min-height: 0; }
+}
+@media (max-width: 720px) {
+  .ref-nexora .nx-prin-list, .ref-nexora .nx-case-nav { grid-template-columns: 1fr; }
+  .ref-nexora .nx-prin { min-height: 240px; }
+  .ref-nexora .nx-steps { grid-template-columns: 1fr; }
+  .ref-nexora .nx-steps li, .ref-nexora .nx-steps li + li { padding: 0; border-left: 0; }
+  .ref-nexora .nx-case-next { text-align: left; }
+  .ref-nexora .nx-section h2.nx-h2-sm { max-width: none; }
+}
+
+/* ---------- motion ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .ref-nexora .nx-arrow { transition: transform 200ms cubic-bezier(0.23, 1, 0.32, 1), background-color 150ms ease-out; }
+  .ref-nexora .nx-row:active { scale: 0.995; }
+  .ref-nexora .nx-prin, .ref-nexora .nx-prin :is(h3, p), .ref-nexora .nx-prin-n { transition: background-color 250ms ease-out, color 250ms ease-out; }
+}
+@media (prefers-reduced-motion: no-preference) and (hover: hover) {
+  .ref-nexora .nx-row:hover .nx-arrow { transform: translate(2px, -2px) scale(1.06); background: var(--brand); }
+  .ref-nexora .nx-case-link:hover strong { color: var(--tint-ink); }
+}
+/* Hover moves the fill to the hovered principle. */
+@media (hover: hover) {
+  .ref-nexora .nx-prin-list:hover .nx-prin:first-child:not(:hover) { background: var(--surface); border-color: var(--line); }
+  .ref-nexora .nx-prin-list:hover .nx-prin:first-child:not(:hover) .nx-prin-n { background: var(--tint); color: var(--tint-ink); }
+  .ref-nexora .nx-prin-list:hover .nx-prin:first-child:not(:hover) h3 { color: var(--ink); }
+  .ref-nexora .nx-prin-list:hover .nx-prin:first-child:not(:hover) p { color: var(--ink-2); }
+  .ref-nexora .nx-prin:not(:first-child):hover { background: radial-gradient(90% 60% at 80% 100%, oklch(0.5 0.1 160 / 0.7), transparent 70%), linear-gradient(165deg, var(--brand), oklch(0.32 0.06 150)); border-color: transparent; }
+  .ref-nexora .nx-prin:not(:first-child):hover .nx-prin-n { background: color-mix(in oklch, var(--on-panel) 16%, transparent); color: var(--on-panel); }
+  .ref-nexora .nx-prin:not(:first-child):hover :is(h3, p) { color: var(--on-panel); }
+}
+
+.ref-nexora .nx-section h2.nx-stack-h { max-width: none; margin: 0; font-size: 0.8125rem; font-weight: 600; line-height: 1.2; letter-spacing: 0.04em; }
+.ref-nexora .nx-way .nx-icon { margin-bottom: 0; }

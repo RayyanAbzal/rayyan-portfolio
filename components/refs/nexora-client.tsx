@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const FINE = "(hover: hover) and (pointer: fine)";
 const MOTION = "(prefers-reduced-motion: no-preference)";
@@ -141,61 +141,6 @@ export function NexoraFeatures({ items }: { items: readonly FeatureItem[] }) {
         </li>
       ))}
     </ul>
-  );
-}
-
-/** Project card shell: pointer tilt and spotlight (lerp), arrow chip lives in CSS. */
-export function NexoraProject({ children }: { children: ReactNode }) {
-  const ref = useRef<HTMLLIElement>(null);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el || !window.matchMedia(MOTION).matches || !window.matchMedia(FINE).matches) return;
-    let tx = 0;
-    let ty = 0;
-    let x = 0;
-    let y = 0;
-    let raf = 0;
-    const loop = () => {
-      x += (tx - x) * 0.12;
-      y += (ty - y) * 0.12;
-      el.style.setProperty("--rx", `${(-y * 3).toFixed(2)}deg`);
-      el.style.setProperty("--ry", `${(x * 4).toFixed(2)}deg`);
-      if (Math.abs(tx - x) > 0.002 || Math.abs(ty - y) > 0.002) raf = requestAnimationFrame(loop);
-      else raf = 0;
-    };
-    const kick = () => {
-      if (!raf) raf = requestAnimationFrame(loop);
-    };
-    const move = (ev: PointerEvent) => {
-      const r = el.getBoundingClientRect();
-      const px = (ev.clientX - r.left) / r.width;
-      const py = (ev.clientY - r.top) / r.height;
-      tx = px - 0.5;
-      ty = py - 0.5;
-      el.style.setProperty("--mx", `${(px * 100).toFixed(1)}%`);
-      el.style.setProperty("--my", `${(py * 100).toFixed(1)}%`);
-      kick();
-    };
-    const leave = () => {
-      tx = 0;
-      ty = 0;
-      kick();
-    };
-    el.addEventListener("pointermove", move);
-    el.addEventListener("pointerleave", leave);
-    return () => {
-      el.removeEventListener("pointermove", move);
-      el.removeEventListener("pointerleave", leave);
-      cancelAnimationFrame(raf);
-    };
-  }, []);
-
-  return (
-    <li ref={ref} className="nx-proj" data-nx-sharpen>
-      {children}
-      <span className="nx-arrow" aria-hidden="true">&#8599;</span>
-    </li>
   );
 }
 
