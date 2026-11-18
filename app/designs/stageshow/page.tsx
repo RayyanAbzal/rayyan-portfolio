@@ -22,7 +22,7 @@ const DEMOS = [
   },
   {
     name: "Influence v2",
-    caption: "A partner's sign-ups update, and cost per sign-up follows.",
+    caption: "A monthly KPI upload refreshes every partner's sign-ups and cost per sign-up.",
     demo: <InfluenceCpa />,
   },
   {

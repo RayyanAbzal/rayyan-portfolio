@@ -204,8 +204,6 @@
 
   .fh-send[data-ready] { background: var(--ss-text-strong); }
 
-  .fh-composer .ss-field__value { flex: 1; }
-
   /* The dashboard card: straddles the thread's right edge, over the margin */
   .fh-dash {
     position: absolute;
