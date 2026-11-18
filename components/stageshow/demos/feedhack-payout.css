@@ -1,238 +1,247 @@
-/* FeedHack payout story, adapted from the payout-flow gold. Ink button that
-   turns green when the payout lands. */
+/* FeedHack: a generic chat thread with the dashboard card straddling its right
+   edge. Zero-chroma, green only for success. No real chat-app marks. */
 .fh {
   & .ss-stage {
-    /* A travel curve chosen for this payout story, not a universal preset. */
-    --fh-ease: cubic-bezier(0.45, 0, 0.1, 1);
     overflow: hidden;
     border-radius: 14px;
     background: var(--ss-canvas);
-    font: 12px/1.4 var(--ss-font);
+    font: 13px/1.4 var(--ss-font);
     color: var(--ss-text-strong);
   }
 
-  .fh-strong { font-weight: 600; }
-  .fh-muted { color: var(--ss-text); }
-
-  /* Reveals centered, then slides aside to make room */
-  .fh-pool {
+  .fh-win {
     position: absolute;
-    top: 40px;
-    left: 170px;
-    display: grid;
-    gap: 10px;
-    width: 300px;
-    height: 400px;
-    padding: 22px 22px 0;
-    border-radius: 12px;
-    background: var(--ss-surface);
+    top: 24px;
+    left: 24px;
+    width: 596px;
+    height: 464px;
     box-shadow: var(--ss-shadow-hero);
-    opacity: 0;
-    --fh-x: 0px;
-    --fh-y: 24px;
-    transform: translate(var(--fh-x), var(--fh-y));
+  }
+
+  .fh-tools { display: inline-flex; color: var(--ss-text-faint); }
+
+  /* Sidebar: filler channels, one real name */
+  .fh-side {
+    display: grid;
     align-content: start;
-    /* A retained layer carries the type through both the rise and travel. */
-    will-change: transform;
-    transition: opacity 0.9s ease, transform 1.2s var(--fh-ease);
+    gap: 16px;
+    padding: 56px 10px 12px;
   }
 
-  .fh-pool[data-in] { opacity: 1; --fh-y: 0px; }
-  .fh-pool[data-aside] { --fh-x: -130px; }
+  .fh-side__list { display: grid; gap: 2px; }
 
-  .fh-total {
-    margin: 2px 0 2px;
-    font-size: 26px;
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    font-variant-numeric: tabular-nums;
-  }
-
-  .fh-head {
+  .fh-side__row {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    margin-top: 14px;
-    padding-bottom: 6px;
-    border-bottom: 1px solid var(--ss-line);
+    gap: 8px;
+    height: 28px;
+    padding: 0 8px;
+    border-radius: 7px;
+    color: var(--ss-text-faint);
   }
 
-  .fh-row {
+  .fh-side__row[data-active] {
+    background: var(--ss-ink-1);
+    color: var(--ss-text-strong);
+    font-weight: 600;
+  }
+
+  .fh-chan {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: var(--ss-surface);
+  }
+
+  /* Pinned to the bottom: arrivals push the filler out of the top */
+  .fh-feed {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 14px;
+    padding: 12px 16px 14px;
+    overflow: hidden;
+  }
+
+  .fh-feed > * { flex: none; max-width: 336px; }
+
+  .fh-msg {
     display: grid;
-    grid-template-columns: 22px 1fr auto auto;
+    grid-template-columns: 30px minmax(0, 1fr);
+    align-items: start;
+    gap: 10px;
+  }
+
+  .fh-msg__body { display: grid; gap: 5px; min-width: 0; }
+  .fh-msg--older .fh-msg__body { gap: 7px; padding-top: 3px; }
+
+  .fh-msg__meta { display: flex; align-items: baseline; gap: 7px; }
+  .fh-msg__name { font-weight: 600; }
+  .fh-msg__time { color: var(--ss-text-faint); font-size: 11px; }
+
+  .fh-app {
+    padding: 1px 5px;
+    border-radius: 4px;
+    background: var(--ss-ink-1);
+    color: var(--ss-text);
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  .fh-bot {
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--ss-accent-soft);
+    color: var(--ss-accent-text);
+  }
+
+  .fh-line { display: flex; align-items: center; gap: 8px; color: var(--ss-text); }
+
+  /* The command is a chip in the thread, in the body face */
+  .fh-cmd {
+    padding: 1px 6px;
+    border-radius: 5px;
+    background: var(--ss-accent-soft);
+    color: var(--ss-accent-text);
+    font-weight: 600;
+  }
+
+  .fh-line .fh-cmd + * { margin-left: 0; }
+
+  .fh-clip {
+    display: flex;
     align-items: center;
     gap: 10px;
-    height: 38px;
-    border-bottom: 1px solid var(--ss-line-faint);
-    position: relative;
-    transform: translateY(10px);
-    opacity: 0;
-    will-change: transform;
-    transition: opacity 0.7s ease, transform 0.9s var(--fh-ease);
-  }
-
-  .fh-row[data-in] { opacity: 1; transform: translateY(0); transition-timing-function: ease, cubic-bezier(0.25, 0.8, 0.25, 1); }
-
-  .fh-bank {
-    width: 22px;
-    height: 22px;
-    border-radius: 6px;
-    background: var(--ss-ink-1);
+    width: fit-content;
+    padding: 5px 12px 5px 5px;
+    border-radius: 9px;
+    background: var(--ss-well);
     box-shadow: inset 0 0 0 1px var(--ss-line);
   }
 
-  .fh-views { font-variant-numeric: tabular-nums; }
-
-  .fh-paid {
-    padding: 2px 7px;
-    transition: background 0.4s ease, color 0.4s ease;
+  .fh-clip__thumb {
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 34px;
     border-radius: 6px;
+    background: linear-gradient(160deg, oklch(0.42 0 0), oklch(0.24 0 0));
+    color: #fff;
+  }
+
+  .fh-clip__text { display: grid; gap: 1px; }
+  .fh-clip__name { font-size: 12px; font-weight: 500; }
+  .fh-clip__len { color: var(--ss-text-faint); font-size: 11px; }
+
+  .fh-checks { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .fh-check {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 8px 3px 5px;
+    border-radius: 8px;
+    background: var(--ss-well);
+    box-shadow: inset 0 0 0 1px var(--ss-line);
+    color: var(--ss-text);
+    font-size: 11px;
+    white-space: nowrap;
+    transition: color 0.3s ease, background-color 0.3s ease;
+  }
+
+  .fh-check[data-done] { color: var(--ss-text-strong); }
+
+  .fh-result {
+    display: grid;
+    gap: 2px;
+    margin-top: 6px;
+    padding: 8px 12px 9px;
+    border-radius: 10px;
     background: var(--ss-success-soft);
     color: var(--ss-success-text);
-    font-size: 10.5px;
-    font-weight: 500;
+    font-size: 12.5px;
   }
 
-  /* Arrives from the side it ends up on, a beat behind the balance moving.
-     One gutter from the balance, the same gutter to the stage edge. */
-  .fh-payout {
-    position: absolute;
-    top: 40px;
-    left: 364px;
+  .fh-result__title { display: flex; align-items: center; gap: 6px; font-weight: 600; }
+
+  .fh-line--fail { color: var(--ss-danger-text); }
+
+  /* Composer */
+  .fh-composer { padding: 0 16px 16px; }
+
+  .fh-composer .ss-field__box { height: 40px; padding-right: 6px; }
+
+  .fh-attach {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 9px 3px 7px;
+    border-radius: 7px;
+    background: var(--ss-ink-1);
+    color: var(--ss-text);
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  .fh-send {
     display: grid;
-    gap: 16px;
-    width: 236px;
-    padding: 20px;
-    border-radius: 12px;
-    background: var(--ss-raised);
-    box-shadow: var(--ss-shadow-satellite);
-    opacity: 0;
-    transform: translateX(32px);
-    will-change: transform;
-    transition: opacity 0.8s ease 0.2s, transform 1.1s var(--fh-ease) 0.2s;
-  }
-
-  .fh-payout[data-in] { opacity: 1; transform: translateX(0); transition-timing-function: ease, cubic-bezier(0.25, 0.8, 0.25, 1); }
-
-  /* Its contents follow it in, 70ms apart */
-  .fh-payout > * {
-    position: relative;
-    transform: translateY(8px);
-    opacity: 0;
-    will-change: transform;
-    transition: opacity 0.6s ease, transform 0.9s var(--fh-ease);
-    transition-delay: calc(0.45s + var(--i) * 70ms);
-  }
-
-  .fh-payout[data-in] > * { opacity: 1; transform: translateY(0); transition-timing-function: ease, cubic-bezier(0.25, 0.8, 0.25, 1); }
-
-  .fh-payout__head { display: flex; align-items: center; gap: 10px; }
-
-  .fh-payout__mark {
-    display: grid;
+    flex: none;
     place-items: center;
     width: 28px;
     height: 28px;
+    margin-left: auto;
     border-radius: 8px;
-    background: var(--ss-accent-soft);
-    color: var(--ss-accent);
-  }
-
-  .fh-payout__amount { font-size: 24px; font-weight: 600; letter-spacing: -0.02em; }
-
-  .fh-fields { display: grid; }
-
-  .fh-field {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 36px;
-    border-top: 1px solid var(--ss-line-faint);
-  }
-
-
-  .fh-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 7px;
-    height: 36px;
-    margin-top: 2px;
-    border-radius: 9px;
-    background: var(--ss-text-strong);
+    background: var(--ss-ink-2);
     color: #fff;
-    font-weight: 500;
-    position: relative;
-    isolation: isolate;
+    transition: background-color 0.2s ease;
   }
 
-  /* Ink to green, quick so the blend never registers */
-  .fh-button::before {
-    content: '';
+  .fh-send[data-ready] { background: var(--ss-text-strong); }
+
+  .fh-composer .ss-field__value { flex: 1; }
+
+  /* The dashboard card: straddles the thread's right edge, over the margin */
+  .fh-dash {
     position: absolute;
-    inset: 0;
-    z-index: -1;
-    border-radius: inherit;
-    background: var(--ss-success, #22c55e);
-    opacity: 0;
-    transition: opacity 0.2s ease;
+    top: 76px;
+    left: 504px;
+    width: 232px;
+    box-shadow: var(--ss-shadow-satellite);
+    border-radius: 14px;
   }
 
-  .fh-button[data-sent]::before { opacity: 1; }
+  .fh-dash__total, .fh-dash__stats > div { display: grid; gap: 3px; }
 
-  .fh-button { display: grid; }
+  .fh-dash__label { color: var(--ss-text); font-size: 11.5px; }
 
-  .fh-state {
-    display: flex;
-    grid-area: 1 / 1;
-    align-items: center;
-    justify-self: center;
-    gap: 7px;
-    opacity: 0;
-    filter: blur(2px);
-    position: relative;
-    transform: translateY(4px);
-    will-change: transform;
-    transition: opacity 0.18s ease, filter 0.18s ease, transform 0.18s ease;
+  .fh-dash__figure {
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
   }
 
-  /* The outgoing state is gone before the next arrives */
-  .fh-state[data-on] {
-    opacity: 1;
-    filter: none;
-    transform: translateY(0);
-    transition: opacity 0.35s ease 0.12s, filter 0.35s ease 0.12s, transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1) 0.12s;
+  .fh-dash__stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  .fh-dash__stat { font-size: 15px; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+  .fh-dash__row { height: 40px; }
+  .fh-dash__sub { color: var(--ss-text); font-size: 11px; }
+  .fh-dash__amount { margin-left: auto; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+  /* Compact: no sidebar or history, the card hangs off the window's foot */
+  & .ss-stage[data-layout='compact'] {
+    .fh-win { top: 12px; left: 12px; width: 334px; height: 350px; }
+    .fh-composer { padding-bottom: 30px; }
+    .fh-feed > * { max-width: 100%; }
+    .fh-dash { top: 338px; left: 28px; width: 302px; }
+    .fh-dash .ss-tabs, .fh-dash__list > .fh-dash__row { display: none; }
+    .fh-attach { display: none; }
   }
-
-  .fh-note {
-    position: absolute;
-    padding: 5px 9px;
-    border-radius: 7px;
-    background: var(--ss-text-strong);
-    color: var(--ss-surface);
-    font-size: 11px;
-    opacity: 0;
-    transform: translateY(8px);
-    will-change: transform;
-    transition: opacity 0.6s ease, transform 0.9s var(--fh-ease);
-  }
-
-  .fh-note[data-in] { opacity: 1; transform: translateY(0); transition-timing-function: ease, cubic-bezier(0.25, 0.8, 0.25, 1); }
-
-  /* The payout sits below its source on the phone; type remains at design size. */
-  & .ss-stage[data-layout='compact'] .fh-pool { left: 16px; top: 24px; width: 326px; height: 640px; }
-  & .ss-stage[data-layout='compact'] .fh-pool[data-aside] { --fh-x: 0px; }
-  & .ss-stage[data-layout='compact'] .fh-payout { left: 40px; top: 302px; width: 302px; }
-  & .ss-stage[data-layout='compact'] .fh-row:nth-last-child(-n + 2) { display: none; }
 }
-
-/* The Check on a filled button: a white ring and arc while sending, then a
-   white disc with the tick in the button's green */
-.fh-button .ss-check__ring { stroke: rgb(255 255 255 / 0.45); }
-.fh-button .ss-check__arc { stroke: #fff; }
-.fh-button .ss-check__fill { fill: #fff; }
-.fh-button .ss-check__tick { stroke: var(--ss-success); }
-
-/* The label trimmed to cap height, so the Check centers on the letters, not
-   on a line box that sits system-ui capitals low */
-.fh-button .ss-swap { text-box: trim-both cap alphabetic; }
