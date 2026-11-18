@@ -1,0 +1,175 @@
+/* astapable direction: colour scheme plus the inner pages. Scoped under .ref-astapable.
+   Ground and type follow astapable.com (near-white rgb(251,251,251), tight tracking). One brand
+   colour (green, hue 150) for current page, links, number tiles and the live dot; ink stays the
+   button fill; blue is for focus only. */
+
+.ref-astapable {
+  --bg: oklch(0.988 0 0);
+  --surface: oklch(1 0 0);
+  --sunken: oklch(0.965 0 0);
+  --ink: oklch(0.2 0 0);
+  --ink-2: oklch(0.45 0 0);
+  --ink-3: oklch(0.5 0 0);
+  --line: oklch(0 0 0 / 0.08);
+  --line-2: oklch(0 0 0 / 0.14);
+  --brand: oklch(0.42 0.1 150);
+  --brand-tint: oklch(0.94 0.05 150);
+  --focus: oklch(0.5 0.17 255);
+  --live: oklch(0.62 0.15 150);
+  --tint: var(--brand-tint);
+  --tint-ink: var(--brand);
+  --panel: oklch(0.2 0 0);
+  --on-panel: oklch(0.985 0 0);
+  --gold: var(--brand-tint);
+  --on-gold: var(--brand);
+}
+@media (prefers-color-scheme: dark) {
+  .ref-astapable {
+    --bg: oklch(0.17 0 0);
+    --surface: oklch(0.21 0 0);
+    --sunken: oklch(0.235 0 0);
+    --ink: oklch(0.95 0 0);
+    --ink-2: oklch(0.76 0 0);
+    --ink-3: oklch(0.68 0 0);
+    --line: oklch(1 0 0 / 0.09);
+    --line-2: oklch(1 0 0 / 0.16);
+    --brand: oklch(0.82 0.11 150);
+    --brand-tint: oklch(0.32 0.06 150);
+    --focus: oklch(0.72 0.13 255);
+    --panel: oklch(0.27 0 0);
+    --on-panel: oklch(0.95 0 0);
+  }
+}
+
+.ref-astapable .hi { color: var(--brand); }
+.ref-astapable .mark { background: var(--brand-tint); color: var(--brand); padding: 0 0.16em; border-radius: 0.22em; font-weight: 600; }
+.ref-astapable .as-links a[aria-current="page"] { color: var(--ink); box-shadow: inset 0 -2px 0 var(--brand); }
+.ref-astapable .as-visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+/* Cards and demos */
+.ref-astapable .as-demo { position: absolute; inset: 0; display: grid; place-items: center; overflow: hidden; pointer-events: none; }
+.ref-astapable .as-feature.as-feature-still:hover .as-stage { transform: none; }
+.ref-astapable .as-feature.as-feature-still:hover .vis-frame { transform: none; }
+.ref-astapable .as-grid-3 { grid-template-columns: repeat(3, 1fr); }
+.ref-astapable .as-more { text-align: center; margin-top: 8px; padding-bottom: clamp(24px, 4vw, 56px); }
+.ref-astapable .as-section:last-of-type { padding-bottom: clamp(24px, 4vw, 56px); }
+.ref-astapable .as-way:has(.as-cover:focus-visible) { outline: 2px solid var(--focus); outline-offset: 3px; }
+.ref-astapable .as-nb:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+
+/* Page head (projects, about, contact) */
+.ref-astapable .as-pagehead { max-width: 1400px; margin: 0 auto; padding: clamp(48px, 8vw, 120px) clamp(16px, 2vw, 20px) clamp(16px, 3vw, 40px); text-align: center; display: grid; justify-items: center; gap: 20px; }
+.ref-astapable .as-pagehead h1, .ref-astapable .as-case-head h1 { font-size: clamp(2.25rem, 5.5vw, 4.75rem); font-weight: 600; line-height: 1.04; max-width: 18ch; text-wrap: balance; }
+.ref-astapable .as-lede { max-width: 54ch; font-size: clamp(1rem, 1.4vw, 1.25rem); line-height: 1.45; color: var(--ink-2); letter-spacing: -0.02em; text-wrap: pretty; }
+.ref-astapable .as-eyebrow { font-size: 0.75rem; font-weight: 500; padding: 4px 9px; border-radius: 4px; background: var(--sunken); color: var(--ink-2); letter-spacing: -0.01em; }
+.ref-astapable .as-title-sub { text-align: center; max-width: 56ch; margin: -22px auto 36px; color: var(--ink-2); font-size: 0.9375rem; line-height: 1.45; letter-spacing: -0.02em; }
+.ref-astapable .as-narrow { max-width: 860px; }
+
+/* Closing on inner pages */
+.ref-astapable .as-close-page { padding-top: clamp(56px, 9vw, 120px); }
+.ref-astapable .as-close-body { max-width: 48ch; margin: 22px auto 0; color: var(--ink-2); font-size: 1rem; line-height: 1.45; letter-spacing: -0.02em; }
+.ref-astapable .as-close-page .as-actions { margin-top: 28px; }
+
+/* Case study */
+.ref-astapable .as-case-head { max-width: 1100px; margin: 0 auto; padding: clamp(24px, 4vw, 56px) clamp(16px, 2vw, 20px) clamp(24px, 4vw, 48px); text-align: center; display: grid; justify-items: center; gap: 18px; }
+.ref-astapable .as-back { font-size: 0.875rem; font-weight: 500; color: var(--ink-2); min-height: 44px; display: inline-flex; align-items: center; gap: 6px; }
+.ref-astapable .as-tags-center { justify-content: center; }
+.ref-astapable .as-case-sum { max-width: 52ch; font-size: clamp(1rem, 1.4vw, 1.25rem); line-height: 1.45; color: var(--ink-2); letter-spacing: -0.02em; text-wrap: pretty; }
+.ref-astapable .as-case-sum strong { color: var(--ink); font-weight: 600; }
+.ref-astapable .as-case-stage { max-width: 1100px; margin: 0 auto; padding: 0 clamp(16px, 2vw, 20px); }
+.ref-astapable .as-case-stage .as-demo { position: relative; inset: auto; border-radius: 16px; background: var(--sunken); padding: clamp(14px, 3vw, 40px); }
+.ref-astapable .as-case-stage .as-demo > * { width: 100%; }
+.ref-astapable .as-case-stage .card-visual { max-width: 640px; margin: 0 auto; background: transparent; border: 0; }
+.ref-astapable .as-case-body { max-width: 1100px; margin: clamp(32px, 6vw, 80px) auto 0; padding: 0 clamp(16px, 2vw, 20px); }
+.ref-astapable .as-block { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: clamp(20px, 5vw, 64px); padding: clamp(28px, 4vw, 48px) 0; border-top: 1px solid var(--line); }
+.ref-astapable .as-block-title { font-size: clamp(1.5rem, 2.6vw, 2.25rem); font-weight: 600; line-height: 1.1; text-wrap: balance; }
+.ref-astapable .as-block-body { display: grid; gap: 14px; align-content: start; }
+.ref-astapable .as-block-body p, .ref-astapable .as-story-copy p { font-size: 1.0625rem; line-height: 1.55; color: var(--ink-2); letter-spacing: -0.02em; max-width: 62ch; }
+.ref-astapable .as-block-body strong { color: var(--ink); }
+.ref-astapable .as-quote { max-width: 860px; margin: clamp(24px, 5vw, 64px) auto; padding: 0 clamp(16px, 2vw, 20px); text-align: center; }
+.ref-astapable .as-quote blockquote { margin: 0; }
+.ref-astapable .as-quote blockquote p { font-size: clamp(1.25rem, 2.2vw, 1.75rem); font-weight: 500; line-height: 1.3; letter-spacing: -0.03em; text-wrap: pretty; }
+.ref-astapable .as-quote figcaption { margin-top: 16px; font-size: 0.875rem; color: var(--ink-2); letter-spacing: -0.02em; }
+.ref-astapable .as-quote figcaption a { text-decoration: underline; text-underline-offset: 3px; color: var(--ink); }
+.ref-astapable .as-stackrow { padding-bottom: clamp(24px, 4vw, 56px); }
+.ref-astapable .as-stackrow .as-title { padding-bottom: 20px; }
+.ref-astapable .as-neighbours { max-width: 1100px; margin: 0 auto; padding: 0 clamp(16px, 2vw, 20px); display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.ref-astapable .as-nb { position: relative; display: grid; gap: 4px; padding: 24px 76px 24px 24px; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; box-shadow: var(--shadow); }
+.ref-astapable .as-nb-label { font-size: 0.75rem; color: var(--ink-2); letter-spacing: -0.01em; }
+.ref-astapable .as-nb-name { font-size: clamp(1.125rem, 2vw, 1.5rem); font-weight: 600; line-height: 1.15; }
+.ref-astapable .as-nb .as-go { top: 50%; bottom: auto; right: 20px; transform: translateY(-50%); }
+
+/* About */
+.ref-astapable .as-story { max-width: 1100px; margin: clamp(16px, 3vw, 40px) auto 0; padding: 0 clamp(16px, 2vw, 20px) clamp(32px, 6vw, 80px); display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: clamp(24px, 6vw, 80px); align-items: start; }
+.ref-astapable .as-story-copy { display: grid; gap: 16px; }
+.ref-astapable .as-facts { display: grid; }
+.ref-astapable .as-fact { padding: 18px 0; border-top: 1px solid var(--line); display: grid; gap: 3px; }
+.ref-astapable .as-fact:first-child { border-top: 0; padding-top: 0; }
+.ref-astapable .as-fact-label { font-size: 0.75rem; color: var(--ink-2); letter-spacing: -0.01em; }
+.ref-astapable .as-fact h3 { font-size: 1rem; font-weight: 600; }
+.ref-astapable .as-fact p { font-size: 0.8125rem; line-height: 1.4; color: var(--ink-2); letter-spacing: -0.02em; }
+.ref-astapable .as-fact a, .ref-astapable .as-story-copy a { color: var(--brand); text-decoration: underline; text-underline-offset: 3px; }
+.ref-astapable .as-principles { grid-template-columns: repeat(2, minmax(0, 440px)); gap: 48px 28px; }
+.ref-astapable .as-principles .as-app p { padding-right: 0; min-height: 0; }
+.ref-astapable .as-steps { list-style: none; max-width: 900px; margin: 0 auto; padding: 0 0 clamp(32px, 6vw, 80px); }
+.ref-astapable .as-step { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 20px; align-items: center; padding: 22px 0; border-top: 1px solid var(--line); }
+.ref-astapable .as-step-n { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; background: var(--brand-tint); color: var(--brand); font-size: 0.875rem; font-weight: 600; }
+.ref-astapable .as-step h3 { font-size: 1.0625rem; font-weight: 600; }
+.ref-astapable .as-step p { margin-top: 4px; font-size: 0.875rem; line-height: 1.45; color: var(--ink-2); letter-spacing: -0.02em; max-width: 60ch; }
+.ref-astapable .as-when { font-size: 0.6875rem; font-weight: 500; padding: 3px 7px; border-radius: 3px; background: var(--sunken); color: var(--ink-2); white-space: nowrap; }
+.ref-astapable .as-quotes { max-width: 1100px; margin: 0 auto; padding-bottom: clamp(32px, 6vw, 80px); display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.ref-astapable .as-quotes li { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 28px 28px 64px; }
+.ref-astapable .as-quotes blockquote { margin: 0; }
+.ref-astapable .as-quotes blockquote p { font-size: 1rem; line-height: 1.5; letter-spacing: -0.02em; }
+.ref-astapable .as-quote-by { margin-top: 14px; font-size: 0.8125rem; color: var(--ink-2); letter-spacing: -0.02em; }
+.ref-astapable .as-quotes .as-go { right: 20px; bottom: 20px; }
+.ref-astapable .as-faq { max-width: 820px; margin: 0 auto; padding-bottom: clamp(32px, 6vw, 80px); }
+.ref-astapable .as-q { border-top: 1px solid var(--line); }
+.ref-astapable .as-q:last-child { border-bottom: 1px solid var(--line); }
+.ref-astapable .as-q summary { list-style: none; cursor: pointer; min-height: 60px; display: flex; align-items: center; justify-content: space-between; gap: 20px; font-size: 1.0625rem; font-weight: 600; }
+.ref-astapable .as-q summary::-webkit-details-marker { display: none; }
+.ref-astapable .as-q summary:focus-visible { outline-offset: -2px; border-radius: 8px; }
+.ref-astapable .as-q-mark { flex: none; width: 28px; height: 28px; border-radius: 50%; background: var(--sunken); position: relative; }
+.ref-astapable .as-q-mark::before, .ref-astapable .as-q-mark::after { content: ""; position: absolute; left: 8px; right: 8px; top: 13px; height: 2px; border-radius: 1px; background: var(--ink); }
+.ref-astapable .as-q-mark::after { transform: rotate(90deg); }
+.ref-astapable .as-q[open] .as-q-mark::after { transform: rotate(0deg); }
+.ref-astapable .as-q p { padding: 0 48px 22px 0; font-size: 0.9375rem; line-height: 1.55; color: var(--ink-2); letter-spacing: -0.02em; max-width: 64ch; }
+
+/* Contact */
+.ref-astapable .as-ways { display: grid; gap: 10px; }
+.ref-astapable .as-way { position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 16px; align-items: center; padding: 20px 76px 20px 20px; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; box-shadow: var(--shadow); }
+.ref-astapable .as-way-icon { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--brand-tint); color: var(--brand); }
+.ref-astapable .as-way h3 { font-size: 1.0625rem; font-weight: 600; }
+.ref-astapable .as-way p { margin-top: 3px; font-size: 0.8125rem; line-height: 1.4; color: var(--ink-2); letter-spacing: -0.02em; overflow-wrap: anywhere; }
+.ref-astapable .as-way .as-go { top: 50%; bottom: auto; right: 20px; transform: translateY(-50%); }
+.ref-astapable .as-checklist { list-style: none; counter-reset: ck; margin: 0; padding: 0 0 clamp(32px, 6vw, 72px); }
+.ref-astapable .as-checklist li { counter-increment: ck; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 16px; align-items: start; padding: 16px 0; border-top: 1px solid var(--line); font-size: 1rem; line-height: 1.45; letter-spacing: -0.02em; }
+.ref-astapable .as-checklist li::before { content: counter(ck); width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: var(--sunken); color: var(--ink-2); font-size: 0.8125rem; font-weight: 600; }
+.ref-astapable .as-two { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 6vw, 64px); padding-bottom: clamp(32px, 8vw, 100px); }
+.ref-astapable .as-two > div { display: grid; gap: 10px; align-content: start; }
+.ref-astapable .as-sub { font-size: 1.0625rem; font-weight: 600; }
+.ref-astapable .as-two p { font-size: 0.9375rem; line-height: 1.55; color: var(--ink-2); letter-spacing: -0.02em; }
+
+@media (max-width: 900px) {
+  .ref-astapable .as-grid-3 { grid-template-columns: 1fr; gap: 12px; }
+  .ref-astapable .as-principles { grid-template-columns: 1fr; gap: 52px; }
+  .ref-astapable .as-story { grid-template-columns: 1fr; }
+}
+@media (max-width: 700px) {
+  .ref-astapable .as-block { grid-template-columns: 1fr; gap: 14px; }
+  .ref-astapable .as-quotes, .ref-astapable .as-neighbours, .ref-astapable .as-two { grid-template-columns: 1fr; }
+  .ref-astapable .as-step { grid-template-columns: auto minmax(0, 1fr); }
+  .ref-astapable .as-when { grid-column: 2; justify-self: start; }
+  .ref-astapable .as-q p { padding-right: 0; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ref-astapable .as-nb, .ref-astapable .as-way { transition: transform 300ms cubic-bezier(0.23, 1, 0.32, 1); }
+  .ref-astapable .as-q-mark::after { transition: transform 200ms cubic-bezier(0.23, 1, 0.32, 1); }
+}
+@media (hover: hover) {
+  .ref-astapable .as-back:hover, .ref-astapable .as-fact a:hover { color: var(--ink); }
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .ref-astapable .as-nb:hover, .ref-astapable .as-way:hover { transform: translateY(-3px); }
+  .ref-astapable .as-nb:hover .as-go, .ref-astapable .as-way:hover .as-go { background: var(--brand-tint); color: var(--brand); }
+}
