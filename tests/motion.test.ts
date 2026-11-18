@@ -56,9 +56,9 @@ describe("motion rules", () => {
     expect(read("components/reveal.tsx")).toContain("const SETTLE_MS = 700;");
   });
 
-  it("gives the button a 0.96 press scale that skips disabled controls, at 150ms", () => {
+  it("gives the button a 0.97 press scale that skips disabled controls, at 150ms", () => {
     const button = read("components/ui/button.tsx");
-    expect(button).toContain("active:scale-[0.96]");
+    expect(button).toContain("active:scale-[0.97]");
     expect(button).toContain(":not(:disabled):not([aria-disabled=true])");
     expect(button).toContain("duration-150");
     expect(button).not.toContain("duration-[350ms]");

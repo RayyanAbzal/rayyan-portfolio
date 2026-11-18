@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { BookBadge } from "@/components/book-badge";
 import { BookLink } from "@/components/book-link";
 import { RichText } from "@/components/case/rich-text";
 import { JsonLd } from "@/components/json-ld";
@@ -23,9 +24,12 @@ export default function ContactPage() {
       <JsonLd data={contactLd} />
       <main id="top" tabIndex={-1}>
         <section className="wrap pb-[clamp(40px,5vw,64px)]">
-          <div className="section-head mb-0">
-            <h1 className="display max-w-[14ch] text-[clamp(2.5rem,6.5vw,5.25rem)]">{CONTACT.h1}</h1>
-            <p className="lede">{CONTACT.lede}</p>
+          <div className="page-top">
+            <div className="section-head mb-0">
+              <h1 className="display max-w-[14ch] text-[clamp(2.5rem,6.5vw,5.25rem)]">{CONTACT.h1}</h1>
+              <p className="lede">{CONTACT.lede}</p>
+            </div>
+            <BookBadge source="contact_badge" label="Book a free call" />
           </div>
         </section>
 

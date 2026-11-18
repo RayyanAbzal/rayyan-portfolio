@@ -16,7 +16,7 @@ Next.js (App Router) portfolio site with Tailwind v4 and shadcn/ui. Migrated fro
 
 ```
 app/layout.tsx          shell: skip link, sticky nav, footer, Calendly, Analytics, motion gate script
-app/page.tsx            home (Index layout, light neutrals): type-only head, numbered columns for 4 client builds and 3 offers, two-column about, deep closing band
+app/page.tsx            home (novelty direction, 2026-11-13; grotesk type after astapable): big headline, status and CTAs on top, then the teardown hero full width and annotated (the harness drawing, drag or auto-open), exploded client work (row hover takes a three-plate stack apart), living offers (each offer plays a short scene), client words, closing row. Scoped under `main.home-n`
 app/work/page.tsx       projects: 4 client cards + 3 personal builds
 app/work/[slug]/page.tsx  case studies (generateStaticParams over content/case-studies)
 app/contact/page.tsx    contact: ways to reach me, where I work, what to include in a first message (footer link only)
@@ -26,10 +26,11 @@ app/harness/page.tsx    how I build: teardown drawing of my AI harness as a hors
 app/not-found.tsx       branded 404 (noindex)
 app/sitemap.ts, robots.ts  10 URLs, update lastmod in lib/sitemap-entries.ts; robots rules as the legacy file
 app/globals.css         tokens (:root), @theme inline, base, type
-app/styles/*.css        layout (--section-y rhythm, .has-rule hairlines), cards (schematics), sections, about, case, motion
+app/styles/*.css        layout (--section-y rhythm, .has-rule hairlines), cards (schematics), sections, about, case, novelty (home), motion
+components/home/        teardown-hero, exploded-work, living-offers, auckland-clock (client); copy and scene data in content/home-novelty.ts
 app/fonts.ts, app/fonts/  Open Runde
 components/ui/          shadcn: button, accordion, card, badge, separator
-components/             book-link, sticky-book-cta, reveal, site-nav, site-footer, project-card, json-ld, calendly-assets
+components/             book-link, sticky-book-cta, reveal, sharpen, site-nav, site-footer, project-card, json-ld, calendly-assets
 components/schematics/  CSS-drawn card visuals (synthetic data, aria-hidden)
 components/case/        case preview panels and rich text
 components/about/       about sections: opening, facts, principles (pine panel), process, testimonials, faq
@@ -53,10 +54,11 @@ docs/                   specs, plans, decisions, worklog, client drafts (never d
 ## Motion conventions (app/styles/motion.css + components/reveal.tsx)
 
 - Every animation is declared inside `prefers-reduced-motion: no-preference`; reduced-motion and no-JS visitors get the full static page. Animate opacity, transform and filter by name, never `all`. Entrances are 300ms on `cubic-bezier(0.2, 0, 0, 1)`; hover feedback is 150ms or less.
-- Hero: pure CSS, no `.js` gate. h1, lede and actions run the `site-enter` keyframe (opacity, 12px, blur 4px) with 0, 100, 200ms delays; the sage panel is static. (`enter` is taken by tw-animate-css.)
+- Inner-page heroes: pure CSS, no `.js` gate. h1, lede and actions run the `site-enter` keyframe (opacity, 12px, blur 4px) with 0, 100, 200ms delays. (`enter` is taken by tw-animate-css.)
+- Home (novelty.css + components/home): teardown hero is a spring (k 170, d 26) between assembled and taken apart, auto-opens at 700ms, drag along the diagonal with a rubber band past either end; no-JS shows the assembled pose. Exploded work: row hover or focus closes the plates to 0.15, blurs, refills after 320ms, opens again; pointer tilt lerps at 0.12. Living offers: scenes play one pass (5.2s each) while the section is a third on screen, then rest on the last; a pick stops the rotation, reduced motion shows each end state and hides the meter.
 - Card grids only use `Reveal` (`stagger` prop, ms; default 100ms in CSS). `html.js` (inline script, only when motion is allowed) hides the children; Reveal adds `.in`, then `.done` at 700ms. Below-fold grids reveal on scroll; the 1.5s failsafe only reveals what is within one viewport height. `.motion-failed` (3s) shows everything if hydration never ran.
-- Reveal only on the card grids. Everything else is static.
-- Button: 150ms, 1px hover lift, press scale 0.96 (not disabled or aria-disabled). Hover-only styling lives in `@media (hover: hover)`.
+- Sharpen (`components/sharpen.tsx`, mounted in layout, Ray chose the astapable direction 2026-11-13): every `main h2` and each home row child goes from blur 6px, 8px down, opacity 0 to sharp over 500ms the first time it is 15% on screen; it also clears the `__mfail` failsafe. Hidden only under `html.js`; `.motion-failed` and reduced motion show it. Everything else outside the card grids and home novelties is static.
+- Button: 150ms, 10px radius, opacity hover, press scale 0.97 (not disabled or aria-disabled). Hover-only styling lives in `@media (hover: hover)`.
 - View transitions: nav and footer have their own names so only main content crossfades (150ms); `navigation: none` under reduced motion.
 - FAQ: height animates through `grid-template-rows` 0fr to 1fr in 200ms (`!important`, because Radix leaves an inline `transition-duration: 0s`); closed answers stay in the HTML.
 - /harness drawing (harness.css): exploded and assembled are separate hidden-line renders. The toggle crossfades them (240ms) while each part slides along its own (dx, dy) and the assembled zoom (build-computed `--zx/--zy/--zs`) eases out, all 480ms `cubic-bezier(0.77, 0, 0.175, 1)`; labels fade in after the parts settle. Gallop: 8 frames stepped with `steps(1, end)` on a 560ms stride, started by mouse hover or the run button (press scale 0.96); frames load on first use. Reduced motion: instant swap, no gallop, run button disabled. No scroll motion.
@@ -69,18 +71,23 @@ Full record: DESIGN.md. Direction contract: `.impeccable/surfaces/index-html.md`
 
 Tokens live in `app/globals.css` (`:root`, legacy names, mapped to shadcn variables and `@theme inline`).
 
-| Token   | Value     | Use                              |
-|---------|-----------|----------------------------------|
-| bg      | `oklch(0.991 0 0)` `#fcfcfc` | page ground (neutral near-white) |
-| paper   | `oklch(1 0 0)` `#fff` | cards, blocks; 1px `--line` |
-| well    | `oklch(0.955 0 0)` `#f0f0f0` | bed behind schematics, toggle track, drawing hover |
-| sage    | `oklch(0.955 0 0)` | legacy name, now the same grey as well |
-| ink     | `oklch(0.235 0 0)` `#1e1e1e` | text |
-| pine    | `oklch(0.42 0.09 160)` `#0c5c3c` | buttons, focus ring |
-| gold    | `oklch(0.86 0.1 150)` `#a1e4ae` | legacy name, soft green: `.mark`, selected drawing part |
-| radius  | `24px`    | every rounded surface            |
+| Token   | Light / dark | Use |
+|---------|--------------|-----|
+| bg      | `oklch(0.988 0 0)` / `0.17` | page ground |
+| surface (paper) | `1` / `0.21` | cards, blocks; 1px `--line` |
+| sunken (well, sage) | `0.965` / `0.235` | bed behind schematics, toggle track, drawing hover |
+| ink / ink-2 / ink-3 | `0.2, 0.47, 0.53` / `0.95, 0.74, 0.66` | text; ink-3 is the smallest step that passes AA |
+| line / line-2 | 8% / 14% black (white in dark) | hairlines, outline buttons |
+| pine    | = ink | legacy name: primary fill, flips with the scheme |
+| pine-2  | = tint-ink | green text and schematic bars |
+| panel / on-panel | `0.2` on `0.985` / `0.25` on `0.95` | principles and closing bands, dark in both schemes |
+| tint / tint-ink | `0.93 0.06 150` / `0.36 0.07 150`; ink `0.38 0.09 150` / `0.86 0.1 150` | selected row or part, its text |
+| live    | `oklch(0.62 0.15 150)` | live dots |
+| gold    | `oklch(0.86 0.1 150)` | legacy name, soft green: `.mark` |
+| focus   | `oklch(0.55 0.15 250)` / `0.7 0.13 250` | focus ring |
+| radius  | `24px` surfaces, `10px` buttons | |
 
-Aesthetic: a quiet room with one loud sentence. Neutral near-white ground (zero-chroma greys after jakub.kr), big rounded white surfaces on a hairline, few elements per view, gold as the only accent. Bencium-style calm, own colours.
+Aesthetic: a quiet room with one loud sentence. Zero-chroma neutrals after jakub.kr in light and dark (prefers-color-scheme), surfaces on a hairline, one green hue for live and selected, blue only for focus. The home shows the work moving (teardown, exploded stack, living offers); everything else stays calm.
 
 Product visuals: no client screenshots. Cards use CSS-drawn schematics (`components/schematics`, `.card-visual` > `.vis-frame`) with synthetic data; case pages use the dark `.case-preview` panel (low-alpha text stays at .55 or above for contrast). `--data` resolves to the body face; schematic and preview data use tabular numerals, never monospace.
 
@@ -92,7 +99,7 @@ Product visuals: no client screenshots. Cards use CSS-drawn schematics (`compone
 - No em dashes in copy
 - Keep each file under 800 lines
 - Nav is name (home) / Projects / About / Book a call text link; mark the current page with `aria-current="page"`. Skip link first in body.
-- Reveal (JS) motion only on the card grids; the hero entrance is CSS. Everything else is static.
+- Reveal (JS) motion only on the card grids; section titles use Sharpen; the hero entrance is CSS. Everything else is static.
 - One gold `.mark` per page at most (home hero, home quote). Card h3 is outcome-first with a `.card-name` line above.
 
 ## SEO + AEO

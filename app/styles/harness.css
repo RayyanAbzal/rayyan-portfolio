@@ -61,17 +61,17 @@
   .harness-svg [data-part="ground"] { pointer-events: none; opacity: 0.45; }
 
   /* Selected piece takes the one accent. One rule per part keeps it server-rendered. */
-  .harness-explorer[data-selected="model"] [data-part="model"],
-  .harness-explorer[data-selected="rules"] [data-part="rules"],
-  .harness-explorer[data-selected="memory"] [data-part="memory"],
-  .harness-explorer[data-selected="skills"] [data-part="skills"],
-  .harness-explorer[data-selected="hooks"] [data-part="hooks"],
-  .harness-explorer[data-selected="runner"] [data-part="runner"],
-  .harness-explorer[data-selected="reviewers"] [data-part="reviewers"],
-  .harness-explorer[data-selected="second"] [data-part="second"],
-  .harness-explorer[data-selected="me"] [data-part="me"],
-  .harness-explorer[data-selected="orchestrator"] [data-part="orchestrator"] {
-    --plate: var(--gold);
+  :is(.harness-explorer, .td-stage)[data-selected="model"] [data-part="model"],
+  :is(.harness-explorer, .td-stage)[data-selected="rules"] [data-part="rules"],
+  :is(.harness-explorer, .td-stage)[data-selected="memory"] [data-part="memory"],
+  :is(.harness-explorer, .td-stage)[data-selected="skills"] [data-part="skills"],
+  :is(.harness-explorer, .td-stage)[data-selected="hooks"] [data-part="hooks"],
+  :is(.harness-explorer, .td-stage)[data-selected="runner"] [data-part="runner"],
+  :is(.harness-explorer, .td-stage)[data-selected="reviewers"] [data-part="reviewers"],
+  :is(.harness-explorer, .td-stage)[data-selected="second"] [data-part="second"],
+  :is(.harness-explorer, .td-stage)[data-selected="me"] [data-part="me"],
+  :is(.harness-explorer, .td-stage)[data-selected="orchestrator"] [data-part="orchestrator"] {
+    --plate: var(--tint);
   }
   .harness-svg path[data-fill] { fill: var(--plate, var(--hover-fill, var(--paper))); }
 
@@ -215,7 +215,7 @@
 @keyframes harness-gallop { 0% { opacity: 1; } 12.5%, 100% { opacity: 0; } }
 @media (hover: hover) and (pointer: fine) {
   /* Its own variable, read after --plate, so the selected ring keeps its accent. */
-  .harness-explorer .harness-svg [data-part]:hover { --hover-fill: var(--sage); }
+  :is(.harness-explorer, .td-stage) .harness-svg [data-part]:hover { --hover-fill: var(--sunken); }
   .harness-layers button:hover { color: var(--ink); }
   .harness-toggle button:hover { color: var(--ink); }
 }

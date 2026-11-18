@@ -1,0 +1,139 @@
+/* pumpdat: the launch form beside a live trade feed, a wallet confirm hanging
+   off the window's right edge. Zero-chroma, green and red only for status. */
+.pd {
+  & .ss-stage {
+    overflow: hidden;
+    border-radius: 14px;
+    background: var(--ss-canvas);
+    font: 13px/1.4 var(--ss-font);
+    color: var(--ss-text-strong);
+  }
+
+  .pd-win {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    width: 600px;
+    height: 408px;
+    box-shadow: var(--ss-shadow-hero);
+  }
+
+  .pd-body {
+    display: grid;
+    grid-template-columns: 264px minmax(0, 1fr);
+    height: 100%;
+    background: var(--ss-surface);
+  }
+
+  .pd-left { padding: 18px 16px 16px; border-right: 1px solid var(--ss-line-faint); }
+  /* Form and token share one cell, both pinned to the top: States centres by
+     default, which suits labels, not a pane. */
+  .pd-states { display: grid; align-items: start; }
+  .pd-states > .ss-states__item { align-items: start; }
+
+  .pd-h { font-size: 13px; font-weight: 600; }
+
+  .pd-form { display: grid; gap: 16px; width: 232px; }
+
+  .pd-form .ss-field__box { height: 38px; }
+
+  .pd-image {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px 8px 8px;
+    border-radius: 10px;
+    background: var(--ss-well);
+    box-shadow: inset 0 0 0 1px var(--ss-line);
+  }
+
+  .pd-tile {
+    flex: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 9px;
+    background: linear-gradient(160deg, oklch(0.5 0 0), oklch(0.26 0 0));
+  }
+
+  .pd-image__text { display: grid; flex: 1; gap: 1px; min-width: 0; }
+  .pd-image__name { font-size: 12.5px; font-weight: 500; }
+  .pd-image__sub { color: var(--ss-text); font-size: 11.5px; }
+
+  .pd-launch { width: 100%; margin-top: 4px; }
+
+  /* The token the form turned into */
+  .pd-token { display: grid; gap: 16px; width: 232px; }
+  .pd-token__head { display: flex; align-items: center; gap: 10px; }
+  .pd-token__who { display: grid; flex: 1; min-width: 0; }
+  .pd-token__name { font-weight: 600; }
+  .pd-token__sym { color: var(--ss-text); font-size: 11.5px; }
+
+  .pd-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .pd-stat { display: grid; gap: 3px; }
+  .pd-stat__label { color: var(--ss-text); font-size: 11.5px; }
+
+  .pd-stat__big {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .pd-stat__val { font-size: 17px; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+  /* Feed */
+  .pd-feed { display: grid; grid-template-rows: auto minmax(0, 1fr); padding: 0 16px; }
+
+  .pd-feed__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 52px;
+  }
+
+  .pd-feed__list { overflow: hidden; }
+
+  .pd-trade {
+    display: grid;
+    grid-template-columns: 48px 44px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 10px;
+    height: 40px;
+    border-bottom: 1px solid var(--ss-line-faint);
+    font-size: 12.5px;
+    white-space: nowrap;
+  }
+
+  .pd-trade__ticker { font-weight: 500; }
+  .pd-trade__wallet { color: var(--ss-text); font-variant-numeric: tabular-nums; }
+  .pd-trade__amount { font-weight: 500; font-variant-numeric: tabular-nums; text-align: right; }
+
+  /* Wallet confirm: anchored to the browser's corner, over the window's edge */
+  .pd-wallet {
+    position: absolute;
+    top: 64px;
+    left: 524px;
+    display: grid;
+    gap: 10px;
+    width: 204px;
+    padding: 16px;
+    border-radius: 14px;
+    background: var(--ss-surface);
+    box-shadow: var(--ss-shadow-satellite);
+  }
+
+  .pd-wallet__title { font-weight: 600; }
+  .pd-wallet__line { color: var(--ss-text); font-size: 12px; }
+  .pd-wallet__line strong { color: var(--ss-text-strong); font-weight: 600; }
+  .pd-wallet__actions { display: flex; gap: 8px; margin-top: 4px; }
+
+  /* Compact: form over the feed in one window */
+  & .ss-stage[data-layout='compact'] {
+    .pd-win { top: 12px; left: 12px; width: 334px; height: 576px; }
+    .pd-body { grid-template-columns: 1fr; grid-template-rows: auto minmax(0, 1fr); }
+    .pd-left { padding: 16px; border-right: 0; border-bottom: 1px solid var(--ss-line-faint); }
+    .pd-form, .pd-token { width: 100%; }
+    .pd-wallet { top: 150px; left: 100px; }
+  }
+}

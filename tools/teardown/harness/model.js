@@ -132,7 +132,7 @@ self.DrawingModels.harness = (() => {
     parts.push(reins);
 
     // Goal runner: the carriage. The cabin carries the job and it keeps rolling until it is delivered.
-    const coach = G.part('runner', 'Carriage · Goal runner', [-14, 0, 0]);
+    const coach = G.part('runner', 'Carriage · Goal runner', [-14, 0, -18]);
     // Open carriage: low sides, a bench back and the folded hood, so the passenger shows.
     block(coach, [-82, -11, 15], [-54, 11, 27], 2);
     block(coach, [-82, -9, 27], [-78, 9, 38], 1);
@@ -171,7 +171,7 @@ self.DrawingModels.harness = (() => {
     parts.push(coachman);
 
     // Me: riding in the back, holding up the route card I set (plan to goals), face on to the reader.
-    const me = G.part('me', 'Passenger · Me', [-26, 0, 40]);
+    const me = G.part('me', 'Passenger · Me', [-26, 0, 16]);
     const cardAt = [-67, -10, 34];
     block(me, cardAt, add(cardAt, [13, 0.6, 9.5]), 0.2);
     // The route drawn on the card: three legs ending at a flag.
@@ -181,7 +181,7 @@ self.DrawingModels.harness = (() => {
     parts.push(me);
 
     // Reviewers: the inspection gate every load passes under.
-    const gate = G.part('reviewers', 'Gate · Reviewers', [16, 0, 0]);
+    const gate = G.part('reviewers', 'Gate · Reviewers', [16, 0, 56]);
     for (const y of [-20, 20]) {
       block(gate, [46, y - 1.5, 0], [49, y + 1.5, 62], 0.6);
       block(gate, [45, y - 2.5, 0], [50, y + 2.5, 2], 0.5);
@@ -191,7 +191,7 @@ self.DrawingModels.harness = (() => {
     parts.push(gate);
 
     // Second opinion: an inspector's flag from another stable, beside the gate.
-    const flag = G.part('second', 'Outside flag · Second opinion', [26, 0, 22]);
+    const flag = G.part('second', 'Outside flag · Second opinion', [26, 0, 51]);
     rod(flag, [84, 24, 0], [84, 24, 72], 0.7);
     turned(flag, [0, 0, 1], [84, 24, 0], [[0, 0], [0, 4], [1, 4], [1, 0]]);
     const cloth = G.piece(), wave = 0.8 * Math.sin(TAU * t);

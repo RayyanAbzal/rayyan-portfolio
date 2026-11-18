@@ -14,6 +14,8 @@ const eslintConfig = defineConfig([
     ".claude/**",
     // Vendored teardown skill tooling (CommonJS build scripts), not app code.
     "tools/teardown/**",
+    // Vendored Stageshow kit (copied from the skill), not app code.
+    "components/stageshow/kit/**",
     ".superpowers/**",
     "docs/**",
     ".impeccable/**",

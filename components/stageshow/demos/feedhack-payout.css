@@ -1,0 +1,258 @@
+/* FeedHack: a generic chat thread with the dashboard card straddling its right
+   edge. Zero-chroma, green only for success. No real chat-app marks. */
+.fh {
+  & .ss-stage {
+    overflow: hidden;
+    border-radius: 14px;
+    background: var(--ss-canvas);
+    font: 13px/1.4 var(--ss-font);
+    color: var(--ss-text-strong);
+  }
+
+  .fh-win {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    width: 596px;
+    height: 560px;
+    box-shadow: var(--ss-shadow-hero);
+  }
+
+  .fh-tools { display: inline-flex; color: var(--ss-text-faint); }
+
+  /* Sidebar: filler channels, one real name */
+  .fh-side {
+    display: grid;
+    align-content: start;
+    gap: 16px;
+    padding: 56px 10px 12px;
+  }
+
+  .fh-side__list { display: grid; gap: 2px; }
+
+  .fh-side__row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 28px;
+    padding: 0 8px;
+    border-radius: 7px;
+    color: var(--ss-text-faint);
+  }
+
+  .fh-side__row[data-active] {
+    background: var(--ss-ink-1);
+    color: var(--ss-text-strong);
+    font-weight: 600;
+  }
+
+  .fh-chan {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: var(--ss-surface);
+  }
+
+  /* Pinned to the bottom: arrivals push the filler out of the top */
+  .fh-feed {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 14px;
+    padding: 12px 16px 14px;
+    overflow: hidden;
+  }
+
+  .fh-feed > * { flex: none; max-width: 336px; will-change: transform; }
+  .fh-side__row, .fh-cmd, .fh-app { will-change: transform; }
+
+  .fh-msg {
+    display: grid;
+    grid-template-columns: 30px minmax(0, 1fr);
+    align-items: start;
+    gap: 10px;
+  }
+
+  .fh-msg__body { display: grid; gap: 5px; min-width: 0; }
+  .fh-msg--older .fh-msg__body { gap: 7px; padding-top: 3px; }
+
+  .fh-msg__meta { display: flex; align-items: baseline; gap: 7px; }
+  .fh-msg__name { font-weight: 600; }
+  .fh-msg__time { color: var(--ss-text-faint); font-size: 11px; }
+
+  .fh-app {
+    padding: 1px 5px;
+    border-radius: 4px;
+    background: var(--ss-ink-1);
+    color: var(--ss-text);
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  .fh-bot {
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--ss-accent-soft);
+    color: var(--ss-accent-text);
+  }
+
+  .fh-line { display: flex; align-items: center; gap: 8px; color: var(--ss-text); }
+
+  /* The command is a chip in the thread, in the body face */
+  .fh-cmd {
+    padding: 1px 6px;
+    border-radius: 5px;
+    background: var(--ss-accent-soft);
+    color: var(--ss-accent-text);
+    font-weight: 600;
+  }
+
+  .fh-line .fh-cmd + * { margin-left: 0; }
+
+  .fh-clip {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: fit-content;
+    padding: 5px 12px 5px 5px;
+    border-radius: 9px;
+    background: var(--ss-well);
+    box-shadow: inset 0 0 0 1px var(--ss-line);
+  }
+
+  .fh-clip__thumb {
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 34px;
+    border-radius: 6px;
+    background: linear-gradient(160deg, oklch(0.42 0 0), oklch(0.24 0 0));
+    color: #fff;
+  }
+
+  .fh-clip__text { display: grid; gap: 1px; }
+  .fh-clip__name { font-size: 12px; font-weight: 500; }
+  .fh-clip__len { color: var(--ss-text-faint); font-size: 11px; }
+
+  .fh-checks { display: flex; flex-wrap: nowrap; gap: 5px; }
+  .fh-check { flex: none; }
+
+  .fh-check {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 8px 3px 5px;
+    border-radius: 8px;
+    background: var(--ss-well);
+    box-shadow: inset 0 0 0 1px var(--ss-line);
+    color: var(--ss-text);
+    font-size: 11px;
+    white-space: nowrap;
+    transition: color 0.3s ease, background-color 0.3s ease;
+  }
+
+  .fh-check[data-done] { color: var(--ss-text-strong); }
+
+  .fh-result {
+    display: grid;
+    gap: 2px;
+    margin-top: 6px;
+    padding: 8px 12px 9px;
+    border-radius: 10px;
+    background: var(--ss-success-soft);
+    color: var(--ss-success-text);
+    font-size: 12.5px;
+  }
+
+  .fh-result__title { display: flex; align-items: center; gap: 6px; font-weight: 600; }
+
+  .fh-line--fail { color: var(--ss-danger-text); }
+
+  /* Composer */
+  .fh-composer { padding: 0 16px 88px; }
+
+  .fh-composer .ss-field__box { height: 40px; padding-right: 6px; }
+
+  .fh-attach {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 9px 3px 7px;
+    border-radius: 7px;
+    background: var(--ss-ink-1);
+    color: var(--ss-text);
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  .fh-send {
+    display: grid;
+    flex: none;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    margin-left: auto;
+    border-radius: 8px;
+    background: var(--ss-ink-2);
+    color: #fff;
+    transition: background-color 0.2s ease;
+  }
+
+  .fh-send[data-ready] { background: var(--ss-text-strong); }
+
+  /* The dashboard card: straddles the thread's right edge, over the margin */
+  .fh-dash {
+    position: absolute;
+    top: 76px;
+    left: 473px;
+    width: 264px;
+    box-shadow: var(--ss-shadow-satellite);
+    border-radius: 14px;
+  }
+
+  .fh-dash__total, .fh-dash__stats > div { display: grid; gap: 3px; }
+
+  .fh-dash__label { color: var(--ss-text); font-size: 11.5px; }
+
+  .fh-dash__figure {
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+
+  .fh-dash__stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  .fh-dash__stat { font-size: 15px; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+  .fh-dash__row { height: 40px; }
+  .fh-dash .ss-tabs { max-width: 100%; }
+  .fh-dash__sub { color: var(--ss-text); font-size: 11px; }
+  .fh-dash__amount { margin-left: auto; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .fh-dash__figure, .fh-dash__stat { animation: fh-fade 400ms cubic-bezier(0.2, 0, 0, 1) both; }
+  }
+
+  /* Compact: no sidebar or history, the card hangs off the window's foot */
+  & .ss-stage[data-layout='compact'] {
+    .fh-win { top: 12px; left: 12px; width: 334px; height: 350px; }
+    .fh-composer { padding-bottom: 30px; }
+    .fh-feed > * { max-width: 100%; }
+    .fh-dash { top: 338px; left: 28px; width: 302px; }
+    .fh-dash .ss-tabs, .fh-dash__list > .fh-dash__row { display: none; }
+    .fh-attach { display: none; }
+    .fh-checks { flex-wrap: wrap; }
+  }
+}
+
+@keyframes fh-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

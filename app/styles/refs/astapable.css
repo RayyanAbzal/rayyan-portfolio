@@ -1,0 +1,136 @@
+/* astapable reference design. Every selector is scoped under .ref-astapable. */
+
+.ref-astapable { background: var(--bg); color: var(--ink); font-family: var(--font); letter-spacing: -0.04em; overflow-x: clip; }
+.ref-astapable a { color: inherit; text-decoration: none; }
+.ref-astapable ul { list-style: none; margin: 0; padding: 0; }
+.ref-astapable h1, .ref-astapable h2, .ref-astapable h3, .ref-astapable p { margin: 0; }
+.ref-astapable :focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+
+.ref-astapable .as-skip { position: absolute; left: 12px; top: -60px; z-index: 10; padding: 10px 14px; background: var(--ink); color: var(--bg); border-radius: 8px; }
+.ref-astapable .as-skip:focus { top: 12px; }
+
+/* Top bar */
+.ref-astapable .as-bar { max-width: 1400px; margin: 0 auto; padding: 14px clamp(16px, 2vw, 20px); display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 12px; }
+.ref-astapable .as-brand { display: flex; align-items: center; gap: 8px; }
+.ref-astapable .as-name { font-weight: 700; font-size: 0.9375rem; min-height: 44px; display: inline-flex; align-items: center; }
+.ref-astapable .as-chip { font-size: 0.75rem; font-weight: 500; padding: 3px 7px; border-radius: 4px; background: var(--sunken); color: var(--ink-2); letter-spacing: -0.02em; white-space: nowrap; }
+.ref-astapable .as-links { display: flex; gap: 4px; }
+.ref-astapable .as-links a { font-size: 0.875rem; font-weight: 500; padding: 0 12px; min-height: 44px; display: inline-flex; align-items: center; color: var(--ink-2); }
+.ref-astapable .as-tools { display: flex; justify-content: flex-end; align-items: center; gap: 6px; }
+.ref-astapable .as-round { width: 44px; height: 44px; border-radius: 999px; display: inline-grid; place-items: center; color: var(--ink-2); }
+.ref-astapable .as-round > svg { padding: 0; }
+.ref-astapable .as-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 600; letter-spacing: -0.02em; cursor: pointer; }
+.ref-astapable .as-btn-ink { background: var(--ink); color: var(--bg); }
+.ref-astapable .as-btn-out { border: 1px solid var(--line-2); background: var(--surface); }
+
+/* Hero */
+.ref-astapable .as-hero { max-width: 1400px; margin: 0 auto; padding: 0 clamp(16px, 2vw, 20px); }
+.ref-astapable .as-hero-art { display: grid; place-items: center; padding: clamp(40px, 8vw, 110px) 0 clamp(40px, 8vw, 120px); }
+.ref-astapable .as-hero { --spread: 0; }
+.ref-astapable .as-stack { width: min(300px, 70vw); height: auto; aspect-ratio: 1; }
+.ref-astapable .as-hero-foot { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; flex-wrap: wrap; padding-bottom: clamp(48px, 9vw, 130px); }
+.ref-astapable .as-hero-foot h1 { font-size: clamp(2rem, 3.2vw, 2.8rem); font-weight: 600; line-height: 1.05; }
+.ref-astapable .as-hero-foot p { margin-top: 8px; font-size: 0.875rem; color: var(--ink-2); max-width: 26ch; letter-spacing: -0.02em; }
+.ref-astapable .as-hero-foot .as-status { margin: 0; flex-wrap: wrap; display: inline-flex; align-items: center; gap: 10px; padding: 10px 16px; border-radius: 999px; background: var(--panel); color: var(--on-panel); font-size: 0.8125rem; font-weight: 500; max-width: none; letter-spacing: -0.02em; }
+.ref-astapable .as-status i { width: 8px; height: 8px; border-radius: 50%; background: var(--live); }
+
+/* Sections */
+.ref-astapable .as-section { max-width: 1400px; margin: 0 auto; padding: 0 clamp(16px, 2vw, 20px); }
+.ref-astapable .as-title { text-align: center; font-size: clamp(1.75rem, 2.8vw, 2.5rem); font-weight: 600; color: var(--ink-3); padding: clamp(40px, 6vw, 80px) 0 clamp(28px, 4vw, 52px); }
+
+.ref-astapable .as-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px 12px; }
+.ref-astapable .as-chipgo { position: absolute; top: 14px; right: 14px; z-index: 1; width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; background: var(--surface); color: var(--ink); border: 1px solid var(--line); opacity: 0; }
+.ref-astapable .as-sep { width: 1px; height: 12px; background: currentColor; opacity: 0.3; }
+.ref-astapable .as-open { position: fixed; left: 0; top: 0; z-index: 50; pointer-events: none; display: none; padding: 7px 14px; border-radius: 999px; background: var(--ink); color: var(--bg); font-size: 0.8125rem; font-weight: 600; letter-spacing: -0.02em; opacity: 0; }
+.ref-astapable .as-feature { position: relative; }
+.ref-astapable .as-stage { position: relative; border-radius: 10px; overflow: hidden; aspect-ratio: 16 / 9; background: var(--sunken); }
+.ref-astapable .as-feature[data-tone="1"] .as-stage { background: var(--tint); }
+.ref-astapable .as-feature[data-tone="2"] .as-stage { background: var(--line); }
+.ref-astapable .as-stage .card-visual { position: absolute; inset: 0; aspect-ratio: auto; border: 0; background: transparent; }
+.ref-astapable .as-cap { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 10px 0 24px; align-items: start; }
+.ref-astapable .as-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.ref-astapable .as-tags li { font-size: 0.6875rem; font-weight: 500; padding: 3px 7px; border-radius: 3px; background: var(--sunken); color: var(--ink-2); letter-spacing: -0.01em; }
+.ref-astapable .as-text h3 { font-size: 1rem; font-weight: 600; }
+.ref-astapable .as-text p { margin-top: 4px; font-size: 0.8125rem; line-height: 1.4; color: var(--ink-2); letter-spacing: -0.02em; max-width: 34ch; }
+.ref-astapable .as-cover::after { content: ""; position: absolute; inset: 0; z-index: 2; border-radius: 10px; }
+.ref-astapable .as-cover:focus-visible { outline: none; }
+.ref-astapable .as-feature:has(.as-cover:focus-visible), .ref-astapable .as-app:has(.as-cover:focus-visible) { outline: 2px solid var(--focus); outline-offset: 3px; border-radius: 12px; }
+
+/* App cards */
+.ref-astapable .as-apps { display: grid; grid-template-columns: repeat(3, minmax(0, 300px)); justify-content: center; gap: 40px; padding: 28px 0 clamp(40px, 8vw, 120px); }
+.ref-astapable .as-app { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; box-shadow: var(--shadow); padding: 56px 20px 20px; display: grid; gap: 6px; }
+.ref-astapable .as-tile { position: absolute; top: -26px; left: 20px; width: 72px; height: 72px; border-radius: 18px; display: grid; place-items: center; font-size: 1.75rem; font-weight: 700; background: var(--tint); color: var(--tint-ink); border: 1px solid var(--line); box-shadow: var(--shadow); }
+.ref-astapable .as-app:nth-child(2) .as-tile { background: var(--panel); color: var(--on-panel); }
+.ref-astapable .as-app:nth-child(3) .as-tile { background: var(--sunken); color: var(--ink); }
+.ref-astapable .as-app h3 { font-size: 1.0625rem; font-weight: 600; }
+.ref-astapable .as-app p { font-size: 0.8125rem; line-height: 1.45; color: var(--ink-2); letter-spacing: -0.02em; padding-right: 44px; min-height: 5.8em; }
+.ref-astapable .as-go { position: absolute; right: 14px; bottom: 14px; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; background: var(--sunken); color: var(--ink); border: 1px solid var(--line); }
+
+/* Closing */
+.ref-astapable .as-close { text-align: center; padding: clamp(40px, 8vw, 100px) 16px clamp(48px, 8vw, 110px); }
+.ref-astapable .as-close h2 { font-size: clamp(2.25rem, 5vw, 4.5rem); font-weight: 600; line-height: 1.08; display: grid; gap: 0; justify-items: center; }
+.ref-astapable .as-nowrap { display: inline-flex; align-items: center; gap: 0.25em; white-space: nowrap; }
+.ref-astapable .as-nowrap svg { width: 0.8em; height: 0.8em; }
+.ref-astapable .as-actions { margin-top: 36px; display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
+
+/* Footer */
+.ref-astapable .as-foot { text-align: center; padding: 40px 16px 56px; display: grid; gap: 2px; font-size: 0.8125rem; color: var(--ink-2); letter-spacing: -0.02em; }
+.ref-astapable .as-foot p:first-child { color: var(--ink); font-weight: 600; }
+
+@media (max-width: 900px) {
+  .ref-astapable .as-bar { grid-template-columns: 1fr auto; }
+  .ref-astapable .as-links { grid-column: 1 / -1; grid-row: 2; justify-content: flex-start; flex-wrap: wrap; }
+  .ref-astapable .as-apps { grid-template-columns: 1fr; padding-top: 36px; gap: 52px; }
+  .ref-astapable .as-app { max-width: 360px; width: 100%; margin: 0 auto; }
+}
+@media (max-width: 700px) {
+  .ref-astapable .as-grid { grid-template-columns: 1fr; gap: 12px; }
+  .ref-astapable .as-cap { grid-template-columns: 1fr; padding-bottom: 28px; }
+  .ref-astapable .as-text { order: -1; }
+  .ref-astapable .as-chip { display: none; }
+  .ref-astapable .as-name { white-space: nowrap; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ref-astapable .as-btn, .ref-astapable .as-round, .ref-astapable .as-go { transition: transform 150ms cubic-bezier(0.23, 1, 0.32, 1), opacity 150ms ease-out; }
+  .ref-astapable .as-btn:active, .ref-astapable .as-round:active { transform: scale(0.97); }
+  .ref-astapable .as-stage { transition: transform 300ms cubic-bezier(0.23, 1, 0.32, 1); }
+  .ref-astapable .as-stage .vis-frame { transition: transform 300ms cubic-bezier(0.23, 1, 0.32, 1); }
+  .ref-astapable .as-chipgo { transition: opacity 200ms ease-out, transform 300ms cubic-bezier(0.23, 1, 0.32, 1); transform: translate(-6px, 6px) scale(0.9); }
+  .ref-astapable .as-app { transition: transform 300ms cubic-bezier(0.23, 1, 0.32, 1); }
+  .ref-astapable .as-stack { animation: as-rise 500ms cubic-bezier(0.23, 1, 0.32, 1) both; }
+  .ref-astapable .as-plate { will-change: transform; }
+  .ref-astapable .as-plate-0 { transform: translateY(calc(var(--spread) * -44px)); }
+  .ref-astapable .as-plate-2 { transform: translateY(calc(var(--spread) * 44px)); }
+  .ref-astapable .as-open { transition: opacity 150ms ease-out; }
+  @keyframes as-rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+
+  /* Sharpen: hidden only under html.js (set only when motion is allowed). */
+  html.js:not(.motion-failed) .ref-astapable .as-sharp:not(.as-seen) { opacity: 0; filter: blur(6px); transform: translateY(8px); }
+  .ref-astapable .as-sharp { transition: opacity 500ms cubic-bezier(0.23, 1, 0.32, 1), filter 500ms cubic-bezier(0.23, 1, 0.32, 1), transform 500ms cubic-bezier(0.23, 1, 0.32, 1); }
+  .ref-astapable .as-app.as-sharp.as-seen { transition: opacity 500ms cubic-bezier(0.23, 1, 0.32, 1), filter 500ms cubic-bezier(0.23, 1, 0.32, 1), transform 300ms cubic-bezier(0.23, 1, 0.32, 1); }
+
+  .ref-astapable .as-feature:has(.as-cover:focus-visible) .as-stage { transform: scale(1.02); }
+  .ref-astapable .as-feature:has(.as-cover:focus-visible) .vis-frame { transform: translateY(-6px); }
+  .ref-astapable .as-feature:has(.as-cover:focus-visible) .as-chipgo { opacity: 1; transform: none; }
+  .ref-astapable .as-apps:has(.as-cover:focus-visible) .as-app:nth-child(1):not(:hover):not(:has(.as-cover:focus-visible)) { transform: translateX(-10px) rotate(-3deg); }
+  .ref-astapable .as-apps:has(.as-cover:focus-visible) .as-app:nth-child(3):not(:hover):not(:has(.as-cover:focus-visible)) { transform: translateX(10px) rotate(3deg); }
+  .ref-astapable .as-apps .as-app:has(.as-cover:focus-visible) { transform: translateY(-10px); }
+}
+@media (hover: hover) {
+  .ref-astapable .as-links a:hover, .ref-astapable .as-round:hover { color: var(--ink); }
+  .ref-astapable .as-btn:hover { opacity: 0.85; }
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .ref-astapable .as-feature:hover .as-stage { transform: scale(1.02); }
+  .ref-astapable .as-feature:hover .vis-frame { transform: translateY(-6px); }
+  .ref-astapable .as-feature:hover .as-chipgo { opacity: 1; transform: none; }
+  .ref-astapable .as-apps:has(.as-app:hover) .as-app:nth-child(1):not(:hover):not(:has(.as-cover:focus-visible)) { transform: translateX(-10px) rotate(-3deg); }
+  .ref-astapable .as-apps:has(.as-app:hover) .as-app:nth-child(3):not(:hover):not(:has(.as-cover:focus-visible)) { transform: translateX(10px) rotate(3deg); }
+  .ref-astapable .as-apps .as-app:hover { transform: translateY(-10px); }
+  .ref-astapable .as-app:hover .as-go { transform: rotate(-12deg) scale(1.08); background: var(--tint); color: var(--tint-ink); }
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .ref-astapable .as-open { display: block; }
+  .ref-astapable .as-open[data-on="1"] { opacity: 1; }
+}

@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 
+import { BookBadge } from "@/components/book-badge";
 import { BookLink } from "@/components/book-link";
 import { JsonLd } from "@/components/json-ld";
 import { ClientProjectCard, PersonalProjectCard } from "@/components/project-card";
 import { Reveal } from "@/components/reveal";
+import { LitText, RisePanel } from "@/components/rise-panel";
 import { StickyBookCta } from "@/components/sticky-book-cta";
 import { Button } from "@/components/ui/button";
 import workLd from "@/content/jsonld/work.json";
@@ -27,19 +29,24 @@ export default function WorkPage() {
       <JsonLd data={workLd} />
       <main id="top" tabIndex={-1}>
         <section className="wrap pb-[clamp(24px,3vw,40px)]">
-          <div className="section-head mb-0">
+          <div className="page-top">
             <h1 className="display max-w-[12ch] text-[clamp(2.5rem,6.5vw,5.25rem)]">
               {WORK.h1}
             </h1>
-            <p className="lede">{WORK.lede}</p>
+            <BookBadge source="work_badge" label={WORK.ctaButton} />
           </div>
+          <RisePanel className="mt-[clamp(32px,4vw,48px)]">
+            <p className="rise-text small">
+              <LitText text={WORK.lede} />
+            </p>
+          </RisePanel>
         </section>
 
         <section id="client" className="wrap tight">
           <div className="section-head">
-            <h2 className="display text-[clamp(1.625rem,3vw,2.125rem)]">{WORK.clientHeading}</h2>
+            <h2 className="display text-[clamp(1.625rem,3vw,2.125rem)]">{WORK.clientHeading} <span className="count">({CLIENT_PROJECTS.length})</span></h2>
           </div>
-          <Reveal className="grid-2" stagger={100}>
+          <Reveal className="grid-2 tall-cards" stagger={100}>
             {CLIENT_PROJECTS.map((project) => (
               <ClientProjectCard key={project.slug} project={project} />
             ))}
@@ -50,7 +57,7 @@ export default function WorkPage() {
         <section id="personal">
           <div className="wrap">
             <div className="section-head">
-              <h2 className="display text-[clamp(1.625rem,3vw,2.125rem)]">{WORK.personalHeading}</h2>
+              <h2 className="display text-[clamp(1.625rem,3vw,2.125rem)]">{WORK.personalHeading} <span className="count">({PERSONAL_PROJECTS.length})</span></h2>
               <p className="lede">{WORK.personalLede}</p>
             </div>
             <Reveal className="grid-3" stagger={100}>

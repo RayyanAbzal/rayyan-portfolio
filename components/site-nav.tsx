@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { BookLink } from "@/components/book-link";
+import { LogoMark } from "@/components/logo-mark";
 import { CASE_SLUGS, type BookingSource, type CaseSlug, type NavSource } from "@/lib/book";
 import { NAV_ITEMS } from "@/lib/site";
 
@@ -32,7 +33,7 @@ export function SiteNav() {
     <nav className="nav" aria-label="Main">
       <div className="wrap nav-inner">
         <Link href="/" className="nav-name">
-          <span className="sig" aria-hidden="true" />
+          <LogoMark />
           Rayyan Abzal
         </Link>
         <div className="nav-links">
