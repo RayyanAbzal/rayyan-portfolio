@@ -1,136 +1,201 @@
-/* Influence v2 CPA table, adapted from the table-edit gold. */
-.ic .ss-stage {
-  overflow: hidden;
-  background: var(--ss-well);
-}
+/* Influence v2: roster window with the partner card straddling its sidebar
+   edge. Zero-chroma, green for the gauge and the synced state. */
+.ic {
+  & .ss-stage {
+    overflow: hidden;
+    border-radius: 14px;
+    background: var(--ss-canvas);
+    font: 13px/1.4 var(--ss-font);
+    color: var(--ss-text-strong);
+  }
 
-/* One window, inset at the top, off the bottom just under the total */
-.ic-win {
-  position: absolute;
-  top: 40px;
-  left: 50%;
-  width: 580px;
-  translate: -50% 0;
-}
+  .ic-win {
+    position: absolute;
+    top: 24px;
+    left: 176px;
+    width: 564px;
+    height: 408px;
+    box-shadow: var(--ss-shadow-hero);
+  }
 
-.ic .ss-stage[data-layout='compact'] .ic-win {
-  top: 16px;
-  width: 326px;
-}
+  .ic-side {
+    display: grid;
+    align-content: start;
+    gap: 16px;
+    padding: 56px 10px 12px;
+  }
 
-.ic-body {
-  min-height: 400px;
-  padding: 10px 24px 0;
-  background: var(--ss-surface);
-}
+  .ic-side__list { display: grid; gap: 2px; }
 
-.ic-row {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 112px 92px 64px;
-  align-items: center;
-  gap: 16px;
-  height: 44px;
-  border-bottom: 1px solid var(--ss-line-faint);
-  color: var(--ss-text-strong);
-  font-size: 13px;
-  white-space: nowrap;
-}
+  .ic-side__row {
+    display: flex;
+    align-items: center;
+    height: 28px;
+    padding: 0 8px;
+    border-radius: 7px;
+    color: var(--ss-text-faint);
+  }
 
-.ic .ss-stage[data-layout='compact'] .ic-row {
-  grid-template-columns: minmax(0, 1fr) 96px 72px;
-  gap: 10px;
-}
+  .ic-side__row[data-active] {
+    background: var(--ss-ink-1);
+    color: var(--ss-text-strong);
+    font-weight: 600;
+  }
 
-.ic .ss-stage[data-layout='compact'] .ic-spend {
-  display: none;
-}
+  .ic-main {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 14px 16px 0;
+    background: var(--ss-surface);
+  }
 
-.ic .ss-stage[data-layout='compact'] .ic-body {
-  padding: 10px 14px 0;
-}
+  .ic-sub {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    color: var(--ss-text);
+    font-size: 12px;
+  }
 
-.ic-row--head {
-  height: 36px;
-  color: var(--ss-text);
-  font-size: 12px;
-  font-weight: 500;
-}
+  .ic-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--ss-text-faint); }
 
-.ic-row--foot {
-  border-bottom: 0;
-  font-weight: 600;
-}
+  .ic-file {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 40px;
+    margin-bottom: 12px;
+    padding: 0 12px 0 8px;
+    border-radius: 10px;
+    background: var(--ss-well);
+    box-shadow: inset 0 0 0 1px var(--ss-line);
+    font-size: 12.5px;
+  }
 
-.ic-who {
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+  .ic-file__icon {
+    display: grid;
+    place-items: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    background: var(--ss-surface);
+    color: var(--ss-text);
+  }
 
-.ic-num {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
+  .ic-file__name { font-weight: 500; }
+  .ic-file__bar { width: 120px; margin-left: auto; }
 
+  .ic-file__done {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-left: auto;
+    color: var(--ss-success-text);
+    font-weight: 600;
+  }
 
-/* The edited cell: the ring is drawn inside it, so the value never moves */
-.ic-cell {
-  position: relative;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  height: 32px;
-}
+  .ic-table { display: grid; }
 
-.ic-ring {
-  position: absolute;
-  inset: 0 -8px;
-  border-radius: var(--ss-radius-sm);
-  box-shadow: inset 0 0 0 1.5px var(--ss-accent), 0 0 0 3px var(--ss-accent-soft);
-  background: var(--ss-surface);
-  opacity: 0;
-  transition: opacity 0.15s ease;
-}
+  .ic-tr {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 46px 62px 56px 84px;
+    align-items: center;
+    gap: 10px;
+    height: 42px;
+    padding: 0 8px;
+    border-bottom: 1px solid var(--ss-line-faint);
+    font-size: 12.5px;
+    white-space: nowrap;
+  }
 
-.ic-cell[data-edit] .ic-ring {
-  opacity: 1;
-}
+  .ic-tr--head {
+    height: 30px;
+    color: var(--ss-text-faint);
+    font-size: 11.5px;
+  }
 
-/* One wash on commit, then gone */
-.ic-cell::before {
-  content: '';
-  position: absolute;
-  inset: -6px -8px;
-  border-radius: var(--ss-radius-sm);
-  background: var(--ss-accent-soft);
-  opacity: 0;
-  transition: opacity 0.9s ease;
-}
+  .ic-tr[data-sel] {
+    border-radius: 8px;
+    border-bottom-color: transparent;
+    background: var(--ss-ink-1);
+  }
 
-.ic-cell[data-wash]::before {
-  opacity: 1;
-  transition-duration: 0.1s;
-}
+  .ic-who { overflow: hidden; font-weight: 500; text-overflow: ellipsis; }
+  .ic-num { text-align: right; font-variant-numeric: tabular-nums; }
 
-.ic-text {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-}
+  /* Satellite: straddles the window's sidebar edge, over the sidebar's foot */
+  .ic-card {
+    position: absolute;
+    top: 172px;
+    left: 24px;
+    display: grid;
+    gap: 12px;
+    width: 224px;
+    padding: 16px;
+    border-radius: 14px;
+    background: var(--ss-surface);
+    box-shadow: var(--ss-shadow-satellite);
+  }
 
-.ic-sel[data-on] {
-  border-radius: 2px;
-  background: color-mix(in srgb, var(--ss-accent) 24%, transparent);
-}
+  .ic-card__head { display: flex; align-items: center; gap: 10px; }
+  .ic-card__who { display: grid; }
+  .ic-card__name { font-weight: 600; }
+  .ic-card__sub { color: var(--ss-text); font-size: 11.5px; }
 
-.ic-caret {
-  width: 1.5px;
-  height: 16px;
-  margin-left: 1px;
-  margin-right: -2.5px;
-  background: var(--ss-accent);
-  animation: ss-caret 1.06s steps(1) 0.5s infinite;
-}
+  .ic-card__gauge { display: grid; justify-items: center; gap: 0; }
+  .ic-gauge { width: 168px; height: auto; }
 
-.ic-caret[data-hide] {
-  visibility: hidden;
+  .ic-gauge__track,
+  .ic-gauge__fill { fill: none; stroke-width: 9; stroke-linecap: round; }
+  .ic-gauge__track { stroke: var(--ss-ink-1); }
+  .ic-gauge__fill { stroke: var(--ss-accent); }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .ic-gauge__fill { transition: stroke-dasharray 1100ms cubic-bezier(0.2, 0, 0, 1); }
+  }
+
+  .ic-card__read { display: grid; justify-items: center; margin-top: -34px; }
+
+  .ic-card__ftd {
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  .ic-card__of { color: var(--ss-text); font-size: 11px; }
+
+  .ic-card__cpa {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 10px;
+    border-top: 1px solid var(--ss-line-faint);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .ic-card__cpa > span:first-child { color: var(--ss-text); font-weight: 400; }
+
+  .ic-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px 4px 8px;
+    border-radius: 999px;
+    background: var(--ss-accent-soft);
+    color: var(--ss-accent-text);
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  /* Compact: no sidebar, three columns, the card hangs off the window's foot */
+  & .ss-stage[data-layout='compact'] {
+    .ic-win { top: 12px; left: 12px; width: 334px; height: 372px; }
+    .ic-tr { grid-template-columns: minmax(0, 1fr) 44px 64px; }
+    .ic-tr:last-child, .ic-opt { display: none; }
+    .ic-card { top: 360px; left: 28px; width: 302px; }
+    .ic-gauge { width: 150px; }
+  }
 }
