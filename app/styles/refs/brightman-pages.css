@@ -65,8 +65,10 @@
 .ref-brightman .bm-visual { position: relative; aspect-ratio: 4 / 3; overflow: hidden; border-radius: 28px; background: var(--sunken); pointer-events: none; }
 .ref-brightman .bm-visual-in { position: absolute; inset: 0; display: grid; place-items: center; padding: 14px; }
 .ref-brightman .bm-visual-in > * { width: 100%; max-height: 100%; }
-.ref-brightman .bm-visual-hero { aspect-ratio: 16 / 10; border-radius: 40px; pointer-events: auto; }
-.ref-brightman .bm-visual-hero .bm-visual-in { padding: clamp(14px, 3vw, 40px); }
+.ref-brightman .bm-visual-hero { aspect-ratio: auto; border-radius: 40px; pointer-events: auto; }
+/* hero: the demo grows past its design size (data-ss-fill) and sets the box height */
+.ref-brightman .bm-visual-hero .bm-visual-in { position: relative; inset: auto; padding: clamp(14px, 3vw, 40px); }
+.ref-brightman .bm-visual-hero .bm-visual-in > * { max-width: 1040px; max-height: none; }
 .ref-brightman .bm-hero-visual { margin: clamp(14px, 2vw, 24px) 0 0; }
 .ref-brightman .bm-hero-visual figcaption { margin: 12px 8px 0; font-size: 0.875rem; color: var(--ink-2); }
 

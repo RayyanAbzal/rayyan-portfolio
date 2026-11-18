@@ -26,7 +26,10 @@
   }
 
   .pd-left { padding: 18px 16px 16px; border-right: 1px solid var(--ss-line-faint); }
-  .pd-states { display: block; }
+  /* Form and token share one cell, both pinned to the top: States centres by
+     default, which suits labels, not a pane. */
+  .pd-states { display: grid; align-items: start; }
+  .pd-states > .ss-states__item { align-items: start; }
 
   .pd-h { font-size: 13px; font-weight: 600; }
 

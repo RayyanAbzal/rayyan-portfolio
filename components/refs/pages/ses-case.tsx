@@ -12,8 +12,9 @@ import type { CaseSlug } from "@/lib/pages";
 
 const FACT_LABELS = ["Client", "Scope", "Timeline", "Status"] as const;
 
-function slugOf(href: string): string {
-  return href.split("/").pop() ?? "";
+// Case hrefs are /work/<slug> or the "All work" anchor (/#work), which maps to Projects.
+function hopHref(href: string): string {
+  return href.startsWith("/work/") ? `${SES_BASE}/case/${href.split("/").pop() ?? ""}` : `${SES_BASE}/projects`;
 }
 
 export function SesCase({ slug }: { slug: CaseSlug }) {
@@ -116,11 +117,11 @@ export function SesCase({ slug }: { slug: CaseSlug }) {
 
       <section className="wrap" data-sharp aria-label="More projects">
         <div className="hop">
-          <Link href={`${SES_BASE}/case/${slugOf(study.prev.href)}`}>
+          <Link href={hopHref(study.prev.href)}>
             <span className="hop-k">{study.prev.label}</span>
             <span className="hop-t">{study.prev.target}</span>
           </Link>
-          <Link href={`${SES_BASE}/case/${slugOf(study.next.href)}`}>
+          <Link href={hopHref(study.next.href)}>
             <span className="hop-k">{study.next.label}</span>
             <span className="hop-t">{study.next.target}</span>
           </Link>

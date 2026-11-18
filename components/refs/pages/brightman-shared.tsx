@@ -150,7 +150,7 @@ function visualNode(source: VisualSource): ReactNode {
 /** Card visual: fixed aspect box, hidden from assistive tech, inert so the card stays one link. */
 export function BmVisual({ source, hero }: { source: VisualSource; hero?: boolean }) {
   return (
-    <div className={`bm-visual${hero ? " bm-visual-hero" : ""}`} aria-hidden="true" inert>
+    <div className={`bm-visual${hero ? " bm-visual-hero" : ""}`} aria-hidden="true" inert data-ss-fill={hero ? "" : undefined}>
       <div className="bm-visual-in">{visualNode(source)}</div>
     </div>
   );
