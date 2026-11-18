@@ -69,3 +69,16 @@ export const DESIGN_REFS: readonly DesignRef[] = [
 export function findDesign(slug: string): DesignRef | undefined {
   return DESIGN_REFS.find((d) => d.slug === slug);
 }
+
+/** The inner pages each direction is carried through, at /designs/<slug>/<page>. */
+export const DESIGN_PAGES = [
+  { slug: "projects", name: "Projects" },
+  { slug: "about", name: "About" },
+  { slug: "contact", name: "Contact" },
+] as const;
+
+export type DesignPageSlug = (typeof DESIGN_PAGES)[number]["slug"];
+
+export function isDesignPage(slug: string): slug is DesignPageSlug {
+  return DESIGN_PAGES.some((p) => p.slug === slug);
+}

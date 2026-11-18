@@ -15,6 +15,9 @@ export function DemoFrame({ children }: DemoFrameProps) {
       <button type="button" className="ssg-replay" onClick={() => setRun((n) => n + 1)}>
         Replay
       </button>
+      <p className="ssg-still">
+        Your system has Reduce motion on, so this shows the last frame. Turn it off to watch it play.
+      </p>
     </div>
   );
 }

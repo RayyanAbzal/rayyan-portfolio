@@ -15,3 +15,4 @@ body:has(.ref-root) > .vp { display: none; }
 @media (hover: hover) { .ds-switch li a:hover { background: #2a2a2a; } .ds-switch li a[aria-current="page"]:hover { background: #fff; } }
 @media (max-width: 640px) { .ds-switch { left: 8px; right: 8px; bottom: 8px; } .ds-switch p { display: none; } }
 .ref-root .vis-frame { text-align: start; }
+.ds-switch .ds-pages { margin-top: 6px; padding-top: 6px; border-top: 1px solid #333; }

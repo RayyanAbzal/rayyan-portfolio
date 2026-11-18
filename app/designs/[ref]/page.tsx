@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 
 import "@/app/styles/refs/shell.css";
+import { DirectionSwitcher } from "@/components/refs/switcher";
 import { DesignAstapable } from "@/components/refs/astapable";
 import { DesignBrightman } from "@/components/refs/brightman";
 import { DesignNexora } from "@/components/refs/nexora";
@@ -52,20 +52,7 @@ export default async function DesignPage({ params }: DesignPageProps) {
   return (
     <>
       <Design />
-      <nav className="ds-switch" aria-label="Design directions">
-        <p>
-          After {design.credit}. <a href={design.url}>Reference</a>
-        </p>
-        <ul>
-          {DESIGN_REFS.map((d, i) => (
-            <li key={d.slug}>
-              <Link href={`/designs/${d.slug}`} aria-current={d.slug === design.slug ? "page" : undefined}>
-                {i + 1} {d.name}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </nav>
+      <DirectionSwitcher design={design} at="" />
     </>
   );
 }

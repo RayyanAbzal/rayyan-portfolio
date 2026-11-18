@@ -36,3 +36,11 @@
     transform: scale(0.97);
   }
 }
+
+/* Under reduced motion the stage shows its poster and never plays, so Replay would
+   do nothing: swap it for a note that says why. */
+.ssg-still { display: none; margin: 0; font-size: 0.875rem; color: var(--ink-3); }
+@media (prefers-reduced-motion: reduce) {
+  .ssg-replay { display: none; }
+  .ssg-still { display: block; }
+}
