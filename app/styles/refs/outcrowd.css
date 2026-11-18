@@ -1,16 +1,36 @@
 /* outcrowd reference design. Every selector is scoped under .ref-outcrowd. */
 
+/* Colour scheme for the outcrowd direction. One brand green, a green-tinted dark
+   page on a tinted ground. Contrast of every text pair is listed in the report. */
 .ref-outcrowd {
-  --oc-green: oklch(0.8 0.12 150);
-  --oc-lift: color-mix(in oklch, var(--panel) 90%, var(--on-panel));
-  --oc-edge: color-mix(in oklch, var(--on-panel) 14%, transparent);
-  --oc-dim: color-mix(in oklch, var(--on-panel) 72%, transparent);
+  --oc-ground: oklch(0.94 0.03 150);
+  --oc-surface: oklch(0.21 0.012 150);
+  --oc-raised: oklch(0.27 0.014 150);
+  --oc-sunken: oklch(0.17 0.012 150);
+  --oc-ink: oklch(0.985 0.004 150);
+  --oc-ink-2: oklch(0.82 0.012 150);
+  --oc-ink-3: oklch(0.7 0.014 150);
+  --oc-line: oklch(1 0 0 / 0.14);
+  --oc-brand: oklch(0.8 0.12 150);
+  --oc-brand-fill: oklch(0.45 0.12 150);
+  --oc-brand-tint: oklch(0.3 0.06 150);
+  --oc-focus: oklch(0.78 0.12 250);
+
+  --panel: var(--oc-surface);
+  --on-panel: var(--oc-ink);
+  --oc-green: var(--oc-brand);
+  --oc-lift: var(--oc-raised);
+  --oc-edge: var(--oc-line);
+  --oc-dim: var(--oc-ink-2);
   padding: 16px;
-  background: radial-gradient(70% 40% at 50% 0%, oklch(0.93 0.04 150 / 0.7), transparent 70%), var(--bg);
+  background: radial-gradient(70% 40% at 50% 0%, oklch(0.99 0.03 150 / 0.7), transparent 70%), var(--oc-ground);
   font-family: var(--font);
 }
 @media (prefers-color-scheme: dark) {
-  .ref-outcrowd { background: radial-gradient(70% 40% at 50% 0%, oklch(0.3 0.05 150 / 0.5), transparent 70%), var(--bg); }
+  .ref-outcrowd {
+    --oc-ground: oklch(0.15 0.015 150);
+    background: radial-gradient(70% 40% at 50% 0%, oklch(0.3 0.05 150 / 0.5), transparent 70%), var(--oc-ground);
+  }
 }
 
 .ref-outcrowd .oc-card {
@@ -44,7 +64,7 @@
 
 /* links and focus */
 .ref-outcrowd a { color: inherit; text-decoration: none; }
-.ref-outcrowd a:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; border-radius: 8px; }
+.ref-outcrowd a:focus-visible { outline: 2px solid var(--oc-focus); outline-offset: 3px; border-radius: 8px; }
 
 /* nav */
 .ref-outcrowd .oc-nav { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 12px; padding: 22px 0; }
@@ -57,7 +77,7 @@
 .ref-outcrowd .oc-pill { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 22px; border-radius: 999px; font-size: 0.9375rem; font-weight: 600; background: var(--on-panel); color: var(--panel); text-align: center; }
 .ref-outcrowd .oc-pill-sm { min-height: 44px; padding: 0 18px; font-size: 0.875rem; }
 .ref-outcrowd .oc-pill-ghost { background: color-mix(in oklch, var(--on-panel) 8%, transparent); color: var(--on-panel); border: 1px solid var(--oc-edge); }
-.ref-outcrowd .oc-pill-glow { background: oklch(0.45 0.12 150); color: var(--on-panel); border: 1px solid oklch(0.7 0.12 150 / 0.7); box-shadow: 0 0 32px oklch(0.62 0.15 150 / 0.55), inset 0 1px 0 oklch(1 0 0 / 0.25); }
+.ref-outcrowd .oc-pill-glow { background: var(--oc-brand-fill); color: var(--on-panel); border: 1px solid oklch(0.7 0.12 150 / 0.7); box-shadow: 0 0 32px oklch(0.62 0.15 150 / 0.55), inset 0 1px 0 oklch(1 0 0 / 0.25); }
 
 /* hero */
 .ref-outcrowd .oc-hero { position: relative; text-align: center; padding-top: clamp(24px, 5vw, 64px); }
@@ -88,11 +108,6 @@
 .ref-outcrowd .oc-side-k { margin: 0; font-size: 2rem; font-weight: 600; letter-spacing: -0.03em; }
 .ref-outcrowd .oc-side-t { margin: 6px 0 0; font-size: 0.8125rem; line-height: 1.4; }
 
-/* wordmarks */
-.ref-outcrowd .oc-marks { margin-top: clamp(40px, 6vw, 80px); }
-.ref-outcrowd .oc-marks ul { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px clamp(20px, 5vw, 64px); margin: 0; padding: 0; list-style: none; }
-.ref-outcrowd .oc-marks a { display: inline-flex; align-items: center; min-height: 44px; font-size: 1.25rem; font-weight: 600; letter-spacing: -0.02em; color: color-mix(in oklch, var(--on-panel) 62%, transparent); }
-
 /* wide card with threads */
 .ref-outcrowd .oc-wide { position: relative; overflow: hidden; margin-top: clamp(24px, 4vw, 48px); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 24px; min-height: 280px; padding: clamp(24px, 4vw, 48px); border-radius: 32px; border: 1px solid var(--oc-edge); background: radial-gradient(80% 120% at 85% 0%, oklch(0.4 0.09 150 / 0.7), transparent 65%), linear-gradient(135deg, oklch(0.3 0.05 150), var(--oc-lift)); }
 .ref-outcrowd .oc-wide-copy { align-self: center; }
@@ -110,7 +125,7 @@
 .ref-outcrowd .oc-threads li:nth-child(6) { --t: 130px; }
 
 /* section headings */
-.ref-outcrowd .oc-platform, .ref-outcrowd .oc-caps, .ref-outcrowd .oc-found { margin-top: clamp(56px, 8vw, 112px); text-align: center; }
+.ref-outcrowd .oc-work, .ref-outcrowd .oc-platform, .ref-outcrowd .oc-caps, .ref-outcrowd .oc-found { margin-top: clamp(56px, 8vw, 112px); text-align: center; }
 .ref-outcrowd .oc-h2 { margin: 0; font-size: clamp(1.75rem, 1rem + 2.4vw, 3rem); font-weight: 500; letter-spacing: -0.03em; line-height: 1.1; text-wrap: balance; }
 .ref-outcrowd .oc-sub { margin: 14px auto 0; max-width: 52ch; color: var(--oc-dim); line-height: 1.5; }
 
@@ -126,7 +141,7 @@
 .ref-outcrowd .oc-chip { display: grid; place-items: center; width: clamp(110px, 16vw, 180px); aspect-ratio: 1; border-radius: 28px; font-size: clamp(2.25rem, 4vw, 3.5rem); font-weight: 600; letter-spacing: -0.03em; background: linear-gradient(150deg, oklch(0.62 0.15 150), oklch(0.4 0.1 150)); border: 1px solid oklch(0.85 0.1 150 / 0.7); box-shadow: 0 0 90px oklch(0.62 0.15 150 / 0.6), inset 0 1px 0 oklch(1 0 0 / 0.35); }
 
 /* bento */
-.ref-outcrowd .oc-bento { display: grid; grid-template-columns: 1fr 1.6fr; grid-template-rows: auto auto; gap: 14px; margin-top: clamp(28px, 4vw, 56px); text-align: left; }
+.ref-outcrowd .oc-bento { display: grid; grid-template-columns: 1fr 1.6fr; gap: 14px; margin-top: clamp(28px, 4vw, 56px); text-align: left; }
 .ref-outcrowd .oc-b { margin: 0; border-radius: 28px; padding: clamp(20px, 3vw, 32px); border: 1px solid var(--oc-edge); background: var(--oc-lift); overflow: hidden; }
 .ref-outcrowd .oc-b { position: relative; }
 .ref-outcrowd .oc-b::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0; background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), oklch(0.85 0.1 150 / 0.22), transparent 70%); }
@@ -135,13 +150,10 @@
 .ref-outcrowd .oc-b .oc-meta { margin-top: 16px; font-weight: 600; font-size: 0.8125rem; color: var(--on-panel); }
 .ref-outcrowd .oc-b-green { background: linear-gradient(160deg, oklch(0.48 0.13 150), oklch(0.36 0.09 150)); border-color: oklch(0.7 0.12 150 / 0.5); }
 .ref-outcrowd .oc-b-green p { color: var(--on-panel); }
-.ref-outcrowd .oc-b-product { padding: clamp(14px, 2vw, 24px) 0 0 clamp(14px, 2vw, 24px); background: radial-gradient(70% 70% at 80% 0%, oklch(0.4 0.09 150 / 0.55), transparent 70%), var(--oc-lift); }
-.ref-outcrowd .oc-tilt { transform: perspective(900px) rotateY(-12deg) rotateX(6deg) scale(1.04); transform-origin: 0 0; border-radius: 14px; overflow: hidden; box-shadow: 0 30px 60px oklch(0 0 0 / 0.4); }
-.ref-outcrowd .oc-tilt .card-visual { border-radius: 14px; }
 .ref-outcrowd .oc-b-chat { display: flex; flex-direction: column; justify-content: flex-end; gap: 14px; }
 .ref-outcrowd .oc-bubble { margin: 0; padding: 16px 18px; border-radius: 22px 22px 22px 6px; background: color-mix(in oklch, var(--on-panel) 10%, transparent); border: 1px solid var(--oc-edge); font-size: 0.9375rem; line-height: 1.5; }
 .ref-outcrowd .oc-b-chat figcaption { padding-left: 6px; font-size: 0.8125rem; font-weight: 600; color: var(--oc-green); }
-.ref-outcrowd .oc-b-offers { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.ref-outcrowd .oc-b-offers { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
 .ref-outcrowd .oc-b-offers h3 { font-size: 1.125rem; }
 
 /* foundation tiles */
@@ -153,13 +165,12 @@
 .ref-outcrowd .oc-tile:nth-child(3) { --r: -3deg; --y: 36px; --x: 0px; }
 .ref-outcrowd .oc-tile:nth-child(4) { --r: 5deg; --y: 30px; --x: 4px; }
 .ref-outcrowd .oc-tile:nth-child(5) { --r: -4deg; --y: 4px; --x: 10px; }
-.ref-outcrowd .oc-tile:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+.ref-outcrowd .oc-tile:focus-visible { outline: 2px solid var(--oc-focus); outline-offset: 3px; }
 .ref-outcrowd .oc-tile-solid { background: linear-gradient(160deg, oklch(0.5 0.13 150), oklch(0.38 0.1 150)); border-color: oklch(0.7 0.12 150 / 0.6); }
 .ref-outcrowd .oc-icon { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 14px; font-weight: 600; background: color-mix(in oklch, var(--on-panel) 14%, transparent); border: 1px solid var(--oc-edge); }
 .ref-outcrowd .oc-tile h3 { margin: 16px 0 0; font-size: 0.9375rem; font-weight: 600; line-height: 1.25; }
 .ref-outcrowd .oc-tile p { margin: 8px 0 0; font-size: 0.8125rem; line-height: 1.4; color: var(--oc-dim); }
 .ref-outcrowd .oc-tile-solid p { color: var(--on-panel); }
-.ref-outcrowd .oc-found-note { margin: 28px 0 0; color: var(--oc-dim); font-size: 0.9375rem; }
 
 /* final cta */
 .ref-outcrowd .oc-cta { display: flex; flex-direction: column; align-items: center; text-align: center; margin-top: clamp(56px, 8vw, 112px); padding-bottom: 180px; position: relative; }
@@ -214,7 +225,7 @@
 }
 @media (hover: hover) {
   .ref-outcrowd .oc-pill:hover { opacity: 0.88; }
-  .ref-outcrowd .oc-links a:hover, .ref-outcrowd .oc-marks a:hover, .ref-outcrowd .oc-foot a:hover { color: var(--on-panel); }
+  .ref-outcrowd .oc-links a:hover, .ref-outcrowd .oc-foot a:hover { color: var(--on-panel); }
 }
 
 @media (prefers-reduced-motion: no-preference) {

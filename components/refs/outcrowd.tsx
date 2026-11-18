@@ -1,34 +1,11 @@
 import Link from "next/link";
 
-import "@/app/styles/refs/outcrowd.css";
-import { OutcrowdFx } from "@/components/refs/outcrowd-client";
 import { BookLink } from "@/components/book-link";
-import { FeedhackSchematic } from "@/components/schematics/feedhack-schematic";
+import { OcProjectCard } from "@/components/refs/pages/outcrowd-project";
+import { OC, OcCta, OcPage, richText } from "@/components/refs/pages/outcrowd-shell";
 import { OFFERS, HOME } from "@/content/home";
 import { HARNESS, HARNESS_LAYERS, HARNESS_PRINCIPLES, HARNESS_STATS } from "@/content/harness";
-import { PRINCIPLES, PROCESS_STEPS, TESTIMONIALS } from "@/content/about";
 import { CLIENT_PROJECTS } from "@/content/projects";
-import { FOOTER_LINKS } from "@/lib/site";
-import type { Rich } from "@/content/rich";
-
-const NAV_LINKS = [
-  { label: "Projects", href: "/work" },
-  { label: "How I build", href: "/harness" },
-  { label: "About", href: "/about" },
-] as const;
-
-function richText(rich: Rich): string {
-  return rich
-    .map((part) => {
-      if (typeof part === "string") return part;
-      if ("hi" in part) return part.hi;
-      if ("mark" in part) return part.mark;
-      if ("strong" in part) return part.strong;
-      if ("nowrap" in part) return part.nowrap;
-      return part.link;
-    })
-    .join("");
-}
 
 /** The first words of the headline are lit green, the rest stays on-panel. */
 function Headline() {
@@ -46,10 +23,7 @@ function Headline() {
 
 const THREADS = HARNESS_LAYERS.slice(0, 6);
 const FLOW_LAYERS = HARNESS_LAYERS.slice(1, 5);
-const FOUNDATION = [
-  ...PRINCIPLES.map((p) => ({ title: p.title, line: p.body.split(". ")[0].replace(/\.$/, "") + "." })),
-  { title: PROCESS_STEPS[1].title, line: PROCESS_STEPS[1].when },
-];
+const TOP_PROJECTS = CLIENT_PROJECTS.slice(0, 3);
 
 /** Line chart, decorative: two smooth curves over faint grid lines. */
 function Chart() {
@@ -83,23 +57,8 @@ function Circuit() {
 }
 
 export function DesignOutcrowd() {
-  const t = TESTIMONIALS[0];
   return (
-    <main id="top" className="ref-root ref-outcrowd">
-      <div className="oc-card">
-        <OutcrowdFx />
-        <div className="oc-stars" aria-hidden="true" />
-
-        <header className="oc-nav">
-          <Link href="/" className="oc-name">Rayyan Abzal</Link>
-          <nav aria-label="Primary" className="oc-links">
-            {NAV_LINKS.map((l) => (
-              <Link key={l.href} href={l.href}>{l.label}</Link>
-            ))}
-          </nav>
-          <BookLink source="design_preview" className="oc-pill oc-pill-sm">Book a call</BookLink>
-        </header>
-
+    <OcPage current="home">
         {/* 1. hero */}
         <section className="oc-hero" aria-labelledby="oc-hero-h">
           <div className="oc-beam" aria-hidden="true" />
@@ -108,7 +67,7 @@ export function DesignOutcrowd() {
             <p className="oc-lede">{HOME.heroLede}</p>
             <div className="oc-actions">
               <BookLink source="design_preview" className="oc-pill oc-pill-glow">{HOME.heroCta}</BookLink>
-              <Link href="/work" className="oc-pill oc-pill-ghost">{HOME.heroSecondary}</Link>
+              <Link href={`${OC}/projects`} className="oc-pill oc-pill-ghost">{HOME.heroSecondary}</Link>
             </div>
           </div>
 
@@ -139,13 +98,16 @@ export function DesignOutcrowd() {
           </div>
         </section>
 
-        {/* 2. wordmarks */}
-        <section className="oc-marks oc-reveal" aria-label="Client builds">
-          <ul>
-            {CLIENT_PROJECTS.map((p) => (
-              <li key={p.slug}><Link href={`/work/${p.slug}`}>{p.name}</Link></li>
+        {/* 2. top projects, each card plays its live demo */}
+        <section className="oc-work oc-reveal" aria-labelledby="oc-work-h">
+          <h2 id="oc-work-h" className="oc-h2">{HOME.workTitle}</h2>
+          <p className="oc-sub">{HOME.workLede}</p>
+          <div className="oc-work-grid">
+            {TOP_PROJECTS.map((p) => (
+              <OcProjectCard key={p.slug} project={p} />
             ))}
-          </ul>
+          </div>
+          <Link href={`${OC}/projects`} className="oc-pill oc-pill-ghost oc-work-all">{HOME.workLink}</Link>
         </section>
 
         {/* 3. wide card with threaded labels */}
@@ -190,12 +152,9 @@ export function DesignOutcrowd() {
               <p>{OFFERS[0].body}</p>
               <p className="oc-meta">{OFFERS[0].duration}. {OFFERS[0].price}.</p>
             </article>
-            <div className="oc-b oc-b-product" aria-hidden="true">
-              <div className="oc-tilt"><FeedhackSchematic /></div>
-            </div>
             <figure className="oc-b oc-b-chat">
-              <blockquote className="oc-bubble">{t.quote}</blockquote>
-              <figcaption>{t.role}, {t.project}</figcaption>
+              <blockquote className="oc-bubble">{richText(HOME.quote)}</blockquote>
+              <figcaption>{HOME.quoteRole}, {HOME.quoteProject}</figcaption>
             </figure>
             <article className="oc-b oc-b-offers">
               {[OFFERS[1], OFFERS[2]].map((o) => (
@@ -213,39 +172,18 @@ export function DesignOutcrowd() {
         <section className="oc-found oc-reveal" aria-labelledby="oc-found-h">
           <h2 id="oc-found-h" className="oc-h2">{HARNESS.principlesHeading}</h2>
           <ul className="oc-tiles">
-            {FOUNDATION.map((f, i) => (
-              <li key={f.title} tabIndex={0} className={i === 2 ? "oc-tile oc-tile-solid" : "oc-tile"}>
+            {HARNESS_PRINCIPLES.map((f, i) => (
+              <li key={f.title} tabIndex={0} className={i === 1 ? "oc-tile oc-tile-solid" : "oc-tile"}>
                 <span className="oc-icon" aria-hidden="true">{i + 1}</span>
                 <h3>{f.title}</h3>
-                <p>{f.line}</p>
+                <p>{f.body}</p>
               </li>
             ))}
           </ul>
-          <p className="oc-found-note">{HARNESS_PRINCIPLES[0].title}</p>
         </section>
 
         {/* 7. final CTA */}
-        <section className="oc-cta oc-reveal" aria-labelledby="oc-cta-h">
-          <p className="oc-cta-name">Rayyan Abzal</p>
-          <h2 id="oc-cta-h" className="oc-cta-h">{richText(HOME.ctaTitle)}</h2>
-          <p className="oc-lede">{HOME.ctaBody}</p>
-          <BookLink source="design_preview" className="oc-pill oc-pill-glow">{HOME.ctaButton}</BookLink>
-          <div className="oc-cone" aria-hidden="true" />
-        </section>
-
-        <footer className="oc-foot">
-          <nav aria-label="Footer">
-            {NAV_LINKS.map((l) => (
-              <Link key={l.href} href={l.href}>{l.label}</Link>
-            ))}
-          </nav>
-          <nav aria-label="Legal">
-            {FOOTER_LINKS.map((l) => (
-              <Link key={l.href} href={l.href}>{l.label}</Link>
-            ))}
-          </nav>
-        </footer>
-      </div>
-    </main>
+        <OcCta id="oc-cta-h" title={richText(HOME.ctaTitle)} body={HOME.ctaBody} label={HOME.ctaButton} />
+    </OcPage>
   );
 }
