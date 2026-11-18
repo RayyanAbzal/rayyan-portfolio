@@ -216,39 +216,6 @@ export function SynAccordion({ items, variant, onActive }: AccordionProps) {
   );
 }
 
-export interface RoadmapStep {
-  title: string;
-  when: string;
-}
-
-interface OffersRoadmapProps {
-  offers: readonly AccordionItem[];
-  steps: readonly RoadmapStep[];
-  roadmapLabel: string;
-}
-
-/** Left accordion of offers, right stair-stepped roadmap card. */
-export function SynOffersRoadmap({ offers, steps, roadmapLabel }: OffersRoadmapProps) {
-  const [active, setActive] = useState(0);
-  return (
-    <div className="syn-split-lists">
-      <SynAccordion items={offers} variant="offers" onActive={setActive} />
-      <div className="syn-roadmap" role="group" aria-label={roadmapLabel}>
-        <p className="syn-eyebrow">{roadmapLabel}</p>
-        <ol className="syn-steps">
-          {steps.map((s, i) => (
-            <li key={s.title} className="syn-step" data-on={i === active || i === active + 1 ? "true" : "false"} data-lead={i === active ? "true" : "false"} style={{ marginLeft: `${i * 7}%` }}>
-              <span className="syn-step-n" aria-hidden="true">{i + 1}</span>
-              <span className="syn-step-t">{s.title}</span>
-              <span className="syn-step-w">{s.when}</span>
-            </li>
-          ))}
-        </ol>
-      </div>
-    </div>
-  );
-}
-
 interface CarouselProps {
   prevLabel: string;
   nextLabel: string;
