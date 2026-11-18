@@ -1,7 +1,6 @@
 "use client";
 
-import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import type { ElementType, ReactNode } from "react";
 
 const FINE = "(hover: hover) and (pointer: fine)";
@@ -160,80 +159,4 @@ export function TiltCard({ children, className, as: Tag = "article" }: { childre
     return () => { el.removeEventListener("pointermove", move); el.removeEventListener("pointerleave", leave); cancelAnimationFrame(raf); };
   }, []);
   return <Tag ref={ref} className={`${className} bm-tilt`} data-rv>{children}</Tag>;
-}
-
-export interface ClientRow {
-  slug: string;
-  name: string;
-  title: string;
-  outcome: string;
-  preview: ReactNode;
-}
-
-/** Client rows with a floating schematic preview that follows the cursor. */
-export function ClientRows({ rows }: { rows: ClientRow[] }) {
-  const card = useRef<HTMLDivElement>(null);
-  const target = useRef({ x: 0, y: 0 });
-  const pos = useRef({ x: 0, y: 0 });
-  const [active, setActive] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (!canPoint()) return;
-    let raf = 0;
-    const tick = () => {
-      const el = card.current;
-      if (el) {
-        pos.current.x += (target.current.x - pos.current.x) * 0.14;
-        pos.current.y += (target.current.y - pos.current.y) * 0.14;
-        el.style.transform = `translate3d(${pos.current.x.toFixed(1)}px, ${pos.current.y.toFixed(1)}px, 0)`;
-      }
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, []);
-
-  const place = (x: number, y: number) => {
-    target.current = { x: x + 24, y: y - 110 };
-  };
-  const showAt = (slug: string, x: number, y: number) => {
-    place(x, y);
-    pos.current = { ...target.current };
-    setActive(slug);
-  };
-
-  return (
-    <>
-      <ul className="bm-client-list" onPointerLeave={() => setActive(null)}>
-        {rows.map((r) => (
-          <li key={r.slug}>
-            <Link
-              href={`/work/${r.slug}`}
-              className="bm-client"
-              data-rv
-              onPointerEnter={(e) => { if (e.pointerType === "mouse") showAt(r.slug, e.clientX, e.clientY); }}
-              onPointerMove={(e) => { if (e.pointerType === "mouse") place(e.clientX, e.clientY); }}
-              onFocus={(e) => {
-                const b = e.currentTarget.getBoundingClientRect();
-                showAt(r.slug, Math.min(b.right - 360, b.left + b.width * 0.55), b.top + b.height / 2);
-              }}
-              onBlur={() => setActive(null)}
-            >
-              <span className="bm-client-name"><span>{r.name}</span></span>
-              <span className="bm-client-title">{r.title}</span>
-              <span className="bm-client-outcome">{r.outcome}</span>
-              <span className="bm-client-arrow" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M6 18L18 6M8 6h10v10" /></svg>
-              </span>
-            </Link>
-          </li>
-        ))}
-      </ul>
-      <div ref={card} className="bm-peek" aria-hidden="true" data-on={active ? "true" : "false"}>
-        {rows.map((r) => (
-          <div key={r.slug} className="bm-peek-item" data-active={active === r.slug ? "true" : "false"}>{r.preview}</div>
-        ))}
-      </div>
-    </>
-  );
 }

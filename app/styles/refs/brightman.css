@@ -1,4 +1,25 @@
 /* brightman reference design. Every selector is scoped under .ref-brightman. */
+/* Colour scheme. Light only: the reference is a light page with dark panels. One
+   brand green (--live, hue 150) with its tint; ink-led neutrals with a faint green
+   cast; blue is for focus only. Contrast ratios are listed in the design report. */
+.ref-brightman {
+  color-scheme: light;
+  --bg: oklch(0.972 0.004 130);
+  --bg-2: oklch(0.945 0.007 130);
+  --surface: oklch(1 0 0);
+  --sunken: oklch(0.945 0.007 130);
+  --ink: oklch(0.19 0.006 150);
+  --ink-2: oklch(0.44 0.008 150);
+  --ink-3: oklch(0.5 0.008 150);
+  --line: oklch(0.19 0.006 150 / 0.09);
+  --line-2: oklch(0.19 0.006 150 / 0.17);
+  --live: oklch(0.62 0.15 150);
+  --tint: oklch(0.93 0.06 150);
+  --tint-ink: oklch(0.36 0.09 150);
+  --panel: oklch(0.2 0.012 150);
+  --on-panel: oklch(0.97 0.004 130);
+  --focus: oklch(0.55 0.15 250);
+}
 .ref-brightman { background: var(--bg); color: var(--ink); font-family: var(--font); overflow-x: clip; }
 .ref-brightman .bm-wide { max-width: 1440px; margin: 0 auto; padding: 0 clamp(14px, 2.2vw, 32px) clamp(14px, 2.2vw, 32px); }
 .ref-brightman .bm-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
@@ -14,8 +35,10 @@
 .ref-brightman .bm-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding: 18px 8px; }
 .ref-brightman .bm-logo { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; font-weight: 600; font-size: 1.0625rem; letter-spacing: -0.01em; }
 .ref-brightman .bm-logo-dot { width: 18px; height: 18px; border-radius: 6px; background: var(--ink); }
+.ref-brightman .bm-nav ul { list-style: none; display: flex; gap: 4px; margin: 0; padding: 0; }
+.ref-brightman .bm-nav a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 999px; font-size: 0.9375rem; font-weight: 500; color: var(--ink-2); }
+.ref-brightman .bm-nav a[aria-current="page"] { background: var(--tint); color: var(--tint-ink); }
 .ref-brightman .bm-header-right { display: flex; align-items: center; gap: 18px; }
-.ref-brightman .bm-header-loc { font-size: 0.9375rem; color: var(--ink-2); }
 .ref-brightman .bm-btn-sm { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 22px; border-radius: 999px; background: var(--ink); color: var(--bg); font-weight: 600; font-size: 0.9375rem; }
 
 /* hero */
@@ -46,12 +69,6 @@
 .ref-brightman .bm-lean { transform-origin: 50% 50%; will-change: transform; }
 .ref-brightman .bm-magnet { display: inline-block; will-change: transform; }
 .ref-brightman .bm-tilt::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0; background: radial-gradient(240px circle at var(--mx, 50%) var(--my, 50%), oklch(0.8 0.12 150 / 0.28), transparent 70%); }
-.ref-brightman .bm-client-name { overflow: hidden; }
-.ref-brightman .bm-client-name > span { display: inline-block; }
-.ref-brightman .bm-peek { position: fixed; left: 0; top: 0; z-index: 20; width: 320px; pointer-events: none; opacity: 0; }
-.ref-brightman .bm-peek-item { display: none; border-radius: 20px; overflow: hidden; border: 1px solid var(--line-2); box-shadow: 0 24px 60px oklch(0 0 0 / 0.18); background: var(--surface); }
-.ref-brightman .bm-peek-item[data-active="true"] { display: block; }
-@media (hover: none), (pointer: coarse) { .ref-brightman .bm-peek { display: none; } }
 .ref-brightman .bm-marquee-run { display: inline-flex; align-items: center; gap: 0.35em; padding-right: 0.35em; font-size: clamp(3.5rem, 1rem + 9vw, 8.75rem); font-weight: 500; letter-spacing: -0.05em; line-height: 1; white-space: nowrap; }
 .ref-brightman .bm-marquee-run svg { width: 0.6em; height: 0.3em; color: var(--ink-3); }
 .ref-brightman .bm-marquee.small .bm-marquee-run { font-size: clamp(2.75rem, 1rem + 6vw, 6rem); }
@@ -104,17 +121,8 @@
 .ref-brightman .bm-step:nth-child(3) .bm-when { background: color-mix(in oklch, var(--on-panel) 12%, transparent); color: var(--on-panel); }
 .ref-brightman .bm-step:nth-child(4) .bm-when { background: var(--surface); }
 
-/* clients */
-.ref-brightman .bm-clients { padding: clamp(16px, 3vw, 40px) 8px clamp(32px, 5vw, 64px); }
+/* section headings */
 .ref-brightman .bm-big-h { margin: 0 0 clamp(20px, 3vw, 40px); font-size: clamp(3.5rem, 1rem + 9vw, 8.75rem); font-weight: 500; letter-spacing: -0.05em; line-height: 1; }
-.ref-brightman .bm-client-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line-2); }
-.ref-brightman .bm-client-list li { border-bottom: 1px solid var(--line-2); }
-.ref-brightman .bm-client { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.3fr) minmax(0, 1.3fr) 56px; align-items: center; gap: 24px; min-height: 44px; padding: 28px 0; }
-.ref-brightman .bm-client-name { font-size: clamp(1.75rem, 1rem + 2.6vw, 3.5rem); font-weight: 500; letter-spacing: -0.04em; line-height: 1; }
-.ref-brightman .bm-client-title { font-size: 1rem; font-weight: 500; line-height: 1.35; }
-.ref-brightman .bm-client-outcome { font-size: 0.9375rem; line-height: 1.4; color: var(--ink-2); }
-.ref-brightman .bm-client-arrow { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; border: 1px solid var(--line-2); }
-.ref-brightman .bm-client-arrow svg { width: 22px; height: 22px; }
 
 /* cta and footer panels */
 .ref-brightman .bm-cta, .ref-brightman .bm-footer { padding: clamp(32px, 5vw, 72px); border-radius: 40px; background: radial-gradient(80% 120% at 80% 0%, oklch(0.36 0.07 150 / 0.55), transparent 62%), var(--panel); color: var(--on-panel); }
@@ -136,10 +144,6 @@
   .ref-brightman .bm-bento, .ref-brightman .bm-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .ref-brightman .bm-stats ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .ref-brightman .bm-footer { grid-template-columns: 1fr; }
-  .ref-brightman .bm-client { grid-template-columns: 1fr 56px; }
-  .ref-brightman .bm-client-name { grid-column: 1; }
-  .ref-brightman .bm-client-arrow { grid-column: 2; grid-row: 1; }
-  .ref-brightman .bm-client-title, .ref-brightman .bm-client-outcome { grid-column: 1 / -1; }
 }
 @media (max-width: 640px) {
   .ref-brightman .bm-bento, .ref-brightman .bm-steps { grid-template-columns: 1fr; }
@@ -149,7 +153,6 @@
   .ref-brightman .bm-footer-cols { grid-template-columns: 1fr; }
   .ref-brightman .bm-bento { padding-bottom: 24px; }
   .ref-brightman .bm-cluster { margin: 14px 0 0; display: flex; }
-  .ref-brightman .bm-header-loc { display: none; }
 }
 
 /* motion */
@@ -158,12 +161,10 @@
   .ref-brightman .bm-marquee.small .bm-marquee-track { animation-duration: 34s; }
   @keyframes bm-marquee { to { transform: translate3d(-25%, 0, 0); } }
   .ref-brightman .bm-btn-sm, .ref-brightman .bm-btn-accent { transition: transform 150ms cubic-bezier(0.23, 1, 0.32, 1), opacity 150ms; }
-  .ref-brightman .bm-btn-sm:active, .ref-brightman .bm-btn-accent:active, .ref-brightman .bm-client:active .bm-client-arrow { transform: scale(0.97); }
-  .ref-brightman .bm-client-arrow { transition: transform 300ms cubic-bezier(0.23, 1, 0.32, 1), background-color 150ms, color 150ms; }
+  .ref-brightman .bm-btn-sm:active, .ref-brightman .bm-btn-accent:active { transform: scale(0.97); }
   .ref-brightman .bm-card { transition: transform 300ms cubic-bezier(0.23, 1, 0.32, 1); }
 }
 @media (prefers-reduced-motion: no-preference) and (hover: hover) {
-  .ref-brightman .bm-client:hover .bm-client-arrow { background: var(--ink); color: var(--bg); transform: rotate(45deg); }
   .ref-brightman .bm-btn-sm:hover, .ref-brightman .bm-btn-accent:hover { opacity: 0.88; }
 }
 
@@ -175,19 +176,12 @@
   html.js .ref-brightman .bm-bento > [data-rv]:nth-child(3), html.js .ref-brightman .bm-steps > [data-rv]:nth-child(3) { transition-delay: 140ms; }
   html.js .ref-brightman .bm-bento > [data-rv]:nth-child(4), html.js .ref-brightman .bm-steps > [data-rv]:nth-child(4) { transition-delay: 210ms; }
   html.motion-failed .ref-brightman [data-rv] { opacity: 1 !important; filter: none !important; translate: none !important; }
-  .ref-brightman .bm-client-name > span, .ref-brightman .bm-client-title, .ref-brightman .bm-client-outcome { transition: transform 300ms cubic-bezier(0.23, 1, 0.32, 1); }
-  .ref-brightman .bm-peek { transition: opacity 200ms; }
-  .ref-brightman .bm-peek[data-on="true"] { opacity: 1; }
-  .ref-brightman .bm-client:focus-visible .bm-client-arrow { background: var(--ink); color: var(--bg); transform: rotate(45deg); }
-  .ref-brightman .bm-client:focus-visible .bm-client-name > span, .ref-brightman .bm-client:focus-visible .bm-client-title { transform: translateX(14px); }
   .ref-brightman .bm-tilt::after { transition: opacity 200ms; }
   .ref-brightman .bm-card:focus-within::after { opacity: 1; }
 }
 @media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
   .ref-brightman .bm-marquee:hover .bm-marquee-track { animation-play-state: paused; }
   .ref-brightman .bm-tilt:hover::after { opacity: 1; }
-  .ref-brightman .bm-client:hover .bm-client-name > span, .ref-brightman .bm-client:hover .bm-client-title { transform: translateX(14px); }
-  .ref-brightman .bm-client:hover .bm-client-outcome { transform: translateX(6px); }
   .ref-brightman .bm-step { transition: transform 300ms cubic-bezier(0.23, 1, 0.32, 1); }
   .ref-brightman .bm-step:hover { transform: translateY(-6px); }
 }

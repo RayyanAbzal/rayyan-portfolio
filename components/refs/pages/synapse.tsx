@@ -1,17 +1,16 @@
 import type { DirectionPages } from "./types";
+import { SynapseAbout } from "./synapse-about";
+import { SynapseCase } from "./synapse-case";
+import { SynapseContact } from "./synapse-contact";
+import { SynapseProjects } from "./synapse-projects";
 
-// TEMPORARY: the synapse direction's inner pages. Placeholder until designed.
-function Pending({ page }: { page: string }) {
-  return (
-    <main id="top" className="ref-root" style={{ padding: "120px 24px", textAlign: "center" }}>
-      <p>The synapse {page} page is being designed.</p>
-    </main>
-  );
-}
+import "@/app/styles/refs/synapse.css";
+import "@/app/styles/refs/synapse-pages.css";
 
+// TEMPORARY: the synapse direction's inner pages (dark panels, wave hero, stair steps).
 export const PAGES: DirectionPages = {
-  projects: () => <Pending page="projects" />,
-  about: () => <Pending page="about" />,
-  contact: () => <Pending page="contact" />,
-  caseStudy: () => <Pending page="case study" />,
+  projects: () => <SynapseProjects />,
+  about: () => <SynapseAbout />,
+  contact: () => <SynapseContact />,
+  caseStudy: ({ slug }) => <SynapseCase slug={slug} />,
 };

@@ -1,0 +1,131 @@
+/* Synapse inner pages: Projects, About, Contact, case study. Tokens are in synapse.css. */
+
+.ref-synapse .syn-nowrap { white-space: nowrap; }
+.ref-synapse .syn-hi { color: var(--syn-brand); }
+.ref-synapse .syn-light .syn-hi, .ref-synapse .syn-case-card .syn-hi { color: var(--syn-tint-ink); }
+.ref-synapse .syn-nav-links a[aria-current="page"] { color: var(--syn-ink); box-shadow: inset 0 -2px 0 var(--syn-brand); }
+
+.ref-synapse .syn-two > * { min-width: 0; }
+
+/* ---------- inner hero ---------- */
+.ref-synapse .syn-page-hero { min-height: min(560px, 80svh); }
+.ref-synapse .syn-page-hero-body { position: relative; z-index: 1; margin-top: auto; display: flex; flex-direction: column; align-items: flex-start; gap: 16px; padding: 64px 0 28px; max-width: 900px; }
+.ref-synapse .syn-page-h { font-size: clamp(2rem, 1rem + 4vw, 4.25rem); font-weight: 500; line-height: 1.04; letter-spacing: -0.035em; text-wrap: balance; }
+.ref-synapse .syn-page-lede { max-width: 60ch; font-size: 1.0625rem; line-height: 1.55; color: var(--syn-ink-2); }
+.ref-synapse .syn-back { padding-block: 10px; }
+.ref-synapse .syn-h-sm { margin-top: 0; font-size: clamp(1.75rem, 1rem + 2.4vw, 3rem); }
+.ref-synapse .syn-eyebrow + .syn-h-sm { margin-top: 14px; }
+.ref-synapse .syn-copy .syn-h-sm + .syn-small { margin-top: 20px; }
+
+/* ---------- chips ---------- */
+.ref-synapse .syn-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.ref-synapse .syn-chips li { padding: 7px 14px; border-radius: 999px; border: 1px solid var(--syn-line); background: var(--syn-fill); font-size: 0.8125rem; color: var(--syn-ink-2); }
+
+/* ---------- project cards ---------- */
+.ref-synapse .syn-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: clamp(24px, 3vw, 40px); }
+.ref-synapse .syn-grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 0; }
+.ref-synapse .syn-pcard { position: relative; display: flex; flex-direction: column; gap: 14px; padding: 20px; border-radius: 24px; background: var(--syn-tint); color: var(--syn-tint-ink); }
+.ref-synapse .syn-pcard-plain { background: var(--syn-fill); color: var(--syn-ink); border: 1px solid var(--syn-line); }
+.ref-synapse .syn-pcard-plain .syn-pcard-blurb { color: var(--syn-ink-2); }
+.ref-synapse .syn-pcard-title { font-size: 1.25rem; font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; }
+.ref-synapse .syn-stretch::before { content: ""; position: absolute; inset: 0; border-radius: 24px; }
+.ref-synapse .syn-stretch:focus-visible { outline: none; }
+.ref-synapse .syn-pcard:has(.syn-stretch:focus-visible) { outline: 2px solid var(--syn-focus); outline-offset: 3px; }
+.ref-synapse .syn-pcard-blurb { font-size: 0.9375rem; line-height: 1.55; }
+.ref-synapse .syn-pcard-outcome { margin-top: auto; padding-top: 12px; border-top: 1px solid color-mix(in oklch, currentColor 20%, transparent); font-size: 0.875rem; font-weight: 600; }
+.ref-synapse .syn-pcard-stack { margin-top: auto; font-size: 0.8125rem; color: var(--syn-ink-2); }
+
+/* The visual box: fixed ratio so cards line up; the demo scales into it. */
+.ref-synapse .syn-vis { position: relative; aspect-ratio: 3 / 2; overflow: hidden; border-radius: 14px; background: var(--syn-paper); pointer-events: none; display: grid; place-items: center; }
+.ref-synapse .syn-vis > * { width: 100%; }
+.ref-synapse .syn-vis .card-visual { margin: 0; }
+
+/* ---------- about ---------- */
+.ref-synapse .syn-prose { display: flex; flex-direction: column; gap: 18px; font-size: 1.0625rem; line-height: 1.65; color: var(--syn-ink-2); max-width: 62ch; }
+.ref-synapse .syn-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; margin-top: clamp(32px, 4vw, 56px); }
+.ref-synapse .syn-facts-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 12px; }
+.ref-synapse .syn-fact { display: flex; flex-direction: column; gap: 8px; padding: 18px; border-radius: 20px; border: 1px solid var(--syn-line); background: var(--syn-fill); }
+.ref-synapse .syn-fact-t { font-weight: 600; line-height: 1.3; }
+.ref-synapse .syn-fact-b { font-size: 0.875rem; line-height: 1.5; color: var(--syn-ink-2); }
+
+.ref-synapse .syn-stairs { display: flex; flex-direction: column; gap: 10px; }
+.ref-synapse .syn-stair { display: flex; align-items: center; gap: 16px; padding: 16px 20px; border-radius: 16px; border: 1px solid var(--syn-line); background: var(--syn-fill); }
+.ref-synapse .syn-stair:first-child { background: var(--syn-tint); color: var(--syn-tint-ink); border-color: transparent; }
+.ref-synapse .syn-stair:first-child .syn-stair-b, .ref-synapse .syn-stair:first-child .syn-stair-w { color: var(--syn-tint-ink); }
+.ref-synapse .syn-stairs-flat .syn-stair:first-child { background: var(--syn-fill); color: var(--syn-ink); border-color: var(--syn-line); }
+.ref-synapse .syn-stairs-flat .syn-stair:first-child .syn-stair-b { color: var(--syn-ink-2); }
+.ref-synapse .syn-stair-main { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+.ref-synapse .syn-stair-t { font-weight: 600; }
+.ref-synapse .syn-stair-b { font-size: 0.9375rem; line-height: 1.55; color: var(--syn-ink-2); }
+.ref-synapse .syn-stair-w { flex: none; font-size: 0.8125rem; font-weight: 600; text-align: right; color: var(--syn-ink-2); }
+.ref-synapse .syn-step-n { display: grid; place-items: center; flex: none; width: 28px; height: 28px; border-radius: 50%; border: 1px solid currentColor; font-size: 0.75rem; font-weight: 600; }
+
+.ref-synapse .syn-light-quotes { display: block; margin-top: 0; }
+.ref-synapse .syn-quotes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(20px, 3vw, 40px); margin-top: clamp(24px, 3vw, 40px); }
+.ref-synapse .syn-quote-light { display: flex; flex-direction: column; gap: 16px; margin: 0; }
+.ref-synapse .syn-quote-light blockquote { margin: 0; font-size: 1.0625rem; line-height: 1.6; color: var(--syn-paper-ink); }
+.ref-synapse .syn-quote-light figcaption { font-size: 0.8125rem; font-weight: 600; color: var(--syn-paper-ink-2); }
+
+/* ---------- quotes on dark ---------- */
+.ref-synapse .syn-quote { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; margin: 0; max-width: 62ch; }
+.ref-synapse .syn-quote blockquote { margin: 0; font-size: clamp(1.25rem, 1rem + 1vw, 1.75rem); line-height: 1.4; letter-spacing: -0.01em; }
+
+/* ---------- contact ---------- */
+.ref-synapse .syn-cta-h-sm { font-size: clamp(2rem, 1rem + 4vw, 4.25rem); }
+.ref-synapse .syn-cta-book { min-height: 0; align-items: center; }
+.ref-synapse .syn-pill-ink { background: var(--syn-on-brand); color: var(--syn-brand); }
+.ref-synapse .syn-ways { display: flex; flex-direction: column; gap: 10px; }
+.ref-synapse .syn-way { display: flex; flex-direction: column; gap: 6px; padding: 18px 20px; border-radius: 20px; border: 1px solid var(--syn-line); background: var(--syn-fill); overflow-wrap: anywhere; }
+.ref-synapse .syn-way-v { font-size: 1.25rem; font-weight: 500; letter-spacing: -0.01em; }
+
+/* ---------- case ---------- */
+.ref-synapse .syn-light-demo { display: block; padding: clamp(16px, 2.4vw, 32px); margin: 0; }
+.ref-synapse .syn-demo { margin: 0; display: flex; flex-direction: column; gap: 12px; }
+.ref-synapse .syn-demo-box { display: grid; place-items: center; min-height: 280px; border-radius: 20px; overflow: hidden; background: var(--syn-paper); border: 1px solid var(--syn-paper-line); }
+.ref-synapse .syn-demo-box > * { width: 100%; max-width: 900px; }
+.ref-synapse .syn-demo figcaption { font-size: 0.8125rem; color: var(--syn-paper-ink-2); }
+.ref-synapse .syn-case-steps { display: flex; flex-direction: column; gap: 14px; }
+.ref-synapse .syn-case-step { display: flex; gap: 18px; padding: clamp(18px, 2.4vw, 28px); border-radius: 24px; border: 1px solid var(--syn-line); background: var(--syn-fill); }
+.ref-synapse .syn-case-step:first-child { background: var(--syn-tint); color: var(--syn-tint-ink); border-color: transparent; }
+.ref-synapse .syn-case-step:first-child .syn-eyebrow, .ref-synapse .syn-case-step:first-child .syn-case-step-p { color: var(--syn-tint-ink); }
+.ref-synapse .syn-case-step:first-child .syn-hi { color: var(--syn-tint-ink); text-decoration: underline; text-underline-offset: 4px; }
+.ref-synapse .syn-case-step-main { display: flex; flex-direction: column; gap: 12px; max-width: 68ch; }
+.ref-synapse .syn-case-step-h { font-size: clamp(1.375rem, 1rem + 1.2vw, 2rem); font-weight: 500; letter-spacing: -0.02em; line-height: 1.15; text-wrap: balance; }
+.ref-synapse .syn-case-step-p { font-size: 1rem; line-height: 1.65; color: var(--syn-ink-2); }
+.ref-synapse .syn-stack { display: flex; flex-direction: column; gap: 14px; margin-top: clamp(24px, 3vw, 40px); }
+.ref-synapse .syn-casenav { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.ref-synapse .syn-casenav-a { display: flex; flex-direction: column; gap: 6px; padding: 20px clamp(20px, 3vw, 36px); min-height: 44px; }
+.ref-synapse .syn-casenav-next { align-items: flex-end; text-align: right; }
+.ref-synapse .syn-casenav-t { font-size: 1.25rem; font-weight: 600; letter-spacing: -0.02em; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 900px) {
+  .ref-synapse .syn-grid, .ref-synapse .syn-grid-3, .ref-synapse .syn-quotes { grid-template-columns: 1fr; }
+  .ref-synapse .syn-stair, .ref-synapse .syn-case-step { margin-left: 0 !important; }
+  .ref-synapse .syn-page-hero-body { padding-top: 40px; }
+}
+@media (max-width: 520px) {
+  .ref-synapse .syn-stair { flex-wrap: wrap; }
+  .ref-synapse .syn-stair-w { width: 100%; text-align: left; padding-left: 44px; }
+  .ref-synapse .syn-facts-2, .ref-synapse .syn-casenav { grid-template-columns: 1fr; }
+  .ref-synapse .syn-casenav-next { align-items: flex-start; text-align: left; }
+  .ref-synapse .syn-case-step { flex-direction: column; }
+  .ref-synapse .syn-head-row { flex-direction: column; align-items: flex-start; }
+}
+
+/* ---------- motion ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .ref-synapse .syn-pcard, .ref-synapse .syn-casenav-a, .ref-synapse .syn-way { transition: transform 200ms cubic-bezier(0.23, 1, 0.32, 1), opacity 150ms cubic-bezier(0.23, 1, 0.32, 1); }
+  .ref-synapse .syn-pcard:has(.syn-stretch:focus-visible) { transform: translateY(-4px); }
+  @media (hover: hover) {
+    .ref-synapse .syn-pcard:has(.syn-stretch):hover { transform: translateY(-4px); }
+  }
+}
+@media (hover: hover) {
+  .ref-synapse .syn-casenav-a:hover, .ref-synapse .syn-way:hover { opacity: 0.86; }
+}
+
+/* The site-wide title sharpen (Sharpen) is replaced here by the section reveal, so titles never wait on a second observer. */
+@media (prefers-reduced-motion: no-preference) {
+  .js .ref-synapse h2:not(.seen) { opacity: 1; transform: none; filter: none; }
+}

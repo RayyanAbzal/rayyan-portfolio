@@ -1,5 +1,24 @@
 /* nexora reference design. Every selector is scoped under .ref-nexora. */
 
+/* Direction tokens. Light only: the aurora panels carry the dark. Green hue 160 throughout. */
+.ref-nexora {
+  color-scheme: light;
+  --bg: oklch(0.985 0.004 160);
+  --surface: oklch(1 0 0);
+  --sunken: oklch(0.962 0.008 160);
+  --ink: oklch(0.2 0.012 165);
+  --ink-2: oklch(0.45 0.012 165);
+  --ink-3: oklch(0.51 0.012 165);
+  --line: oklch(0.2 0.02 165 / 0.09);
+  --line-2: oklch(0.2 0.02 165 / 0.16);
+  --brand: oklch(0.46 0.09 165);
+  --live: oklch(0.62 0.14 160);
+  --tint: oklch(0.94 0.04 160);
+  --tint-ink: oklch(0.36 0.07 160);
+  --panel: oklch(0.19 0.02 165);
+  --on-panel: oklch(0.985 0.005 160);
+  --focus: oklch(0.55 0.15 250);
+}
 .ref-nexora { padding: 12px 12px 0; background: var(--bg); color: var(--ink); font-family: var(--font); }
 .ref-nexora a { color: inherit; text-decoration: none; }
 .ref-nexora ul { list-style: none; margin: 0; padding: 0; }
@@ -79,27 +98,9 @@
 .ref-nexora .nx-feat-link::after { content: " \2192"; }
 
 /* Filled state follows the active card (hover or focus); the first card rests filled. */
-.ref-nexora .nx-feat[data-active="true"] { background: radial-gradient(90% 60% at 80% 100%, oklch(0.62 0.12 160 / 0.7), transparent 70%), linear-gradient(165deg, oklch(0.46 0.09 165), oklch(0.32 0.06 150)); border-color: transparent; }
+.ref-nexora .nx-feat[data-active="true"] { background: radial-gradient(90% 60% at 80% 100%, oklch(0.5 0.1 160 / 0.7), transparent 70%), linear-gradient(165deg, var(--brand), oklch(0.32 0.06 150)); border-color: transparent; }
 .ref-nexora .nx-feat[data-active="true"] .nx-icon { background: color-mix(in oklch, var(--on-panel) 16%, transparent); color: var(--on-panel); }
 .ref-nexora .nx-feat[data-active="true"] :is(h3, p, .nx-feat-link) { color: var(--on-panel); }
-
-/* ---------- work ---------- */
-.ref-nexora .nx-work { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-.ref-nexora .nx-proj { --rx: 0deg; --ry: 0deg; --mx: 50%; --my: 30%; transform: perspective(900px) rotateX(var(--rx)) rotateY(var(--ry)); position: relative; display: flex; flex-direction: column; overflow: hidden; border-radius: var(--r); border: 1px solid var(--line); background: var(--surface); }
-.ref-nexora .nx-proj-body { display: flex; flex-direction: column; gap: 10px; padding: 22px 26px 26px; flex: 1; }
-.ref-nexora .nx-proj-name { font-size: 0.8125rem; font-weight: 500; color: var(--ink-3); }
-.ref-nexora .nx-proj h3 { font-size: 1.375rem; font-weight: 600; line-height: 1.15; letter-spacing: -0.025em; }
-.ref-nexora .nx-proj h3 a::before { content: ""; position: absolute; inset: 0; z-index: 1; }
-.ref-nexora .nx-proj h3 a::after { content: " \2192"; color: var(--ink-3); }
-.ref-nexora .nx-proj h3 a:focus-visible { outline: none; }
-.ref-nexora .nx-proj:has(a:focus-visible) { outline: 2px solid var(--focus); outline-offset: 3px; }
-.ref-nexora .nx-proj-body p:not(.nx-proj-name):not(.nx-outcome) { font-size: 0.9375rem; line-height: 1.55; color: var(--ink-2); }
-.ref-nexora .nx-outcome { align-self: flex-start; margin-top: auto; padding: 6px 12px; border-radius: 999px; background: var(--tint); color: var(--tint-ink); font-size: 0.8125rem; font-weight: 600; }
-
-.ref-nexora .nx-proj::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; background: radial-gradient(260px circle at var(--mx) var(--my), oklch(0.62 0.15 150 / 0.16), transparent 70%); }
-.ref-nexora .nx-arrow { position: absolute; top: 16px; right: 16px; z-index: 2; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--ink); color: var(--bg); font-size: 1.125rem; pointer-events: none; }
-.ref-nexora .nx-proj:has(a:focus-visible) .nx-arrow { background: var(--live); color: #fff; }
-.ref-nexora .nx-proj:has(a:focus-visible)::after { opacity: 1; }
 
 /* ---------- testimonials ---------- */
 .ref-nexora .nx-quotes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
@@ -167,10 +168,6 @@
   .ref-nexora .nx-hero::before, .ref-nexora .nx-cta::before { animation: nx-drift 18s ease-in-out infinite alternate; }
   @keyframes nx-drift { from { scale: 1; rotate: -1deg; } to { scale: 1.08; rotate: 1.2deg; } }
   .ref-nexora .nx-feat { transition: background-color 250ms ease-out; }
-  .ref-nexora .nx-proj { will-change: transform; }
-  .ref-nexora .nx-proj::after { transition: opacity 200ms ease-out; }
-  .ref-nexora .nx-arrow { transition: transform 200ms cubic-bezier(0.23, 1, 0.32, 1), background-color 150ms ease-out; }
-  .ref-nexora .nx-proj:active { scale: 0.99; }
   .ref-nexora .nx-marquee-set + .nx-marquee-set { display: block; }
   .ref-nexora .nx-marquee { animation: nx-run 32s linear infinite; }
   .ref-nexora .nx-marquee:focus-within { animation-play-state: paused; }
@@ -190,7 +187,5 @@
 }
 @media (prefers-reduced-motion: no-preference) and (hover: hover) {
   .ref-nexora .nx-marquee:hover { animation-play-state: paused; }
-  .ref-nexora .nx-proj:hover::after { opacity: 1; }
-  .ref-nexora .nx-proj:hover .nx-arrow { transform: translate(2px, -2px) scale(1.06); background: var(--live); color: #fff; }
   .ref-nexora .nx-pill:hover { opacity: 0.88; }
 }

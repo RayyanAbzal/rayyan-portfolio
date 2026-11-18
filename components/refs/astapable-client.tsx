@@ -91,7 +91,7 @@ export function AstapableFx() {
       const move = (e: PointerEvent) => {
         tx = e.clientX + 14;
         ty = e.clientY + 14;
-        const over = (e.target as Element).closest(".as-feature");
+        const over = (e.target as Element).closest(".as-feature:not(.as-feature-still)");
         el.dataset.on = over ? "1" : "0";
         if (over && !praf) {
           px = tx;

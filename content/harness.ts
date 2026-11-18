@@ -1,5 +1,5 @@
 // Copy for /harness. Facts come from my ~/.claude config and its git history,
-// checked on 2026-11-13. No employer, client or repo names on this page.
+// measured on 2026-11-18. No employer, client or repo names on this page.
 
 export interface HarnessLayer {
   /** Matches a part id in content/harness/drawing.ts. */
@@ -94,7 +94,7 @@ export const HARNESS_LAYERS: readonly HarnessLayer[] = [
     piece: "Collar and traces",
     what: "Written playbooks for jobs I do often: shipping a change, reviewing an interface, scoping a client process.",
     why: "A collar lets one horse pull a cart, a plough or a sled. A workflow I repeat should be one file, not a long prompt I retype and get slightly wrong.",
-    fact: "78 active skills. A skill unused for 30 days gets deleted at the next audit.",
+    fact: "80 active skills. A skill unused for 30 days gets deleted at the next audit.",
   },
   {
     id: "hooks",
@@ -102,7 +102,7 @@ export const HARNESS_LAYERS: readonly HarnessLayer[] = [
     piece: "Bit and reins",
     what: "Scripts that run before and after every action and block the dangerous ones outright: force pushes, production deploys, reading secret files.",
     why: "Asking a horse to be careful is not a control. Anything that cannot be undone is stopped in code.",
-    fact: "30 guardrail scripts, each with a smoke test that proves it still fires.",
+    fact: "30 guardrail scripts. A smoke test feeds the main blocking ones their real trigger and checks they still fire, because a dead guardrail looks the same as a working one.",
   },
   {
     id: "runner",
@@ -151,9 +151,9 @@ export const HARNESS_PEOPLE: readonly HarnessLayer[] = [
 ];
 
 export const HARNESS_STATS: readonly HarnessStat[] = [
-  { value: "324", label: "changes to the harness since 6 September 2026" },
-  { value: "30", label: "guardrail scripts that block irreversible actions" },
-  { value: "1,176", label: "second-opinion reviews logged" },
+  { value: "432", label: "changes to the harness since 6 September 2026" },
+  { value: "30", label: "guardrail scripts that run around every action" },
+  { value: "954", label: "second-opinion calls logged" },
   { value: "56.7%", label: "of planted bugs caught with an outside reviewer, up from 42.7%" },
 ];
 

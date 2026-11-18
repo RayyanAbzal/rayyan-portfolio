@@ -1,38 +1,14 @@
 import Link from "next/link";
-import type { ReactNode } from "react";
 import "@/app/styles/refs/brightman.css";
+import "@/app/styles/refs/brightman-pages.css";
 import { BookBadge } from "@/components/book-badge";
 import { BookLink } from "@/components/book-link";
 import { HOME, OFFERS } from "@/content/home";
 import { CLIENT_PROJECTS } from "@/content/projects";
-import { PROCESS_STEPS } from "@/content/about";
 import { HARNESS_STATS } from "@/content/harness";
-import { FeedhackSchematic } from "@/components/schematics/feedhack-schematic";
-import { InfluenceSchematic } from "@/components/schematics/influence-schematic";
-import { InfluenceV2Schematic } from "@/components/schematics/influence-v2-schematic";
-import { PumpdatSchematic } from "@/components/schematics/pumpdat-schematic";
-import { ClientRows, CountUp, LeanMarquee, Magnetic, RevealRoot, TiltCard } from "@/components/refs/brightman-client";
-import { EMAIL, LINKEDIN_URL, SITE_NAME } from "@/lib/site";
-import type { Rich } from "@/content/rich";
-
-const idx = (n: number) => `[${String(n).padStart(2, "0")}]`;
-
-function renderRich(parts: Rich): ReactNode[] {
-  return parts.map((p, i) => {
-    if (typeof p === "string") return p;
-    if ("mark" in p) return <span key={i} className="bm-accent">{p.mark}</span>;
-    if ("nowrap" in p) return <span key={i} className="bm-nowrap">{p.nowrap}</span>;
-    if ("hi" in p) return p.hi;
-    if ("strong" in p) return <strong key={i}>{p.strong}</strong>;
-    return p.link;
-  });
-}
-
-function plainRich(parts: Rich): string {
-  return parts
-    .map((p) => (typeof p === "string" ? p : "mark" in p ? p.mark : "nowrap" in p ? p.nowrap : "hi" in p ? p.hi : "strong" in p ? p.strong : p.link))
-    .join("");
-}
+import { CountUp, LeanMarquee, Magnetic, RevealRoot, TiltCard } from "@/components/refs/brightman-client";
+import { BASE, BmFooter, BmHeader, BmProjectCard, idx, plainRich, renderRich } from "@/components/refs/pages/brightman-shared";
+import { EMAIL } from "@/lib/site";
 
 /** Simple line icons for the three offers. */
 function OfferIcon({ n }: { n: number }) {
@@ -103,14 +79,8 @@ function Illustration({ n }: { n: number }) {
 }
 
 const MARQUEE_A = "What I build";
-const MARQUEE_B = "How it works";
 
-const PREVIEWS: Record<string, ReactNode> = {
-  influence: <InfluenceSchematic />,
-  feedhack: <FeedhackSchematic />,
-  pumpdat: <PumpdatSchematic />,
-  "influence-v2": <InfluenceV2Schematic />,
-};
+const TOP_PROJECTS = CLIENT_PROJECTS.slice(0, 3);
 
 export function DesignBrightman() {
   const [first, second, third] = OFFERS;
@@ -121,16 +91,7 @@ export function DesignBrightman() {
     <main id="top" className="ref-root ref-brightman">
       <RevealRoot />
       <div className="bm-wide">
-        <header className="bm-header">
-          <Link href="/" className="bm-logo" aria-label={`${SITE_NAME}, home`}>
-            <span className="bm-logo-dot" aria-hidden="true" />
-            {SITE_NAME}
-          </Link>
-          <div className="bm-header-right">
-            <span className="bm-header-loc">Auckland, NZ</span>
-            <Magnetic strength={0.25}><BookLink source="design_preview" className="bm-btn-sm">Contact</BookLink></Magnetic>
-          </div>
-        </header>
+        <BmHeader />
 
         <section className="bm-hero" aria-labelledby="bm-h1">
           <div className="bm-headline">
@@ -196,30 +157,40 @@ export function DesignBrightman() {
           <div className="bm-blob-copy" data-rv>
             <h2 id="bm-who" className="bm-eyebrow">{HOME.aboutHeading}</h2>
             <p className="bm-blob-text">{HOME.aboutBig}</p>
+            <Link href={`${BASE}/about`} className="bm-all-link bm-all-link-center">{HOME.aboutLink}</Link>
           </div>
         </section>
 
-        <LeanMarquee text={MARQUEE_B} small />
-
-        <section className="bm-section" aria-labelledby="bm-process">
-          <h2 id="bm-process" className="bm-sr">How it works</h2>
-          <ol className="bm-steps">
-            {PROCESS_STEPS.map((s, i) => (
-              <li key={s.title} className="bm-step" data-rv>
-                <span className="bm-index">{idx(i + 1)}</span>
-                <h3>{s.title}</h3>
-                <p>{s.body}</p>
-                <span className="bm-when">{s.when}</span>
-              </li>
+        <section className="bm-section bm-home-work" aria-labelledby="bm-work-h">
+          <div className="bm-sec-head" data-rv>
+            <h2 id="bm-work-h" className="bm-big-h bm-big-h-md">{HOME.workTitle}</h2>
+            <p>{HOME.workLede}</p>
+          </div>
+          <div className="bm-pgrid bm-pgrid-3">
+            {TOP_PROJECTS.map((p, i) => (
+              <BmProjectCard
+                key={p.slug}
+                id={`bm-home-${p.slug}`}
+                n={i + 1}
+                source={{ slug: p.slug }}
+                name={p.name}
+                title={p.title}
+                outcome={p.outcome}
+                href={`${BASE}/case/${p.slug}`}
+              />
             ))}
-          </ol>
+          </div>
+          <Link href={`${BASE}/projects`} className="bm-all-link" data-rv>{HOME.workLink}</Link>
         </section>
 
-        <section className="bm-clients" aria-labelledby="bm-clients-h">
-          <h2 id="bm-clients-h" className="bm-big-h">Clients</h2>
-          <ClientRows
-            rows={CLIENT_PROJECTS.map((c) => ({ slug: c.slug, name: c.name, title: c.title, outcome: c.outcome, preview: PREVIEWS[c.slug] }))}
-          />
+        <section className="bm-homequote" aria-label="Client words" data-rv>
+          <figure>
+            <blockquote><p>{renderRich(HOME.quote)}</p></blockquote>
+            <figcaption>
+              <strong>{HOME.quoteRole}</strong>
+              <span>{HOME.quoteProject}</span>
+            </figcaption>
+          </figure>
         </section>
 
         <section className="bm-cta" aria-labelledby="bm-cta-h" data-rv>
@@ -237,26 +208,7 @@ export function DesignBrightman() {
           </div>
         </section>
 
-        <footer className="bm-footer">
-          <p className="bm-footer-line">
-            {SITE_NAME}, <span>AI engineer and consultant.</span>
-          </p>
-          <dl className="bm-footer-cols">
-            <div>
-              <dt>Email</dt>
-              <dd><a href={`mailto:${EMAIL}`}>{EMAIL}</a></dd>
-            </div>
-            <div>
-              <dt>LinkedIn</dt>
-              <dd><a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer">Rayyan Abzal</a></dd>
-            </div>
-            <div>
-              <dt>Location</dt>
-              <dd>Auckland, New Zealand</dd>
-            </div>
-          </dl>
-          <p className="bm-copy">&copy; {SITE_NAME}</p>
-        </footer>
+        <BmFooter />
       </div>
     </main>
   );

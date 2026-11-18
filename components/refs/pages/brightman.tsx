@@ -1,17 +1,16 @@
+import "@/app/styles/refs/brightman.css";
+import "@/app/styles/refs/brightman-pages.css";
+
+import { BrightmanAbout } from "./brightman-about";
+import { BrightmanCase } from "./brightman-case";
+import { BrightmanContact } from "./brightman-contact";
+import { BrightmanProjects } from "./brightman-projects";
 import type { DirectionPages } from "./types";
 
-// TEMPORARY: the brightman direction's inner pages. Placeholder until designed.
-function Pending({ page }: { page: string }) {
-  return (
-    <main id="top" className="ref-root" style={{ padding: "120px 24px", textAlign: "center" }}>
-      <p>The brightman {page} page is being designed.</p>
-    </main>
-  );
-}
-
+// TEMPORARY: the brightman direction's inner pages (home is components/refs/brightman.tsx).
 export const PAGES: DirectionPages = {
-  projects: () => <Pending page="projects" />,
-  about: () => <Pending page="about" />,
-  contact: () => <Pending page="contact" />,
-  caseStudy: () => <Pending page="case study" />,
+  projects: () => <BrightmanProjects />,
+  about: () => <BrightmanAbout />,
+  contact: () => <BrightmanContact />,
+  caseStudy: ({ slug }) => <BrightmanCase slug={slug} />,
 };

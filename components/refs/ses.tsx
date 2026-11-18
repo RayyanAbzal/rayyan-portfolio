@@ -1,36 +1,13 @@
-import "@/app/styles/refs/ses.css";
-
 import Link from "next/link";
-import type { ReactNode } from "react";
 
 import { BookLink } from "@/components/book-link";
+import { SES_BASE, SesFrame, SesRich } from "@/components/refs/pages/ses-chrome";
+import { SesClientVisual } from "@/components/refs/pages/ses-visual";
 import { SesStage } from "@/components/refs/ses-client";
-import { SesFx } from "@/components/refs/ses-fx";
-import { FeedhackSchematic } from "@/components/schematics/feedhack-schematic";
-import { InfluenceSchematic } from "@/components/schematics/influence-schematic";
-import { InfluenceV2Schematic } from "@/components/schematics/influence-v2-schematic";
-import { PumpdatSchematic } from "@/components/schematics/pumpdat-schematic";
-import { PROCESS_STEPS } from "@/content/about";
-import { CASE_STUDIES } from "@/content/case-studies";
 import { HARNESS, HARNESS_STATS } from "@/content/harness";
 import { HOME, OFFERS } from "@/content/home";
-import { CLIENT_PROJECTS, type ClientProject } from "@/content/projects";
+import { CLIENT_PROJECTS } from "@/content/projects";
 import type { Rich } from "@/content/rich";
-import { EMAIL, LINKEDIN_URL, SITE_NAME } from "@/lib/site";
-
-const SCHEMATICS: Record<ClientProject["slug"], () => ReactNode> = {
-  influence: () => <InfluenceSchematic />,
-  feedhack: () => <FeedhackSchematic />,
-  pumpdat: () => <PumpdatSchematic />,
-  "influence-v2": () => <InfluenceV2Schematic />,
-};
-
-const NAV_TABS = [
-  { label: "Home", href: "#top", current: true },
-  { label: "Projects", href: "/work", current: false },
-  { label: "About", href: "/about", current: false },
-  { label: "How I build", href: "/harness", current: false },
-] as const;
 
 const OBJECTS = ["plates", "block", "orbs"] as const;
 
@@ -51,24 +28,6 @@ function firstSentences(text: string, count: number): string {
   return text.split(/(?<=\.)\s+/).slice(0, count).join(" ");
 }
 
-interface SpecRow {
-  label: string;
-  value: string;
-}
-
-/** Splits "Outcome sentence. Timeline, status." into spec table rows. */
-function specRows(project: ClientProject): SpecRow[] {
-  const sentences = project.outcome.split(". ");
-  const outcome = (sentences[0] ?? "").replace(/\.$/, "");
-  const tail = (sentences[1] ?? "").replace(/\.$/, "");
-  const [timeline = "", status = ""] = tail.split(", ");
-  const rows: SpecRow[] = [{ label: "Outcome", value: outcome }];
-  if (timeline) rows.push({ label: "Timeline", value: timeline });
-  if (status) rows.push({ label: "Status", value: status.charAt(0).toUpperCase() + status.slice(1) });
-  rows.push({ label: "Stack", value: CASE_STUDIES[project.slug].stack.slice(0, 5).join(", ") });
-  return rows;
-}
-
 function ObjectArt({ kind }: { kind: (typeof OBJECTS)[number] }) {
   return (
     <div className={`obj obj-${kind}`} aria-hidden="true">
@@ -79,48 +38,15 @@ function ObjectArt({ kind }: { kind: (typeof OBJECTS)[number] }) {
   );
 }
 
+const HOME_PROJECTS = CLIENT_PROJECTS.slice(0, 3);
+
 export function DesignSes() {
   const headline = HOME.heroHeadline;
   const lede = firstSentences(HOME.heroLede, 1);
   const statsLede = firstSentences(HARNESS.lede, 2);
 
   return (
-    <main id="top" className="ref-root ref-ses">
-      <SesFx />
-      <header className="top">
-        <nav className="top-nav" aria-label="Main">
-          <div className="seg">
-            <span className="ses-chip" aria-hidden="true">
-              <i />
-              <i />
-            </span>
-            <ul className="seg-list">
-              {NAV_TABS.map((t) => (
-                <li key={t.label}>
-                  {t.href.startsWith("#") ? (
-                    <a href={t.href} className="seg-tab" aria-current={t.current ? "page" : undefined}>
-                      {t.label}
-                    </a>
-                  ) : (
-                    <Link href={t.href} className="seg-tab">
-                      {t.label}
-                    </Link>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="top-actions">
-            <Link href="/contact" className="sp sp-ghost">
-              Contact
-            </Link>
-            <BookLink source="design_preview" className="sp sp-ink">
-              Book a call
-            </BookLink>
-          </div>
-        </nav>
-      </header>
-
+    <SesFrame current="home">
       <section className="ses-hero wrap" aria-labelledby="ses-h1">
         <h1 id="ses-h1" className="ses-hero-h">
           {headline.map((part, i) =>
@@ -160,14 +86,20 @@ export function DesignSes() {
           {HOME.workTitle}
         </h2>
         <SesStage
-          items={CLIENT_PROJECTS.map((p) => ({
+          items={HOME_PROJECTS.map((p) => ({
             slug: p.slug,
             name: p.name,
             title: p.title,
             outcome: p.outcome,
+            href: `${SES_BASE}/case/${p.slug}`,
           }))}
-          visuals={CLIENT_PROJECTS.map((p) => SCHEMATICS[p.slug]())}
+          visuals={HOME_PROJECTS.map((p) => <SesClientVisual key={p.slug} slug={p.slug} />)}
         />
+        <p className="work-more">
+          <Link href={`${SES_BASE}/projects`} className="sp sp-ghost">
+            {HOME.workLink}
+          </Link>
+        </p>
       </section>
 
       <section className="band-wrap wrap" data-sharp aria-labelledby="ses-band">
@@ -176,6 +108,9 @@ export function DesignSes() {
             {HOME.aboutHeading}
           </h2>
           <p className="band-text">{HOME.aboutBig}</p>
+          <Link href={`${SES_BASE}/about`} className="sp sp-light">
+            {HOME.aboutLink}
+          </Link>
         </div>
       </section>
 
@@ -202,64 +137,20 @@ export function DesignSes() {
         </dl>
       </section>
 
-      <section className="flow wrap" data-sharp aria-labelledby="ses-flow">
-        <p className="ses-eyebrow">How it works</p>
-        <h2 id="ses-flow" className="sec-h">
-          From first call to handover.
+      <section className="home-quote wrap" data-sharp aria-labelledby="ses-quote">
+        <h2 id="ses-quote" className="sr-only">
+          Client words
         </h2>
-        <ol className="pipe">
-          {PROCESS_STEPS.map((step, i) => (
-            <li key={step.title} className="pipe-step">
-              <div className="pipe-node">
-                <span className="pipe-label">{step.title}</span>
-                <span className="diamond" aria-hidden="true" />
-                <span className="drop" aria-hidden="true" />
-              </div>
-              <div className="pipe-card">
-                <span className="pipe-n" aria-hidden="true">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <h3 className="pipe-title">{step.title}</h3>
-                <p className="pipe-body">{step.body}</p>
-                <p className="pipe-when">{step.when}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
-      </section>
-
-      <section className="specs wrap" data-sharp aria-labelledby="ses-specs">
-        <p className="ses-eyebrow">Every build, in detail</p>
-        <h2 id="ses-specs" className="sec-h">
-          {HOME.workLede.split(". ")[0]}.
-        </h2>
-        <ul className="spec-list">
-          {CLIENT_PROJECTS.map((p) => (
-            <li key={p.slug} className="spec">
-              <div className="spec-copy">
-                <p className="spec-name">{p.name}</p>
-                <h3 className="spec-title">
-                  <Link href={`/work/${p.slug}`} className="spec-link">
-                    {p.title}
-                  </Link>
-                </h3>
-                <p className="spec-blurb">{p.blurb}</p>
-              </div>
-              <div className="spec-stage">{SCHEMATICS[p.slug]()}</div>
-              <table className="spec-table">
-                <caption className="sr-only">{p.name} facts</caption>
-                <tbody>
-                  {specRows(p).map((row) => (
-                    <tr key={row.label}>
-                      <th scope="row">{row.label}</th>
-                      <td>{row.value}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </li>
-          ))}
-        </ul>
+        <figure className="hq">
+          <blockquote>
+            <p>
+              <SesRich value={HOME.quote} />
+            </p>
+          </blockquote>
+          <figcaption>
+            {HOME.quoteRole}, {HOME.quoteProject}
+          </figcaption>
+        </figure>
       </section>
 
       <section className="close wrap" data-sharp aria-labelledby="ses-close">
@@ -270,22 +161,6 @@ export function DesignSes() {
           {HOME.ctaButton}
         </BookLink>
       </section>
-
-      <footer className="foot wrap">
-        <p className="foot-name">{SITE_NAME}</p>
-        <nav aria-label="Footer" className="foot-links">
-          <Link href="/work">Projects</Link>
-          <Link href="/about">About</Link>
-          <Link href="/harness">How I build</Link>
-          <Link href="/contact">Contact</Link>
-          <a href={LINKEDIN_URL} rel="noopener noreferrer" target="_blank">
-            LinkedIn
-          </a>
-        </nav>
-        <a href={`mailto:${EMAIL}`} className="foot-mail">
-          {EMAIL}
-        </a>
-      </footer>
-    </main>
+    </SesFrame>
   );
 }
