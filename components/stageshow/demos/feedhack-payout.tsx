@@ -97,7 +97,7 @@ function Older({ name, lines }: { name: number; lines: number[] }) {
 function BotFace() {
   return (
     <span className="fh-bot">
-      <Icon name="bolt" size={15} filled />
+      <Icon name="bolt" size={14} filled />
     </span>
   );
 }
@@ -178,8 +178,6 @@ export default function FeedhackPayout() {
                   {!compact && (
                     <>
                       <Older name={64} lines={[190]} />
-                      <Older name={52} lines={[236, 140]} />
-                      <Older name={72} lines={[170]} />
                       <div className="fh-msg">
                         <Avatar name="Tess" size={30} />
                         <div className="fh-msg__body">
