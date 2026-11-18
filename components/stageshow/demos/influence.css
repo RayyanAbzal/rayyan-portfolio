@@ -1,0 +1,108 @@
+/* Influence (v1): the creator pipeline with a campaign card straddling its
+   right edge. Zero-chroma, status colors only on the stage pills. */
+.in {
+  & .ss-stage {
+    overflow: hidden;
+    border-radius: 14px;
+    background: var(--ss-canvas);
+    font: 13px/1.4 var(--ss-font);
+    color: var(--ss-text-strong);
+  }
+
+  .in-win {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    width: 570px;
+    height: 408px;
+    box-shadow: var(--ss-shadow-hero);
+  }
+
+  .in-main {
+    height: 100%;
+    padding: 8px 40px 0 16px;
+    background: var(--ss-surface);
+  }
+
+  .in-table { display: grid; }
+
+  .in-tr {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 54px 40px 96px 96px;
+    align-items: center;
+    gap: 10px;
+    height: 46px;
+    padding: 0 8px;
+    border-bottom: 1px solid var(--ss-line-faint);
+    font-size: 12.5px;
+    white-space: nowrap;
+  }
+
+  .in-tr--head {
+    height: 32px;
+    color: var(--ss-text-faint);
+    font-size: 11.5px;
+  }
+
+  .in-tr[data-lead] {
+    border-radius: 8px;
+    border-bottom-color: transparent;
+    background: var(--ss-ink-1);
+  }
+
+  .in-who { display: flex; align-items: center; gap: 8px; min-width: 0; }
+  .in-handle { overflow: hidden; font-weight: 500; text-overflow: ellipsis; }
+  .in-plat { color: var(--ss-text-faint); font-size: 11px; }
+  .in-num { text-align: right; font-variant-numeric: tabular-nums; }
+  .in-camp { color: var(--ss-text); }
+
+  /* Satellite: straddles the window's right edge over its padding */
+  .in-card {
+    position: absolute;
+    top: 150px;
+    left: 560px;
+    display: grid;
+    gap: 12px;
+    width: 176px;
+    padding: 16px;
+    border-radius: 14px;
+    background: var(--ss-surface);
+    box-shadow: var(--ss-shadow-satellite);
+  }
+
+  .in-card__label { color: var(--ss-text); font-size: 12px; font-weight: 600; }
+  .in-card__read { display: grid; gap: 2px; }
+
+  .in-card__num {
+    font-size: 34px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  .in-card__of { color: var(--ss-text); font-size: 11.5px; }
+
+  .in-remind {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px;
+    border-radius: var(--ss-card-inner, 10px);
+    background: var(--ss-accent-soft);
+    color: var(--ss-accent-text);
+  }
+
+  .in-remind__icon { display: grid; flex: none; place-items: center; width: 24px; height: 24px; }
+  .in-remind__text { display: grid; gap: 2px; min-width: 0; }
+  .in-remind__title { font-size: 12px; font-weight: 600; line-height: 1.3; white-space: nowrap; }
+  .in-remind__sub { font-size: 11px; line-height: 1.3; white-space: nowrap; }
+
+  /* Compact: three columns, the card hangs off the window's foot */
+  & .ss-stage[data-layout='compact'] {
+    .in-win { top: 12px; left: 12px; width: 334px; height: 404px; }
+    .in-main { padding-right: 16px; }
+    .in-tr { grid-template-columns: minmax(0, 1fr) 40px 96px; }
+    .in-opt { display: none; }
+    .in-card { top: 392px; left: 28px; width: 302px; }
+  }
+}

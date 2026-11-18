@@ -14,7 +14,7 @@
     top: 24px;
     left: 24px;
     width: 596px;
-    height: 464px;
+    height: 560px;
     box-shadow: var(--ss-shadow-hero);
   }
 
@@ -65,7 +65,8 @@
     overflow: hidden;
   }
 
-  .fh-feed > * { flex: none; max-width: 336px; }
+  .fh-feed > * { flex: none; max-width: 336px; will-change: transform; }
+  .fh-side__row, .fh-cmd, .fh-app { will-change: transform; }
 
   .fh-msg {
     display: grid;
@@ -139,7 +140,8 @@
   .fh-clip__name { font-size: 12px; font-weight: 500; }
   .fh-clip__len { color: var(--ss-text-faint); font-size: 11px; }
 
-  .fh-checks { display: flex; flex-wrap: wrap; gap: 5px; }
+  .fh-checks { display: flex; flex-wrap: nowrap; gap: 5px; }
+  .fh-check { flex: none; }
 
   .fh-check {
     display: inline-flex;
@@ -173,7 +175,7 @@
   .fh-line--fail { color: var(--ss-danger-text); }
 
   /* Composer */
-  .fh-composer { padding: 0 16px 16px; }
+  .fh-composer { padding: 0 16px 88px; }
 
   .fh-composer .ss-field__box { height: 40px; padding-right: 6px; }
 
@@ -208,8 +210,8 @@
   .fh-dash {
     position: absolute;
     top: 76px;
-    left: 504px;
-    width: 232px;
+    left: 473px;
+    width: 264px;
     box-shadow: var(--ss-shadow-satellite);
     border-radius: 14px;
   }
@@ -230,8 +232,13 @@
   .fh-dash__stat { font-size: 15px; font-weight: 600; font-variant-numeric: tabular-nums; }
 
   .fh-dash__row { height: 40px; }
+  .fh-dash .ss-tabs { max-width: 100%; }
   .fh-dash__sub { color: var(--ss-text); font-size: 11px; }
   .fh-dash__amount { margin-left: auto; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .fh-dash__figure, .fh-dash__stat { animation: fh-fade 400ms cubic-bezier(0.2, 0, 0, 1) both; }
+  }
 
   /* Compact: no sidebar or history, the card hangs off the window's foot */
   & .ss-stage[data-layout='compact'] {
@@ -241,5 +248,11 @@
     .fh-dash { top: 338px; left: 28px; width: 302px; }
     .fh-dash .ss-tabs, .fh-dash__list > .fh-dash__row { display: none; }
     .fh-attach { display: none; }
+    .fh-checks { flex-wrap: wrap; }
   }
+}
+
+@keyframes fh-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
