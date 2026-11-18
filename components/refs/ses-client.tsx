@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef, useState, type CSSProperties, type KeyboardEvent, type ReactNode } from "react";
 
 export interface SesStageItem {
@@ -7,6 +8,7 @@ export interface SesStageItem {
   name: string;
   title: string;
   outcome: string;
+  href: string;
 }
 
 interface SesStageProps {
@@ -87,7 +89,11 @@ export function SesStage({ items, visuals }: SesStageProps) {
           className="stage-panel"
         >
           <div className="stage-visual">{visuals[i]}</div>
-          <h3 className="stage-title">{item.title}</h3>
+          <h3 className="stage-title">
+            <Link href={item.href} className="stage-link">
+              {item.title}
+            </Link>
+          </h3>
           <p className="stage-outcome">{item.outcome}</p>
         </div>
       ))}
