@@ -15,6 +15,10 @@ export default function DesignsIndex() {
     <main id="top" className="wrap section">
       <h1>Design directions</h1>
       <p className="lede">One full site per reference: its structure and layout, our tokens, type and copy.</p>
+      <p>
+        <Link href="/designs/board" className="link">Design board</Link>: colour, type, components and every page in one place.{" "}
+        <Link href="/designs/stageshow" className="link">Product demos</Link>.
+      </p>
       <ol className="ds-index">
         {DESIGN_REFS.map((d) => (
           <li key={d.slug}>
