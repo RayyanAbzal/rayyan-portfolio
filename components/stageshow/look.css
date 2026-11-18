@@ -1,0 +1,28 @@
+/* Our look for every Stageshow stage: the site's zero-chroma neutrals, Open
+   Runde, one green. Light only for now: the stages sit on the page ground. */
+.look-ra .ss-stage {
+  --ss-font: var(--font-runde), system-ui, sans-serif;
+  --ss-canvas: oklch(0.975 0 0);
+  --ss-well: oklch(0.965 0 0);
+  --ss-surface: oklch(1 0 0);
+  --ss-raised: oklch(1 0 0);
+  --ss-text-strong: oklch(0.2 0 0);
+  --ss-text: oklch(0.47 0 0);
+  --ss-text-faint: oklch(0.6 0 0);
+  --ss-accent: oklch(0.52 0.13 150);
+  --ss-accent-soft: oklch(0.93 0.06 150 / 0.7);
+  --ss-accent-text: oklch(0.38 0.09 150);
+  --ss-success: oklch(0.55 0.14 150);
+  --ss-success-soft: oklch(0.93 0.06 150);
+  --ss-success-text: oklch(0.38 0.09 150);
+  --ss-radius-window: 16px;
+  --ss-radius-lg: 12px;
+  --ss-shadow-hero: 0 0 0 1px oklch(0 0 0 / 0.08), 0 30px 60px -16px oklch(0 0 0 / 0.18), 0 12px 24px -12px oklch(0 0 0 / 0.14);
+  --ss-shadow-satellite: 0 0 0 1px oklch(0 0 0 / 0.06), 0 14px 32px -8px oklch(0 0 0 / 0.18), 0 4px 10px -4px oklch(0 0 0 / 0.08);
+}
+
+/* Our subset of Open Runde has no tabular figures, so Count's cells are as
+   wide as the widest digit; centering keeps a narrow 1 from leaving a gap. */
+.look-ra .ss-count__strip > span {
+  text-align: center;
+}

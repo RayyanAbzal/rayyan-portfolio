@@ -1,0 +1,238 @@
+/* FeedHack payout story, adapted from the payout-flow gold. Ink button that
+   turns green when the payout lands. */
+.fh {
+  & .ss-stage {
+    /* A travel curve chosen for this payout story, not a universal preset. */
+    --fh-ease: cubic-bezier(0.45, 0, 0.1, 1);
+    overflow: hidden;
+    border-radius: 14px;
+    background: var(--ss-canvas);
+    font: 12px/1.4 var(--ss-font);
+    color: var(--ss-text-strong);
+  }
+
+  .fh-strong { font-weight: 600; }
+  .fh-muted { color: var(--ss-text); }
+
+  /* Reveals centered, then slides aside to make room */
+  .fh-pool {
+    position: absolute;
+    top: 40px;
+    left: 170px;
+    display: grid;
+    gap: 10px;
+    width: 300px;
+    height: 400px;
+    padding: 22px 22px 0;
+    border-radius: 12px;
+    background: var(--ss-surface);
+    box-shadow: var(--ss-shadow-hero);
+    opacity: 0;
+    --fh-x: 0px;
+    --fh-y: 24px;
+    transform: translate(var(--fh-x), var(--fh-y));
+    align-content: start;
+    /* A retained layer carries the type through both the rise and travel. */
+    will-change: transform;
+    transition: opacity 0.9s ease, transform 1.2s var(--fh-ease);
+  }
+
+  .fh-pool[data-in] { opacity: 1; --fh-y: 0px; }
+  .fh-pool[data-aside] { --fh-x: -130px; }
+
+  .fh-total {
+    margin: 2px 0 2px;
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .fh-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 14px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--ss-line);
+  }
+
+  .fh-row {
+    display: grid;
+    grid-template-columns: 22px 1fr auto auto;
+    align-items: center;
+    gap: 10px;
+    height: 38px;
+    border-bottom: 1px solid var(--ss-line-faint);
+    position: relative;
+    transform: translateY(10px);
+    opacity: 0;
+    will-change: transform;
+    transition: opacity 0.7s ease, transform 0.9s var(--fh-ease);
+  }
+
+  .fh-row[data-in] { opacity: 1; transform: translateY(0); transition-timing-function: ease, cubic-bezier(0.25, 0.8, 0.25, 1); }
+
+  .fh-bank {
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    background: var(--ss-ink-1);
+    box-shadow: inset 0 0 0 1px var(--ss-line);
+  }
+
+  .fh-views { font-variant-numeric: tabular-nums; }
+
+  .fh-paid {
+    padding: 2px 7px;
+    transition: background 0.4s ease, color 0.4s ease;
+    border-radius: 6px;
+    background: var(--ss-success-soft);
+    color: var(--ss-success-text);
+    font-size: 10.5px;
+    font-weight: 500;
+  }
+
+  /* Arrives from the side it ends up on, a beat behind the balance moving.
+     One gutter from the balance, the same gutter to the stage edge. */
+  .fh-payout {
+    position: absolute;
+    top: 40px;
+    left: 364px;
+    display: grid;
+    gap: 16px;
+    width: 236px;
+    padding: 20px;
+    border-radius: 12px;
+    background: var(--ss-raised);
+    box-shadow: var(--ss-shadow-satellite);
+    opacity: 0;
+    transform: translateX(32px);
+    will-change: transform;
+    transition: opacity 0.8s ease 0.2s, transform 1.1s var(--fh-ease) 0.2s;
+  }
+
+  .fh-payout[data-in] { opacity: 1; transform: translateX(0); transition-timing-function: ease, cubic-bezier(0.25, 0.8, 0.25, 1); }
+
+  /* Its contents follow it in, 70ms apart */
+  .fh-payout > * {
+    position: relative;
+    transform: translateY(8px);
+    opacity: 0;
+    will-change: transform;
+    transition: opacity 0.6s ease, transform 0.9s var(--fh-ease);
+    transition-delay: calc(0.45s + var(--i) * 70ms);
+  }
+
+  .fh-payout[data-in] > * { opacity: 1; transform: translateY(0); transition-timing-function: ease, cubic-bezier(0.25, 0.8, 0.25, 1); }
+
+  .fh-payout__head { display: flex; align-items: center; gap: 10px; }
+
+  .fh-payout__mark {
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background: var(--ss-accent-soft);
+    color: var(--ss-accent);
+  }
+
+  .fh-payout__amount { font-size: 24px; font-weight: 600; letter-spacing: -0.02em; }
+
+  .fh-fields { display: grid; }
+
+  .fh-field {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 36px;
+    border-top: 1px solid var(--ss-line-faint);
+  }
+
+
+  .fh-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    height: 36px;
+    margin-top: 2px;
+    border-radius: 9px;
+    background: var(--ss-text-strong);
+    color: #fff;
+    font-weight: 500;
+    position: relative;
+    isolation: isolate;
+  }
+
+  /* Ink to green, quick so the blend never registers */
+  .fh-button::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: var(--ss-success, #22c55e);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .fh-button[data-sent]::before { opacity: 1; }
+
+  .fh-button { display: grid; }
+
+  .fh-state {
+    display: flex;
+    grid-area: 1 / 1;
+    align-items: center;
+    justify-self: center;
+    gap: 7px;
+    opacity: 0;
+    filter: blur(2px);
+    position: relative;
+    transform: translateY(4px);
+    will-change: transform;
+    transition: opacity 0.18s ease, filter 0.18s ease, transform 0.18s ease;
+  }
+
+  /* The outgoing state is gone before the next arrives */
+  .fh-state[data-on] {
+    opacity: 1;
+    filter: none;
+    transform: translateY(0);
+    transition: opacity 0.35s ease 0.12s, filter 0.35s ease 0.12s, transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1) 0.12s;
+  }
+
+  .fh-note {
+    position: absolute;
+    padding: 5px 9px;
+    border-radius: 7px;
+    background: var(--ss-text-strong);
+    color: var(--ss-surface);
+    font-size: 11px;
+    opacity: 0;
+    transform: translateY(8px);
+    will-change: transform;
+    transition: opacity 0.6s ease, transform 0.9s var(--fh-ease);
+  }
+
+  .fh-note[data-in] { opacity: 1; transform: translateY(0); transition-timing-function: ease, cubic-bezier(0.25, 0.8, 0.25, 1); }
+
+  /* The payout sits below its source on the phone; type remains at design size. */
+  & .ss-stage[data-layout='compact'] .fh-pool { left: 16px; top: 24px; width: 326px; height: 640px; }
+  & .ss-stage[data-layout='compact'] .fh-pool[data-aside] { --fh-x: 0px; }
+  & .ss-stage[data-layout='compact'] .fh-payout { left: 40px; top: 302px; width: 302px; }
+  & .ss-stage[data-layout='compact'] .fh-row:nth-last-child(-n + 2) { display: none; }
+}
+
+/* The Check on a filled button: a white ring and arc while sending, then a
+   white disc with the tick in the button's green */
+.fh-button .ss-check__ring { stroke: rgb(255 255 255 / 0.45); }
+.fh-button .ss-check__arc { stroke: #fff; }
+.fh-button .ss-check__fill { fill: #fff; }
+.fh-button .ss-check__tick { stroke: var(--ss-success); }
+
+/* The label trimmed to cap height, so the Check centers on the letters, not
+   on a line box that sits system-ui capitals low */
+.fh-button .ss-swap { text-box: trim-both cap alphabetic; }
